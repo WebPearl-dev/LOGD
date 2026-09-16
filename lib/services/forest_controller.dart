@@ -74,19 +74,15 @@ class ForestController {
     if (turns <= 0) { isSearching = false; isCombatOver = true; combatLog = noTurnsText; return; }
     turns -= 1; isSearching = false;
 
-    // SLIMME RETRO KANSBEREKENING:
-    int roll = _random.nextInt(100); // Rol tussen 0 en 99
+    int roll = _random.nextInt(100);
 
     if (roll < 5) {
-      // 5% KANS: De Oude Kluizenaar verschijnt!
       activeEvent = ForestEventType.hermit;
       currentEnemy = null;
     } else if (roll < 20) {
-      // 15% KANS: Waterbron of Reus
       activeEvent = _random.nextBool() ? ForestEventType.fountain : ForestEventType.giant;
       currentEnemy = null;
     } else {
-      // 80% KANS: Gewoon een monstergevecht
       activeEvent = ForestEventType.none;
       currentEnemy = _forestManager.getRandomEnemyForLevel(level);
       combatLog = encounterStart;
@@ -117,7 +113,6 @@ class ForestController {
 
   void handleChoice(String choice, Function(ForestEventResult) onResolved) {
     String eventId = activeEvent.name;
-
     final result = _eventManager.resolveChoice(eventId, choice);
 
     playerHp = (playerHp - result.hpLost).clamp(0, playerMaxHp);
@@ -131,6 +126,60 @@ class ForestController {
     updateCloudStats();
   }
 
-  void handleSkill(Function(CombatResult) onResult) {}
-  void handleFlee(Function onSuccess, Function(int) onFailed, Function onDeath) {}
+  // DE INTERACTIEVE RETRO FIX: Vaardigheden activeren en verwerken!
+  void handleSkill(Function(CombatResult) onResult) {
+    if (currentEnemy == null || isCombatOver || skillUsedThisFight) return;
+
+    // Voer de vaardigheid uit via de combat engine rekenmotor
+    final result = _combatEngine.executeSpecialSkill(
+        specialty: specialty,
+        enemy: currentEnemy!,
+        playerLevel: level,
+        playerMaxHp: playerMaxHp
+    );
+
+    skillUsedThisFight = true;
+
+    // Verwerk de statistische gevolgen per klasse
+    if (specialty == PlayerSpecialty.magic) {
+      playerHp = (playerHp + result.hpHealed).clamp(0, playerMaxHp);
+    } else if (specialty == PlayerSpecialty.thieving) {
+      goldOnHand += result.goldEarned;
+    } else if (specialty == PlayerSpecialty.warrior) {
+      int updatedEnemyHp = currentEnemy!.currentHp - result.damageDealt;
+      currentEnemy = currentEnemy!.copyWith(currentHp: updatedEnemyHp < 0 ? 0 : updatedEnemyHp);
+
+      // Controleer of de Warrior Smash de vijand direct heeft verpletterd!
+      if (result.status == CombatStatus.enemyDefeated) {
+        goldOnHand += result.goldEarned;
+        experience += result.xpEarned;
+        isCombatOver = true;
+      }
+    }
+
+    onResult(result);
+    updateCloudStats();
+  }
+
+  // DE INTERACTIEVE RETRO FIX: Vluchtpogingen afhandelen!
+  void handleFlee(Function onSuccess, Function(int) onFailed, Function onDeath) {
+    if (currentEnemy == null || isCombatOver) return;
+
+    final result = _combatEngine.executeFlee(enemy: currentEnemy!);
+
+    if (result.status == CombatStatus.fleeSuccess) {
+      isCombatOver = true;
+      onSuccess();
+    } else {
+      playerHp = (playerHp - result.damageReceived).clamp(0, playerMaxHp);
+      if (playerHp <= 0) {
+        goldOnHand = 0;
+        isCombatOver = true;
+        onDeath();
+      } else {
+        onFailed(result.damageReceived);
+      }
+    }
+    updateCloudStats();
+  }
 }

@@ -893,4 +893,275 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get innCedrikRumor2 =>
       'Cedrik bromt: \'De reus in het bos slaapt diep, maar als je hem besteelt, kun je bakken met goud verdienen!\'';
+
+  @override
+  String get innMenuMain => 'De Gelagkamer';
+
+  @override
+  String get innMenuSpy => 'Mensen Bespioneren (-10 Goud)';
+
+  @override
+  String get innMenuNews => 'Krant & Geruchten Lezen';
+
+  @override
+  String get innMenuBlackjack => 'Kaarttafel: Blackjack';
+
+  @override
+  String get innSpySelect => 'Kies een doelwit om te bespioneren:';
+
+  @override
+  String get innSpyNoTargets =>
+      'Er liggen momenteel geen andere reizigers te slapen in de herberg.';
+
+  @override
+  String innSpyResult(Object gold, Object lvl, Object target) {
+    return 'Je sluipt naar boven en bekijkt de spullen van $target. Level: $lvl, Goud op zak: $gold.';
+  }
+
+  @override
+  String get innNewsTitle => 'Herberg Geruchten & Laatste Nieuws';
+
+  @override
+  String get innBlackjackTitle => 'Blackjack (Inzet: 50 Goud)';
+
+  @override
+  String get innBlackjackHit => 'Kaart Vragen';
+
+  @override
+  String get innBlackjackStand => 'Pas';
+
+  @override
+  String innBlackjackWin(Object house, Object player) {
+    return 'Gewonnen! Je hebt $player tegen $house van de bank. (+50 Goud)';
+  }
+
+  @override
+  String innBlackjackLose(Object house, Object player) {
+    return 'Verloren! De bank heeft $house en jij hebt $player. (-50 Goud)';
+  }
+
+  @override
+  String innBlackjackBust(Object player) {
+    return 'Te veel! Je bent kapot gegaan met $player punten. (-50 Goud)';
+  }
+
+  @override
+  String innBlackjackTie(Object points) {
+    return 'Gelijkspel! Beiden $points punten. Je behoudt je inzet.';
+  }
+
+  @override
+  String get btnReturnCommon => 'Terug naar de Gelagkamer';
+
+  @override
+  String get innBlackjackStart => 'START POTJE (50 GOUD)';
+
+  @override
+  String get innBlackjackHitBtn => 'HIT (KAART)';
+
+  @override
+  String get innBlackjackStandBtn => 'STAND (PAS)';
+
+  @override
+  String get innBlackjackCommonReturn => 'TERUG NAAR DE GELAGKAMER';
+
+  @override
+  String innBlackjackScoreLog(
+    Object houseHand,
+    Object playerHand,
+    Object playerScore,
+  ) {
+    return 'Jouw hand: $playerHand ($playerScore)\nBank kaarten: $houseHand';
+  }
+
+  @override
+  String innSpyResultLog(Object gold, Object level, Object username) {
+    return 'Je sluipt naar boven en bekijkt de spullen van $username. Level: $level, Goud op zak: $gold.';
+  }
+
+  @override
+  String innBlackjackBustLog(Object score) {
+    return 'Bust! Je bent kapot gegaan met $score punten. (-50 Goud)';
+  }
+
+  @override
+  String innBlackjackWinLog(Object house, Object player) {
+    return 'Gewonnen! Je hebt $player tegen $house van de bank! (+50 Goud)';
+  }
+
+  @override
+  String innBlackjackLoseLog(Object house, Object player) {
+    return 'Verloren! De bank wint met $house tegen jouw $player. (-50 Goud)';
+  }
+
+  @override
+  String innBlackjackTieLog(Object score) {
+    return 'Gelijkspel! Beiden $score punten. Je behoudt je inzet.';
+  }
+
+  @override
+  String get profileBiometricReason =>
+      'Bevestig je identiteit om snel in te loggen bij LOGD';
+
+  @override
+  String get profileBiometricDeviceError =>
+      'Dit toestel ondersteunt geen biometrie.';
+
+  @override
+  String get profileBiometricAuthError => 'Verificatie mislukt.';
+
+  @override
+  String get profileDatabaseError => 'Er is een fout opgetreden.';
+
+  @override
+  String get trainingStatusTitle => '=== STATUS ===';
+
+  @override
+  String trainingCurrentLevel(Object level) {
+    return 'Huidig Niveau: `yLevel $level`w';
+  }
+
+  @override
+  String get btnForestWalkAway => 'LOOP DOOR';
+
+  @override
+  String get btnForestFountainDive => 'DUIK IN BRON';
+
+  @override
+  String get btnForestGiantSneak => 'SLUIP ER LANGS';
+
+  @override
+  String get btnForestGiantSteal => 'BESTEEL REUS';
+
+  @override
+  String get btnForestAttack => 'AANVALLEN';
+
+  @override
+  String get btnForestFlee => 'VLUCHTEN';
+
+  @override
+  String get innBlackjackReturn => 'TERUG NAAR DE GELAGKAMER';
+
+  @override
+  String innNewsWinLog(Object user, Object val) {
+    return '- $user won $val goudstukken aan de goktafel!';
+  }
+
+  @override
+  String innNewsLossLog(Object user, Object val) {
+    return '- $user verloor $val goudstukken aan de bank.';
+  }
+
+  @override
+  String innNewsEnterLog(Object user) {
+    return '- $user betreedt de herberg.';
+  }
+
+  @override
+  String get innNewsUnknownPlayer => 'Een avonturier';
+
+  @override
+  String combatSkillMagicSuccess(Object hp) {
+    return '`2Je spreekt een genezingsspreuk uit en herstelt `w$hp `2HP!`w';
+  }
+
+  @override
+  String combatSkillThievingSuccess(Object enemy, Object gold) {
+    return '`cJe sluipt achterom en rooft `y$gold goudstukken `cvantussen de spullen van de $enemy!`w';
+  }
+
+  @override
+  String combatSkillWarriorSuccess(Object damage, Object enemy) {
+    return '`4Je heft je wapen en brengt de $enemy een verwoestende klap toe van `w$damage `4schade!`w';
+  }
+
+  @override
+  String combatSkillWarriorVictory(Object damage, Object enemy) {
+    return '`4Je brengt de $enemy een genadeslag toe van `w$damage `4schade!`w';
+  }
+
+  @override
+  String combatFleeSuccess(Object enemy) {
+    return '\n\n`yJe gooit je wapen neer en rent in paniek het struikgewas in! Je bent succesvol ontsnapt aan de $enemy.`w\n\n';
+  }
+
+  @override
+  String combatFleeFailed(Object damage, Object enemy) {
+    return '\n\n`4Je probeert te vluchten, maar de $enemy haalt fel uit en raakt je in je rug voor `w$damage `4schade!`w\n\n';
+  }
+
+  @override
+  String combatFleeDeath(Object enemy) {
+    return '\n\n`4Je probeert te vluchten, maar de $enemy brengt je een fatale klap toe! Je bent gestorven in het bos.`w\n\n';
+  }
+
+  @override
+  String get innMenuBuyDrink => 'KOOP DRANKJE (20 GOUD)';
+
+  @override
+  String get innDrinkSelectTitle => '=== CEDRIKS ASSORTIMENT ===';
+
+  @override
+  String get innDrinkSelectDesc =>
+      'Cedrik poetst een glas op en kijkt je aan: \"Wat kan ik voor je inschenken, reiziger?\"';
+
+  @override
+  String get innDrink1Name => 'DWERGEN STOUT';
+
+  @override
+  String get innDrink1Desc =>
+      'Een zwaar, donker bier. Geeft extra kracht maar maakt je slaperig. (+15 HP, -1 Turn)';
+
+  @override
+  String get innDrink2Name => 'ELFEN MEEDE';
+
+  @override
+  String get innDrink2Desc =>
+      'Een zoete, sprankelende honingwijn. Geeft je hernieuwde energie! (+2 Turns)';
+
+  @override
+  String get innDrinkSuccess1 =>
+      '`2Je drinkt het Dwergen Stout in één teug leeg. Je voelt je een stuk sterker! (+15 HP, -1 Turn)`w';
+
+  @override
+  String get innDrinkSuccess2 =>
+      '`2De Elfen Meede smaakt heerlijk zoet. Je voelt de energie door je aderen stromen! (+2 Turns)`w';
+
+  @override
+  String get btnGraveyardRob => 'GRAF PLUNDEREN';
+
+  @override
+  String graveyardSuccessGold(Object gold) {
+    return '`2Je pakt een schep en graaft een oud graf open... Onder het rotte hout vind je een verborgen kistje met `y$gold goudstukken`2!`w';
+  }
+
+  @override
+  String graveyardSuccessGem(Object gems) {
+    return '`cJe doorzoekt een statige crypte en glimmende stenen trekken je aandacht... Je vindt `w$gems edelsteen`c!`w';
+  }
+
+  @override
+  String graveyardZombieEncounter(Object hp) {
+    return '`4Terwijl je graaft, grijpt een rotte, koude hand plotseling je enkel! Een zombie kruipt omhoog uit de aarde en valt je aan! (-$hp HP)`w';
+  }
+
+  @override
+  String get graveyardEmpty =>
+      'Je struint urenlang over het mistige kerkhof, maar alle graven lijken al te zijn leeggeroofd door grafrovers.';
+
+  @override
+  String get graveyardErrorResurrection =>
+      '`4Er is een fout opgetreden bij de opstanding.`w';
+
+  @override
+  String get innFlirtMaxHpBonus =>
+      '`2Violet valt als een blok voor je charmes! Ze glimlacht verlegen en geeft je een permanente gezondheids-upgrade! (+1 Max HP & Volledig Genezen)`w';
+
+  @override
+  String get innFlirtTurnsBonus =>
+      '`2Je openingszin is een schot in de roos! Violet vindt je gezelschap fantastisch en schenkt je hernieuwde energie. (+2 Turns)`w';
+
+  @override
+  String get innFlirtSlapDefeat =>
+      '`4Je openingszin slaat de plank volledig mis! Violet is diep beledigd en geeft je een harde klap in je gezicht! (-5 HP)`w';
 }

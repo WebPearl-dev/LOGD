@@ -1,9 +1,10 @@
+// lib/screens/daily_news_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
-import '../theme/logd_codes.dart';
+import '../theme/logd_codes.dart'; // Importeer je centrale styles!
 
 class DailyNewsScreen extends StatefulWidget {
   const DailyNewsScreen({super.key});
@@ -65,10 +66,8 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     } else if (type == 'defeated') {
       return local.newsLogDefeated(user, log['enemy_name'] ?? 'een monster');
     } else if (type == 'inn_win') {
-      // FIX: Flutter eist alfabetische volgorde van de variabelen: 'gold' komt voor 'username'!
       return local.newsLogInnWin(valueStr, user);
     } else if (type == 'inn_loss') {
-      // FIX: Flutter eist alfabetische volgorde van de variabelen: 'gold' komt voor 'username'!
       return local.newsLogInnLoss(valueStr, user);
     }
     return "";
@@ -85,8 +84,15 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        // GECORRIGEERD: Ingekort zodat het overal perfect op het scherm past!
-        title: Text(local.btnVisitNews, style: const TextStyle(fontFamily: 'Courier')),
+        // DE FIX: Gekoppeld aan de centrale font- en size wet!
+        title: Text(
+            local.btnVisitNews,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
@@ -115,11 +121,23 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
             const SizedBox(height: 10),
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.blue, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                // DE FIX: Hardcoded Courier en vaste grootte verwijderd
+                child: Text(
+                    local.btnReturnTown.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.blueAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeDefault,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ),
             ),
           ],

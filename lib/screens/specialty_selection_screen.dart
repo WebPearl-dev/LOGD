@@ -1,7 +1,9 @@
+// lib/screens/specialty_selection_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
+import '../theme/logd_codes.dart';
 import 'town_square_screen.dart';
 
 class SpecialtySelectionScreen extends StatefulWidget {
@@ -34,7 +36,6 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
     try {
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        // We slaan nu ALLES (Ras bonussen + Klasse) in één vederlichte update op!
         await _supabase.from('profiles').update({
           'race': widget.chosenRace,
           'turns': widget.turns,
@@ -79,9 +80,9 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LogdText(text: isSelected ? "`y> $title`w" : "`w  $title`w", fontSize: 18),
+            LogdText(text: isSelected ? "`y> $title`w" : "`w  $title`w", fontSize: LogdCodes.fontSizeCardTitle),
             const SizedBox(height: 4),
-            LogdText(text: description, fontSize: 14),
+            LogdText(text: description, fontSize: LogdCodes.fontSizeDefault),
           ],
         ),
       ),
@@ -95,7 +96,14 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(local.specialtyTitle, style: const TextStyle(fontFamily: 'Courier', fontWeight: FontWeight.bold)),
+        title: Text(
+            local.specialtyTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF111111),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -105,7 +113,7 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LogdText(text: local.specialtyWelcome, fontSize: 16),
+            LogdText(text: local.specialtyWelcome, fontSize: LogdCodes.fontSizeDefault),
             const SizedBox(height: 16),
 
             Expanded(
@@ -124,11 +132,20 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: Colors.yellow, width: 2),
                   backgroundColor: const Color(0xFF1E1E00),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: _isLoading ? null : _confirmSpecialty,
                 child: _isLoading
                     ? const CircularProgressIndicator(color: Colors.yellow)
-                    : Text(local.btnConfirmSpecialty.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 14)),
+                    : Text(
+                    local.btnConfirmSpecialty.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.yellowAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontWeight: FontWeight.bold,
+                        fontSize: LogdCodes.fontSizeDefault
+                    )
+                ),
               ),
             ),
           ],

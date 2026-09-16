@@ -1,3 +1,4 @@
+// lib/screens/church_screen.dart
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -127,7 +128,15 @@ class _ChurchScreenState extends State<ChurchScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: Text(local.churchTitle, style: const TextStyle(fontFamily: 'Courier')),
+        // DE FIX: Hardcoded Courier weg, gekoppeld aan centrale retroFont en sizes!
+        title: Text(
+            local.churchTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
@@ -160,20 +169,42 @@ class _ChurchScreenState extends State<ChurchScreen> {
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
                     backgroundColor: const Color(0xFF1E1E00),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                   ),
                   onPressed: _pray,
-                  child: Text(local.btnChurchPray.toUpperCase(), style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 15)),
+                  // DE FIX: Knoptekst font en size synchroon gezet met het centrale model
+                  child: Text(
+                      local.btnChurchPray.toUpperCase(),
+                      style: const TextStyle(
+                          color: LogdCodes.uiYellow,
+                          fontFamily: LogdCodes.retroFont,
+                          fontWeight: FontWeight.bold,
+                          fontSize: LogdCodes.fontSizeDefault
+                      )
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
             ],
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.blue, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
+              // DE FIX: Hardcoded Courier weg, letters sluiten direct aan op de rest
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(
+                    local.btnReturnTown.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.blueAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeDefault,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ),
             ),
           ],

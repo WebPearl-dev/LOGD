@@ -1,3 +1,4 @@
+// lib/screens/town_square_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
@@ -42,36 +43,32 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
 
         if (mounted) {
           // --- HIER DRAAIT DE AUTOMATISCHE MIDDERNACHT RESET ---
-          final String todayStr = DateTime.now().toIso8601String().split('T')[0]; // Geeft bijv. '2026-09-14'
+          final String todayStr = DateTime.now().toIso8601String().split('T')[0];
           final String lastResetStr = data['last_reset_date']?.toString() ?? '2020-01-01';
 
           if (todayStr != lastResetStr) {
-            // Nieuw dag gedetecteerd! Bereken de nieuwe beurten inclusief de Stallen-bonus
             final int mountLvl = data['mount_level'] ?? 0;
             int extraTurns = 0;
-            if (mountLvl == 1) extraTurns = 2;  // Pony
-            if (mountLvl == 2) extraTurns = 5;  // Paard
-            if (mountLvl == 3) extraTurns = 8;  // Wolf
-            if (mountLvl == 4) extraTurns = 15; // Gouden Draak
+            if (mountLvl == 1) extraTurns = 2;
+            if (mountLvl == 2) extraTurns = 5;
+            if (mountLvl == 3) extraTurns = 8;
+            if (mountLvl == 4) extraTurns = 15;
 
-            final int totalNewTurns = 10 + extraTurns; // 10 Basisbeurten + bonus
+            final int totalNewTurns = 10 + extraTurns;
             final int maxHp = data['max_hp'] ?? 20;
 
-            // Schrijf de reset live weg naar de cloud!
             await _supabase.from('profiles').update({
               'turns': totalNewTurns,
               'hp': maxHp,
               'alive': true,
-              'prayed_this_turn': false, // Geef de Kerk weer vrij!
+              'prayed_this_turn': false,
               'last_reset_date': todayStr,
             }).eq('id', user.id);
 
-            // Toon de sfeervolle pop-up aan de speler
             _showNewDayDialog();
             return;
           }
 
-          // Als de speler dood is (en geen nieuwe dag heeft), sturen we hem direct naar de Begraafplaats
           final bool isAlive = data['alive'] ?? true;
           if (!isAlive) {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const GraveyardScreen()));
@@ -93,24 +90,26 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
     final local = AppLocalizations.of(context)!;
     showDialog(
       context: context,
-      barrierDismissible: false, // Speler moet op de knop drukken
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           backgroundColor: const Color(0xFF1E1E1E),
-          title: Text(local.resetNewDayTitle, style: const TextStyle(fontFamily: 'Courier', color: LogdCodes.uiGreen, fontWeight: FontWeight.bold)),
+          // DE FIX: Dialoog titel font hersteld naar centrale retro wet
+          title: Text(local.resetNewDayTitle, style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeCardTitle, color: LogdCodes.uiGreen, fontWeight: FontWeight.bold)),
           content: LogdText(text: local.resetNewDayMessage, fontSize: LogdCodes.fontSizeDefault),
           actions: [
             SizedBox(
               width: double.infinity,
               height: 45,
               child: OutlinedButton(
-                style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiGreen, width: 2)),
+                style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiGreen, width: 2), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))),
                 onPressed: () {
                   Navigator.pop(context);
                   setState(() { _isLoading = true; });
-                  _loadPlayerData(); // Herlaad de stats met de verse turns!
+                  _loadPlayerData();
                 },
-                child: Text(local.btnStartDay.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: 'Courier', fontWeight: FontWeight.bold)),
+                // DE FIX: Start dag knop font hersteld naar de wet
+                child: Text(local.btnStartDay.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -138,9 +137,14 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
+        // DE FIX: Toont nu puur en alleen de spelersnaam. Niveau en beurten staan al sfeervol onderaan!
         title: Text(
-          '$username (Lvl $level | ⏳ $turns)',
-          style: const TextStyle(fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 16),
+          username,
+          style: const TextStyle(
+              fontFamily: LogdCodes.retroFont,
+              fontSize: LogdCodes.fontSizeDefault,
+              fontWeight: FontWeight.bold
+          ),
         ),
         backgroundColor: const Color(0xFF2D2D2D),
         actions: [
@@ -163,7 +167,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: LogdText(text: local.townSquareWelcome, fontSize: 16),
+                  child: LogdText(text: local.townSquareWelcome, fontSize: LogdCodes.fontSizeDefault),
                 ),
               ),
             ),
@@ -213,14 +217,15 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 4),
       ),
       onPressed: onPressed,
+      // DE FIX: Dorpsplein gridknoppen font en size synchroon gezet met de rest van de game
       child: Text(
         label,
         textAlign: TextAlign.center,
         style: TextStyle(
             color: color,
-            fontFamily: 'Courier',
+            fontFamily: LogdCodes.retroFont,
             fontWeight: FontWeight.bold,
-            fontSize: 13.5,
+            fontSize: LogdCodes.fontSizeDefault - 2,
             letterSpacing: 0.5
         ),
       ),

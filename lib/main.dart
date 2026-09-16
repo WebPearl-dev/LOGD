@@ -1,6 +1,7 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // DE FIX: Extensie weer kaarsrecht naar .dart!
 import 'l10n/app_localizations.dart';
 import 'screens/auth_screen.dart';
 
@@ -25,7 +26,35 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lord of the Golden Dragon',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(), // Zet de basis direct op dark mode
+
+      // De globale retro-wet: Custom dark theme dat de monospace-letter
+      // dwingend oplegt aan álle tekst, titels en knoppen!
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF1E1E1E),
+
+        // Zorgt dat elk tekstloos element standaard naar monospace grijpt
+        fontFamily: 'monospace',
+
+        // Dit herstructureert alle tekststijlen binnen schermen en kaarten
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontFamily: 'monospace', fontSize: 17.0, color: Colors.white),
+          bodyMedium: TextStyle(fontFamily: 'monospace', fontSize: 17.0, color: Colors.white),
+          titleLarge: TextStyle(fontFamily: 'monospace', fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+
+        // DE FIX VOOR DE BUTTONS: Zorgt dat álle grid- en actieknoppen direct de retro-letter pakken!
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontFamily: 'monospace', fontSize: 15.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            textStyle: const TextStyle(fontFamily: 'monospace', fontSize: 15.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
 
       localizationsDelegates: const [
         AppLocalizations.delegate,

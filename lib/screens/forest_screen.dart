@@ -29,7 +29,6 @@ class _ForestScreenState extends State<ForestScreen> {
       setState(() {
         _isLoading = false;
 
-        // De testknop uit het Dev Menu start nu direct de Kluizenaar op!
         if (widget.forcedEvent == ForestEventType.forcedFountain || widget.forcedEvent == ForestEventType.hermit) {
           _controller.activeEvent = ForestEventType.hermit;
           _controller.combatLog = local.eventHermitDesc;
@@ -98,13 +97,20 @@ class _ForestScreenState extends State<ForestScreen> {
     setState(() {
       _controller.handleSkill((res) {
         String log = "";
-        if (res.status == CombatStatus.skillMagic) log = local.skillMagicSuccess(res.hpHealed.toString());
-        if (res.status == CombatStatus.skillThieving) log = local.skillThievingSuccess(res.goldEarned.toString(), enemyName);
-        if (res.status == CombatStatus.skillWarrior) log = local.skillWarriorSuccess(res.damageDealt.toString(), enemyName);
 
-        if (res.status == CombatStatus.enemyDefeated) {
-          log = local.enemyDefeated(enemyName, res.goldEarned.toString(), res.xpEarned.toString());
+        if (res.status == CombatStatus.skillMagic) {
+          log = local.combatSkillMagicSuccess(res.hpHealed.toString());
         }
+        if (res.status == CombatStatus.skillThieving) {
+          log = local.combatSkillThievingSuccess(res.goldEarned.toString(), enemyName);
+        }
+        if (res.status == CombatStatus.skillWarrior) {
+          log = local.combatSkillWarriorSuccess(enemyName, res.damageDealt.toString());
+        }
+        if (res.status == CombatStatus.enemyDefeated) {
+          log = "${local.combatSkillWarriorVictory(enemyName, res.damageDealt.toString())}\n\n${local.enemyDefeated(enemyName, res.goldEarned.toString(), res.xpEarned.toString())}";
+        }
+
         _controller.combatLog += "\n\n$log\n\n";
       });
     });
@@ -116,9 +122,9 @@ class _ForestScreenState extends State<ForestScreen> {
 
     setState(() {
       _controller.handleFlee(
-            () => _controller.combatLog += "\n\n${local.fleeSuccess(enemyName)}\n\n",
-            (dmg) => _controller.combatLog += "\n\n${local.fleeFailed(dmg.toString(), enemyName)}\n\n",
-            () => _controller.combatLog += "\n\n${local.fleeFailed(_controller.playerHp.toString(), enemyName)}${local.fleeFailedDeathSuffix}\n\n",
+            () => _controller.combatLog += local.combatFleeSuccess(enemyName),
+            (dmg) => _controller.combatLog += local.combatFleeFailed(enemyName, dmg.toString()),
+            () => _controller.combatLog += local.combatFleeDeath(enemyName),
       );
     });
   }
@@ -135,7 +141,6 @@ class _ForestScreenState extends State<ForestScreen> {
         if (result.logKey == 'eventGiantStealSuccess') log = local.eventGiantStealSuccess(result.goldGained.toString());
         if (result.logKey == 'eventGiantStealFail') log = local.eventGiantStealFail(result.hpLost.toString());
 
-        // DE FIX: Gebruik de bestaande fountain leave log key om arb errors te voorkomen
         if (result.logKey == 'eventHermitSuccess') log = local.eventHermitSuccess;
         if (result.logKey == 'eventHermitLeaveLog') log = local.eventFountainLeaveLog;
 
@@ -162,7 +167,14 @@ class _ForestScreenState extends State<ForestScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-          title: Text(titleText, style: const TextStyle(fontFamily: 'Courier')),
+          title: Text(
+              titleText,
+              style: const TextStyle(
+                  fontFamily: LogdCodes.retroFont,
+                  fontSize: LogdCodes.fontSizeDefault,
+                  fontWeight: FontWeight.bold
+              )
+          ),
           backgroundColor: const Color(0xFF2D2D2D),
           automaticallyImplyLeading: false
       ),
@@ -172,12 +184,12 @@ class _ForestScreenState extends State<ForestScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_controller.currentEnemy != null && !_controller.isSearching) ...[
-              LogdText(text: "HP: ${_controller.currentEnemy!.currentHp}/${_controller.currentEnemy!.maxHp} - $cleanEnemyName", fontSize: 18),
+              LogdText(text: "HP: ${_controller.currentEnemy!.currentHp}/${_controller.currentEnemy!.maxHp} - $cleanEnemyName", fontSize: LogdCodes.fontSizeCardTitle),
               const Divider(color: Colors.grey),
               const SizedBox(height: 10),
             ],
             if (_controller.activeEvent != ForestEventType.none && !_controller.isSearching) ...[
-              LogdText(text: titleText, fontSize: 18),
+              LogdText(text: titleText, fontSize: LogdCodes.fontSizeCardTitle),
               const Divider(color: Colors.grey),
               const SizedBox(height: 10),
             ],

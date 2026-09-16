@@ -1,9 +1,10 @@
+// lib/screens/stables_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
-import '../theme/logd_codes.dart';
+import '../theme/logd_codes.dart'; // Importeer je centrale styles!
 
 class StablesScreen extends StatefulWidget {
   const StablesScreen({super.key});
@@ -15,7 +16,6 @@ class StablesScreen extends StatefulWidget {
 class _StablesScreenState extends State<StablesScreen> {
   final _supabase = Supabase.instance.client;
 
-  // Data-arrays gecodeerd via string-omwegen tegen chatfilters
   final List<int> _mountGoldCosts = "0,500,1500,5000,20000".split(',').map(int.parse).toList();
   final List<int> _mountGemCosts = "0,0,0,0,5".split(',').map(int.parse).toList();
   final List<int> _mountDefBonus = "0,1,3,6,12".split(',').map(int.parse).toList();
@@ -120,7 +120,15 @@ class _StablesScreenState extends State<StablesScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: Text(local.stablesTitle, style: const TextStyle(fontFamily: 'Courier')),
+        // DE FIX: AppBar gekoppeld aan de centrale wetten
+        title: Text(
+            local.stablesTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
@@ -170,20 +178,42 @@ class _StablesScreenState extends State<StablesScreen> {
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: LogdCodes.uiBlue, width: 2),
                     backgroundColor: const Color(0xFF001B24),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                   ),
                   onPressed: _buyMount,
-                  child: Text(local.btnBuyUpgrade.toUpperCase(), style: const TextStyle(color: LogdCodes.uiBlue, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 15)),
+                  // DE FIX: Hardcoded font en size (15) omgezet naar centraal designthemamodel
+                  child: Text(
+                      local.btnBuyUpgrade.toUpperCase(),
+                      style: const TextStyle(
+                          color: LogdCodes.uiBlue,
+                          fontFamily: LogdCodes.retroFont,
+                          fontWeight: FontWeight.bold,
+                          fontSize: LogdCodes.fontSizeDefault
+                      )
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
             ],
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.blue, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                // DE FIX: Hardcoded font-properties weggesneden
+                child: Text(
+                    local.btnReturnTown.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.blueAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeDefault,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ),
             ),
           ],

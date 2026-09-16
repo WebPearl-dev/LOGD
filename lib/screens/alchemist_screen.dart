@@ -16,12 +16,12 @@ class AlchemistScreen extends StatefulWidget {
 class _AlchemistScreenState extends State<AlchemistScreen> {
   final _supabase = Supabase.instance.client;
   final int _potionCost = 300;
-  final int _maxPotionsPerDay = 2; // Gecorrigeerd: De harde daglimiet!
+  final int _maxPotionsPerDay = 2;
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
   int potionAtk = 0, potionDef = 0;
-  int elixirsBoughtToday = 0; // Gecorrigeerd: Houdt de dagteller live bij!
+  int elixirsBoughtToday = 0;
 
   bool _isLoading = true;
   String _statusMessage = "";
@@ -47,7 +47,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
           playerMaxHp = data['max_hp'] ?? 20;
           potionAtk = data['potion_attack'] ?? 0;
           potionDef = data['potion_defense'] ?? 0;
-          elixirsBoughtToday = data['elixirs_bought_today'] ?? 0; // Ingeladen uit de cloud!
+          elixirsBoughtToday = data['elixirs_bought_today'] ?? 0;
           _isLoading = false;
         });
       }
@@ -58,19 +58,16 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
     final local = AppLocalizations.of(context)!;
     int currentBoost = isAttack ? potionAtk : potionDef;
 
-    // 1. Check winkel-limiet: Maximaal 2 per dag!
     if (elixirsBoughtToday >= _maxPotionsPerDay) {
       setState(() { _statusMessage = local.alchemistLimitReached; });
       return;
     }
 
-    // 2. Check of er al een boost actief is
     if (currentBoost > 0) {
       setState(() { _statusMessage = local.alchemistErrorAlreadyActive; });
       return;
     }
 
-    // 3. Check of de speler genoeg goud heeft
     if (goldOnHand < _potionCost) {
       setState(() { _statusMessage = local.smithyErrorNoGold; });
       return;
@@ -84,9 +81,8 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
         int newGold = goldOnHand - _potionCost;
         int newAtkBoost = isAttack ? 5 : potionAtk;
         int newDefBoost = isAttack ? potionDef : 5;
-        int newElixirsBought = elixirsBoughtToday + 1; // Verhogen met 1
+        int newElixirsBought = elixirsBoughtToday + 1;
 
-        // Cloud update met de verhoogde teller
         await _supabase.from('profiles').update({
           'gold_on_hand': newGold,
           'potion_attack': newAtkBoost,
@@ -120,7 +116,14 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: Text(local.alchemistTitle, style: const TextStyle(fontFamily: 'Courier')),
+        title: Text(
+            local.alchemistTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
@@ -145,11 +148,11 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                     LogdText(text: local.smithyCostLabel(_potionCost.toString()), fontSize: LogdCodes.fontSizeDefault),
                     const SizedBox(height: 16),
 
-                    // GECORRIGEERD: Duidelijke retro teller voor de elixers van vandaag!
                     LogdText(
-                      text: local.alchemistTodayCounter(elixirsBoughtToday.toString()),
+                      text: elixirsBoughtToday >= _maxPotionsPerDay
+                          ? "${LogdCodes.colorLoss}${local.alchemistTodayCounter(elixirsBoughtToday.toString())}"
+                          : "${LogdCodes.colorGold}${local.alchemistTodayCounter(elixirsBoughtToday.toString())}",
                       fontSize: LogdCodes.fontSizeDefault,
-                      color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.redAccent : Colors.greenAccent,
                     ),
                   ],
                 ),
@@ -160,9 +163,21 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, width: 2),
                 backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.black12 : const Color(0xFF240024),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               ),
               onPressed: () => _buyPotion(true),
-              child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(local.btnBuyAtkPotion.toUpperCase(), style: TextStyle(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, fontFamily: 'Courier', fontWeight: FontWeight.bold))),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(
+                      local.btnBuyAtkPotion.toUpperCase(),
+                      style: TextStyle(
+                          color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta,
+                          fontFamily: LogdCodes.retroFont,
+                          fontSize: LogdCodes.fontSizeDefault,
+                          fontWeight: FontWeight.bold
+                      )
+                  )
+              ),
             ),
             const SizedBox(height: 10),
 
@@ -170,18 +185,41 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, width: 2),
                 backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.black12 : const Color(0xFF240024),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               ),
               onPressed: () => _buyPotion(false),
-              child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(local.btnBuyDefPotion.toUpperCase(), style: TextStyle(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, fontFamily: 'Courier', fontWeight: FontWeight.bold))),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(
+                      local.btnBuyDefPotion.toUpperCase(),
+                      style: TextStyle(
+                          color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta,
+                          fontFamily: LogdCodes.retroFont,
+                          fontSize: LogdCodes.fontSizeDefault,
+                          fontWeight: FontWeight.bold
+                      )
+                  )
+              ),
             ),
             const SizedBox(height: 16),
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.blue, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(
+                    local.btnReturnTown.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.blueAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeDefault,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ),
             ),
           ],

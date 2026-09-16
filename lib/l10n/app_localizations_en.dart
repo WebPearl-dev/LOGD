@@ -890,4 +890,275 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get innCedrikRumor2 =>
       'Cedrik grunts: \'The giant in the forest sleeps deeply, but if you steal from him, you can make a fortune!\'';
+
+  @override
+  String get innMenuMain => 'The Common Room';
+
+  @override
+  String get innMenuSpy => 'Spy on Players (-10 Gold)';
+
+  @override
+  String get innMenuNews => 'Read News & Rumors';
+
+  @override
+  String get innMenuBlackjack => 'Card Table: Blackjack';
+
+  @override
+  String get innSpySelect => 'Choose a target to spy on:';
+
+  @override
+  String get innSpyNoTargets =>
+      'There are currently no other travelers sleeping in the inn.';
+
+  @override
+  String innSpyResult(Object gold, Object lvl, Object target) {
+    return 'You sneak upstairs and inspect $target\'s belongings. Level: $lvl, Gold on hand: $gold.';
+  }
+
+  @override
+  String get innNewsTitle => 'Inn Rumors & Latest News';
+
+  @override
+  String get innBlackjackTitle => 'Blackjack (Wager: 50 Gold)';
+
+  @override
+  String get innBlackjackHit => 'Hit';
+
+  @override
+  String get innBlackjackStand => 'Stand';
+
+  @override
+  String innBlackjackWin(Object house, Object player) {
+    return 'You win! You have $player against $house. (+50 Gold)';
+  }
+
+  @override
+  String innBlackjackLose(Object house, Object player) {
+    return 'You lose! The house has $house against your $player. (-50 Gold)';
+  }
+
+  @override
+  String innBlackjackBust(Object player) {
+    return 'Bust! You went over with $player points. (-50 Gold)';
+  }
+
+  @override
+  String innBlackjackTie(Object points) {
+    return 'Push! Both have $points points. Wager returned.';
+  }
+
+  @override
+  String get btnReturnCommon => 'Return to Common Room';
+
+  @override
+  String get innBlackjackStart => 'START MATCH (50 GOLD)';
+
+  @override
+  String get innBlackjackHitBtn => 'HIT (CARD)';
+
+  @override
+  String get innBlackjackStandBtn => 'STAND (PASS)';
+
+  @override
+  String get innBlackjackCommonReturn => 'RETURN TO THE COMMON ROOM';
+
+  @override
+  String innBlackjackScoreLog(
+    Object houseHand,
+    Object playerHand,
+    Object playerScore,
+  ) {
+    return 'Your hand: $playerHand ($playerScore)\nHouse cards: $houseHand';
+  }
+
+  @override
+  String innSpyResultLog(Object gold, Object level, Object username) {
+    return 'You sneak upstairs and inspect $username\'s belongings. Level: $level, Gold on hand: $gold.';
+  }
+
+  @override
+  String innBlackjackBustLog(Object score) {
+    return 'Bust! You went over with $score points. (-50 Gold)';
+  }
+
+  @override
+  String innBlackjackWinLog(Object house, Object player) {
+    return 'You win! You have $player against $house from the dealer! (+50 Gold)';
+  }
+
+  @override
+  String innBlackjackLoseLog(Object house, Object player) {
+    return 'You lose! The dealer wins with $house against your $player. (-50 Gold)';
+  }
+
+  @override
+  String innBlackjackTieLog(Object score) {
+    return 'Push! Both have $score points. Wager returned.';
+  }
+
+  @override
+  String get profileBiometricReason =>
+      'Confirm your identity to log in quickly to LOGD';
+
+  @override
+  String get profileBiometricDeviceError =>
+      'This device does not support biometrics.';
+
+  @override
+  String get profileBiometricAuthError => 'Authentication failed.';
+
+  @override
+  String get profileDatabaseError => 'An error occurred.';
+
+  @override
+  String get trainingStatusTitle => '=== STATUS ===';
+
+  @override
+  String trainingCurrentLevel(Object level) {
+    return 'Current Level: `yLevel $level`w';
+  }
+
+  @override
+  String get btnForestWalkAway => 'WALK AWAY';
+
+  @override
+  String get btnForestFountainDive => 'DIVE IN FOUNTAIN';
+
+  @override
+  String get btnForestGiantSneak => 'SNEAK PAST';
+
+  @override
+  String get btnForestGiantSteal => 'STEAL FROM GIANT';
+
+  @override
+  String get btnForestAttack => 'ATTACK';
+
+  @override
+  String get btnForestFlee => 'FLEE';
+
+  @override
+  String get innBlackjackReturn => 'RETURN TO THE COMMON ROOM';
+
+  @override
+  String innNewsWinLog(Object user, Object val) {
+    return '- $user won $val gold coins at the gaming table!';
+  }
+
+  @override
+  String innNewsLossLog(Object user, Object val) {
+    return '- $user lost $val gold coins to the bank.';
+  }
+
+  @override
+  String innNewsEnterLog(Object user) {
+    return '- $user enters the inn.';
+  }
+
+  @override
+  String get innNewsUnknownPlayer => 'An adventurer';
+
+  @override
+  String combatSkillMagicSuccess(Object hp) {
+    return '`2You cast a healing spell and restore `w$hp `2HP!`w';
+  }
+
+  @override
+  String combatSkillThievingSuccess(Object enemy, Object gold) {
+    return '`cYou sneak around and steal `y$gold gold coins `cfrom the belongings of the $enemy!`w';
+  }
+
+  @override
+  String combatSkillWarriorSuccess(Object damage, Object enemy) {
+    return '`4You raise your weapon and deal the $enemy a devastating blow of `w$damage `4damage!`w';
+  }
+
+  @override
+  String combatSkillWarriorVictory(Object damage, Object enemy) {
+    return '`4You deal the $enemy a finishing blow of `w$damage `4damage!`w';
+  }
+
+  @override
+  String combatFleeSuccess(Object enemy) {
+    return '\n\n`yYou drop your weapon and run into the bushes in panic! You successfully escaped from the $enemy.`w\n\n';
+  }
+
+  @override
+  String combatFleeFailed(Object damage, Object enemy) {
+    return '\n\n`4You try to flee, but the $enemy strikes fiercely and hits you in the back for `w$damage `4damage!`w\n\n';
+  }
+
+  @override
+  String combatFleeDeath(Object enemy) {
+    return '\n\n`4You try to flee, but the $enemy deals you a fatal blow! You have died in the forest.`w\n\n';
+  }
+
+  @override
+  String get innMenuBuyDrink => 'BUY DRINK (20 GOLD)';
+
+  @override
+  String get innDrinkSelectTitle => '=== CEDRIK\'S BREWS ===';
+
+  @override
+  String get innDrinkSelectDesc =>
+      'Cedrik wipes down a glass and looks at you: \"What can I pour you, traveler?\"';
+
+  @override
+  String get innDrink1Name => 'DWARF STOUT';
+
+  @override
+  String get innDrink1Desc =>
+      'A heavy, dark ale. Gives strength but makes you drowsy. (+15 HP, -1 Turn)';
+
+  @override
+  String get innDrink2Name => 'ELVEN MEAD';
+
+  @override
+  String get innDrink2Desc =>
+      'A sweet, sparkling honey wine. Restores your energy! (+2 Turns)';
+
+  @override
+  String get innDrinkSuccess1 =>
+      '`2You down the Dwarf Stout in one gulp. You feel much stronger! (+15 HP, -1 Turn)`w';
+
+  @override
+  String get innDrinkSuccess2 =>
+      '`2The Elven Mead tastes wonderfully sweet. You feel energy rushing through your veins! (+2 Turns)`w';
+
+  @override
+  String get btnGraveyardRob => 'ROB GRAVE';
+
+  @override
+  String graveyardSuccessGold(Object gold) {
+    return '`2You take a shovel and dig up an old grave... Beneath the rotting wood, you find a hidden box with `y$gold gold coins`2!`w';
+  }
+
+  @override
+  String graveyardSuccessGem(Object gems) {
+    return '`cYou search a stately crypt and shiny stones catch your eye... You find `w$gems gem`c!`w';
+  }
+
+  @override
+  String graveyardZombieEncounter(Object hp) {
+    return '`4While digging, a rotting, cold hand suddenly grabs your ankle! A zombie crawls out of the earth and attacks you! (-$hp HP)`w';
+  }
+
+  @override
+  String get graveyardEmpty =>
+      'You wander the misty graveyard for hours, but all graves seem to have been plundered by grave robbers already.';
+
+  @override
+  String get graveyardErrorResurrection =>
+      '`4An error occurred during resurrection.`w';
+
+  @override
+  String get innFlirtMaxHpBonus =>
+      '`2Violet falls head over heels for your charms! She smiles shyly and grants you a permanent health upgrade! (+1 Max HP & Fully Healed)`w';
+
+  @override
+  String get innFlirtTurnsBonus =>
+      '`2Your pickup line is a total hit! Violet loves your company and grants you renewed energy. (+2 Turns)`w';
+
+  @override
+  String get innFlirtSlapDefeat =>
+      '`4Your pickup line completely misses the mark! Violet is deeply offended and slaps you hard across the face! (-5 HP)`w';
 }

@@ -1,8 +1,10 @@
-// lib/screens/inn_screen.dart - DEEL 1
+// lib/screens/inn_screen.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
-import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../widgets/inn_main_grid.dart';
+import '../widgets/inn/inn_action_buttons.dart';
+import '../widgets/inn/inn_log_display.dart';
 import '../theme/logd_codes.dart';
 import '../services/inn_controller.dart';
 import '../services/logd_enums.dart';
@@ -15,222 +17,167 @@ class InnScreen extends StatefulWidget {
 }
 
 class _InnScreenState extends State<InnScreen> {
-final InnController _controller = InnController();
-final int _wagerAmount = 50;
+  final InnController _controller = InnController();
+  final int _wagerAmount = 50;
 
-@override
-void initState() {
-super.initState();
-_controller.initInn(() {
-if (mounted) {
-setState(() {});
-}
-});
-}
+  String _activeSection = "MAIN";
+  List<Map<String, dynamic>> _spyTargets = [];
+  List<Map<String, dynamic>> _newsLogs = [];
 
-void _onRollPressed() {
-final local = AppLocalizations.of(context)!;
+  @override
+  void initState() {
+    super.initState();
+    _controller.initInn(() { if (mounted) setState(() {}); });
+  }
 
-_controller.playDice(_wagerAmount, (status, pRoll, eRoll) {
-setState(() {
-if (_controller.statusMessage == "NO_GOLD") {
-_controller.statusMessage = local.innErrorNoGold;
-return;
-}
+  void _changeSection(String section) async {
+    setState(() { _activeSection = section; _controller.statusMessage = ""; });
+    if (section == "SPY") {
+      final targets = await _controller.getSpyTargets();
+      setState(() { _spyTargets = targets; });
+    } else if (section == "NEWS") {
+      final logs = await _controller.getLatestNews();
+      setState(() { _newsLogs = logs; });
+    }
+  }
 
-if (status == CombatStatus.skillMagic) {
-_controller.statusMessage = local.innDiceVictory(pRoll.toString(), eRoll.toString(), _wagerAmount.toString());
-} else if (status == CombatStatus.playerDied) {
-String message = local.innDiceDefeat(pRoll.toString(), eRoll.toString(), _wagerAmount.toString());
-if (message.startsWith('`4')) {
-message = LogdCodes.colorLoss + message.substring(2);
-}
-_controller.statusMessage = message;
-} else {
-_controller.statusMessage = local.innDiceTie(pRoll.toString());
-}
-});
-});
-}
+  void _onRollPressed() {
+    final local = AppLocalizations.of(context)!;
+    _controller.playDice(_wagerAmount, (status, pRoll, eRoll) {
+      setState(() {
+        if (_controller.statusMessage == "NO_GOLD") { _controller.statusMessage = local.innErrorNoGold; return; }
+        if (status == CombatStatus.skillMagic) { _controller.statusMessage = local.innDiceVictory(pRoll.toString(), eRoll.toString(), _wagerAmount.toString()); }
+        else if (status == CombatStatus.playerDied) { _controller.statusMessage = local.innDiceDefeat(pRoll.toString(), eRoll.toString(), _wagerAmount.toString()); }
+        else { _controller.statusMessage = local.innDiceTie(pRoll.toString()); }
+      });
+    });
+  }
 
-void _onFlirtPressed() {
-final local = AppLocalizations.of(context)!;
-final bool hasGems = _controller.flirtWithViolet();
+  void _onStartBlackjack() {
+    _controller.startBlackjack(_wagerAmount);
+    setState(() { if (_controller.statusMessage == "NO_GOLD") _controller.statusMessage = AppLocalizations.of(context)!.innErrorNoGold; });
+  }
 
-setState(() {
-if (!hasGems) {
-_controller.statusMessage = local.innFlirtNoGems;
-} else if (_controller.statusMessage == "FLIRT_SUCCESS") {
-_controller.statusMessage = local.innFlirtSuccess;
-} else {
-_controller.statusMessage = local.innFlirtFail;
-}
-});
-}
+  void _onBlackjackHit() {
+    final local = AppLocalizations.of(context)!;
+    setState(() {
+      _controller.blackjackHit(_wagerAmount, (res) {
+        if (res == "BUST") {
+          final String scoreStr = _controller.calculateScore(_controller.playerHand).toString();
+          _controller.statusMessage = "${LogdCodes.colorLoss}${local.innBlackjackBustLog(scoreStr)}";
+        }
+      });
+    });
+  }
 
-void _onTalkCedrikPressed() {
-final local = AppLocalizations.of(context)!;
-final String rumorKey = _controller.getCedrikRumor();
+  void _onBlackjackStand() {
+    final local = AppLocalizations.of(context)!;
+    setState(() {
+      _controller.blackjackStand(_wagerAmount, (res, pScore, hScore) {
+        final String pScoreStr = pScore.toString();
+        final String hScoreStr = hScore.toString();
 
-setState(() {
-if (rumorKey == "RUMOR_1") {
-_controller.statusMessage = local.innCedrikRumor1;
-} else {
-_controller.statusMessage = local.innCedrikRumor2;
-}
-});
-}
-// lib/screens/inn_screen.dart - DEEL 2
+        if (res == "WIN") { _controller.statusMessage = "${LogdCodes.colorGold}${local.innBlackjackWinLog(pScoreStr, hScoreStr)}"; }
+        else if (res == "LOSE") { _controller.statusMessage = "${LogdCodes.colorLoss}${local.innBlackjackLoseLog(pScoreStr, hScoreStr)}"; }
+        else { _controller.statusMessage = local.innBlackjackTieLog(pScoreStr); }
+      });
+    });
+  }
+
+  void _onSpyAction(Map<String, dynamic> target) {
+    final local = AppLocalizations.of(context)!;
+    setState(() {
+      _controller.goldOnHand -= 10;
+      _controller.statusMessage = local.innSpyResultLog(target['username'], target['level'].toString(), target['gold_on_hand'].toString());
+      _controller.updateCloudStats();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
-
     if (_controller.isLoading) {
       return const Scaffold(backgroundColor: Color(0xFF1E1E1E), body: Center(child: CircularProgressIndicator(color: Colors.green)));
     }
 
-    return DefaultTabController(
-      length: 3, // Drie tabbladen voor de NPC's en Goktafel
-      child: Scaffold(
-        backgroundColor: const Color(0xFF1E1E1E),
-        appBar: AppBar(
-          title: Text(local.innTitle, style: const TextStyle(fontFamily: 'Courier')),
-          backgroundColor: const Color(0xFF2D2D2D),
-          automaticallyImplyLeading: false,
-          bottom: TabBar(
-            indicatorColor: Colors.yellow,
-            labelColor: Colors.yellowAccent,
-            unselectedLabelColor: Colors.grey,
-            tabs: [
-              Tab(text: local.innMenuGamble.toUpperCase()),
-              Tab(text: local.innMenuBartender.toUpperCase()),
-              Tab(text: local.innMenuFlirt.toUpperCase()),
-            ],
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Bovenste gedeelte: Welkomstekst en live statusberichten
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LogdText(text: local.innWelcome, fontSize: LogdCodes.fontSizeDefault),
-                      const Padding(padding: EdgeInsets.symmetric(vertical: 12.0), child: Divider(color: Colors.grey)),
+    return Scaffold(
+      backgroundColor: const Color(0xFF1E1E1E),
+      appBar: AppBar(
+        title: Text(_activeSection == "MAIN" ? local.innTitle : "=== $_activeSection ===", style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+        backgroundColor: const Color(0xFF2D2D2D),
+        automaticallyImplyLeading: false,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 4,
+              child: InnLogDisplay(
+                activeSection: _activeSection,
+                statusMessage: _controller.statusMessage,
+                newsLogs: _newsLogs,
+                spyTargets: _spyTargets,
+                controller: _controller,
+                onSpyPressed: _onSpyAction,
+              ),
+            ),
+            const SizedBox(height: 16),
 
-                      if (_controller.statusMessage.isNotEmpty) ...[
-                        LogdText(text: _controller.statusMessage, fontSize: LogdCodes.fontSizeDefault),
-                        const SizedBox(height: 16),
-                      ],
-                    ],
+            Expanded(
+              flex: 5,
+              child: _activeSection == "MAIN"
+                  ? InnMainGrid(
+                onSectionChange: _changeSection,
+                onReturnTown: () => Navigator.pop(context),
+              )
+                  : Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InnActionButtons(
+                    activeSection: _activeSection,
+                    controller: _controller,
+                    onRollPressed: _onRollPressed,
+                    onBuyDrinkPressed: (drinkId) {
+                      final local = AppLocalizations.of(context)!;
+                      setState(() {
+                        bool success = _controller.buyDrink(drinkId, 20);
+                        if (!success && _controller.statusMessage == "NO_GOLD") {
+                          _controller.statusMessage = local.innErrorNoGold;
+                        }
+                      });
+                    },
+                    // DE FIX: De meertalige statusberichten worden nu feilloos afgehandeld door de controller en correct getoond!
+                    onFlirtPressed: () {
+                      setState(() {
+                        if (_controller.gems < 1) {
+                          _controller.statusMessage = local.innFlirtNoGems;
+                        } else {
+                          _controller.flirtWithViolet();
+                        }
+                      });
+                    },
+                    onStartBlackjack: _onStartBlackjack,
+                    onBlackjackHit: _onBlackjackHit,
+                    onBlackjackStand: _onBlackjackStand,
                   ),
-                ),
+                  const SizedBox(height: 12),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.grey, width: 2), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))),
+                    onPressed: () => _changeSection("MAIN"),
+                    child: Text(local.innBlackjackReturn, style: const TextStyle(color: Colors.grey, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold)),
+                  ),
+                ],
               ),
-
-              // TabBarView Content (Goktafel vs Barman vs Violet)
-              SizedBox(
-                height: 180,
-                child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(), // Houdt scrollen binnen de tabs strak
-                  children: [
-                    // TAB 1: GOKTAFEL
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(color: const Color(0xFF262626), border: Border.all(color: Colors.grey.shade800), borderRadius: BorderRadius.circular(4.0)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LogdText(text: "${LogdCodes.colorGold}${local.innDiceTitle}${LogdCodes.white}", fontSize: LogdCodes.fontSizeCardTitle),
-                          LogdText(text: local.innDiceDesc, fontSize: 13),
-                          LogdText(text: local.smithyCostLabel(_wagerAmount.toString()), fontSize: 13),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 40,
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.yellow, width: 2), backgroundColor: const Color(0xFF1E1E00)),
-                              onPressed: _onRollPressed,
-                              child: Text(local.btnInnRoll.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: 'Courier', fontWeight: FontWeight.bold)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    // TAB 2: BARMAN CEDRIK
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(color: const Color(0xFF262626), border: Border.all(color: Colors.grey.shade800), borderRadius: BorderRadius.circular(4.0)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LogdText(text: "${LogdCodes.colorGold}${local.innMenuBartender}${LogdCodes.white}", fontSize: LogdCodes.fontSizeCardTitle),
-                          const LogdText(text: "Cedrik knikt naar je en droogt een bierpul met zijn schort. 'Op zoek naar sterke verhalen of een goed gerucht?'", fontSize: 13),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 40,
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.orange, width: 2), backgroundColor: const Color(0xFF241400)),
-                              onPressed: _onTalkCedrikPressed,
-                              child: Text(local.innTalkCedrik.toUpperCase(), style: const TextStyle(color: Colors.orangeAccent, fontFamily: 'Courier', fontWeight: FontWeight.bold)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    // TAB 3: BARMEID VIOLET (FLIRTSYSTEEM)
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(color: const Color(0xFF262626), border: Border.all(color: Colors.grey.shade800), borderRadius: BorderRadius.circular(4.0)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LogdText(text: "${LogdCodes.colorGold}${local.innMenuFlirt}${LogdCodes.white}", fontSize: LogdCodes.fontSizeCardTitle),
-                          const LogdText(text: "Violet glimlacht charmant. Ze houdt van glimmende edelstenen. Durf jij een gokje te wagen met een compliment?", fontSize: 13),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 40,
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.purple, width: 2), backgroundColor: const Color(0xFF1A0022)),
-                              onPressed: _onFlirtPressed,
-                              child: Text(local.innFlirtAttempt.toUpperCase(), style: const TextStyle(color: Colors.purpleAccent, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 12)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
-                onPressed: () => Navigator.pop(context),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ],
-          ),
+            )
+          ],
         ),
-        bottomNavigationBar: LogdStatusBar(
-            currentHp: _controller.playerHp,
-            maxHp: _controller.playerMaxHp,
-            goldOnHand: _controller.goldOnHand,
-            gems: _controller.gems,
-            turns: _controller.turns,
-            level: _controller.level,
-            experience: _controller.experience
-        ),
+      ),
+      bottomNavigationBar: LogdStatusBar(
+        currentHp: _controller.playerHp, maxHp: _controller.playerMaxHp, goldOnHand: _controller.goldOnHand,
+        gems: _controller.gems, turns: _controller.turns, level: _controller.level, experience: _controller.experience,
       ),
     );
   }

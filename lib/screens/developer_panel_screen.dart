@@ -1,9 +1,11 @@
+// lib/screens/developer_panel_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../services/forest_manager.dart';
 import '../services/logd_enums.dart';
+import '../theme/logd_codes.dart'; // Importeer je centrale styles!
 import 'forest_screen.dart';
 
 class DeveloperPanelScreen extends StatefulWidget {
@@ -97,10 +99,19 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E), // GEVIND: Omgebouwd naar luxe antraciet grijs!
+      backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: Text(local.devScreenTitle, style: const TextStyle(fontFamily: 'Courier', color: Colors.purpleAccent, fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFF2D2D2D), // Donkerder antraciet voor de balk
+        // DE FIX: AppBar gekoppeld aan de centrale wetten
+        title: Text(
+            local.devScreenTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                color: Colors.purpleAccent,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
+        backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -109,7 +120,7 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (_statusMessage.isNotEmpty) ...[
-              LogdText(text: _statusMessage, fontSize: 14),
+              LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
               const SizedBox(height: 10),
             ],
 
@@ -136,9 +147,9 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 6.0), child: Divider(color: Colors.purple)),
 
-            LogdText(text: local.devSpawnMonsterTitle, fontSize: 16),
+            LogdText(text: local.devSpawnMonsterTitle, fontSize: LogdCodes.fontSizeCardTitle),
             const SizedBox(height: 4),
-            LogdText(text: local.devSpawnMonsterDesc, fontSize: 13),
+            LogdText(text: local.devSpawnMonsterDesc, fontSize: LogdCodes.fontSizeDefault),
             const SizedBox(height: 10),
 
             Expanded(
@@ -150,8 +161,9 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
                     final enemy = _allEnemies[index];
                     return ListTile(
                       dense: true,
-                      title: LogdText(text: "`rLvl ${enemy.level}`w - `c${LogdText.capitalize(enemy.name)}`w", fontSize: 15),
-                      subtitle: LogdText(text: "HP: ${enemy.maxHp} | Goud: ${enemy.minGold}-${enemy.maxGold}", fontSize: 12),
+                      // DE FIX: Hardcoded font-sizes verwijderd uit de lijstitems
+                      title: LogdText(text: "`rLvl ${enemy.level}`w - `c${LogdText.capitalize(enemy.name)}`w", fontSize: LogdCodes.fontSizeDefault),
+                      subtitle: LogdText(text: "HP: ${enemy.maxHp} | Goud: ${enemy.minGold}-${enemy.maxGold}", fontSize: LogdCodes.fontSizeDefault - 3),
                       trailing: const Icon(Icons.gavel, color: Colors.purpleAccent, size: 20),
                       onTap: () => _forceSpawnMonster(enemy),
                     );
@@ -162,11 +174,14 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
             const SizedBox(height: 12),
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.purple, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.purple, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.purpleAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.purpleAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -177,17 +192,27 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
 
   Widget _buildDevButton(String label, VoidCallback onPressed) {
     return OutlinedButton(
-      style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.purple), backgroundColor: const Color(0xFF2A1B35)),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: Colors.purple),
+        backgroundColor: const Color(0xFF2A1B35),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+      ),
       onPressed: onPressed,
-      child: Text(label.toUpperCase(), style: const TextStyle(color: Colors.purpleAccent, fontFamily: 'Courier', fontSize: 12, fontWeight: FontWeight.bold)),
+      // DE FIX: Gekoppeld aan de centrale retroFont en font-size stand
+      child: Text(label.toUpperCase(), style: const TextStyle(color: Colors.purpleAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 3, fontWeight: FontWeight.bold)),
     );
   }
 
   Widget _buildEventButton(String label, VoidCallback onPressed) {
     return OutlinedButton(
-      style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.cyan), backgroundColor: const Color(0xFF1B2D35)),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: Colors.cyan),
+        backgroundColor: const Color(0xFF1B2D35),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+      ),
       onPressed: onPressed,
-      child: Text(label.toUpperCase(), style: const TextStyle(color: Colors.cyanAccent, fontFamily: 'Courier', fontSize: 12, fontWeight: FontWeight.bold)),
+      // DE FIX: Gekoppeld aan de centrale retroFont en font-size stand
+      child: Text(label.toUpperCase(), style: const TextStyle(color: Colors.cyanAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 3, fontWeight: FontWeight.bold)),
     );
   }
 }

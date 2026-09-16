@@ -1542,6 +1542,418 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Cedrik bromt: \'De reus in het bos slaapt diep, maar als je hem besteelt, kun je bakken met goud verdienen!\''**
   String get innCedrikRumor2;
+
+  /// No description provided for @innMenuMain.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Gelagkamer'**
+  String get innMenuMain;
+
+  /// No description provided for @innMenuSpy.
+  ///
+  /// In nl, this message translates to:
+  /// **'Mensen Bespioneren (-10 Goud)'**
+  String get innMenuSpy;
+
+  /// No description provided for @innMenuNews.
+  ///
+  /// In nl, this message translates to:
+  /// **'Krant & Geruchten Lezen'**
+  String get innMenuNews;
+
+  /// No description provided for @innMenuBlackjack.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kaarttafel: Blackjack'**
+  String get innMenuBlackjack;
+
+  /// No description provided for @innSpySelect.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kies een doelwit om te bespioneren:'**
+  String get innSpySelect;
+
+  /// No description provided for @innSpyNoTargets.
+  ///
+  /// In nl, this message translates to:
+  /// **'Er liggen momenteel geen andere reizigers te slapen in de herberg.'**
+  String get innSpyNoTargets;
+
+  /// No description provided for @innSpyResult.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je sluipt naar boven en bekijkt de spullen van {target}. Level: {lvl}, Goud op zak: {gold}.'**
+  String innSpyResult(Object gold, Object lvl, Object target);
+
+  /// No description provided for @innNewsTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Herberg Geruchten & Laatste Nieuws'**
+  String get innNewsTitle;
+
+  /// No description provided for @innBlackjackTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Blackjack (Inzet: 50 Goud)'**
+  String get innBlackjackTitle;
+
+  /// No description provided for @innBlackjackHit.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kaart Vragen'**
+  String get innBlackjackHit;
+
+  /// No description provided for @innBlackjackStand.
+  ///
+  /// In nl, this message translates to:
+  /// **'Pas'**
+  String get innBlackjackStand;
+
+  /// No description provided for @innBlackjackWin.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gewonnen! Je hebt {player} tegen {house} van de bank. (+50 Goud)'**
+  String innBlackjackWin(Object house, Object player);
+
+  /// No description provided for @innBlackjackLose.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verloren! De bank heeft {house} en jij hebt {player}. (-50 Goud)'**
+  String innBlackjackLose(Object house, Object player);
+
+  /// No description provided for @innBlackjackBust.
+  ///
+  /// In nl, this message translates to:
+  /// **'Te veel! Je bent kapot gegaan met {player} punten. (-50 Goud)'**
+  String innBlackjackBust(Object player);
+
+  /// No description provided for @innBlackjackTie.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gelijkspel! Beiden {points} punten. Je behoudt je inzet.'**
+  String innBlackjackTie(Object points);
+
+  /// No description provided for @btnReturnCommon.
+  ///
+  /// In nl, this message translates to:
+  /// **'Terug naar de Gelagkamer'**
+  String get btnReturnCommon;
+
+  /// No description provided for @innBlackjackStart.
+  ///
+  /// In nl, this message translates to:
+  /// **'START POTJE (50 GOUD)'**
+  String get innBlackjackStart;
+
+  /// No description provided for @innBlackjackHitBtn.
+  ///
+  /// In nl, this message translates to:
+  /// **'HIT (KAART)'**
+  String get innBlackjackHitBtn;
+
+  /// No description provided for @innBlackjackStandBtn.
+  ///
+  /// In nl, this message translates to:
+  /// **'STAND (PAS)'**
+  String get innBlackjackStandBtn;
+
+  /// No description provided for @innBlackjackCommonReturn.
+  ///
+  /// In nl, this message translates to:
+  /// **'TERUG NAAR DE GELAGKAMER'**
+  String get innBlackjackCommonReturn;
+
+  /// No description provided for @innBlackjackScoreLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Jouw hand: {playerHand} ({playerScore})\nBank kaarten: {houseHand}'**
+  String innBlackjackScoreLog(
+    Object houseHand,
+    Object playerHand,
+    Object playerScore,
+  );
+
+  /// No description provided for @innSpyResultLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je sluipt naar boven en bekijkt de spullen van {username}. Level: {level}, Goud op zak: {gold}.'**
+  String innSpyResultLog(Object gold, Object level, Object username);
+
+  /// No description provided for @innBlackjackBustLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bust! Je bent kapot gegaan met {score} punten. (-50 Goud)'**
+  String innBlackjackBustLog(Object score);
+
+  /// No description provided for @innBlackjackWinLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gewonnen! Je hebt {player} tegen {house} van de bank! (+50 Goud)'**
+  String innBlackjackWinLog(Object house, Object player);
+
+  /// No description provided for @innBlackjackLoseLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verloren! De bank wint met {house} tegen jouw {player}. (-50 Goud)'**
+  String innBlackjackLoseLog(Object house, Object player);
+
+  /// No description provided for @innBlackjackTieLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gelijkspel! Beiden {score} punten. Je behoudt je inzet.'**
+  String innBlackjackTieLog(Object score);
+
+  /// No description provided for @profileBiometricReason.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bevestig je identiteit om snel in te loggen bij LOGD'**
+  String get profileBiometricReason;
+
+  /// No description provided for @profileBiometricDeviceError.
+  ///
+  /// In nl, this message translates to:
+  /// **'Dit toestel ondersteunt geen biometrie.'**
+  String get profileBiometricDeviceError;
+
+  /// No description provided for @profileBiometricAuthError.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verificatie mislukt.'**
+  String get profileBiometricAuthError;
+
+  /// No description provided for @profileDatabaseError.
+  ///
+  /// In nl, this message translates to:
+  /// **'Er is een fout opgetreden.'**
+  String get profileDatabaseError;
+
+  /// No description provided for @trainingStatusTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== STATUS ==='**
+  String get trainingStatusTitle;
+
+  /// No description provided for @trainingCurrentLevel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Huidig Niveau: `yLevel {level}`w'**
+  String trainingCurrentLevel(Object level);
+
+  /// No description provided for @btnForestWalkAway.
+  ///
+  /// In nl, this message translates to:
+  /// **'LOOP DOOR'**
+  String get btnForestWalkAway;
+
+  /// No description provided for @btnForestFountainDive.
+  ///
+  /// In nl, this message translates to:
+  /// **'DUIK IN BRON'**
+  String get btnForestFountainDive;
+
+  /// No description provided for @btnForestGiantSneak.
+  ///
+  /// In nl, this message translates to:
+  /// **'SLUIP ER LANGS'**
+  String get btnForestGiantSneak;
+
+  /// No description provided for @btnForestGiantSteal.
+  ///
+  /// In nl, this message translates to:
+  /// **'BESTEEL REUS'**
+  String get btnForestGiantSteal;
+
+  /// No description provided for @btnForestAttack.
+  ///
+  /// In nl, this message translates to:
+  /// **'AANVALLEN'**
+  String get btnForestAttack;
+
+  /// No description provided for @btnForestFlee.
+  ///
+  /// In nl, this message translates to:
+  /// **'VLUCHTEN'**
+  String get btnForestFlee;
+
+  /// No description provided for @innBlackjackReturn.
+  ///
+  /// In nl, this message translates to:
+  /// **'TERUG NAAR DE GELAGKAMER'**
+  String get innBlackjackReturn;
+
+  /// No description provided for @innNewsWinLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'- {user} won {val} goudstukken aan de goktafel!'**
+  String innNewsWinLog(Object user, Object val);
+
+  /// No description provided for @innNewsLossLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'- {user} verloor {val} goudstukken aan de bank.'**
+  String innNewsLossLog(Object user, Object val);
+
+  /// No description provided for @innNewsEnterLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'- {user} betreedt de herberg.'**
+  String innNewsEnterLog(Object user);
+
+  /// No description provided for @innNewsUnknownPlayer.
+  ///
+  /// In nl, this message translates to:
+  /// **'Een avonturier'**
+  String get innNewsUnknownPlayer;
+
+  /// No description provided for @combatSkillMagicSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je spreekt een genezingsspreuk uit en herstelt `w{hp} `2HP!`w'**
+  String combatSkillMagicSuccess(Object hp);
+
+  /// No description provided for @combatSkillThievingSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'`cJe sluipt achterom en rooft `y{gold} goudstukken `cvantussen de spullen van de {enemy}!`w'**
+  String combatSkillThievingSuccess(Object enemy, Object gold);
+
+  /// No description provided for @combatSkillWarriorSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je heft je wapen en brengt de {enemy} een verwoestende klap toe van `w{damage} `4schade!`w'**
+  String combatSkillWarriorSuccess(Object damage, Object enemy);
+
+  /// No description provided for @combatSkillWarriorVictory.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je brengt de {enemy} een genadeslag toe van `w{damage} `4schade!`w'**
+  String combatSkillWarriorVictory(Object damage, Object enemy);
+
+  /// No description provided for @combatFleeSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'\n\n`yJe gooit je wapen neer en rent in paniek het struikgewas in! Je bent succesvol ontsnapt aan de {enemy}.`w\n\n'**
+  String combatFleeSuccess(Object enemy);
+
+  /// No description provided for @combatFleeFailed.
+  ///
+  /// In nl, this message translates to:
+  /// **'\n\n`4Je probeert te vluchten, maar de {enemy} haalt fel uit en raakt je in je rug voor `w{damage} `4schade!`w\n\n'**
+  String combatFleeFailed(Object damage, Object enemy);
+
+  /// No description provided for @combatFleeDeath.
+  ///
+  /// In nl, this message translates to:
+  /// **'\n\n`4Je probeert te vluchten, maar de {enemy} brengt je een fatale klap toe! Je bent gestorven in het bos.`w\n\n'**
+  String combatFleeDeath(Object enemy);
+
+  /// No description provided for @innMenuBuyDrink.
+  ///
+  /// In nl, this message translates to:
+  /// **'KOOP DRANKJE (20 GOUD)'**
+  String get innMenuBuyDrink;
+
+  /// No description provided for @innDrinkSelectTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== CEDRIKS ASSORTIMENT ==='**
+  String get innDrinkSelectTitle;
+
+  /// No description provided for @innDrinkSelectDesc.
+  ///
+  /// In nl, this message translates to:
+  /// **'Cedrik poetst een glas op en kijkt je aan: \"Wat kan ik voor je inschenken, reiziger?\"'**
+  String get innDrinkSelectDesc;
+
+  /// No description provided for @innDrink1Name.
+  ///
+  /// In nl, this message translates to:
+  /// **'DWERGEN STOUT'**
+  String get innDrink1Name;
+
+  /// No description provided for @innDrink1Desc.
+  ///
+  /// In nl, this message translates to:
+  /// **'Een zwaar, donker bier. Geeft extra kracht maar maakt je slaperig. (+15 HP, -1 Turn)'**
+  String get innDrink1Desc;
+
+  /// No description provided for @innDrink2Name.
+  ///
+  /// In nl, this message translates to:
+  /// **'ELFEN MEEDE'**
+  String get innDrink2Name;
+
+  /// No description provided for @innDrink2Desc.
+  ///
+  /// In nl, this message translates to:
+  /// **'Een zoete, sprankelende honingwijn. Geeft je hernieuwde energie! (+2 Turns)'**
+  String get innDrink2Desc;
+
+  /// No description provided for @innDrinkSuccess1.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je drinkt het Dwergen Stout in één teug leeg. Je voelt je een stuk sterker! (+15 HP, -1 Turn)`w'**
+  String get innDrinkSuccess1;
+
+  /// No description provided for @innDrinkSuccess2.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2De Elfen Meede smaakt heerlijk zoet. Je voelt de energie door je aderen stromen! (+2 Turns)`w'**
+  String get innDrinkSuccess2;
+
+  /// No description provided for @btnGraveyardRob.
+  ///
+  /// In nl, this message translates to:
+  /// **'GRAF PLUNDEREN'**
+  String get btnGraveyardRob;
+
+  /// No description provided for @graveyardSuccessGold.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je pakt een schep en graaft een oud graf open... Onder het rotte hout vind je een verborgen kistje met `y{gold} goudstukken`2!`w'**
+  String graveyardSuccessGold(Object gold);
+
+  /// No description provided for @graveyardSuccessGem.
+  ///
+  /// In nl, this message translates to:
+  /// **'`cJe doorzoekt een statige crypte en glimmende stenen trekken je aandacht... Je vindt `w{gems} edelsteen`c!`w'**
+  String graveyardSuccessGem(Object gems);
+
+  /// No description provided for @graveyardZombieEncounter.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Terwijl je graaft, grijpt een rotte, koude hand plotseling je enkel! Een zombie kruipt omhoog uit de aarde en valt je aan! (-{hp} HP)`w'**
+  String graveyardZombieEncounter(Object hp);
+
+  /// No description provided for @graveyardEmpty.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je struint urenlang over het mistige kerkhof, maar alle graven lijken al te zijn leeggeroofd door grafrovers.'**
+  String get graveyardEmpty;
+
+  /// No description provided for @graveyardErrorResurrection.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Er is een fout opgetreden bij de opstanding.`w'**
+  String get graveyardErrorResurrection;
+
+  /// No description provided for @innFlirtMaxHpBonus.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Violet valt als een blok voor je charmes! Ze glimlacht verlegen en geeft je een permanente gezondheids-upgrade! (+1 Max HP & Volledig Genezen)`w'**
+  String get innFlirtMaxHpBonus;
+
+  /// No description provided for @innFlirtTurnsBonus.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je openingszin is een schot in de roos! Violet vindt je gezelschap fantastisch en schenkt je hernieuwde energie. (+2 Turns)`w'**
+  String get innFlirtTurnsBonus;
+
+  /// No description provided for @innFlirtSlapDefeat.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je openingszin slaat de plank volledig mis! Violet is diep beledigd en geeft je een harde klap in je gezicht! (-5 HP)`w'**
+  String get innFlirtSlapDefeat;
 }
 
 class _AppLocalizationsDelegate

@@ -1,3 +1,4 @@
+// lib/screens/training_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
@@ -113,7 +114,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: Text(local.btnVisitTraining, style: const TextStyle(fontFamily: 'Courier')),
+        title: Text(
+            local.btnVisitTraining,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF2D2D2D),
         automaticallyImplyLeading: false,
       ),
@@ -135,9 +143,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       const SizedBox(height: 14),
                     ],
 
-                    LogdText(text: "=== STATUS ===", fontSize: LogdCodes.fontSizeCardTitle),
+                    // DE FIX: Volledig gelokaliseerd via .arb sleutels!
+                    LogdText(text: local.trainingStatusTitle, fontSize: LogdCodes.fontSizeCardTitle),
                     const SizedBox(height: 6),
-                    LogdText(text: "Huidig Niveau: `yLevel $level`w", fontSize: LogdCodes.fontSizeDefault),
+                    LogdText(text: local.trainingCurrentLevel(level.toString()), fontSize: LogdCodes.fontSizeDefault),
                     LogdText(text: "Ervaring (XP): `c$experience / $xpNeeded`w", fontSize: LogdCodes.fontSizeDefault),
                   ],
                 ),
@@ -152,20 +161,24 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: LogdCodes.uiRed, width: 2),
                     backgroundColor: const Color(0xFF240D0D),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                   ),
                   onPressed: _challengeMaster,
-                  child: Text(local.btnChallengeMaster.toUpperCase(), style: const TextStyle(color: LogdCodes.uiRed, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 15)),
+                  child: Text(local.btnChallengeMaster.toUpperCase(), style: const TextStyle(color: LogdCodes.uiRed, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault)),
                 ),
               ),
               const SizedBox(height: 10),
             ],
 
             OutlinedButton(
-              style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.blue, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
               ),
             ),
           ],

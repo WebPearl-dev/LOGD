@@ -1,11 +1,12 @@
+// lib/widgets/status_bar.dart
 import 'package:flutter/material.dart';
+import '../theme/logd_codes.dart';
 
 class LogdStatusBar extends StatelessWidget {
   final int currentHp;
   final int maxHp;
   final int goldOnHand;
   final int gems;
-  // De overige parameters laten we in de constructor staan zodat er elders in de app niets crasht!
   final int turns;
   final int level;
   final int experience;
@@ -16,53 +17,72 @@ class LogdStatusBar extends StatelessWidget {
     required this.maxHp,
     required this.goldOnHand,
     required this.gems,
-    this.turns = 0,
-    this.level = 1,
-    this.experience = 0,
+    required this.turns,
+    required this.level,
+    required this.experience,
   });
 
   @override
   Widget build(BuildContext context) {
+    // We berekenen de XP die nodig is voor het volgende niveau om live de balk te vullen
+    final int xpNeeded = level * level * 100;
+    final double xpProgress = xpNeeded > 0 ? (experience / xpNeeded).clamp(0.0, 1.0) : 0.0;
+
     return Container(
-      color: const Color(0xFF221100), // Warme BBS-bruine achtergrond
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      color: const Color(0xFF2D2D2D), // Antracietgrijze retro balk
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: SafeArea(
-        top: false,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // HP Status
-            Text(
-              "HP: $currentHp/$maxHp",
-              style: const TextStyle(
-                fontFamily: 'Courier',
-                color: Color(0xFF00FF66), // Retro Groen
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+            // Rij 1: HP, Goud en Edelstenen indicators
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildStatText("HP: $currentHp/$maxHp", LogdCodes.uiGreen),
+                _buildStatText("💰 $goldOnHand", LogdCodes.uiYellow),
+                _buildStatText("💎 $gems", LogdCodes.uiBlue),
+              ],
             ),
-            // Goud Status
-            Text(
-              "GOUD: $goldOnHand",
-              style: const TextStyle(
-                fontFamily: 'Courier',
-                color: Color(0xFFFFEA00), // Retro Geel
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+            const SizedBox(height: 6),
+
+            // Rij 2: Niveau, Bosbeurten en XP voortgang
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildStatText("LVL: $level", Colors.white),
+                _buildStatText("⏳ TURNS: $turns", LogdCodes.uiOrange),
+                _buildStatText("XP: $experience/$xpNeeded", LogdCodes.uiPurple),
+              ],
             ),
-            // Gems Status
-            Text(
-              "GEMS: $gems",
-              style: const TextStyle(
-                fontFamily: 'Courier',
-                color: Color(0xFF00E5FF), // Retro Cyaan
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+            const SizedBox(height: 8),
+
+            // Retro XP-voortgangsbalkje onderaan de statusbalk
+            ClipRRect(
+              borderRadius: BorderRadius.circular(2.0),
+              child: LinearProgressIndicator(
+                value: xpProgress,
+                backgroundColor: Colors.grey.shade900,
+                color: LogdCodes.uiPurple,
+                minHeight: 4,
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // HIER WORDT DE RETRO-WET HANDHAAFD:
+  Widget _buildStatText(String label, Color color) {
+    return Text(
+      label,
+      style: TextStyle(
+        color: color,
+        fontFamily: LogdCodes.retroFont, // Gecorrigeerd: Schakelt nu blindelings mee met monospace/RetroFont
+        fontSize: LogdCodes.fontSizeDefault - 2, // Iets compacter voor de statusbalk verhoudingen
+        fontWeight: FontWeight.bold,
       ),
     );
   }

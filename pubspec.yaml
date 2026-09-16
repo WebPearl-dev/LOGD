@@ -44,3 +44,6 @@ flutter:
   assets:
     # GECORRIGEERD: Met exact 4 spaties ingesprongen onder 'flutter:'
     - assets/data/enemies.csv
+    - assets/theme/
+    - assets/story/nl/
+    - assets/story/en/

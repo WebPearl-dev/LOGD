@@ -1,6 +1,8 @@
+// lib/screens/race_selection_screen.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
+import '../theme/logd_codes.dart';
 import 'specialty_selection_screen.dart';
 
 class RaceSelectionScreen extends StatefulWidget {
@@ -57,9 +59,9 @@ class _RaceSelectionScreenState extends State<RaceSelectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LogdText(text: isSelected ? "`y> $title`w" : "`w  $title`w", fontSize: 18),
+            LogdText(text: isSelected ? "`y> $title`w" : "`w  $title`w", fontSize: LogdCodes.fontSizeCardTitle),
             const SizedBox(height: 4),
-            LogdText(text: description, fontSize: 14),
+            LogdText(text: description, fontSize: LogdCodes.fontSizeDefault),
           ],
         ),
       ),
@@ -73,7 +75,14 @@ class _RaceSelectionScreenState extends State<RaceSelectionScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(local.raceTitle, style: const TextStyle(fontFamily: 'Courier', fontWeight: FontWeight.bold)),
+        title: Text(
+            local.raceTitle,
+            style: const TextStyle(
+                fontFamily: LogdCodes.retroFont,
+                fontSize: LogdCodes.fontSizeDefault,
+                fontWeight: FontWeight.bold
+            )
+        ),
         backgroundColor: const Color(0xFF111111),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -83,7 +92,7 @@ class _RaceSelectionScreenState extends State<RaceSelectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LogdText(text: local.raceWelcome, fontSize: 16),
+            LogdText(text: local.raceWelcome, fontSize: LogdCodes.fontSizeDefault),
             const SizedBox(height: 16),
 
             Expanded(
@@ -103,9 +112,18 @@ class _RaceSelectionScreenState extends State<RaceSelectionScreen> {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: Colors.yellow, width: 2),
                   backgroundColor: const Color(0xFF1E1E00),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: _proceedToSpecialty,
-                child: Text(local.btnConfirmRace.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 14)),
+                child: Text(
+                    local.btnConfirmRace.toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.yellowAccent,
+                        fontFamily: LogdCodes.retroFont,
+                        fontWeight: FontWeight.bold,
+                        fontSize: LogdCodes.fontSizeDefault
+                    )
+                ),
               ),
             ),
           ],

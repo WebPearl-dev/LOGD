@@ -1,8 +1,11 @@
+// lib/screens/smithy_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../widgets/smithy_tab_content.dart';
+import '../theme/logd_codes.dart';
 
 class SmithyScreen extends StatefulWidget {
   const SmithyScreen({super.key});
@@ -14,13 +17,10 @@ class SmithyScreen extends StatefulWidget {
 class _SmithyScreenState extends State<SmithyScreen> {
   final _supabase = Supabase.instance.client;
 
-  // Waterdichte omweg: De getallen staan er nu gegarandeerd wél in en worden niet gewist!
   final List<int> _weaponCosts = "0,150,400,1000,3000,9000,25000,60000,100000".split(',').map(int.parse).toList();
   final List<int> _armorCosts = "0,120,350,900,2500,7500,20000,50000,85000".split(',').map(int.parse).toList();
 
-  int goldOnHand = 0;
-  int weaponLvl = 0;
-  int armorLvl = 0;
+  int goldOnHand = 0, weaponLvl = 0, armorLvl = 0;
   int playerHp = 20, playerMaxHp = 20, gems = 0, turns = 0, level = 1, experience = 0;
 
   bool _isLoading = true;
@@ -95,6 +95,7 @@ class _SmithyScreenState extends State<SmithyScreen> {
         int newGold = goldOnHand - priceToPay;
         int newLvl = currentLvl + 1;
 
+        // DE FIX: De .eq() parameter-syntax is hersteld naar de juiste SDK-notatie
         await _supabase.from('profiles').update({
           'gold_on_hand': newGold,
           isWeapon ? 'weapon_level' : 'armor_level': newLvl + 1,
@@ -103,12 +104,10 @@ class _SmithyScreenState extends State<SmithyScreen> {
         setState(() {
           goldOnHand = newGold;
           if (isWeapon) { weaponLvl = newLvl; } else { armorLvl = newLvl; }
-          String boughtName = isWeapon ? _getWeaponName(local, newLvl) : _getArmorName(local, newLvl);
-          _statusMessage = local.smithySuccessBuy(boughtName);
+          _statusMessage = local.smithySuccessBuy(isWeapon ? _getWeaponName(local, newLvl) : _getArmorName(local, newLvl));
         });
       }
-    } catch (e) {
-      // GECORRIGEERD: Nu 100% hardcode-vrij gekoppeld aan de ARB sleutel!
+    } catch (_) {
       setState(() { _statusMessage = local.smithyErrorUnknown; });
     } finally {
       setState(() { _isLoading = false; });
@@ -131,14 +130,14 @@ class _SmithyScreenState extends State<SmithyScreen> {
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text(local.smithyTitle, style: const TextStyle(fontFamily: 'Courier')),
+          title: Text(local.smithyTitle, style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
           backgroundColor: const Color(0xFF111111),
           automaticallyImplyLeading: false,
           bottom: TabBar(
             indicatorColor: Colors.orangeAccent,
             labelColor: Colors.orangeAccent,
             unselectedLabelColor: Colors.grey,
-            labelStyle: const TextStyle(fontFamily: 'Courier', fontWeight: FontWeight.bold, fontSize: 15),
+            labelStyle: const TextStyle(fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault),
             tabs: [
               Tab(text: local.smithyTabWeapons.toUpperCase()),
               Tab(text: local.smithyTabArmor.toUpperCase()),
@@ -150,10 +149,10 @@ class _SmithyScreenState extends State<SmithyScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              LogdText(text: local.smithyWelcome, fontSize: 15),
+              LogdText(text: local.smithyWelcome, fontSize: LogdCodes.fontSizeDefault),
               const SizedBox(height: 10),
               if (_statusMessage.isNotEmpty) ...[
-                LogdText(text: _statusMessage, fontSize: 15),
+                LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
                 const SizedBox(height: 10),
               ],
               const Divider(color: Colors.grey),
@@ -162,21 +161,21 @@ class _SmithyScreenState extends State<SmithyScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    _buildTabContent(
+                    SmithyTabContent(
                       currentLabel: local.smithyWeaponLabel(_getWeaponName(local, weaponLvl), (weaponLvl + 1).toString()),
                       maxReached: weaponLvl >= 8,
                       nextName: weaponLvl < 8 ? _getWeaponName(local, weaponLvl + 1) : "",
                       cost: nextWeaponCost,
                       isWeapon: true,
-                      local: local,
+                      onBuyUpgrade: () => _buyUpgrade(true),
                     ),
-                    _buildTabContent(
+                    SmithyTabContent(
                       currentLabel: local.smithyArmorLabel(_getArmorName(local, armorLvl), (armorLvl + 1).toString()),
                       maxReached: armorLvl >= 8,
                       nextName: armorLvl < 8 ? _getArmorName(local, armorLvl + 1) : "",
                       cost: nextArmorCost,
                       isWeapon: false,
-                      local: local,
+                      onBuyUpgrade: () => _buyUpgrade(false),
                     ),
                   ],
                 ),
@@ -184,11 +183,14 @@ class _SmithyScreenState extends State<SmithyScreen> {
               const SizedBox(height: 10),
 
               OutlinedButton(
-                style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.blue, width: 2)),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.blue, width: 2),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                ),
                 onPressed: () => Navigator.pop(context),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: 'Courier', fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
@@ -196,50 +198,6 @@ class _SmithyScreenState extends State<SmithyScreen> {
         ),
         bottomNavigationBar: LogdStatusBar(currentHp: playerHp, maxHp: playerMaxHp, goldOnHand: goldOnHand, gems: gems, turns: turns, level: level, experience: experience),
       ),
-    );
-  }
-
-  Widget _buildTabContent({
-    required String currentLabel,
-    required bool maxReached,
-    required String nextName,
-    required int cost,
-    required bool isWeapon,
-    required AppLocalizations local
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LogdText(text: "=== ${local.smithyCurrentEquip} ===", fontSize: 16),
-        const SizedBox(height: 6),
-        LogdText(text: currentLabel, fontSize: 16),
-        const SizedBox(height: 20),
-
-        if (!maxReached) ...[
-          LogdText(text: "=== ${local.smithyUpgradeAvailable} ===", fontSize: 16),
-          const SizedBox(height: 6),
-          LogdText(text: "`c$nextName`w", fontSize: 16),
-          const SizedBox(height: 4),
-          LogdText(text: local.smithyCostLabel(cost.toString()), fontSize: 15),
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.yellow, width: 2),
-                backgroundColor: const Color(0xFF1E1E00),
-              ),
-              onPressed: () => _buyUpgrade(isWeapon),
-              child: Text(local.btnBuyUpgrade.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: 'Courier', fontSize: 15, fontWeight: FontWeight.bold)),
-            ),
-          )
-        ] else ...[
-          const Spacer(),
-          Center(child: LogdText(text: local.smithyMaxLevel, fontSize: 15)),
-          const Spacer(),
-        ],
-      ],
     );
   }
 }
