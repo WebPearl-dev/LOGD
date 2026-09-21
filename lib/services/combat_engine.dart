@@ -1,6 +1,7 @@
+// lib/services/combat_engine.dart
 import 'dart:math';
 import 'forest_manager.dart';
-import 'logd_enums.dart'; // Import voor de enums!
+import 'logd_enums.dart';
 
 class CombatResult {
   final CombatStatus status;
@@ -8,9 +9,11 @@ class CombatResult {
   final bool isCombatOver;
   final int goldEarned;
   final int xpEarned;
+  final int favorEarned;
   final int damageDealt;
   final int damageReceived;
   final int hpHealed;
+  final bool isDragonFlame; // VOEG TOE: Geeft aan of de Draak zijn Vlammenzee spuwde
 
   CombatResult({
     required this.status,
@@ -18,9 +21,11 @@ class CombatResult {
     this.isCombatOver = false,
     this.goldEarned = 0,
     this.xpEarned = 0,
+    this.favorEarned = 0,
     this.damageDealt = 0,
     this.damageReceived = 0,
     this.hpHealed = 0,
+    this.isDragonFlame = false,
   });
 }
 
@@ -34,6 +39,8 @@ class CombatEngine {
     required int playerCurrentHp,
     required int playerMaxHp,
     required int playerLevel,
+    bool isGhostCombat = false,
+    bool isDragonCombat = false, // VOEG TOE: Unieke vlag voor het eindgevecht
   }) {
     int playerDamage = playerAttack + _random.nextInt(playerLevel + 2) - (enemy.level ~/ 2);
     if (playerDamage < 1) playerDamage = 1;
@@ -41,33 +48,51 @@ class CombatEngine {
     int newEnemyHp = enemy.currentHp - playerDamage;
 
     if (newEnemyHp <= 0) {
-      int xpEarned = enemy.level * 15 + _random.nextInt(10);
-      int goldEarned = enemy.minGold +
-          (enemy.maxGold > enemy.minGold ? _random.nextInt(enemy.maxGold - enemy.minGold + 1) : 0);
+      if (isGhostCombat) {
+        int favorEarned = playerLevel * (_random.nextInt(3) + 1);
+        return CombatResult(
+          status: CombatStatus.enemyDefeated,
+          args: {'enemy': enemy.name},
+          isCombatOver: true,
+          favorEarned: favorEarned,
+          damageDealt: playerDamage,
+        );
+      }
 
+      // Bij winst op de draak hoeven we geen goud/XP te berekenen, dat handelt de reset-transactie af
       return CombatResult(
         status: CombatStatus.enemyDefeated,
         args: {'enemy': enemy.name},
         isCombatOver: true,
-        goldEarned: goldEarned,
-        xpEarned: xpEarned,
         damageDealt: playerDamage,
       );
     }
 
-    int enemyBaseAttack = enemy.level * 4;
-    int enemyDamage = enemyBaseAttack + _random.nextInt(enemy.level + 2) - (playerDefense ~/ 2);
-    if (enemyDamage < 1) enemyDamage = 1;
+    int enemyDamage = 0;
+    bool dragonFlameTriggered = false;
 
+    if (isDragonCombat && _random.nextInt(100) < 25) {
+      // DE VLAMMENZEE: 25% kans aanval, negeert 50% van de speler verdediging!
+      dragonFlameTriggered = true;
+      int enemyBaseAttack = enemy.level * 6; // Lair schaling
+      enemyDamage = enemyBaseAttack + _random.nextInt(enemy.level + 5) - (playerDefense ~/ 4);
+    } else {
+      // Normale fysieke aanval van vijand of Draak
+      int enemyBaseAttack = isDragonCombat ? (enemy.level * 5) : (enemy.level * 4);
+      enemyDamage = enemyBaseAttack + _random.nextInt(enemy.level + 2) - (playerDefense ~/ 2);
+    }
+
+    if (enemyDamage < 1) enemyDamage = 1;
     int newPlayerHp = playerCurrentHp - enemyDamage;
 
     if (newPlayerHp <= 0) {
       return CombatResult(
-        status: CombatStatus.playerDied,
+        status: isGhostCombat ? CombatStatus.ghostPlayerDefeated : CombatStatus.playerDied,
         args: {'enemy': enemy.name},
         isCombatOver: true,
         damageDealt: playerDamage,
         damageReceived: enemyDamage,
+        isDragonFlame: dragonFlameTriggered,
       );
     }
 
@@ -80,6 +105,7 @@ class CombatEngine {
       isCombatOver: false,
       damageDealt: playerDamage,
       damageReceived: enemyDamage,
+      isDragonFlame: dragonFlameTriggered,
     );
   }
 
@@ -88,6 +114,7 @@ class CombatEngine {
     required LogdEnemy enemy,
     required int playerLevel,
     required int playerMaxHp,
+    bool isGhostCombat = false,
   }) {
     if (specialty == PlayerSpecialty.magic) {
       int healAmount = playerLevel * 6 + _random.nextInt(5);
@@ -97,7 +124,7 @@ class CombatEngine {
         isCombatOver: false,
       );
     } else if (specialty == PlayerSpecialty.thieving) {
-      int stolenGold = enemy.level * 10 + _random.nextInt(15);
+      int stolenGold = isGhostCombat ? 0 : (enemy.level * 10 + _random.nextInt(15));
       return CombatResult(
         status: CombatStatus.skillThieving,
         goldEarned: stolenGold,
@@ -109,14 +136,20 @@ class CombatEngine {
       int newEnemyHp = enemy.currentHp - heavyDamage;
 
       if (newEnemyHp <= 0) {
-        int xpEarned = enemy.level * 15 + _random.nextInt(10);
-        int goldEarned = enemy.minGold + (enemy.maxGold > enemy.minGold ? _random.nextInt(enemy.maxGold - enemy.minGold + 1) : 0);
+        if (isGhostCombat) {
+          int favorEarned = playerLevel * (_random.nextInt(3) + 1);
+          return CombatResult(
+            status: CombatStatus.enemyDefeated,
+            args: {'enemy': enemy.name},
+            isCombatOver: true,
+            favorEarned: favorEarned,
+            damageDealt: heavyDamage,
+          );
+        }
         return CombatResult(
           status: CombatStatus.enemyDefeated,
           args: {'enemy': enemy.name},
           isCombatOver: true,
-          goldEarned: goldEarned,
-          xpEarned: xpEarned,
           damageDealt: heavyDamage,
         );
       }
@@ -130,7 +163,7 @@ class CombatEngine {
     }
   }
 
-  CombatResult executeFlee({required LogdEnemy enemy}) {
+  CombatResult executeFlee({required LogdEnemy enemy, bool isGhostCombat = false}) {
     bool success = _random.nextBool();
     if (success) {
       return CombatResult(

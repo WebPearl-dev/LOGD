@@ -1,9 +1,9 @@
 // lib/widgets/inn/inn_log_display.dart
 import 'package:flutter/material.dart';
+import '../logd_text.dart';
 import '../../l10n/app_localizations.dart';
-import '../../theme/logd_codes.dart';
-import '../../widgets/logd_text.dart';
 import '../../services/inn_controller.dart';
+import '../../theme/logd_codes.dart';
 
 class InnLogDisplay extends StatelessWidget {
   final String activeSection;
@@ -12,6 +12,7 @@ class InnLogDisplay extends StatelessWidget {
   final List<Map<String, dynamic>> spyTargets;
   final InnController controller;
   final Function(Map<String, dynamic>) onSpyPressed;
+  final Function(Map<String, dynamic>)? onBribePressed;
 
   const InnLogDisplay({
     super.key,
@@ -21,81 +22,149 @@ class InnLogDisplay extends StatelessWidget {
     required this.spyTargets,
     required this.controller,
     required this.onSpyPressed,
+    this.onBribePressed,
   });
 
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
 
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade800, width: 2), color: Colors.black),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (activeSection == "MAIN") LogdText(text: local.innWelcome, fontSize: LogdCodes.fontSizeDefault),
+    if (activeSection == "NEWS") {
+      if (newsLogs.isEmpty) {
+        return Center(
+          child: LogdText(text: local.inn_news_empty, fontSize: LogdCodes.fontSizeDefault),
+        );
+      }
 
-            if (statusMessage.isNotEmpty) ...[
-              // DE FIX: Vangt de dynamic flirt resultaten op en koppelt ze aan de vertaal-keys!
-              if (statusMessage == "DRINK_1_SUCCESS") LogdText(text: local.innDrinkSuccess1, fontSize: LogdCodes.fontSizeDefault)
-              else if (statusMessage == "DRINK_2_SUCCESS") LogdText(text: local.innDrinkSuccess2, fontSize: LogdCodes.fontSizeDefault)
-              else if (statusMessage == "FLIRT_MAX_HP_BONUS") LogdText(text: local.innFlirtMaxHpBonus, fontSize: LogdCodes.fontSizeDefault)
-                else if (statusMessage == "FLIRT_TURNS_BONUS") LogdText(text: local.innFlirtTurnsBonus, fontSize: LogdCodes.fontSizeDefault)
-                  else if (statusMessage == "FLIRT_SLAP_DEFEAT") LogdText(text: local.innFlirtSlapDefeat, fontSize: LogdCodes.fontSizeDefault)
-                    else LogdText(text: statusMessage, fontSize: LogdCodes.fontSizeDefault),
-              const SizedBox(height: 10),
-            ],
+      return ListView.builder(
+        itemCount: newsLogs.length,
+        itemBuilder: (context, index) {
+          final log = newsLogs[index];
+          final String type = log['log_type'] ?? '';
+          final String user = log['username'] ?? local.newsUnknownPlayer;
 
-            if (activeSection == "BARTENDER") ...[
-              LogdText(text: local.innDrinkSelectTitle, fontSize: LogdCodes.fontSizeCardTitle),
-              const SizedBox(height: 6),
-              LogdText(text: local.innDrinkSelectDesc, fontSize: LogdCodes.fontSizeDefault),
-              const Padding(padding: EdgeInsets.symmetric(vertical: 8.0), child: Divider(color: Colors.grey)),
-              LogdText(text: "`o1. ${local.innDrink1Name}`w\n${local.innDrink1Desc}", fontSize: LogdCodes.fontSizeDefault),
-              const SizedBox(height: 10),
-              LogdText(text: "`o2. ${local.innDrink2Name}`w\n${local.innDrink2Desc}", fontSize: LogdCodes.fontSizeDefault),
-            ],
+          final int numericLevel = log['reached_level'] ?? log['value_after'] ?? 0;
+          final String levelStr = numericLevel.toString();
 
-            if (activeSection == "NEWS") ...[
-              LogdText(text: local.innNewsTitle, fontSize: LogdCodes.fontSizeCardTitle),
-              const SizedBox(height: 10),
-              ...newsLogs.map((row) {
-                String user = row['username'] ?? local.innNewsUnknownPlayer;
-                String type = row['log_type'] ?? "";
-                String val = (row['reached_level'] ?? 0).toString();
-                String logLine = local.innNewsEnterLog(user);
-                if (type == 'inn_win') logLine = local.innNewsWinLog(user, val);
-                if (type == 'inn_loss') logLine = local.innNewsLossLog(user, val);
-                return Padding(padding: const EdgeInsets.only(bottom: 6), child: LogdText(text: logLine, fontSize: LogdCodes.fontSizeDefault));
-              }),
-            ],
+          final int numericGold = log['gold_amount'] ?? log['gold'] ?? 0;
+          final String goldStr = numericGold.toString();
 
-            if (activeSection == "SPY") ...[
-              LogdText(text: local.innSpySelect, fontSize: LogdCodes.fontSizeDefault),
-              const SizedBox(height: 10),
-              if (spyTargets.isEmpty)
-                LogdText(text: local.innSpyNoTargets, fontSize: LogdCodes.fontSizeDefault)
-              else ...spyTargets.map((t) => Padding(
-                padding: const EdgeInsets.only(bottom: 6.0),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.red, width: 2)),
-                  onPressed: () => onSpyPressed(t),
-                  child: Text("${t['username']} (Lv ${t['level']})", style: const TextStyle(color: Colors.redAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
-                ),
-              )),
-            ],
+          String parsedText = "";
 
-            if (activeSection == "BLACKJACK" && !controller.isBlackjackOver) ...[
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(8),
-                color: const Color(0xFF222222),
-                child: LogdText(text: local.innBlackjackScoreLog(controller.playerHand.toString(), controller.calculateScore(controller.playerHand).toString(), controller.houseHand.toString()), fontSize: LogdCodes.fontSizeDefault),
+          if (type == 'level_up') {
+            parsedText = local.newsLogLevelUp(levelStr, user);
+          } else if (type == 'inn_win') {
+            parsedText = local.newsLogInnWin(goldStr, user);
+          } else if (type == 'inn_loss') {
+            parsedText = local.newsLogInnLoss(goldStr, user);
+          } else if (type == 'defeated') {
+            parsedText = local.newsLogDefeated(log['enemy_name'] ?? 'een monster', user);
+          } else if (type == 'defeated_brutal') {
+            parsedText = local.newsLogDefeatedBrutal(log['enemy_name'] ?? 'een monster', user);
+          } else if (type == 'marriage') {
+            parsedText = local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
+          } else {
+            parsedText = log['log_text'] ?? log['message'] ?? local.innNewsEnterLog(user);
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LogdText(text: "• ", fontSize: LogdCodes.fontSizeDefault),
+                Expanded(child: LogdText(text: parsedText, fontSize: LogdCodes.fontSizeDefault)),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+    if (activeSection == "SPY" || activeSection == "BOUNTY") {
+      final bool isBounty = activeSection == "BOUNTY";
+      if (spyTargets.isEmpty) {
+        return Center(child: LogdText(text: local.inn_spy_empty, fontSize: LogdCodes.fontSizeDefault));
+      }
+
+      return ListView.builder(
+        itemCount: spyTargets.length,
+        itemBuilder: (context, index) {
+          final target = spyTargets[index];
+          final String name = target['username'] ?? 'Reiziger';
+          final String targetLevel = (target['level'] ?? 1).toString();
+
+          return Card(
+            color: LogdCodes.uiCardBg,
+            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            child: PublicListTile(
+              title: LogdText(text: "`w$name (Level $targetLevel)`w", fontSize: LogdCodes.fontSizeDefault),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!isBounty) ...[
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiAmber)),
+                      onPressed: () => onSpyPressed(target),
+                      child: Text(local.inn_btn_spy_action, style: const TextStyle(color: LogdCodes.uiAmber)),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiCyan)),
+                      onPressed: onBribePressed != null ? () => onBribePressed!(target) : null,
+                      child: Text(local.innBtnBribe, style: const TextStyle(color: LogdCodes.uiCyan)),
+                    ),
+                  ] else ...[
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiRed)),
+                      onPressed: () => onSpyPressed(target), // We hergebruiken de spy-callback voor bounty placement
+                      child: Text(local.innBtnBountyAction, style: const TextStyle(color: LogdCodes.uiRed)),
+                    ),
+                  ],
+                ],
               ),
-            ],
-          ],
-        ),
+            ),
+          );
+        },
+      );
+    }
+
+    if (activeSection == "ROMANCE") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: SingleChildScrollView(child: LogdText(text: statusMessage, fontSize: LogdCodes.fontSizeDefault))),
+          const Divider(color: Colors.grey),
+          LogdText(text: local.innRomanceLabel(controller.romancePoints.toString()), fontSize: LogdCodes.fontSizeDefault),
+          const SizedBox(height: 5),
+          LinearProgressIndicator(value: (controller.romancePoints / 100).clamp(0.0, 1.0), backgroundColor: LogdCodes.uiBlueBg, color: LogdCodes.uiPinkAccent),
+        ],
+      );
+    }
+
+    return SingleChildScrollView(
+      child: LogdText(text: statusMessage, fontSize: LogdCodes.fontSizeDefault),
+    );
+  }
+}
+
+class PublicListTile extends StatelessWidget {
+  final Widget title;
+  final Widget trailing;
+
+  const PublicListTile({
+    super.key,
+    required this.title,
+    required this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [title, trailing],
       ),
     );
   }

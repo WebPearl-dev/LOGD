@@ -1,0 +1,52 @@
+{
+  "welcome": "`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een melancholisch lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aan bij de goktafel, of drink een slok!\"",
+  "inn_intro": "`gDe geur van verschraald bier, gebraden vlees en pijprook komt je tegemoet. Het is een lawaaierige bende in de herberg. Lokale avonturiers lachen luidruchtig aan lange houten tafels. Achter de bar poetst de barman met een vette doek een houten pul.`w",
+
+  "barman_welcome": "`4Barman:`w 'Welkom reiziger! Als je goud bij je hebt, heb ik het koudste bier van de regio. Het geeft je tijdelijk wat extra spierballen of herstelt je wonden. Wat kan ik voor je inschenken?'",
+  "barman_limit_reached": "`4Barman:`w 'Je hebt wel genoeg gehad voor vandaag, vriend. Ik schenk je niets meer in.'",
+  "drink_ale_success": "`2De barman schuift een grote, schuimende pul naar je toe. 'Drink op, held! Het zal je goed doen.' Het bier smaakt verrassend goed. Je voelt de warme energie door je spieren stromen. Je voelt je permanent een stukje gezonder! (+1 Max HP)`w",
+  "drink_ale_fail": "`4De barman schuift een grote, schuimende pul naar je toe. 'Drink op, held! Het zal je goed doen.' Het bier slaat direct in je benen. Je hoofd begint te spinnen... Je strompelt de bar uit en bent voorlopig te duizelig om monsters te spotten. (-1 Beurt)`w",
+  "drink_dragon_success": "`2Je drinkt het Drakenbloed in één teug leeg. Een verzengende hitte trekt door je armen. Je voelt je onoverwinnelijk! (+3 Attack voor de komende 5 gevechten)`w",
+
+  "bard_welcome": "`gDe Bard stemt zijn luit en knikt je toe. 'Zin in een legende, reiziger? Trakteer me op een drankje en ik bezing je daden.'`w",
+  "bard_song_warrior": "`2De Bard begint te spelen en zingt een episch lied over een held die met één slag een horde trollen wist te vellen. Het lied vult je met een onstuitbare bewijsdrang. (+2 Attack vandaag)`w",
+  "bard_song_scavenger": "`2De Bard zingt over verborgen schatten en gouden bergen. Je ogen glinsteren en je voelt je een stuk gelukkiger in je zoektocht. (+15% Goudwinst vandaag)`w",
+  "bard_song_haste": "`2De Bard speelt een vrolijk, snel ritme. Je voelt je lichtvoetig en klaar om kilometers te vreten! (+5 Beurten vandaag)`w",
+  "bard_limit_reached": "`wDe Bard legt zijn luit neer. 'Mijn stem moet rusten, vriend. Morgen zing ik weer voor je.'`w",
+
+  "romance_welcome_violet": "`gViolet veegt de bar schoon en glimlacht naar je. 'Hé daar, knappe krijger. Heb je weer heldendaden verricht in het bos?'`w",
+  "romance_welcome_seth": "`gSeth Able stemt zijn luit en knikt je toe. 'Welkom terug, reiziger. Heb je tijd om naar mijn nieuwste gedicht te luisteren?'`w",
+  "romance_flirt_success": "`2Je geeft een charmant compliment. Ze bloost even, lacht om je grap en veegt snel de tafel schoon. 'Je bent wel een vlotte prater hè? Kom later nog eens langs.' (+{points} Romance)`w",
+  "romance_flirt_fail": "`4Je maakt een veel te brute opmerking. Ze kijkt je woedend aan, pakt een houten deegroller en slaat je hard op je achterhoofd. 'Eruit jij, vlegel!' Je wordt de herberg uitgesmeten. (-5 HP)`w",
+  "romance_gift_success": "`2Je legt een glinsterende edelsteen op de bar. Haar ogen lichten op. 'Oh, voor mij? Wat ontzettend gul van je! Je bent echt anders dan die andere ruwe ridders hier.' (+25 Romance)`w",
+  "romance_proposal_ready": "`gJe voelt dat de tijd rijp is. Met de trouwring in je zak neem je een diepe hap adem...`w",
+  "romance_proposal_success": "`2'JA! Natuurlijk wil ik dat!' roept ze uit. De hele herberg juicht en de Barman schenkt een rondje van het huis. Je bent getrouwd!`w",
+  "romance_married_welcome": "`2Je partner begroet je met een warme kus. 'Fijn dat je er weer bent! Hier is wat zakgeld voor je avonturen.' (+{gold} Goud & Volledig Genezen)`w",
+
+  "shell_welcome": "`gEen schimmige figuur schuift drie bekers over de tafel. 'Gokje wagen? Onder één van deze bekers zit een erwt. Vind hem en verdrievoudig je inzet!'`w",
+  "shell_win": "`2Je wijst de middelste beker aan. De man tilt hem op... JA! De erwt ligt eronder. Je pakt je winst!`w",
+  "shell_lose": "`4Je wijst de beker aan, maar er ligt niets onder. De man grijnst en harkt je goud binnen.`w",
+
+  "gambler_welcome": "Aan een houten tafel zit een gladgestreken man met een fluwelen vest. 'De herberg is saai vandaag, vriend. Zin om het lot te tarten? De regels zijn simpel: we trekken allebei een kaart. Voorspel of jouw kaart hoger of lager is. Durf je?'",
+  "gambler_win": "`2De gokker legt zijn kaarten neer en vloekt binnensmonds. Je voorspelling was juist! 'Geluksvogel... hier zijn je munten.' (+{wager} Goud)`w",
+  "gambler_lose": "`4Met een triomfantelijke lach toont hij zijn kaart. 'Helaas, mijn beste avonturier. Je zat er volledig naast!' (-{wager} Goud)`w",
+
+  "gossip_welcome": "Een jonge barmeid fluistert: 'Als je wilt weten wie er momenteel de rijkste zakken heeft op het dorpsplein, moet je bij mij zijn. De mannen praten veel te luid...' (Kost: 50 Goud)",
+  "gossip_success": "Ze knipoogt en fluistert in je oor: 'Ik zag {target} net opscheppen bij de bar. Zijn plunjezak puilt helemaal uit van het goud ({gold} G)! Als je hem buiten opzoekt, word je slapend rijk...'",
+  "spy_welcome": "`gJe schuift aan bij de tafel in de donkerste hoek. Een man met een diepe capuchon kijkt op. 'Informatie is niet gratis, vriend...'`w",
+  "spy_result_basic": "`c'Mijn spionnen hebben {target} gevolgd. Hij loopt rond met {gold} goud en zijn gezondheid is {hp}/{maxHp}.'`w",
+  "spy_result_bank": "`cDe barman fluistert: 'Ik keek in het grootboek... {target} heeft maar liefst {gold} goud op zijn bankrekening!'`w",
+
+  "bounty_welcome": "In een schaduwrijke hoek zit de premiejager. 'Ik jaag op de gevaarlijkste wezens in dit rijk: andere spelers. Wie heeft je onrecht aangedaan?'",
+  "bounty_success": "De premiejager grijpt je goud en noteert de naam in zijn zwarte boekje. 'Ah, {target}... Zijn dagen zijn geteld.'",
+
+  "veteran_welcome": "Je schuift een kruk aan naast een luidruchtige veteraan. 'Hah! Nog een groentje!' brult hij. 'Heb je de moed om een écht verhaal te horen, of ben je bang dat je zwaard breekt?'",
+  "veteran_success": "De veteraan slaat je hard op je schouder. 'Kijk, dat mag ik horen! Luister: de monsters van jouw niveau hebben een hekel aan schijnbewegingen. Als je ze als eerste slaat, wankelen ze direct!' (+{xp} XP)",
+  "veteran_fail": "Hij neemt een diepe slok, kijkt je plotseling kwaad aan en duwt je van je kruk af. 'Wat sta je nou te gapen? Ga zelf maar vechten!' (-2 HP)",
+
+  "sour_beer_event": "`4Bij je eerste slok trek je een vies gezicht! Je bier is compleet zuur geworden! Een geest van de Begraafplaats heeft je drankje behekst!`w",
+  "error_no_gold": "`4De barman slaat op de bar:`w 'Je hebt niet genoeg goudstukken, reiziger! Ga eerst maar eens werken in het bos!'",
+  "error_no_gems": "`4'Denk je dat ik genoegen neem met praatjes? Kom pas terug als je glimmende Edelstenen bij je hebt!'`w",
+  "error_no_turns": "`4Je hebt geen beurten meer om te flirten vandaag!`w",
+  "error_no_ring": "`4Je hebt nog geen trouwring gekocht op het dorpsplein!`w"
+}

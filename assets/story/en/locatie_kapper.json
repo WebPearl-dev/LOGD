@@ -1,0 +1,11 @@
+{
+  "welcome": "In this clean, bright salon, it smells of shaving soap. Behind the chair stands a flamboyant barber with a razor: 'Welcome, honored adventurer! Are you here for a fresh cut?'",
+  "success": "The barber flashes his scissors through your hair: 'Magnificent! From this day forth, everyone on the town square will address you by your new royal title!'",
+  "error_no_gem": "`4The barber shakes his head: 'I only work for real shiny gems, darling!'`w",
+  "title_options_male": "Sir,Lord,Baron,Duke,Count,Legend",
+  "title_options_female": "Lady,Baroness,Duchess,Countess,Legend",
+  "cut_success": "The barber cuts with surgical precision. You look fantastic! You feel much more attractive.",
+  "shave_success": "With a warm towel and a razor, he makes your skin baby-smooth. You feel reborn!",
+  "dye_success": "With some exotic extracts, he conjures a new glow in your hair: 'A bold choice, it looks lovely on you!'",
+  "error_no_gold": "`4The barber sighs: 'Passion is free, my craftsmanship is not. Come back when you have enough gold!'`w"
+}

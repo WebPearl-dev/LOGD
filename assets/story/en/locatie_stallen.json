@@ -1,0 +1,9 @@
+{
+  "welcome": "`gYou walk into the stables. The scent of fresh hay and leather fills the room. The stablemaster approaches you and taps his hat:`w\n\n\"Welcome traveler! Are you looking for a loyal companion for your travels? A good mount protects you in battle and ensures you can travel faster every day!\"",
+  "current_mount": "Your current mount: `c{mount}`w",
+  "no_mount": "None (You are traveling on foot)",
+  "upgrade_title": "=== AVAILABLE MOUNT ===",
+  "bonus_label": "Bonus: `2+{def} Def`w | `p+{turns} Turns per day`w",
+  "success_buy": "`2You successfully purchased a {mount}! The stablemaster brings your new companion out.`w",
+  "max_level": "`gYou already own the legendary Golden Dragon! The stablemaster looks at your mount with total awe.`w"
+}

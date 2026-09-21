@@ -1,0 +1,9 @@
+{
+  "welcome": "`gJe loopt de stallen binnen. De gevecht van vers hooi en leder vult de ruimte. De stalmeester loopt op je af en tikt tegen zijn hoed:`w\n\n\"Welkom reiziger! Zoek je een trouwe metgezel voor je reizen? Een goed rijdier beschermt je in de strijd en zorgt dat je elke dag sneller kunt reizen!\"",
+  "current_mount": "Je huidige rijdier: `c{mount}`w",
+  "no_mount": "Geen (Je loopt te voet)",
+  "upgrade_title": "=== BESCHIKBAAR RIJDIER ===",
+  "bonus_label": "Bonus: `2+{def} Def`w | `p+{turns} Beurten per dag`w",
+  "success_buy": "`2Je hebt succesvol een {mount} gekocht! De stalmeester brengt je nieuwe metgezel naar buiten.`w",
+  "max_level": "`gJe bezit al de legendarische Gouden Draak! De stalmeester kijkt vol ontzag naar je rijdier.`w"
+}

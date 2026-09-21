@@ -2,13 +2,14 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/logd_codes.dart';
+import 'logd_text.dart';
 
 class BankActionPanel extends StatelessWidget {
   final TextEditingController amountController;
   final Function(bool) onHandleCustomAmount;
   final VoidCallback onDepositAll;
   final VoidCallback onWithdrawAll;
-  final VoidCallback onReturnTown;
+  final String? limitInfo;
 
   const BankActionPanel({
     super.key,
@@ -16,7 +17,7 @@ class BankActionPanel extends StatelessWidget {
     required this.onHandleCustomAmount,
     required this.onDepositAll,
     required this.onWithdrawAll,
-    required this.onReturnTown,
+    this.limitInfo,
   });
 
   @override
@@ -27,7 +28,11 @@ class BankActionPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // GECORRIGEERD: Invoerveld gekoppeld aan de centrale retro wetten
+        if (limitInfo != null) ...[
+          LogdText(text: limitInfo!, fontSize: LogdCodes.fontSizeDefault - 2),
+          const SizedBox(height: 8),
+        ],
+        
         TextField(
           controller: amountController,
           keyboardType: TextInputType.number,
@@ -41,7 +46,6 @@ class BankActionPanel extends StatelessWidget {
         ),
         const SizedBox(height: 16),
 
-        // Rij 1: Handmatige transacties
         Row(
           children: [
             Expanded(
@@ -69,7 +73,6 @@ class BankActionPanel extends StatelessWidget {
         ),
         const SizedBox(height: 8),
 
-        // Rij 2: Alles storten / opnemen
         Row(
           children: [
             Expanded(
@@ -94,20 +97,6 @@ class BankActionPanel extends StatelessWidget {
               ),
             ),
           ],
-        ),
-        const SizedBox(height: 12),
-
-        // Terugknop
-        OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.blue, width: 2),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-          ),
-          onPressed: onReturnTown,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
-          ),
         ),
       ],
     );

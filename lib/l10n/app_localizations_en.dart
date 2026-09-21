@@ -35,12 +35,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String enemyDefeated(Object enemy, Object gold, Object xp) {
-    return '`2You defeated the $enemy! `w\nYou earned `y$gold gold `wand `c$xp experience`w!';
+    return '`2You have defeated the $enemy! `w\nYou earn `y$gold gold `wand `c$xp experience`w!';
   }
 
   @override
   String playerDied(Object enemy) {
-    return '`4You succumbed to your wounds caused by the $enemy... You are DEAD! `w\nYou lose all gold on hand.';
+    return '`4You have succumbed to your wounds from the $enemy... You are DEAD! `w\nYou lose all gold on hand.';
   }
 
   @override
@@ -50,29 +50,29 @@ class AppLocalizationsEn extends AppLocalizations {
     Object damageReceived,
     Object enemy,
   ) {
-    return '`2You attack and deal $damageDealt damage to the $enemy.`w\nThe $enemy $attackText and deals `4$damageReceived damage`w back!';
+    return '`2You attack and deal $damageDealt damage to the $enemy.`w(\nThe $enemy $attackText) and deals `4$damageReceived damage`w back!';
   }
 
   @override
   String fleeSuccess(Object enemy) {
-    return '`gYou run away and safely escape from the $enemy!`w';
+    return '`gYou run away fast and safely escape from the $enemy!`w';
   }
 
   @override
   String fleeFailed(Object damage, Object enemy) {
-    return '`4Flee failed! The $enemy blocks your way and deals $damage damage during your escape attempt!`w';
+    return '`4Fleeing failed! The $enemy blocks your path and deals $damage damage during your escape attempt!`w';
   }
 
   @override
   String get townSquareWelcome =>
-      '`gWelcome to the Town Square of `yLord of the Golden Dragon`w!\n\nThe sun shines over the realm. Travelers gossip in the shadows, and in the distance, you hear roaring from the forest... What will you do today?`w';
+      '`gWelcome to the Town Square of `yLord of the Golden Dragon`w!\n\nThe sun shines over the realm. Travelers talk in the shade, and in the distance you hear the roaring from the forest... What are you going to do today?`w';
 
   @override
   String get btnGoToForest => 'Enter the forest';
 
   @override
   String get forestSearching =>
-      '`gYou carefully stalk through the dense undergrowth looking for danger...`w';
+      '`gYou carefully sneak through the dense undergrowth in search of danger...`w';
 
   @override
   String get btnAttack => 'Attack';
@@ -101,10 +101,10 @@ class AppLocalizationsEn extends AppLocalizations {
       '\n`4You succumbed to your wounds... You are DEAD!`w';
 
   @override
-  String get authTitle => 'Enter the Realm';
+  String get authTitle => 'Access to the Realm';
 
   @override
-  String get authEmail => 'Email Address';
+  String get authEmail => 'Email address';
 
   @override
   String get authPassword => 'Password';
@@ -129,7 +129,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authSuccessRegister =>
-      'Character created successfully! You can now log in.';
+      'Character successfully created! You can now log in.';
 
   @override
   String statXp(Object amount) {
@@ -147,16 +147,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileDeleteWarning =>
-      'Are you sure? This deletes all your gold, levels, and XP permanently!';
+      'Are you sure? This will delete all your gold, levels, and XP permanently!';
 
   @override
   String get profileLogout => 'Leave the Realm (Logout)';
 
   @override
-  String get profileBiometricToggle => 'Biometric Login (Fingerprint/FaceID)';
+  String get profileBiometricToggle => 'Biometric login (Fingerprint/FaceID)';
 
   @override
-  String get profileSuccessUpdate => '`2Name changed successfully!`w';
+  String get profileSuccessUpdate => '`2Name successfully changed!`w';
 
   @override
   String get btnSave => 'Save';
@@ -169,7 +169,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bankWelcome =>
-      '`gYou walk into the stately building of the bank. A dwarf behind the counter stares at you strictly through his spectacles.`w\n\n\"Welcome traveler. Here you can store your gold safely in case you underestimate the monsters in the forest. What will you do?\"';
+      '`gYou walk into the stately building of the bank. A dwarf behind the counter stares at you strictly through his glasses.`w\n\n\"Welcome traveler. Here you can safely store your gold in case you underestimate the monsters in the forest. What do you want to do?\"';
 
   @override
   String bankInBank(Object amount) {
@@ -182,44 +182,62 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get btnDepositAll => 'Deposit All';
+  String get btnDepositAll => 'Deposit all';
 
   @override
-  String get btnWithdrawAll => 'Withdraw All';
+  String get btnWithdrawAll => 'Withdraw all';
 
   @override
-  String get btnDepositCustom => 'Deposit Custom';
+  String get btnDepositCustom => 'Deposit amount';
 
   @override
-  String get btnWithdrawCustom => 'Withdraw Custom';
+  String get btnWithdrawCustom => 'Withdraw amount';
 
   @override
   String bankSuccessDeposit(Object amount) {
-    return '`2You deposited $amount gold pieces into your account.`w';
+    return '`2You have deposited $amount gold pieces into your account.`w';
   }
 
   @override
   String bankSuccessWithdraw(Object amount) {
-    return '`2You withdrew $amount gold pieces from your account.`w';
+    return '`2You have withdrawn $amount gold pieces from your account.`w';
   }
 
   @override
   String get bankErrorNoGoldOnHand =>
-      '`4You don\'t have that much gold on hand!`w';
+      '`4You do not have that much gold on hand!`w';
 
   @override
   String get bankErrorNoGoldInBank =>
-      '`4You don\'t have that much gold in your bank account!`w';
+      '`4That much gold is not in your bank account!`w';
 
   @override
   String get bankErrorInvalid => '`4Please enter a valid amount!`w';
+
+  @override
+  String bankVaultBalance(Object amount) {
+    return 'Vault Balance: `y$amount gold`w';
+  }
+
+  @override
+  String bankOnHandLabel(Object amount) {
+    return 'On hand: `y$amount gold`w';
+  }
+
+  @override
+  String bankDepositLimitLabel(Object amount) {
+    return 'Deposit limit left: `c$amount gold`w';
+  }
+
+  @override
+  String get btnTalkBanker => 'TALK TO THE BANKER';
 
   @override
   String get raceTitle => 'Choose your Race';
 
   @override
   String get raceWelcome =>
-      '`gBefore entering the realm, you must determine what you are made of. Choose wisely, traveler...`w';
+      '`gBefore you enter the realm, you must determine what you are made of. Choose carefully, traveler...`w';
 
   @override
   String get raceHuman => 'Human';
@@ -233,7 +251,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get raceElfDesc =>
-      'Elegant and mystical. Starts with `c+1 shiny gem`w on hand.';
+      'Elegant and mystic. Starts with `c+1 shiny gem`w on hand.';
 
   @override
   String get raceDwarf => 'Dwarf';
@@ -246,8 +264,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get raceOrc => 'Orc';
 
   @override
-  String get raceOrcDesc =>
-      'Brutal and powerful. Starts with `r+5 maximum HP`w.';
+  String get raceOrcDesc => 'Brutal and strong. Starts with `r+5 maximum HP`w.';
 
   @override
   String get btnConfirmRace => 'Confirm choice and start adventure';
@@ -257,34 +274,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get specialtyWelcome =>
-      '`gEvery traveler in the realm excels in different arts. Choose the path that suits your combat style...`w';
+      '`gEvery traveler in the realm excels in something else. Choose the path that matches your fighting style...`w';
 
   @override
-  String get specMagic => 'Mystical Arts (Magic)';
+  String get specMagic => 'Mystic Powers (Magic)';
 
   @override
   String get specMagicDesc =>
-      'Master of elements. Starts with the `cRegeneration`w spell to heal yourself during combat.';
+      'Master of elements. Starts with the spell `cRegeneration`w to heal yourself in combat.';
 
   @override
-  String get specThieving => 'Thieving Skills';
+  String get specThieving => 'Theft (Thieving)';
 
   @override
   String get specThievingDesc =>
-      'Quick and cunning. Starts with the `yPickpocket`w skill to extract extra gold from monsters.';
+      'Fast and sly. Starts with the skill `yPickpocket`w to knock extra gold out of monsters.';
 
   @override
-  String get specWarrior => 'Warrior Skills';
+  String get specWarrior => 'Warrior';
 
   @override
   String get specWarriorDesc =>
-      'Brute strength and steel. Starts with the `rShield Bash`w skill for extra heavy hits.';
+      'Brute strength and steel. Starts with the skill `rShield Bash`w for extra heavy hits.';
 
   @override
   String get btnConfirmSpecialty => 'Choose class and enter the Town Square';
 
   @override
-  String get btnUseSkill => 'Use Skill';
+  String trainingDuelTitle(Object name) {
+    return '=== DUEL WITH $name ===';
+  }
+
+  @override
+  String trainingMasterHp(Object current, Object max) {
+    return 'MASTER HP: `4$current / $max`w';
+  }
+
+  @override
+  String get trainingMasterAttack => 'strikes with a wooden practice sword';
+
+  @override
+  String trainingPlayerAttackLog(Object damage) {
+    return '`2You hit the Master for $damage damage.`w';
+  }
+
+  @override
+  String trainingMasterAttackLog(Object attack, Object damage, Object name) {
+    return '\n$name $attack and deals `4$damage damage`w back!';
+  }
+
+  @override
+  String trainingXpLabel(Object current, Object needed) {
+    return 'Experience (XP): `c$current / $needed`w';
+  }
+
+  @override
+  String get btnUseSkill => 'Skill';
 
   @override
   String get skillAlreadyUsed =>
@@ -292,25 +337,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String skillMagicSuccess(Object amount) {
-    return '`cYou cast Regeneration! A mystical light surrounds you and heals $amount HP.`w';
+    return '`cYou cast the spell Regeneration! A mystic light surrounds you and heals $amount HP.`w';
   }
 
   @override
   String skillThievingSuccess(Object amount, Object enemy) {
-    return '`yYou use your Pickpocket skill during the attack and knock an extra $amount gold pieces out of the $enemy!`w';
+    return '`yYou use your Pickpocket skill during the attack and rob $amount extra gold pieces from the $enemy!`w';
   }
 
   @override
   String skillWarriorSuccess(Object amount, Object enemy) {
-    return '`rYou perform a brute Shield Bash! You slam heavily into the $enemy and deal $amount GUARANTEED damage!`w\nThe $enemy is dazed!';
+    return '`rYou execute a brute Shield Bash! You slam directly into the $enemy and deal $amount GUARANTEED damage!`w(\nThe $enemy) is dazed!';
   }
 
   @override
-  String get smithyTitle => 'The Blazing Anvil Smithy';
+  String get smithyTitle => 'The Market of Oaktaven';
 
   @override
   String get smithyWelcome =>
-      '`gYou step into the blistering hot smithy. A muscular dwarf slams a massive hammer onto a glowing blade. Hot iron hisses in a bucket of water.`w\n\n\"Welcome to my forge, traveler! Tired of that wooden stick and tattered shirt? Have a look around, but remember: looking is free, buying costs gold!\"';
+      '`gYou walk onto the lively market. To the left you see the smoking forge of Pegasus, to the right the elegant boutique of Merilon.`w';
 
   @override
   String get smithyCurrentEquip => 'Current equipment:';
@@ -330,7 +375,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String smithyCostLabel(Object cost) {
-    return 'Cost: `y$cost gold pieces`w (trade-in value included)';
+    return 'Cost: `y$cost gold pieces`w (trade-in value applied)';
   }
 
   @override
@@ -338,86 +383,140 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get smithyMaxLevel =>
-      '`gYou already possess the finest equipment in the realm!`w';
+      '`gYou already possess the absolute best equipment in the realm!`w';
 
   @override
   String smithySuccessBuy(Object name) {
-    return '`2You successfully upgraded to: $name!`w';
+    return '`2You have successfully upgraded to: $name!`w';
   }
 
   @override
   String get smithyErrorNoGold =>
-      '`4The smith laughs at you: \"You don\'t have enough gold on hand!\"`w';
+      '`4The smith laughs at you: \"You do not have enough gold pieces on hand!\"`w';
 
   @override
   String get btnVisitBank => 'Bank';
 
   @override
-  String get btnVisitSmithy => 'Smithy';
+  String get btnVisitSmithy => 'Shops';
 
   @override
   String get smithyAmountLabel => 'Amount of gold pieces';
 
   @override
-  String get wep0 => 'Wooden Stick';
+  String get btnVisitPegasus => 'Visit Pegasus Weapons';
 
   @override
-  String get wep1 => 'Rusty Dagger';
+  String get btnVisitMerilon => 'Visit Merilon Armour';
 
   @override
-  String get wep2 => 'Large Cleaver';
+  String get btnTalkPegasus => 'Talk to Pegasus';
 
   @override
-  String get wep3 => 'Iron Sword';
+  String get btnTalkMerilon => 'Talk to Merilon';
 
   @override
-  String get wep4 => 'Gleaming Broadsword';
+  String get wep0 => 'Bare Fists';
 
   @override
-  String get wep5 => 'Heavy Battlehammer';
+  String get wep1 => 'Wooden Stick';
 
   @override
-  String get wep6 => 'Trident Spear';
+  String get wep2 => 'Rusty Dagger';
 
   @override
-  String get wep7 => 'Crystal Sabre';
+  String get wep3 => 'Hand Axe';
 
   @override
-  String get wep8 => '龍 (Dragon) Sword';
+  String get wep4 => 'Iron Short Sword';
 
   @override
-  String get arm0 => 'Tattered Shirt';
+  String get wep5 => 'Steel Broadsword';
+
+  @override
+  String get wep6 => 'Large War Hammer';
+
+  @override
+  String get wep7 => 'Crossed Halberd';
+
+  @override
+  String get wep8 => 'Elven Crossbow';
+
+  @override
+  String get wep9 => 'Rune Sword';
+
+  @override
+  String get wep10 => 'Mace of Dove';
+
+  @override
+  String get wep11 => 'Shining Club';
+
+  @override
+  String get wep12 => 'Obsidian Blade';
+
+  @override
+  String get wep13 => 'Dragonbone Spear';
+
+  @override
+  String get wep14 => 'Heavenly Sword';
+
+  @override
+  String get wep15 => 'Excalibur of Oaktaven';
+
+  @override
+  String get arm0 => 'Everyday Clothing';
 
   @override
   String get arm1 => 'Leather Vest';
 
   @override
-  String get arm2 => 'Reinforced Leather Armor';
+  String get arm2 => 'Thick Boiled Leather';
 
   @override
-  String get arm3 => 'Iron Chainmail';
+  String get arm3 => 'Studded Leather Armor';
 
   @override
-  String get arm4 => 'Bronze Breastplate';
+  String get arm4 => 'Ring Mail';
 
   @override
-  String get arm5 => 'Steel Plate Mail';
+  String get arm5 => 'Light Chainmail';
 
   @override
-  String get arm6 => 'Mithril Chainmail';
+  String get arm6 => 'Heavy Steel Chainmail';
 
   @override
-  String get arm7 => 'Enchanted Shield';
+  String get arm7 => 'Banded Mail';
 
   @override
-  String get arm8 => 'Dragon Scale Armor';
+  String get arm8 => 'Elven Breastplate';
 
   @override
-  String get trainingTitle => 'The Masters Training Hall';
+  String get arm9 => 'Chiseled Bronze Armor';
+
+  @override
+  String get arm10 => 'Knightly Plate Armor';
+
+  @override
+  String get arm11 => 'Rune Protection';
+
+  @override
+  String get arm12 => 'Obsidian Shield & Armor';
+
+  @override
+  String get arm13 => 'Dragonhide Shields';
+
+  @override
+  String get arm14 => 'Paladin Cuirass';
+
+  @override
+  String get arm15 => 'The God Armor';
+
+  @override
+  String get trainingTitle => 'The Training Room of the Masters';
 
   @override
   String get trainingWelcome =>
-      '`gYou step into the serene, incense-scented training hall. Your Master stands with crossed arms in the center of the mat.`w\n\n\"Welcome, traveler. I see you have fought in the forest. But are you truly ready for the next level?\"';
+      '`gYou step into the serene, incense-scented training room. Your Master stands with crossed arms in the middle of the mat.`w\n\n\"Welcome, traveler. I see you have fought in the forest. But are you truly ready for the next step?\"';
 
   @override
   String trainingStatusReq(Object currentXp, Object nextLvl, Object reqXp) {
@@ -429,19 +528,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trainingNotReady =>
-      '`4You haven\'t earned enough experience to challenge me yet. Train harder in the forest!`w';
+      '`4You have not earned enough experience to challenge me yet. Train harder in the forest!`w';
 
   @override
   String get btnChallengeMaster => 'Challenge the Master';
 
   @override
   String trainingVictory(Object lvl, Object maxHp) {
-    return '`2Congratulations! You defeated your Master and rise to Level $lvl! Your maximum HP is permanently increased to $maxHp.`w';
+    return '`2Congratulations! You have defeated your Master and rise to Level $lvl! Your maximum HP is permanently increased to $maxHp.`w';
   }
 
   @override
   String get trainingDefeat =>
-      '`4Your Master beats you senseless with a wooden training sword: \"You are not ready yet, apprentice!\" You barely survive, your HP is reduced to 1.`w';
+      '`4Your Master beats you senseless on the mat with a wooden training sword: \"You are not ready yet, apprentice!\" You barely survive, but your HP is at 1.`w';
 
   @override
   String get master0 => 'Master Jon';
@@ -456,14 +555,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get master3 => 'Master Drake';
 
   @override
-  String get btnVisitTraining => 'Training Hall';
+  String get btnVisitTraining => 'Training Room';
 
   @override
   String get eventFountainTitle => 'The Old Water Fountain';
 
   @override
   String get eventFountainDesc =>
-      '`gYou stumble upon an overgrown, ruined water fountain covered in moss. In the crystal-clear water at the bottom, you see something glittering...`w\n\nWhat do you do?';
+      '`gYou stumble upon an overgrown, dilapidated water fountain covered in moss. In the crystal-clear water at the bottom, you see something gleaming...`w\n\nWhat do you do?';
 
   @override
   String get btnEventFountainDive => 'Dive in';
@@ -473,44 +572,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String eventFountainSuccess(Object amount) {
-    return '`2You splash into the cold water and scoop the bottom. You surface with a handful of $amount old gold pieces!`w';
+    return '`2You jump into the cold water and grab around the bottom. You come up with a handful of $amount old gold pieces!`w';
   }
 
   @override
   String eventFountainFail(Object amount) {
-    return '`4Splash! You miss, smash your knee hard against a sharp rock, and lose $amount HP. The glittering object was just a worthless piece of glass...`w';
+    return '`4Splash! You miss your jump, smash your knee hard against a sharp rock, and lose $amount HP. The gleaming object turned out to be a worthless piece of glass...`w';
   }
 
   @override
   String get eventFountainLeaveLog =>
-      '`wYou don\'t trust it and carefully continue through the brush.`w';
+      '`wYou do not trust it and carefully walk further through the undergrowth.`w';
 
   @override
   String get eventGiantTitle => 'The Sleeping Giant';
 
   @override
   String get eventGiantDesc =>
-      '`gBlocking the path ahead, a gigantic forest giant is snoring loudly. The ground shakes with every snore. Around his neck hangs a leather pouch...`w\n\nWhat do you do?';
+      '`gAhead on the path, a gigantic forest giant lies snoring loudly. The ground shakes with every snore. Around his neck hangs a leather pouch...`w\n\nWhat do you do?';
 
   @override
   String get btnEventGiantSneak => 'Sneak past';
 
   @override
-  String get btnEventGiantSteal => 'Try to pickpocket';
+  String get btnEventGiantSteal => 'Try to steal';
 
   @override
   String eventGiantSneakSuccess(Object amount) {
-    return '`2You hold your breath and tiptoe past the giant. This cautious maneuver earns you $amount experience (XP)!`w';
+    return '`2You hold your breath and sneak on your tiptoes past the giant. This cautious action rewards you with $amount experience (XP)!`w';
   }
 
   @override
   String eventGiantStealSuccess(Object amount) {
-    return '`yWith velvet fingers, you slice the pouch open. You steal $amount gold pieces and 1 Gem without him waking up!`w';
+    return '`yWith velvety fingers, you cut the pouch loose. You steal $amount gold pieces and 1 gem without waking him up!`w';
   }
 
   @override
   String eventGiantStealFail(Object amount) {
-    return '`4Crack! You step on a twig. The giant opens a bloodshot eye, roars furiously, and slaps you hard! You lose $amount HP before running away terrified!`w';
+    return '`4Crack! You step on a twig. The giant opens a bloodshot eye, roars furiously, and gives you a hard blow! You lose $amount HP before running away terrified!`w';
   }
 
   @override
@@ -539,52 +638,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get graveyardWelcome =>
-      '`4You have died!`w\n\n`gThe icy mist clears, and you stand face to face with Death. His hollow eyes stare deep into your soul. A heavy voice echoes through the silence:`w\n\n\"Your time has come, mortal. But I am in a generous mood... If you grant me a precious Gem or sacrifice a part of your Experience, I will return your mortal body at once. What do you choose?\"';
+      '`4You have died!`w\n\n`gThe icy mist clears and you stand face to face with the Grim Reaper. His hollow eyes stare deep into your soul. A heavy voice echoes through the silence:`w\n\n\"Your time has come, mortal. But I am in a generous mood... If you grant me a precious Gem or sacrifice a part of your Experience, I will give you your mortal body back immediately. What do you choose?\"';
 
   @override
-  String get btnGraveyardOfferGem => 'Sacrifice 1 Gem';
+  String get btnGraveyardOfferGem => 'Offer 1 Gem';
 
   @override
-  String get btnGraveyardOfferXp => 'Sacrifice 100 XP';
+  String get btnGraveyardOfferXp => 'Offer 100 XP';
 
   @override
-  String get btnGraveyardAcceptLot => 'Accept your fate (Wait till tomorrow)';
+  String get btnGraveyardAcceptLot => 'Accept your fate (Wait until tomorrow)';
 
   @override
   String get graveyardSuccessResurrect =>
-      '`2Death laughs terrifyingly. A warm light flows through your veins... You are resurrected and may enter the Town Square once more!`w';
+      '`2The Grim Reaper laughs terrifyingly. A warm light flows through your veins... You have resurrected and may enter the Town Square again!`w';
 
   @override
   String get graveyardErrorNoGem =>
-      '`You don\'t have any shiny gems on hand! Death rattles his scythe impatiently.`w';
+      '`4You do not have any shiny gems on hand! The Reaper rattles his scythe impatiently.`w';
 
   @override
   String get graveyardErrorNoXp =>
-      '`4You don\'t even have enough experience to sacrifice! Death shakes his head.`w';
+      '`4You do not even have enough experience to sacrifice! The Reaper shakes his head.`w';
 
   @override
   String get graveyardWaitMessage =>
-      '`gYou wander quietly among the tombstones, waiting for the dawn of a new day...`w';
+      '`gYou wander quietly among the gravestones and wait for the new day...`w';
 
   @override
   String get newsTitle => 'The Daily News of the Realm';
 
   @override
   String get newsWelcome =>
-      '`gYou walk up to the wooden notice board in the center of the square. Fresh sheets of parchment rustle gently in the wind.`w\n\n\"Hear ye, hear ye! This is what transpired in our realm today:\"';
+      '`gYou walk to the wooden notice board in the middle of the square. A few fresh sheets of parchment are gently flapping in the wind.`w\n\n\"Hear ye, hear ye! This is what has occurred in our realm today:\"';
 
   @override
   String get newsEmpty =>
-      '`wThe notice board is currently empty. It is a peaceful day in the realm...`w';
+      '`wThe notice board is currently empty. It is a quiet day in the realm...`w';
 
   @override
-  String newsLogDefeated(Object enemy, Object username) {
-    return '`4$username`w was brutally slaughtered in the forest by a `r$enemy`w!';
+  String newsLogDefeated(Object enemy, Object user) {
+    return '$user was brutally slaughtered in the forest by a $enemy!';
   }
 
   @override
-  String newsLogLevelUp(Object level, Object username) {
-    return '`2$username`w has risen to `yLevel $level`w after a legendary duel in the training hall!';
+  String newsLogDefeatedBrutal(Object enemy, Object user) {
+    return '$user thought they were a hero, but was eaten for breakfast by a $enemy!';
+  }
+
+  @override
+  String newsLogLevelUp(Object level, Object user) {
+    return '$user has risen to Level $level after a legendary duel in the training room!';
+  }
+
+  @override
+  String newsLogMarriage(Object partner, Object user) {
+    return 'Great celebration! $user has tied the knot today with $partner!';
+  }
+
+  @override
+  String get rankingsTitle => 'The Hall of Fame';
+
+  @override
+  String get rankingsWelcome => 'The mightiest warriors of the realm:';
+
+  @override
+  String get rankingsEmpty => 'No legendary heroes have risen yet...';
+
+  @override
+  String get townCrierTitle => 'The Town Crier';
+
+  @override
+  String get townCrierPrefix => '`4HEAR YE, HEAR YE! `w';
+
+  @override
+  String statDk(Object amount) {
+    return 'DK: $amount';
   }
 
   @override
@@ -600,7 +729,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get devTitle => '=== GOD MODE: DEV MENU ===';
 
   @override
-  String get btnDevHeal => 'Fully Heal (Full HP)';
+  String get btnDevHeal => 'Heal Fully (Full HP)';
 
   @override
   String get btnDevGold => 'Give +10,000 Gold';
@@ -612,11 +741,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnDevTurns => 'Give +10 Turns';
 
   @override
-  String get btnDevLevelUp => 'Instant Level Up (+1 Lvl)';
+  String get btnDevLevelUp => 'Direct Level Up (+1 Lvl)';
 
   @override
   String get devSuccessMessage =>
-      '`p[DEV] Stat successfully updated in the cloud!`w';
+      '`p[DEV] Stat successfully adjusted in the cloud!`w';
 
   @override
   String get devScreenTitle => 'MASTER DEV CONSOLE';
@@ -626,24 +755,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get devSpawnMonsterDesc =>
-      'Click on any monster below to instantly force a fight in the forest and test balances:';
+      'Click on a monster below to directly force a fight in the forest and check the balance:';
 
   @override
-  String get innTitle => 'The Drunken Dragon Inn';
+  String get innTitle => 'Inn \'The Drunken Dragon\'';
 
   @override
   String get innWelcome =>
-      '`gYou step into the rowdy inn. The smell of roasted meat and heavy ale greets you. In the corner, a bard sings a terrible retro tune while travelers loudly roll dice.`w\n\n\"Welcome, stranger!\" the innkeeper shouts while wiping a large mug. \"Pull up a chair at the dice table or have a drink!\"';
+      '`gYou step into the rowdy inn. The smell of roasted meat and strong beer welcomes you. In the corner, a bard sings a terrible retro song, while travelers loudly roll dice.`w\n\n\"Welcome, stranger!\" cries the innkeeper while cleaning a large mug. \"Pull up a chair at the gamble table, or have a drink!\"';
 
   @override
-  String get innDiceTitle => '=== THE DICE TABLE ===';
+  String get innDiceTitle => '=== THE GAMBLE TABLE ===';
 
   @override
   String get innDiceDesc =>
-      'Wager gold to roll dice against the locals. Highest roll wins!';
+      'Bet gold to roll dice against the tavern masters. Highest roll wins!';
 
   @override
-  String get btnInnRoll => 'Roll Dice';
+  String get btnInnRoll => 'Roll dice';
 
   @override
   String get innErrorNoGold =>
@@ -651,30 +780,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String innDiceVictory(Object eRoll, Object gold, Object pRoll) {
-    return '`2You roll $pRoll and the house rolls $eRoll. You win $gold gold pieces!`w';
+    return '`2You roll $pRoll and the tavern master rolls $eRoll. You win $gold gold pieces!`w';
   }
 
   @override
   String innDiceDefeat(Object eRoll, Object gold, Object pRoll) {
-    return '`4You roll $pRoll and the house rolls $eRoll. You lose $gold gold pieces...`w';
+    return '`4You roll $pRoll and the tavern master rolls $eRoll. You lose $gold gold pieces...`w';
   }
 
   @override
   String innDiceTie(Object pRoll) {
-    return '`wIt\'s a tie! You both rolled $pRoll. Your wager is returned.`w';
+    return '`wTie! You both roll $pRoll. You get your bet back.`w';
   }
 
   @override
-  String get btnVisitInn => 'The Inn';
+  String get btnVisitInn => 'Inn';
 
   @override
-  String newsLogInnWin(Object gold, Object username) {
-    return '`2$username`w just won `y$gold gold pieces`w rolling dice at the Inn!';
+  String newsLogInnWin(Object gold, Object user) {
+    return 'Just now, $user won $gold gold pieces by rolling dice in the Inn!';
   }
 
   @override
-  String newsLogInnLoss(Object gold, Object username) {
-    return '`o$username`w just got cleaned out by the innkeeper and lost `y$gold gold pieces`w...';
+  String newsLogInnLoss(Object gold, Object user) {
+    return 'Just now, $user was played completely broke by the bank and lost $gold gold pieces...';
   }
 
   @override
@@ -682,7 +811,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stablesWelcome =>
-      '`gYou walk into the stables. The scent of fresh hay and leather fills the air. The stablemaster approaches you and tips his hat:`w\n\n\"Welcome traveler! Looking for a loyal companion? A good mount protects you in battle and allows you to travel faster every day!\"';
+      '`gYou enter the stables. The scent of fresh hay and leather fills the air. The stable master walks up to you and taps his hat:`w\n\n\"Welcome traveler! Looking for a loyal companion for your travels? A good mount protects you in battle and ensures you can travel faster every day!\"';
 
   @override
   String stablesCurrentMount(Object mount) {
@@ -690,7 +819,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get stablesNoMount => 'None (You are traveling on foot)';
+  String get stablesNoMount => 'None (You travel on foot)';
 
   @override
   String get stablesUpgradeAvailable => '=== AVAILABLE MOUNT ===';
@@ -702,7 +831,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String stablesCostGemsLabel(Object gems, Object gold) {
-    return 'Price: `y$gold gold`w & `c$gems Gems`w';
+    return 'Price: `y$gold goud`w & `c$gems Gems`w';
   }
 
   @override
@@ -712,12 +841,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String stablesSuccessBuy(Object mount) {
-    return '`2You successfully purchased a $mount! The stablemaster brings out your new companion.`w';
+    return '`2You have successfully bought a $mount! The stable master brings your new companion outside.`w';
   }
 
   @override
   String get stablesMaxLevel =>
-      '`gYou already own the legendary Golden Dragon! The stablemaster looks at your mount in awe.`w';
+      '`gYou already own the legendary Golden Dragon! The stable master looks at your mount with total awe.`w';
 
   @override
   String get btnVisitStables => 'Stables';
@@ -742,14 +871,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get churchWelcome =>
-      '`gYou step into the imposing, silent church. Dim light filters through stained glass windows onto the altar. The scent of incense and ancient parchment fills the air.`w\n\n\"Kneel, traveler,\" whispers a monk in a long robe. \"Offer a prayer to the Gods of the Realm. But beware... the Gods are fickle!\"';
+      '`gYou step into the imposing, quiet church. The little light falls through the stained-glass windows onto the altar. There is a scent of incense and old parchments.`w\n\n\"Kneel down, traveler,\" whispers a monk in a long robe. \"Say a prayer to the Gods of the Realm. But be warned... the Gods are fickle!\"';
 
   @override
-  String get btnChurchPray => 'Offer a Prayer';
+  String get btnChurchPray => 'Say a Prayer';
+
+  @override
+  String get btnChurchConfess => 'Confess Sins';
+
+  @override
+  String get btnChurchCandle => 'Light a Candle (1 Gem)';
 
   @override
   String get churchAlreadyPrayed =>
-      '`4You have already prayed just now! The Gods will not hear you if you keep pestering them.`w';
+      '`4You have already prayed just now! The Gods do not hear you if you keep nagging.`w';
+
+  @override
+  String get churchAlreadyConfessed =>
+      '`4You have already cleared your conscience for today.`w';
+
+  @override
+  String get churchAlreadyLitCandle =>
+      '`4The altar is already full of your candles.`w';
 
   @override
   String churchBlessGold(Object gold) {
@@ -758,12 +901,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String churchBlessGems(Object gems) {
-    return '`2An angel descends and gifts you a shiny Gem ($gems Gem)!`w';
+    return '`2An angel descends and grants you a shiny Gem ($gems Gem)!`w';
   }
 
   @override
   String get churchBlessHeal =>
-      '`2A divine power flows through your veins. All your wounds are healed instantly!`w';
+      '`2A divine power flows through your veins. All your wounds are healed in one blow!`w';
 
   @override
   String get churchNeutral =>
@@ -771,12 +914,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String churchCurseHp(Object hp) {
-    return '`4The sky darkens and a sharp bolt of lightning strikes right at your feet! You lose $hp HP from the shock!`w';
+    return '`4The sky darkens and a fierce bolt of lightning strikes right before your feet! You lose $hp HP from the shock!`w';
   }
 
   @override
   String churchCurseGold(Object gold) {
-    return '`4A sudden gust of wind sweeps through the church, stealthily blowing away $gold gold pieces from your pouch!`w';
+    return '`4A sudden gust of wind rushes through the church and secretly blows $gold gold pieces out of your pouch!`w';
+  }
+
+  @override
+  String churchConfessResult(Object xp) {
+    return '`2You kneel down and confess your sins. The monk nods slowly. You feel your mind becoming lighter. (+$xp XP)`w';
+  }
+
+  @override
+  String churchCandleResult(Object favor) {
+    return '`cYou light a candle at the statue of the Old Gods. A wave of peace pulls through the church. Ramius will remember this. (+$favor Favor)`w';
   }
 
   @override
@@ -787,7 +940,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alchemistWelcome =>
-      '`gYou step into a dark, mystical laboratory. Glass flasks bubble everywhere with strange, steaming liquids. An old alchemist with thick glasses looks up:`w\n\n\"Ah, an adventurer! Seeking extra power for the forest? My elixirs grant you temporary, unprecedented power in your next battles. Choose wisely!\"';
+      '`gYou step into a dark, mystic laboratory. Everywhere glass flasks bubble with strange, steaming liquids. An old alchemist with thick glasses looks up:`w\n\n\"Ah, an adventurer! Looking for extra strength for the forest? My elixirs grant you temporary unprecedented power in your next battles. Choose wisely!\"';
 
   @override
   String alchemistCurrentBoosts(Object atk, Object def) {
@@ -795,14 +948,14 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get btnBuyAtkPotion => 'Buy Dragonblood (+5 Atk)';
+  String get btnBuyAtkPotion => 'Buy Dragon Blood (+5 Atk)';
 
   @override
   String get btnBuyDefPotion => 'Buy Ironskin (+5 Def)';
 
   @override
   String alchemistSuccessBuy(Object boost) {
-    return '`2You drink the elixir. An intense energy flows through your body instantly! You received $boost.`w';
+    return '`2You drink the elixir. An intense energy immediately flows through your body! You have received $boost.`w';
   }
 
   @override
@@ -826,21 +979,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetNewDayMessage =>
-      '`2The sun rises over the realm and the birds begin to sing. You feel rested and full of energy for new adventures!`w\n\nYour turns have been replenished and the gates to the Town Square are wide open once more!';
+      '`2The sun rises over the realm and the birds begin to chirp. You feel rested and full of energy for new adventures!`w\n\nYour turns are replenished and the gates to the Town Square are wide open again!';
 
   @override
-  String get btnStartDay => 'Start the new day';
+  String get btnStartDay => 'Begin the new day';
+
+  @override
+  String get resetNightResults => 'Results of the night:';
+
+  @override
+  String resetInterestLog(Object amount) {
+    return '• The bank has credited `y$amount gold`w in interest (2%).';
+  }
+
+  @override
+  String resetTurnsLog(Object amount) {
+    return '• Your turns are replenished to `c$amount`w.';
+  }
+
+  @override
+  String get resetReadyLog => '• You feel rested and ready for battle!';
 
   @override
   String get eventHermitTitle => 'The Old Hermit';
 
   @override
   String get eventHermitDesc =>
-      '`gBetween the dense foliage, you spot a small, camouflaged hut. A bone-old hermit with a long beard sits on a log in front of the door.`w\n\n\"Ah, young traveler,\" he speaks in a raspy voice. \"You are far from the Town Square. Share a cup of herbal tea with me. It will refresh your weary legs instantly!\"';
+      '`gAmong the dense vegetation you see a small, camouflaged hut. A centuries-old hermit with a long beard sits on a log in front of the door.`w\n\n\"Ah, young traveler,\" he speaks with a crackling voice. \"You are far from the Town Square. Drink a cup of herbal tea with me. It will refresh your tired legs immediately!\"';
 
   @override
   String get eventHermitSuccess =>
-      '`2You drink the bitter herbal tea. A wave of intense energy shoots through your legs! You receive +3 extra turns for today.`w';
+      '`2You drink the bitter herbal tea. A wave of intense energy shoots through your legs! You get +3 extra turns for today.`w';
 
   @override
   String get btnHermitDrink => 'Drink herbal tea';
@@ -850,7 +1019,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alchemistLimitReached =>
-      'Hold on! You have already bought 2 elixers today. Your body cannot take any more until the next sunrise!';
+      'Hold on! You have already bought 2 elixers today. Your body cannot take more until the next sunrise!';
 
   @override
   String alchemistTodayCounter(Object count) {
@@ -858,7 +1027,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get innMenuGamble => 'Gamble Table';
+  String get innMenuGamble => 'Gamble';
 
   @override
   String get innMenuBartender => 'Bartender Cedrik';
@@ -870,35 +1039,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get innFlirtAttempt => 'Flirt with Violet (-1 Gem)';
 
   @override
-  String get innFlirtNoGems => 'You don\'t have any gems to gift her!';
+  String get innFlirtNoGems => 'You do not have any gems to gift her!';
 
   @override
   String get innFlirtSuccess =>
-      'Violet blushes at your compliment and pours you a restorative drink! (+15 HP, +1 Max HP)';
+      'Violet blushes from your compliment and pours you a restorative drink! (+15 HP, +1 Max HP)';
 
   @override
   String get innFlirtFail =>
-      'Violet laughs right in your face. Painful... You lose 2 HP from embarrassment.';
+      'Violet laughs straight in your face. Painful... You lose 2 HP from embarrassment.';
 
   @override
   String get innTalkCedrik => 'Talk to Cedrik';
 
   @override
   String get innCedrikRumor1 =>
-      'Cedrik polishes a glass and whispers: \'Watch out in the forest, SamHaoir. There is an old hermit wandering around with magical tea...\'';
+      'Cedrik polishes a glass and whispers: \'Watch out in the forest, SamHaoir. There is an old hermit wandering around with magical herbal tea...\'';
 
   @override
   String get innCedrikRumor2 =>
-      'Cedrik grunts: \'The giant in the forest sleeps deeply, but if you steal from him, you can make a fortune!\'';
+      'Cedrik grunts: \'The giant in the forest sleeps deeply, but if you rob him, you can earn bags of gold!\'';
 
   @override
   String get innMenuMain => 'The Common Room';
 
   @override
-  String get innMenuSpy => 'Spy on Players (-10 Gold)';
+  String get innMenuSpy => 'Spy on People (-10 Gold)';
 
   @override
-  String get innMenuNews => 'Read News & Rumors';
+  String get innMenuNews => 'Read Newspaper & Rumors';
 
   @override
   String get innMenuBlackjack => 'Card Table: Blackjack';
@@ -912,46 +1081,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String innSpyResult(Object gold, Object lvl, Object target) {
-    return 'You sneak upstairs and inspect $target\'s belongings. Level: $lvl, Gold on hand: $gold.';
+    return 'You sneak upstairs and check the belongings of $target. Level: $lvl, Gold on hand: $gold.';
   }
 
   @override
   String get innNewsTitle => 'Inn Rumors & Latest News';
 
   @override
-  String get innBlackjackTitle => 'Blackjack (Wager: 50 Gold)';
+  String get innBlackjackTitle => 'Blackjack (Bet: 50 Gold)';
 
   @override
-  String get innBlackjackHit => 'Hit';
+  String get innBlackjackHit => 'Hit (Card)';
 
   @override
   String get innBlackjackStand => 'Stand';
 
   @override
   String innBlackjackWin(Object house, Object player) {
-    return 'You win! You have $player against $house. (+50 Gold)';
+    return 'Won! You have $player against $house of the bank. (+50 Gold)';
   }
 
   @override
   String innBlackjackLose(Object house, Object player) {
-    return 'You lose! The house has $house against your $player. (-50 Gold)';
+    return 'Lost! The bank has $house and you have $player. (-50 Gold)';
   }
 
   @override
   String innBlackjackBust(Object player) {
-    return 'Bust! You went over with $player points. (-50 Gold)';
+    return 'Too much! You went bust with $player points. (-50 Gold)';
   }
 
   @override
   String innBlackjackTie(Object points) {
-    return 'Push! Both have $points points. Wager returned.';
+    return 'Tie! Both $points points. You keep your bet.';
   }
 
   @override
-  String get btnReturnCommon => 'Return to Common Room';
+  String get btnReturnCommon => 'Return to the Common Room';
 
   @override
-  String get innBlackjackStart => 'START MATCH (50 GOLD)';
+  String get innBlackjackStart => 'START ROUND (50 GOLD)';
 
   @override
   String get innBlackjackHitBtn => 'HIT (CARD)';
@@ -968,32 +1137,32 @@ class AppLocalizationsEn extends AppLocalizations {
     Object playerHand,
     Object playerScore,
   ) {
-    return 'Your hand: $playerHand ($playerScore)\nHouse cards: $houseHand';
+    return 'Your hand: $playerHand ($playerScore)\nBank cards: $houseHand';
   }
 
   @override
   String innSpyResultLog(Object gold, Object level, Object username) {
-    return 'You sneak upstairs and inspect $username\'s belongings. Level: $level, Gold on hand: $gold.';
+    return 'You sneak upstairs and check the belongings of $username. Level: $level, Gold on hand: $gold.';
   }
 
   @override
   String innBlackjackBustLog(Object score) {
-    return 'Bust! You went over with $score points. (-50 Gold)';
+    return 'Bust! You went bust with $score points. (-50 Gold)';
   }
 
   @override
   String innBlackjackWinLog(Object house, Object player) {
-    return 'You win! You have $player against $house from the dealer! (+50 Gold)';
+    return 'Won! You have $player against $house of the bank! (+50 Gold)';
   }
 
   @override
   String innBlackjackLoseLog(Object house, Object player) {
-    return 'You lose! The dealer wins with $house against your $player. (-50 Gold)';
+    return 'Lost! The bank wins with $house against your $player. (-50 Gold)';
   }
 
   @override
   String innBlackjackTieLog(Object score) {
-    return 'Push! Both have $score points. Wager returned.';
+    return 'Tie! Both $score points. You keep your bet.';
   }
 
   @override
@@ -1003,9 +1172,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileBiometricDeviceError =>
       'This device does not support biometrics.';
-
-  @override
-  String get profileBiometricAuthError => 'Authentication failed.';
 
   @override
   String get profileDatabaseError => 'An error occurred.';
@@ -1028,7 +1194,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnForestGiantSneak => 'SNEAK PAST';
 
   @override
-  String get btnForestGiantSteal => 'STEAL FROM GIANT';
+  String get btnForestGiantSteal => 'ROB GIANT';
 
   @override
   String get btnForestAttack => 'ATTACK';
@@ -1037,16 +1203,180 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnForestFlee => 'FLEE';
 
   @override
+  String get btnForestLeprechaunPlay => 'Play game (100 G)';
+
+  @override
+  String get btnForestWizardDrink => 'Drink from cauldron';
+
+  @override
+  String get btnForestWagonSearch => 'Search thoroughly';
+
+  @override
+  String get btnForestWagonSmash => 'Smash chests';
+
+  @override
+  String get btnForestHartBow => 'Bow respectfully';
+
+  @override
+  String get btnForestHartHunt => 'Try to hunt';
+
+  @override
+  String get btnForestCardHigher => 'Higher';
+
+  @override
+  String get btnForestCardLower => 'Lower';
+
+  @override
+  String get btnForestTreeGold => 'Give gold';
+
+  @override
+  String get btnForestTreeChop => 'Chop bark';
+
+  @override
+  String get btnForestTempleRead => 'Read book';
+
+  @override
+  String get btnForestTempleSearch => 'Search altar';
+
+  @override
+  String get btnForestHerbalistRed => 'Red elixir';
+
+  @override
+  String get btnForestHerbalistBlue => 'Blue elixir';
+
+  @override
+  String get btnForestBadgerAnswer => 'Answer question';
+
+  @override
+  String get btnForestBadgerHunt => 'Chase away';
+
+  @override
+  String get btnForestSkeletonPlunder => 'Plunder armour';
+
+  @override
+  String get btnForestSkeletonBow => 'Pay respect';
+
+  @override
+  String get btnForestCarnivalSpin => 'Spin wheel';
+
+  @override
+  String get btnForestCampEat => 'Eat soup';
+
+  @override
+  String get btnForestCampSearch => 'Search tents';
+
+  @override
+  String get btnForestWellOffer => 'Offer gem';
+
+  @override
+  String get btnForestWellFish => 'Fish for gold';
+
+  @override
+  String get btnForestHoneyClimb => 'Grab honey';
+
+  @override
+  String get btnForestHoneySmoke => 'Smoke bees';
+
+  @override
+  String get btnForestMushroomStep => 'Step into ring';
+
+  @override
+  String get btnForestMushroomDestroy => 'Destroy ring';
+
+  @override
+  String get btnForestHunterPlay => 'Shooting match';
+
+  @override
+  String get btnForestHunterDemand => 'Demand gold';
+
+  @override
+  String get btnForestStatueOffer => 'Offer gold';
+
+  @override
+  String get btnForestStatueClean => 'Clean statue';
+
+  @override
+  String get btnForestSnareCut => 'Cut loose';
+
+  @override
+  String get btnForestSnareForce => 'Use force';
+
+  @override
+  String get btnForestSnareWait => 'Wait';
+
+  @override
+  String get innBtnDrinkAle => 'Oaktaven Ale';
+
+  @override
+  String get innBtnDrinkDragon => 'Dragon\'s Breath';
+
+  @override
+  String get innBtnBardGold => 'Treat Gold';
+
+  @override
+  String get innBtnBardGem => 'Give Gem';
+
+  @override
+  String get innBtnFlirt => 'Flirt (1 Turn)';
+
+  @override
+  String get innBtnGift => 'Gift (1 Gem)';
+
+  @override
+  String get innBtnPropose => 'Propose Marriage!';
+
+  @override
+  String get innBtnGambleDice => 'Dice';
+
+  @override
+  String get innBtnGambleShell => 'Shell Game';
+
+  @override
+  String get innBtnGambleBlackjack => 'Blackjack';
+
+  @override
+  String get innBtnBribe => 'Bribe (1 Gem)';
+
+  @override
+  String get innBtnBountyAction => 'BOUNTY';
+
+  @override
+  String innRomanceLabel(Object points) {
+    return 'Affection: `p$points / 100`w';
+  }
+
+  @override
+  String get innBtnRichest => 'Ask who is richest (50 G)';
+
+  @override
+  String get innGambleShark => 'Card Shark:';
+
+  @override
+  String get innBtnHigher => 'Higher';
+
+  @override
+  String get innBtnLower => 'Lower';
+
+  @override
+  String get innMenuBard => 'The Bard';
+
+  @override
+  String get innMenuVeteran => 'Veteran';
+
+  @override
+  String get innMenuBounty => 'Bounty Hunter';
+
+  @override
   String get innBlackjackReturn => 'RETURN TO THE COMMON ROOM';
 
   @override
   String innNewsWinLog(Object user, Object val) {
-    return '- $user won $val gold coins at the gaming table!';
+    return '- $user won $val gold pieces at the gamble table!';
   }
 
   @override
   String innNewsLossLog(Object user, Object val) {
-    return '- $user lost $val gold coins to the bank.';
+    return '- $user lost $val gold pieces to the bank.';
   }
 
   @override
@@ -1064,87 +1394,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String combatSkillThievingSuccess(Object enemy, Object gold) {
-    return '`cYou sneak around and steal `y$gold gold coins `cfrom the belongings of the $enemy!`w';
+    return '`cYou sneak behind and rob `y$gold gold pieces `cfrom among the belongings of the $enemy!`w';
   }
 
   @override
   String combatSkillWarriorSuccess(Object damage, Object enemy) {
-    return '`4You raise your weapon and deal the $enemy a devastating blow of `w$damage `4damage!`w';
+    return '`4You raise your weapon and strike the $enemy a devastating blow of `w$damage `4damage!`w';
   }
 
   @override
   String combatSkillWarriorVictory(Object damage, Object enemy) {
-    return '`4You deal the $enemy a finishing blow of `w$damage `4damage!`w';
+    return '`4You deliver a death blow to the $enemy of `w$damage `4damage!`w';
   }
 
   @override
   String combatFleeSuccess(Object enemy) {
-    return '\n\n`yYou drop your weapon and run into the bushes in panic! You successfully escaped from the $enemy.`w\n\n';
+    return '\n\n`yYou throw down your weapon and run into the undergrowth in panic! You successfully escaped the $enemy.`w\n\n';
   }
 
   @override
   String combatFleeFailed(Object damage, Object enemy) {
-    return '\n\n`4You try to flee, but the $enemy strikes fiercely and hits you in the back for `w$damage `4damage!`w\n\n';
+    return '\n\n`4You try to flee, but the $enemy strikes fiercely and hits you in your back for `w$damage `4damage!`w\n\n';
   }
 
   @override
   String combatFleeDeath(Object enemy) {
-    return '\n\n`4You try to flee, but the $enemy deals you a fatal blow! You have died in the forest.`w\n\n';
+    return '\n\n`4You try to flee, but the $enemy delivers a fatal blow! You have died in the forest.`w\n\n';
   }
 
   @override
   String get innMenuBuyDrink => 'BUY DRINK (20 GOLD)';
 
   @override
-  String get innDrinkSelectTitle => '=== CEDRIK\'S BREWS ===';
+  String get innDrinkSelectTitle => '=== CEDRIKS ASSORTIMENT ===';
 
   @override
   String get innDrinkSelectDesc =>
-      'Cedrik wipes down a glass and looks at you: \"What can I pour you, traveler?\"';
+      'Cedrik polishes a glass and looks at you: \"What can I pour for you, traveler?\"';
 
   @override
-  String get innDrink1Name => 'DWARF STOUT';
+  String get innDrink1Name => 'DWARVEN STOUT';
 
   @override
   String get innDrink1Desc =>
-      'A heavy, dark ale. Gives strength but makes you drowsy. (+15 HP, -1 Turn)';
+      'A heavy, dark beer. Gives extra strength but makes you sleepy. (+15 HP, -1 Turn)';
 
   @override
   String get innDrink2Name => 'ELVEN MEAD';
 
   @override
   String get innDrink2Desc =>
-      'A sweet, sparkling honey wine. Restores your energy! (+2 Turns)';
+      'A sweet, sparkling honey wine. Gives you renewed energy! (+2 Turns)';
 
   @override
   String get innDrinkSuccess1 =>
-      '`2You down the Dwarf Stout in one gulp. You feel much stronger! (+15 HP, -1 Turn)`w';
+      '`2You drink the Dwarven Stout in one gulp. You feel a lot stronger! (+15 HP, -1 Turn)`w';
 
   @override
   String get innDrinkSuccess2 =>
-      '`2The Elven Mead tastes wonderfully sweet. You feel energy rushing through your veins! (+2 Turns)`w';
+      '`2The Elven Mead tastes delicious and sweet. You feel the energy flowing through your veins! (+2 Turns)`w';
 
   @override
   String get btnGraveyardRob => 'ROB GRAVE';
 
   @override
   String graveyardSuccessGold(Object gold) {
-    return '`2You take a shovel and dig up an old grave... Beneath the rotting wood, you find a hidden box with `y$gold gold coins`2!`w';
+    return '`2You take a shovel and dig up an old grave... Under the rotten wood you find a hidden box with `y$gold gold pieces`2!`w';
   }
 
   @override
   String graveyardSuccessGem(Object gems) {
-    return '`cYou search a stately crypt and shiny stones catch your eye... You find `w$gems gem`c!`w';
+    return '`cYou search a stately crypt and shiny stones catch your attention... You find `w$gems gem`c!`w';
   }
 
   @override
   String graveyardZombieEncounter(Object hp) {
-    return '`4While digging, a rotting, cold hand suddenly grabs your ankle! A zombie crawls out of the earth and attacks you! (-$hp HP)`w';
+    return '`4While digging, a rotten, cold hand suddenly grabs your ankle! A zombie crawls up from the earth and attacks you! (-$hp HP)`w';
   }
 
   @override
   String get graveyardEmpty =>
-      'You wander the misty graveyard for hours, but all graves seem to have been plundered by grave robbers already.';
+      'You wander for hours across the misty graveyard, but all graves seem to have been emptied by grave robbers already.';
 
   @override
   String get graveyardErrorResurrection =>
@@ -1152,13 +1482,283 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get innFlirtMaxHpBonus =>
-      '`2Violet falls head over heels for your charms! She smiles shyly and grants you a permanent health upgrade! (+1 Max HP & Fully Healed)`w';
+      '`2Violet falls head over heels for your charms! She smiles shyly and gives you a permanent health upgrade! (+1 Max HP & Fully Healed)`w';
 
   @override
   String get innFlirtTurnsBonus =>
-      '`2Your pickup line is a total hit! Violet loves your company and grants you renewed energy. (+2 Turns)`w';
+      '`2Your pickup line is a bullseye! Violet loves your company and grants you renewed energy. (+2 Turns)`w';
 
   @override
   String get innFlirtSlapDefeat =>
-      '`4Your pickup line completely misses the mark! Violet is deeply offended and slaps you hard across the face! (-5 HP)`w';
+      '`4Your pickup line completely misses the mark! Violet is deeply offended and slaps you hard in your face! (-5 HP)`w';
+
+  @override
+  String get btnVisitHealer => 'HERBALIST 🌿';
+
+  @override
+  String get dialogWoundedTitle => 'TOO SEVERELY WOUNDED';
+
+  @override
+  String get dialogWoundedMessage =>
+      '`4You are too severely wounded to fight. Visit the Herbalist or the inn to recover!`w';
+
+  @override
+  String get btnBuyHealing => 'BUY HEALING';
+
+  @override
+  String labelHealCost(Object cost) {
+    return 'Cost for full healing: `y$cost gold pieces`w';
+  }
+
+  @override
+  String get btnOk => 'OK';
+
+  @override
+  String get healerFallbackWelcome => 'Althea\'s hut...';
+
+  @override
+  String get healerFallbackHealthy => 'You are already perfectly healthy!';
+
+  @override
+  String get btnTalkTownfolk => 'TALK TO TOWNSFOLK 🗣️';
+
+  @override
+  String get dialogRumorTitle => 'TOWN RUMORS';
+
+  @override
+  String get townSquareRumorFallback => 'The townsfolk are quiet today...';
+
+  @override
+  String get healerSuccessFallback => 'You are healed!';
+
+  @override
+  String get btnVisitBarber => 'BARBER WITH STYLING 💈';
+
+  @override
+  String get btnBuyTitle => 'BUY TITLE (1 GEM)';
+
+  @override
+  String get btnVisitAlley => 'SHADOWY ALLEY 🪓';
+
+  @override
+  String get btnResetReputation => 'BUY OFF CRIMINAL RECORD (5 GEMS)';
+
+  @override
+  String get btnVisitMightyE => 'DONOR MIGHTYE 💎';
+
+  @override
+  String get btnDonateGem => 'DONATE 1 GEM';
+
+  @override
+  String get btnVisitWedding => 'WEDDING CHAPEL 💍';
+
+  @override
+  String get btnMarry => 'I DO (500 GOLD)';
+
+  @override
+  String get graveyard_title => 'The Graveyard of Oaktaven (Underworld)';
+
+  @override
+  String get graveyard_status_dead => 'STATUS: DEAD (Ghost)';
+
+  @override
+  String graveyard_favor_points(Object points) {
+    return 'Favor with Ramius: $points points';
+  }
+
+  @override
+  String get graveyard_btn_fight => 'Fight Tormented Constellation (1 Turn)';
+
+  @override
+  String get graveyard_btn_resurrect => 'Beg Ramius for Mercy';
+
+  @override
+  String get graveyard_btn_haunt => 'Haunt the Inn (1 Turn)';
+
+  @override
+  String get graveyard_btn_talk => 'Talk to Ramius';
+
+  @override
+  String get ghost_combat_title => 'UNDERWORLD COMBAT';
+
+  @override
+  String ghost_combat_monster_label(Object level, Object name) {
+    return 'Monster: $name (LVL $level)';
+  }
+
+  @override
+  String ghost_combat_hp_label(Object current, Object max) {
+    return 'Monster HP: $current / $max';
+  }
+
+  @override
+  String get ghost_combat_btn_attack => 'ATTACK';
+
+  @override
+  String get ghost_combat_btn_return => 'RETURN TO GRAVEYARD';
+
+  @override
+  String get inn_btn_leave => 'Leave the Inn';
+
+  @override
+  String get inn_btn_talk_veteran => 'LISTEN TO STORY';
+
+  @override
+  String inn_section_title(Object section) {
+    return '=== $section ===';
+  }
+
+  @override
+  String get inn_section_barman => '=== The Inn Bar ===';
+
+  @override
+  String get inn_section_gamble => '=== The Gamble Table ===';
+
+  @override
+  String get inn_section_veteran => '=== The Old Warrior ===';
+
+  @override
+  String get inn_section_bounty => '=== The Bounty Hunter ===';
+
+  @override
+  String get inn_section_spy => '=== Shadowy Figures ===';
+
+  @override
+  String get inn_section_news => '=== The Town News ===';
+
+  @override
+  String get town_btn_forest => 'Enter the Forest';
+
+  @override
+  String get town_btn_news => 'Daily News';
+
+  @override
+  String get town_btn_shops => 'Shopping Street';
+
+  @override
+  String get town_btn_mystery => 'Mysterious Places';
+
+  @override
+  String get town_btn_training => 'Courtyard & Training';
+
+  @override
+  String get town_btn_heart => 'The Town Heart';
+
+  @override
+  String get town_sub_shops => 'Smithy';
+
+  @override
+  String get town_sub_bank => 'The Bank';
+
+  @override
+  String get town_sub_barber => 'Barber';
+
+  @override
+  String get town_sub_alchemist => 'Alchemist';
+
+  @override
+  String get town_sub_healer => 'Herbalist';
+
+  @override
+  String get town_sub_alley => 'Shadowy Alley';
+
+  @override
+  String get town_sub_classroom => 'Training Room';
+
+  @override
+  String get town_sub_stables => 'The Stables';
+
+  @override
+  String get town_sub_inn => 'The Inn';
+
+  @override
+  String get town_sub_church => 'The Church';
+
+  @override
+  String get town_sub_wedding => 'Wedding Chapel';
+
+  @override
+  String get town_sub_townfolk => 'Townsfolk';
+
+  @override
+  String get town_sub_mightye => 'Donor Mightye';
+
+  @override
+  String get inn_news_empty => 'Nothing has occurred in the realm today...';
+
+  @override
+  String get inn_spy_empty =>
+      'There are currently no other travelers wandering in the inn...';
+
+  @override
+  String get inn_btn_spy_action => 'SPY (10 GOLD)';
+
+  @override
+  String get inn_title => 'Inn \'The Drunken Dragon\'';
+
+  @override
+  String get profileBiometricAuthError => 'Verification failed.';
+
+  @override
+  String get btnStyxOnboard => 'BOARD THE RAFT (COSTS 2 TURNS)';
+
+  @override
+  String get btnStyxStay => 'REMAIN ON THE SHORE';
+
+  @override
+  String get btnWhispersListen => 'LISTEN ATTENTIVELY';
+
+  @override
+  String get btnWhispersLeave => 'FLOAT AWAY QUICKLY';
+
+  @override
+  String get dragon_lair_title => 'The Green Dragon\'s Lair';
+
+  @override
+  String get btn_attack_dragon => 'Attack the Green Dragon!';
+
+  @override
+  String get btn_sneak_away => 'Sneak away quietly';
+
+  @override
+  String get btn_dragon_continue => 'Accept your fate';
+
+  @override
+  String news_dragon_kill(Object kills, Object user) {
+    return '$user has defeated the Green Dragon and saves the realm! This is their $kills victory!';
+  }
+
+  @override
+  String get btnDevAddGold => '+10K GOLD';
+
+  @override
+  String get btnDevAddGems => '+5 GEMS';
+
+  @override
+  String get btnDevAddTurns => '+10 TURNS';
+
+  @override
+  String get lblDevSelectEvent => 'Select Event to Spawn:';
+
+  @override
+  String get lblDevSelectMonster => 'Select Monster to Spawn:';
+
+  @override
+  String get btnDevSpawnAction => 'SPAWN DIRECTLY 🚀';
+
+  @override
+  String get errorNoGems => 'You do not have enough shiny gems!';
+
+  @override
+  String btnBuyCut(Object cost) {
+    return 'Fresh Cut ($cost Gold)';
+  }
+
+  @override
+  String btnBuyShave(Object cost) {
+    return 'Smooth Shave ($cost Gold)';
+  }
+
+  @override
+  String get btnBuyDye => 'Dye Hair (1 GEM)';
 }

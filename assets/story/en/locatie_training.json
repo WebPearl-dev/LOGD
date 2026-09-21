@@ -1,0 +1,8 @@
+{
+  "welcome": "`gYou step into the serene, incense-scented training space. Your Master stands with crossed arms in the middle of the mat.`w\n\n\"Welcome, traveler. I see you have fought in the forest. But are you truly ready for the next step?\"",
+  "status_req": "Required XP for Level {nextLvl}: `c{reqXp} XP`w (Current: `c{currentXp} XP`w)",
+  "ready": "`2You are ready to fight for your next level!`w",
+  "not_ready": "`4You haven't earned enough experience to challenge me yet. Train harder in the forest!`w",
+  "victory": "`2Congratulations! You defeated your Master and ascend to Level {lvl}! Your max HP is permanently increased to {maxHp}.`w",
+  "defeat": "`4Your Master beats you black and blue on the mat with a wooden training sword: \"You are not ready yet, apprentice!\" You barely survive, your HP is set to 1.`w"
+}

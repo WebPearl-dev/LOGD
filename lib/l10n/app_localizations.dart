@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @roundContinue.
   ///
   /// In nl, this message translates to:
-  /// **'`2Je valt aan en doet {damageDealt} schade bij de {enemy}.`w\nDe {enemy} {attackText} en doet `4{damageReceived} schade`w terug!'**
+  /// **'`2Je valt aan en doet {damageDealt} schade bij de {enemy}.`w(\nDe {enemy} {attackText}) en doet `4{damageReceived} schade`w terug!'**
   String roundContinue(
     Object attackText,
     Object damageDealt,
@@ -166,7 +166,7 @@ abstract class AppLocalizations {
   /// No description provided for @townSquareWelcome.
   ///
   /// In nl, this message translates to:
-  /// **'`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schaduw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w'**
+  /// **'`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schazuw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w'**
   String get townSquareWelcome;
 
   /// No description provided for @btnGoToForest.
@@ -421,6 +421,30 @@ abstract class AppLocalizations {
   /// **'`4Vul een geldig aantal in!`w'**
   String get bankErrorInvalid;
 
+  /// No description provided for @bankVaultBalance.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kluissaldo: `y{amount} goud`w'**
+  String bankVaultBalance(Object amount);
+
+  /// No description provided for @bankOnHandLabel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Op zak: `y{amount} goud`w'**
+  String bankOnHandLabel(Object amount);
+
+  /// No description provided for @bankDepositLimitLabel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Daglimiet over: `c{amount} goud`w'**
+  String bankDepositLimitLabel(Object amount);
+
+  /// No description provided for @btnTalkBanker.
+  ///
+  /// In nl, this message translates to:
+  /// **'PRAAT MET DE BANKIER'**
+  String get btnTalkBanker;
+
   /// No description provided for @raceTitle.
   ///
   /// In nl, this message translates to:
@@ -541,6 +565,42 @@ abstract class AppLocalizations {
   /// **'Kies klasse en betreed het Dorpsplein'**
   String get btnConfirmSpecialty;
 
+  /// No description provided for @trainingDuelTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== DUEL MET {name} ==='**
+  String trainingDuelTitle(Object name);
+
+  /// No description provided for @trainingMasterHp.
+  ///
+  /// In nl, this message translates to:
+  /// **'MEESTER HP: `4{current} / {max}`w'**
+  String trainingMasterHp(Object current, Object max);
+
+  /// No description provided for @trainingMasterAttack.
+  ///
+  /// In nl, this message translates to:
+  /// **'haalt uit met een houten oefenzwaard'**
+  String get trainingMasterAttack;
+
+  /// No description provided for @trainingPlayerAttackLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je raakt de Meester voor {damage} schade.`w'**
+  String trainingPlayerAttackLog(Object damage);
+
+  /// No description provided for @trainingMasterAttackLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'\n{name} {attack} en doet `4{damage} schade`w terug!'**
+  String trainingMasterAttackLog(Object attack, Object damage, Object name);
+
+  /// No description provided for @trainingXpLabel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Ervaring (XP): `c{current} / {needed}`w'**
+  String trainingXpLabel(Object current, Object needed);
+
   /// No description provided for @btnUseSkill.
   ///
   /// In nl, this message translates to:
@@ -568,19 +628,19 @@ abstract class AppLocalizations {
   /// No description provided for @skillWarriorSuccess.
   ///
   /// In nl, this message translates to:
-  /// **'`rJe voert een brute Schildbeuk uit! Je beukt vol in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w\nDe {enemy} is wankel!'**
+  /// **'`rJe voert een brute Schildbeuk uit! Je beukt vol in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w(\nDe {enemy}) is wankel!'**
   String skillWarriorSuccess(Object amount, Object enemy);
 
   /// No description provided for @smithyTitle.
   ///
   /// In nl, this message translates to:
-  /// **'Smederij \'Het Hete IJzer\''**
+  /// **'De Markt van Oaktaven'**
   String get smithyTitle;
 
   /// No description provided for @smithyWelcome.
   ///
   /// In nl, this message translates to:
-  /// **'`gJe stapt de snikhete smederij binnen. Een gesublimeerde dwerg slaat met een enorme hamer op een gloeiend zwaard. Heet ijzer sist in een emmer water.`w\n\n\"Welkom in mijn smederij, reiziger! Ben je die houten stok en dat versleten shirt beu? Kijk eens rond, maar denk erom: kijken kost niks, kopen kost goud!\"'**
+  /// **'`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w'**
   String get smithyWelcome;
 
   /// No description provided for @smithyCurrentEquip.
@@ -646,7 +706,7 @@ abstract class AppLocalizations {
   /// No description provided for @btnVisitSmithy.
   ///
   /// In nl, this message translates to:
-  /// **'Smederij'**
+  /// **'Winkels'**
   String get btnVisitSmithy;
 
   /// No description provided for @smithyAmountLabel.
@@ -655,64 +715,130 @@ abstract class AppLocalizations {
   /// **'Aantal goudstukken'**
   String get smithyAmountLabel;
 
+  /// No description provided for @btnVisitPegasus.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bezoek Pegasus Wapens'**
+  String get btnVisitPegasus;
+
+  /// No description provided for @btnVisitMerilon.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bezoek Merilon Harnassen'**
+  String get btnVisitMerilon;
+
+  /// No description provided for @btnTalkPegasus.
+  ///
+  /// In nl, this message translates to:
+  /// **'Praat met Pegasus'**
+  String get btnTalkPegasus;
+
+  /// No description provided for @btnTalkMerilon.
+  ///
+  /// In nl, this message translates to:
+  /// **'Praat met Merilon'**
+  String get btnTalkMerilon;
+
   /// No description provided for @wep0.
   ///
   /// In nl, this message translates to:
-  /// **'Houten Stok'**
+  /// **'Blote Vuisten'**
   String get wep0;
 
   /// No description provided for @wep1.
   ///
   /// In nl, this message translates to:
-  /// **'Roestige Dolk'**
+  /// **'Houten Stok'**
   String get wep1;
 
   /// No description provided for @wep2.
   ///
   /// In nl, this message translates to:
-  /// **'Groot Slagersmes'**
+  /// **'Roestige Dolk'**
   String get wep2;
 
   /// No description provided for @wep3.
   ///
   /// In nl, this message translates to:
-  /// **'Ijzeren Zwaard'**
+  /// **'Handbijl'**
   String get wep3;
 
   /// No description provided for @wep4.
   ///
   /// In nl, this message translates to:
-  /// **'Glinsterend Breedzwaard'**
+  /// **'IJzeren Korte Zwaard'**
   String get wep4;
 
   /// No description provided for @wep5.
   ///
   /// In nl, this message translates to:
-  /// **'Zware Strijdhamer'**
+  /// **'Stalen Slagzwaard'**
   String get wep5;
 
   /// No description provided for @wep6.
   ///
   /// In nl, this message translates to:
-  /// **'Driestandige Speer'**
+  /// **'Grote Strijdhamer'**
   String get wep6;
 
   /// No description provided for @wep7.
   ///
   /// In nl, this message translates to:
-  /// **'Kristallen Sabel'**
+  /// **'Gekruiste Hellebaard'**
   String get wep7;
 
   /// No description provided for @wep8.
   ///
   /// In nl, this message translates to:
-  /// **'龍 (Draken) Zwaard'**
+  /// **'Elfen Kruisboog'**
   String get wep8;
+
+  /// No description provided for @wep9.
+  ///
+  /// In nl, this message translates to:
+  /// **'Runenzwaard'**
+  String get wep9;
+
+  /// No description provided for @wep10.
+  ///
+  /// In nl, this message translates to:
+  /// **'Duivenseis (Mace)'**
+  String get wep10;
+
+  /// No description provided for @wep11.
+  ///
+  /// In nl, this message translates to:
+  /// **'Glanzende Klabat'**
+  String get wep11;
+
+  /// No description provided for @wep12.
+  ///
+  /// In nl, this message translates to:
+  /// **'Obsidiaan Kling'**
+  String get wep12;
+
+  /// No description provided for @wep13.
+  ///
+  /// In nl, this message translates to:
+  /// **'Drakenbot Speer'**
+  String get wep13;
+
+  /// No description provided for @wep14.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hemels Zwaard'**
+  String get wep14;
+
+  /// No description provided for @wep15.
+  ///
+  /// In nl, this message translates to:
+  /// **'Excalibur van Oaktaven'**
+  String get wep15;
 
   /// No description provided for @arm0.
   ///
   /// In nl, this message translates to:
-  /// **'Versleten Shirt'**
+  /// **'Alledaagse Kleding'**
   String get arm0;
 
   /// No description provided for @arm1.
@@ -724,44 +850,86 @@ abstract class AppLocalizations {
   /// No description provided for @arm2.
   ///
   /// In nl, this message translates to:
-  /// **'Versterkt Lederen Pantser'**
+  /// **'Dik Gekookt Leer'**
   String get arm2;
 
   /// No description provided for @arm3.
   ///
   /// In nl, this message translates to:
-  /// **'Ijzeren Ringpantser'**
+  /// **'Geklonken Leren Harnas'**
   String get arm3;
 
   /// No description provided for @arm4.
   ///
   /// In nl, this message translates to:
-  /// **'Brons Borstplaat'**
+  /// **'Ringpantser'**
   String get arm4;
 
   /// No description provided for @arm5.
   ///
   /// In nl, this message translates to:
-  /// **'Stalen Harnas'**
+  /// **'Lichte Maliënkolder'**
   String get arm5;
 
   /// No description provided for @arm6.
   ///
   /// In nl, this message translates to:
-  /// **'Mithril Maliënkolder'**
+  /// **'Zware Stalen Maliënkolder'**
   String get arm6;
 
   /// No description provided for @arm7.
   ///
   /// In nl, this message translates to:
-  /// **'Betoverd Schild'**
+  /// **'Bandenpantser'**
   String get arm7;
 
   /// No description provided for @arm8.
   ///
   /// In nl, this message translates to:
-  /// **'Draken Schubben Pantser'**
+  /// **'Elfen Borstplaat'**
   String get arm8;
+
+  /// No description provided for @arm9.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geciseleerd Brons Pantser'**
+  String get arm9;
+
+  /// No description provided for @arm10.
+  ///
+  /// In nl, this message translates to:
+  /// **'Ridderlijk Platenpantser'**
+  String get arm10;
+
+  /// No description provided for @arm11.
+  ///
+  /// In nl, this message translates to:
+  /// **'Runenbescherming'**
+  String get arm11;
+
+  /// No description provided for @arm12.
+  ///
+  /// In nl, this message translates to:
+  /// **'Obsidiaan Schild & Pantser'**
+  String get arm12;
+
+  /// No description provided for @arm13.
+  ///
+  /// In nl, this message translates to:
+  /// **'Schilden van Drakenhuid'**
+  String get arm13;
+
+  /// No description provided for @arm14.
+  ///
+  /// In nl, this message translates to:
+  /// **'Paladijn Kuras'**
+  String get arm14;
+
+  /// No description provided for @arm15.
+  ///
+  /// In nl, this message translates to:
+  /// **'Het Godenpantser'**
+  String get arm15;
 
   /// No description provided for @trainingTitle.
   ///
@@ -790,7 +958,7 @@ abstract class AppLocalizations {
   /// No description provided for @trainingNotReady.
   ///
   /// In nl, this message translates to:
-  /// **'`4Je hebt nog niet genoeg ervaring verdiend om mij uit te dagen. Train harder in het bos!`w'**
+  /// **'`4Je hebt nog niet genoeg ervaring verdient om mij uit te dagen. Train harder in het bos!`w'**
   String get trainingNotReady;
 
   /// No description provided for @btnChallengeMaster.
@@ -1042,14 +1210,62 @@ abstract class AppLocalizations {
   /// No description provided for @newsLogDefeated.
   ///
   /// In nl, this message translates to:
-  /// **'`4{username}`w is in het bos op brute wijze afgeslacht door een `r{enemy}`w!'**
-  String newsLogDefeated(Object enemy, Object username);
+  /// **'{user} is in het bos op brute wijze afgeslacht door een {enemy}!'**
+  String newsLogDefeated(Object enemy, Object user);
+
+  /// No description provided for @newsLogDefeatedBrutal.
+  ///
+  /// In nl, this message translates to:
+  /// **'{user} dacht een held te zijn, maar werd door een {enemy} als ontbijt genuttigd!'**
+  String newsLogDefeatedBrutal(Object enemy, Object user);
 
   /// No description provided for @newsLogLevelUp.
   ///
   /// In nl, this message translates to:
-  /// **'`2{username}`w is gestegen naar `yLevel {level}`w na een legendarisch duel in de trainingsruimte!'**
-  String newsLogLevelUp(Object level, Object username);
+  /// **'{user} is gestegen naar Level {level} na een legendarisch duel in de trainingsruimte!'**
+  String newsLogLevelUp(Object level, Object user);
+
+  /// No description provided for @newsLogMarriage.
+  ///
+  /// In nl, this message translates to:
+  /// **'Groot feest! {user} is vandaag in het huwelijksbootje gestapt met {partner}!'**
+  String newsLogMarriage(Object partner, Object user);
+
+  /// No description provided for @rankingsTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Hall of Fame'**
+  String get rankingsTitle;
+
+  /// No description provided for @rankingsWelcome.
+  ///
+  /// In nl, this message translates to:
+  /// **'De machtigste krijgers van het rijk:'**
+  String get rankingsWelcome;
+
+  /// No description provided for @rankingsEmpty.
+  ///
+  /// In nl, this message translates to:
+  /// **'Er zijn nog geen legendarische helden opgestaan...'**
+  String get rankingsEmpty;
+
+  /// No description provided for @townCrierTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Dorpsomroeper'**
+  String get townCrierTitle;
+
+  /// No description provided for @townCrierPrefix.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4HOREN, ZIEN EN ZEGT HET VOORT! `w'**
+  String get townCrierPrefix;
+
+  /// No description provided for @statDk.
+  ///
+  /// In nl, this message translates to:
+  /// **'DK: {amount}'**
+  String statDk(Object amount);
 
   /// No description provided for @btnVisitNews.
   ///
@@ -1138,7 +1354,7 @@ abstract class AppLocalizations {
   /// No description provided for @innWelcome.
   ///
   /// In nl, this message translates to:
-  /// **'`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aan bij de goktafel, of drink een slok!\"'**
+  /// **'`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aansluiten bij de goktafel, of drink een slok!\"'**
   String get innWelcome;
 
   /// No description provided for @innDiceTitle.
@@ -1192,14 +1408,14 @@ abstract class AppLocalizations {
   /// No description provided for @newsLogInnWin.
   ///
   /// In nl, this message translates to:
-  /// **'`2{username}`w heeft zojuist `y{gold} goudstukken`w gewonnen met dobbelen in de Herberg!'**
-  String newsLogInnWin(Object gold, Object username);
+  /// **'{user} heeft zojuist {gold} goudstukken gewonnen met dobbelen in de Herberg!'**
+  String newsLogInnWin(Object gold, Object user);
 
   /// No description provided for @newsLogInnLoss.
   ///
   /// In nl, this message translates to:
-  /// **'`o{username}`w is zojuist volledig blut gespeeld door de kroegbaas en verloor `y{gold} goudstukken`w...'**
-  String newsLogInnLoss(Object gold, Object username);
+  /// **'{user} is zojuist volledig blut gespeeld door de kroegbaas en verloor {gold} goudstukken...'**
+  String newsLogInnLoss(Object gold, Object user);
 
   /// No description provided for @stablesTitle.
   ///
@@ -1315,11 +1531,35 @@ abstract class AppLocalizations {
   /// **'Doe een Gebed'**
   String get btnChurchPray;
 
+  /// No description provided for @btnChurchConfess.
+  ///
+  /// In nl, this message translates to:
+  /// **'Biechten'**
+  String get btnChurchConfess;
+
+  /// No description provided for @btnChurchCandle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kaarsje aansteken (1 Gem)'**
+  String get btnChurchCandle;
+
   /// No description provided for @churchAlreadyPrayed.
   ///
   /// In nl, this message translates to:
   /// **'`4Je hebt zojuist al gebeden! De Goden horen je niet als je blijft zeuren.`w'**
   String get churchAlreadyPrayed;
+
+  /// No description provided for @churchAlreadyConfessed.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je hebt je geweten voor vandaag al gezuiverd.`w'**
+  String get churchAlreadyConfessed;
+
+  /// No description provided for @churchAlreadyLitCandle.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Het altaar staat al vol met jouw kaarsen.`w'**
+  String get churchAlreadyLitCandle;
 
   /// No description provided for @churchBlessGold.
   ///
@@ -1354,8 +1594,20 @@ abstract class AppLocalizations {
   /// No description provided for @churchCurseGold.
   ///
   /// In nl, this message translates to:
-  /// **'`4Een plotselinge windvlaag raast door de kerk en blaast stiekem {gold} goudstukken uit je buidel!`w'**
+  /// **'`4Een plotseline windvlaag raast door de kerk en blaast stiekem {gold} goudstukken uit je buidel!`w'**
   String churchCurseGold(Object gold);
+
+  /// No description provided for @churchConfessResult.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je knielt neer en biecht je zonden. De monnik knikt langzaam. Je voelt je geest lichter worden. (+{xp} XP)`w'**
+  String churchConfessResult(Object xp);
+
+  /// No description provided for @churchCandleResult.
+  ///
+  /// In nl, this message translates to:
+  /// **'`cJe steekt een kaarsje aan bij het beeld van de Oude Goden. Een vlaag van vrede trekt door de kerk. Ramius zal dit onthouden. (+{favor} Gunst)`w'**
+  String churchCandleResult(Object favor);
 
   /// No description provided for @btnVisitChurch.
   ///
@@ -1441,6 +1693,30 @@ abstract class AppLocalizations {
   /// **'Begin de nieuwe dag'**
   String get btnStartDay;
 
+  /// No description provided for @resetNightResults.
+  ///
+  /// In nl, this message translates to:
+  /// **'Resultaten van de nacht:'**
+  String get resetNightResults;
+
+  /// No description provided for @resetInterestLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'• De bank heeft `y{amount} goud`w aan rente bijgeschreven (2%).'**
+  String resetInterestLog(Object amount);
+
+  /// No description provided for @resetTurnsLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'• Je beurten zijn aangevuld naar `c{amount}`w.'**
+  String resetTurnsLog(Object amount);
+
+  /// No description provided for @resetReadyLog.
+  ///
+  /// In nl, this message translates to:
+  /// **'• Je voelt je uitgerust en klaar voor de strijd!'**
+  String get resetReadyLog;
+
   /// No description provided for @eventHermitTitle.
   ///
   /// In nl, this message translates to:
@@ -1456,7 +1732,7 @@ abstract class AppLocalizations {
   /// No description provided for @eventHermitSuccess.
   ///
   /// In nl, this message translates to:
-  /// **'`2Je drinkt de bittere kruidenthee op. Een golf van intense energie schiet door je benen! Je krijgt +3 extra beurten (turns) voor vandaag.`w'**
+  /// **'`2Je drinkt die bittere kruidenthee op. Een golf van intense energie schiet door je benen! Je krijgt +3 extra beurten (turns) voor vandaag.`w'**
   String get eventHermitSuccess;
 
   /// No description provided for @btnHermitDrink.
@@ -1715,12 +1991,6 @@ abstract class AppLocalizations {
   /// **'Dit toestel ondersteunt geen biometrie.'**
   String get profileBiometricDeviceError;
 
-  /// No description provided for @profileBiometricAuthError.
-  ///
-  /// In nl, this message translates to:
-  /// **'Verificatie mislukt.'**
-  String get profileBiometricAuthError;
-
   /// No description provided for @profileDatabaseError.
   ///
   /// In nl, this message translates to:
@@ -1774,6 +2044,330 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'VLUCHTEN'**
   String get btnForestFlee;
+
+  /// No description provided for @btnForestLeprechaunPlay.
+  ///
+  /// In nl, this message translates to:
+  /// **'Speel spel (100 G)'**
+  String get btnForestLeprechaunPlay;
+
+  /// No description provided for @btnForestWizardDrink.
+  ///
+  /// In nl, this message translates to:
+  /// **'Drink uit ketel'**
+  String get btnForestWizardDrink;
+
+  /// No description provided for @btnForestWagonSearch.
+  ///
+  /// In nl, this message translates to:
+  /// **'Doorzoek grondig'**
+  String get btnForestWagonSearch;
+
+  /// No description provided for @btnForestWagonSmash.
+  ///
+  /// In nl, this message translates to:
+  /// **'Sla kisten kapot'**
+  String get btnForestWagonSmash;
+
+  /// No description provided for @btnForestHartBow.
+  ///
+  /// In nl, this message translates to:
+  /// **'Buig respectvol'**
+  String get btnForestHartBow;
+
+  /// No description provided for @btnForestHartHunt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Probeer te jagen'**
+  String get btnForestHartHunt;
+
+  /// No description provided for @btnForestCardHigher.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hoger'**
+  String get btnForestCardHigher;
+
+  /// No description provided for @btnForestCardLower.
+  ///
+  /// In nl, this message translates to:
+  /// **'Lager'**
+  String get btnForestCardLower;
+
+  /// No description provided for @btnForestTreeGold.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geef goud'**
+  String get btnForestTreeGold;
+
+  /// No description provided for @btnForestTreeChop.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hak schors'**
+  String get btnForestTreeChop;
+
+  /// No description provided for @btnForestTempleRead.
+  ///
+  /// In nl, this message translates to:
+  /// **'Lees boek'**
+  String get btnForestTempleRead;
+
+  /// No description provided for @btnForestTempleSearch.
+  ///
+  /// In nl, this message translates to:
+  /// **'Doorzoek altaar'**
+  String get btnForestTempleSearch;
+
+  /// No description provided for @btnForestHerbalistRed.
+  ///
+  /// In nl, this message translates to:
+  /// **'Rode elixir'**
+  String get btnForestHerbalistRed;
+
+  /// No description provided for @btnForestHerbalistBlue.
+  ///
+  /// In nl, this message translates to:
+  /// **'Blauwe elixir'**
+  String get btnForestHerbalistBlue;
+
+  /// No description provided for @btnForestBadgerAnswer.
+  ///
+  /// In nl, this message translates to:
+  /// **'Beantwoord vraag'**
+  String get btnForestBadgerAnswer;
+
+  /// No description provided for @btnForestBadgerHunt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Jaag das weg'**
+  String get btnForestBadgerHunt;
+
+  /// No description provided for @btnForestSkeletonPlunder.
+  ///
+  /// In nl, this message translates to:
+  /// **'Plunder harnas'**
+  String get btnForestSkeletonPlunder;
+
+  /// No description provided for @btnForestSkeletonBow.
+  ///
+  /// In nl, this message translates to:
+  /// **'Breng eerbetoon'**
+  String get btnForestSkeletonBow;
+
+  /// No description provided for @btnForestCarnivalSpin.
+  ///
+  /// In nl, this message translates to:
+  /// **'Draai aan rad'**
+  String get btnForestCarnivalSpin;
+
+  /// No description provided for @btnForestCampEat.
+  ///
+  /// In nl, this message translates to:
+  /// **'Eet soep'**
+  String get btnForestCampEat;
+
+  /// No description provided for @btnForestCampSearch.
+  ///
+  /// In nl, this message translates to:
+  /// **'Doorzoek tenten'**
+  String get btnForestCampSearch;
+
+  /// No description provided for @btnForestWellOffer.
+  ///
+  /// In nl, this message translates to:
+  /// **'Offer edelsteen'**
+  String get btnForestWellOffer;
+
+  /// No description provided for @btnForestWellFish.
+  ///
+  /// In nl, this message translates to:
+  /// **'Vis naar goud'**
+  String get btnForestWellFish;
+
+  /// No description provided for @btnForestHoneyClimb.
+  ///
+  /// In nl, this message translates to:
+  /// **'Pak honing'**
+  String get btnForestHoneyClimb;
+
+  /// No description provided for @btnForestHoneySmoke.
+  ///
+  /// In nl, this message translates to:
+  /// **'Rook bijen uit'**
+  String get btnForestHoneySmoke;
+
+  /// No description provided for @btnForestMushroomStep.
+  ///
+  /// In nl, this message translates to:
+  /// **'Stap in cirkel'**
+  String get btnForestMushroomStep;
+
+  /// No description provided for @btnForestMushroomDestroy.
+  ///
+  /// In nl, this message translates to:
+  /// **'Vernietig cirkel'**
+  String get btnForestMushroomDestroy;
+
+  /// No description provided for @btnForestHunterPlay.
+  ///
+  /// In nl, this message translates to:
+  /// **'Schietwedstrijd'**
+  String get btnForestHunterPlay;
+
+  /// No description provided for @btnForestHunterDemand.
+  ///
+  /// In nl, this message translates to:
+  /// **'Eis goud'**
+  String get btnForestHunterDemand;
+
+  /// No description provided for @btnForestStatueOffer.
+  ///
+  /// In nl, this message translates to:
+  /// **'Offer goud'**
+  String get btnForestStatueOffer;
+
+  /// No description provided for @btnForestStatueClean.
+  ///
+  /// In nl, this message translates to:
+  /// **'Maak schoon'**
+  String get btnForestStatueClean;
+
+  /// No description provided for @btnForestSnareCut.
+  ///
+  /// In nl, this message translates to:
+  /// **'Snijd los'**
+  String get btnForestSnareCut;
+
+  /// No description provided for @btnForestSnareForce.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gebruik kracht'**
+  String get btnForestSnareForce;
+
+  /// No description provided for @btnForestSnareWait.
+  ///
+  /// In nl, this message translates to:
+  /// **'Wacht af'**
+  String get btnForestSnareWait;
+
+  /// No description provided for @innBtnDrinkAle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Oaktaven Ale'**
+  String get innBtnDrinkAle;
+
+  /// No description provided for @innBtnDrinkDragon.
+  ///
+  /// In nl, this message translates to:
+  /// **'Drakenbloed'**
+  String get innBtnDrinkDragon;
+
+  /// No description provided for @innBtnBardGold.
+  ///
+  /// In nl, this message translates to:
+  /// **'Trakteer Goud'**
+  String get innBtnBardGold;
+
+  /// No description provided for @innBtnBardGem.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geef Edelsteen'**
+  String get innBtnBardGem;
+
+  /// No description provided for @innBtnFlirt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Flirten (1 beurt)'**
+  String get innBtnFlirt;
+
+  /// No description provided for @innBtnGift.
+  ///
+  /// In nl, this message translates to:
+  /// **'Cadeau (1 gem)'**
+  String get innBtnGift;
+
+  /// No description provided for @innBtnPropose.
+  ///
+  /// In nl, this message translates to:
+  /// **'Doe een aanzoek!'**
+  String get innBtnPropose;
+
+  /// No description provided for @innBtnGambleDice.
+  ///
+  /// In nl, this message translates to:
+  /// **'Dobbelen'**
+  String get innBtnGambleDice;
+
+  /// No description provided for @innBtnGambleShell.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bekerspel'**
+  String get innBtnGambleShell;
+
+  /// No description provided for @innBtnGambleBlackjack.
+  ///
+  /// In nl, this message translates to:
+  /// **'Blackjack'**
+  String get innBtnGambleBlackjack;
+
+  /// No description provided for @innBtnBribe.
+  ///
+  /// In nl, this message translates to:
+  /// **'Omkopen (1 Gem)'**
+  String get innBtnBribe;
+
+  /// No description provided for @innBtnBountyAction.
+  ///
+  /// In nl, this message translates to:
+  /// **'PREMIE'**
+  String get innBtnBountyAction;
+
+  /// No description provided for @innRomanceLabel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Affectie: `p{points} / 100`w'**
+  String innRomanceLabel(Object points);
+
+  /// No description provided for @innBtnRichest.
+  ///
+  /// In nl, this message translates to:
+  /// **'Vraag wie de rijkste is (50 G)'**
+  String get innBtnRichest;
+
+  /// No description provided for @innGambleShark.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kaarten-haai:'**
+  String get innGambleShark;
+
+  /// No description provided for @innBtnHigher.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hoger'**
+  String get innBtnHigher;
+
+  /// No description provided for @innBtnLower.
+  ///
+  /// In nl, this message translates to:
+  /// **'Lager'**
+  String get innBtnLower;
+
+  /// No description provided for @innMenuBard.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Bard'**
+  String get innMenuBard;
+
+  /// No description provided for @innMenuVeteran.
+  ///
+  /// In nl, this message translates to:
+  /// **'Veteraan'**
+  String get innMenuVeteran;
+
+  /// No description provided for @innMenuBounty.
+  ///
+  /// In nl, this message translates to:
+  /// **'Premiejager'**
+  String get innMenuBounty;
 
   /// No description provided for @innBlackjackReturn.
   ///
@@ -1954,6 +2548,510 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'`4Je openingszin slaat de plank volledig mis! Violet is diep beledigd en geeft je een harde klap in je gezicht! (-5 HP)`w'**
   String get innFlirtSlapDefeat;
+
+  /// No description provided for @btnVisitHealer.
+  ///
+  /// In nl, this message translates to:
+  /// **'KRUIDENHEKS 🌿'**
+  String get btnVisitHealer;
+
+  /// No description provided for @dialogWoundedTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'TE ZWAARGEWOND'**
+  String get dialogWoundedTitle;
+
+  /// No description provided for @dialogWoundedMessage.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je bent te zwaargewond om te vechten. Bezoek de Kruidenheks of de herberg om te herstellen!`w'**
+  String get dialogWoundedMessage;
+
+  /// No description provided for @btnBuyHealing.
+  ///
+  /// In nl, this message translates to:
+  /// **'KOOP GENEZING'**
+  String get btnBuyHealing;
+
+  /// No description provided for @labelHealCost.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kosten voor volledige genezing: `y{cost} goudstukken`w'**
+  String labelHealCost(Object cost);
+
+  /// No description provided for @btnOk.
+  ///
+  /// In nl, this message translates to:
+  /// **'OK'**
+  String get btnOk;
+
+  /// No description provided for @healerFallbackWelcome.
+  ///
+  /// In nl, this message translates to:
+  /// **'De hut van Althea...'**
+  String get healerFallbackWelcome;
+
+  /// No description provided for @healerFallbackHealthy.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je bent al kerngezond!'**
+  String get healerFallbackHealthy;
+
+  /// No description provided for @btnTalkTownfolk.
+  ///
+  /// In nl, this message translates to:
+  /// **'PRAAT MET DORPELINGEN 🗣️'**
+  String get btnTalkTownfolk;
+
+  /// No description provided for @dialogRumorTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'DORPSGERUCHTEN'**
+  String get dialogRumorTitle;
+
+  /// No description provided for @townSquareRumorFallback.
+  ///
+  /// In nl, this message translates to:
+  /// **'De dorpelingen zijn stil vandaag...'**
+  String get townSquareRumorFallback;
+
+  /// No description provided for @healerSuccessFallback.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je bent genezen!'**
+  String get healerSuccessFallback;
+
+  /// No description provided for @btnVisitBarber.
+  ///
+  /// In nl, this message translates to:
+  /// **'KAPPER MET STYLING 💈'**
+  String get btnVisitBarber;
+
+  /// No description provided for @btnBuyTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'KOOP TITEL (1 EDELSTEEN)'**
+  String get btnBuyTitle;
+
+  /// No description provided for @btnVisitAlley.
+  ///
+  /// In nl, this message translates to:
+  /// **'SCHADUWRIJKE STEEG 🪓'**
+  String get btnVisitAlley;
+
+  /// No description provided for @btnResetReputation.
+  ///
+  /// In nl, this message translates to:
+  /// **'STRAFBLAD AFKOPEN (5 EDELSTENEN)'**
+  String get btnResetReputation;
+
+  /// No description provided for @btnVisitMightyE.
+  ///
+  /// In nl, this message translates to:
+  /// **'DONATEUR MIGHTYE 💎'**
+  String get btnVisitMightyE;
+
+  /// No description provided for @btnDonateGem.
+  ///
+  /// In nl, this message translates to:
+  /// **'DONEER 1 EDELSTEEN'**
+  String get btnDonateGem;
+
+  /// No description provided for @btnVisitWedding.
+  ///
+  /// In nl, this message translates to:
+  /// **'TROUW KAPEL 💍'**
+  String get btnVisitWedding;
+
+  /// No description provided for @btnMarry.
+  ///
+  /// In nl, this message translates to:
+  /// **'JA, IK WIL (500 GOUD)'**
+  String get btnMarry;
+
+  /// No description provided for @graveyard_title.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Begraafplaats van Oaktaven (Onderwereld)'**
+  String get graveyard_title;
+
+  /// No description provided for @graveyard_status_dead.
+  ///
+  /// In nl, this message translates to:
+  /// **'STATUS: DOOD (Geest)'**
+  String get graveyard_status_dead;
+
+  /// No description provided for @graveyard_favor_points.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gunst bij Ramius: {points} punten'**
+  String graveyard_favor_points(Object points);
+
+  /// No description provided for @graveyard_btn_fight.
+  ///
+  /// In nl, this message translates to:
+  /// **'Vecht tegen Gekweld Gesternte (1 Beurt)'**
+  String get graveyard_btn_fight;
+
+  /// No description provided for @graveyard_btn_resurrect.
+  ///
+  /// In nl, this message translates to:
+  /// **'Smeek Ramius om Genade'**
+  String get graveyard_btn_resurrect;
+
+  /// No description provided for @graveyard_btn_haunt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Spook in de Herberg (1 Beurt)'**
+  String get graveyard_btn_haunt;
+
+  /// No description provided for @graveyard_btn_talk.
+  ///
+  /// In nl, this message translates to:
+  /// **'Praat met Ramius'**
+  String get graveyard_btn_talk;
+
+  /// No description provided for @ghost_combat_title.
+  ///
+  /// In nl, this message translates to:
+  /// **'ONDERWERELD GEVECHT'**
+  String get ghost_combat_title;
+
+  /// No description provided for @ghost_combat_monster_label.
+  ///
+  /// In nl, this message translates to:
+  /// **'Monster: {name} (LVL {level})'**
+  String ghost_combat_monster_label(Object level, Object name);
+
+  /// No description provided for @ghost_combat_hp_label.
+  ///
+  /// In nl, this message translates to:
+  /// **'Monster HP: {current} / {max}'**
+  String ghost_combat_hp_label(Object current, Object max);
+
+  /// No description provided for @ghost_combat_btn_attack.
+  ///
+  /// In nl, this message translates to:
+  /// **'VAL AAN'**
+  String get ghost_combat_btn_attack;
+
+  /// No description provided for @ghost_combat_btn_return.
+  ///
+  /// In nl, this message translates to:
+  /// **'TERUG NAAR KERKHOF'**
+  String get ghost_combat_btn_return;
+
+  /// No description provided for @inn_btn_leave.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verlaat de Herberg'**
+  String get inn_btn_leave;
+
+  /// No description provided for @inn_btn_talk_veteran.
+  ///
+  /// In nl, this message translates to:
+  /// **'LUISTER NAAR VERHAAL'**
+  String get inn_btn_talk_veteran;
+
+  /// No description provided for @inn_section_title.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== {section} ==='**
+  String inn_section_title(Object section);
+
+  /// No description provided for @inn_section_barman.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== De Bar van de Herberg ==='**
+  String get inn_section_barman;
+
+  /// No description provided for @inn_section_gamble.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== De Goktafel ==='**
+  String get inn_section_gamble;
+
+  /// No description provided for @inn_section_veteran.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== De Oude Krijger ==='**
+  String get inn_section_veteran;
+
+  /// No description provided for @inn_section_bounty.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== De Premiejager ==='**
+  String get inn_section_bounty;
+
+  /// No description provided for @inn_section_spy.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== Schimmige Figuren ==='**
+  String get inn_section_spy;
+
+  /// No description provided for @inn_section_news.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== Het Dorpsnieuws ==='**
+  String get inn_section_news;
+
+  /// No description provided for @town_btn_forest.
+  ///
+  /// In nl, this message translates to:
+  /// **'Ga het Bos in'**
+  String get town_btn_forest;
+
+  /// No description provided for @town_btn_news.
+  ///
+  /// In nl, this message translates to:
+  /// **'Dagelijks Nieuws'**
+  String get town_btn_news;
+
+  /// No description provided for @town_btn_shops.
+  ///
+  /// In nl, this message translates to:
+  /// **'Winkelstraat'**
+  String get town_btn_shops;
+
+  /// No description provided for @town_btn_mystery.
+  ///
+  /// In nl, this message translates to:
+  /// **'Mysterieuze Plekken'**
+  String get town_btn_mystery;
+
+  /// No description provided for @town_btn_training.
+  ///
+  /// In nl, this message translates to:
+  /// **'Krijgshof & Training'**
+  String get town_btn_training;
+
+  /// No description provided for @town_btn_heart.
+  ///
+  /// In nl, this message translates to:
+  /// **'Het Dorpshart'**
+  String get town_btn_heart;
+
+  /// No description provided for @town_sub_shops.
+  ///
+  /// In nl, this message translates to:
+  /// **'Smederij'**
+  String get town_sub_shops;
+
+  /// No description provided for @town_sub_bank.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Bank'**
+  String get town_sub_bank;
+
+  /// No description provided for @town_sub_barber.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kapper'**
+  String get town_sub_barber;
+
+  /// No description provided for @town_sub_alchemist.
+  ///
+  /// In nl, this message translates to:
+  /// **'Alchemist'**
+  String get town_sub_alchemist;
+
+  /// No description provided for @town_sub_healer.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kruidenheks'**
+  String get town_sub_healer;
+
+  /// No description provided for @town_sub_alley.
+  ///
+  /// In nl, this message translates to:
+  /// **'Schaduwrijke Steeg'**
+  String get town_sub_alley;
+
+  /// No description provided for @town_sub_classroom.
+  ///
+  /// In nl, this message translates to:
+  /// **'Training zaal'**
+  String get town_sub_classroom;
+
+  /// No description provided for @town_sub_stables.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Stallen'**
+  String get town_sub_stables;
+
+  /// No description provided for @town_sub_inn.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Herberg'**
+  String get town_sub_inn;
+
+  /// No description provided for @town_sub_church.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Kerk'**
+  String get town_sub_church;
+
+  /// No description provided for @town_sub_wedding.
+  ///
+  /// In nl, this message translates to:
+  /// **'Trouwkapel'**
+  String get town_sub_wedding;
+
+  /// No description provided for @town_sub_townfolk.
+  ///
+  /// In nl, this message translates to:
+  /// **'Dorpelingen'**
+  String get town_sub_townfolk;
+
+  /// No description provided for @town_sub_mightye.
+  ///
+  /// In nl, this message translates to:
+  /// **'Donateur Mightye'**
+  String get town_sub_mightye;
+
+  /// No description provided for @inn_news_empty.
+  ///
+  /// In nl, this message translates to:
+  /// **'Er is vandaag nog niets voorgevallen in het rijk...'**
+  String get inn_news_empty;
+
+  /// No description provided for @inn_spy_empty.
+  ///
+  /// In nl, this message translates to:
+  /// **'Er dwalen momenteel geen andere reizigers in de herberg...'**
+  String get inn_spy_empty;
+
+  /// No description provided for @inn_btn_spy_action.
+  ///
+  /// In nl, this message translates to:
+  /// **'SPIONEER (10 GOUD)'**
+  String get inn_btn_spy_action;
+
+  /// No description provided for @inn_title.
+  ///
+  /// In nl, this message translates to:
+  /// **'De Herberg \'De Dronken Draak\''**
+  String get inn_title;
+
+  /// No description provided for @profileBiometricAuthError.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verificatie mislukt.'**
+  String get profileBiometricAuthError;
+
+  /// No description provided for @btnStyxOnboard.
+  ///
+  /// In nl, this message translates to:
+  /// **'STAP OP HET VLOT (KOST 2 TURNS)'**
+  String get btnStyxOnboard;
+
+  /// No description provided for @btnStyxStay.
+  ///
+  /// In nl, this message translates to:
+  /// **'BLIJF AAN DE OEVER'**
+  String get btnStyxStay;
+
+  /// No description provided for @btnWhispersListen.
+  ///
+  /// In nl, this message translates to:
+  /// **'LUISTER AANDACHTIG'**
+  String get btnWhispersListen;
+
+  /// No description provided for @btnWhispersLeave.
+  ///
+  /// In nl, this message translates to:
+  /// **'ZWEEF SNEL VERDER'**
+  String get btnWhispersLeave;
+
+  /// No description provided for @dragon_lair_title.
+  ///
+  /// In nl, this message translates to:
+  /// **'Het Hol van de Groene Draak'**
+  String get dragon_lair_title;
+
+  /// No description provided for @btn_attack_dragon.
+  ///
+  /// In nl, this message translates to:
+  /// **'Val de Groene Draak aan!'**
+  String get btn_attack_dragon;
+
+  /// No description provided for @btn_sneak_away.
+  ///
+  /// In nl, this message translates to:
+  /// **'Sluip stilletjes weg'**
+  String get btn_sneak_away;
+
+  /// No description provided for @btn_dragon_continue.
+  ///
+  /// In nl, this message translates to:
+  /// **'Accepteer je lot'**
+  String get btn_dragon_continue;
+
+  /// No description provided for @news_dragon_kill.
+  ///
+  /// In nl, this message translates to:
+  /// **'{user} heeft de Groene Draak verslagen en redt het rijk! Dit is hun {kills}e overwinning!'**
+  String news_dragon_kill(Object kills, Object user);
+
+  /// No description provided for @btnDevAddGold.
+  ///
+  /// In nl, this message translates to:
+  /// **'+10K GOUD'**
+  String get btnDevAddGold;
+
+  /// No description provided for @btnDevAddGems.
+  ///
+  /// In nl, this message translates to:
+  /// **'+5 EDELSTENEN'**
+  String get btnDevAddGems;
+
+  /// No description provided for @btnDevAddTurns.
+  ///
+  /// In nl, this message translates to:
+  /// **'+10 BEURTEN'**
+  String get btnDevAddTurns;
+
+  /// No description provided for @lblDevSelectEvent.
+  ///
+  /// In nl, this message translates to:
+  /// **'Selecteer Event om te Spawnen:'**
+  String get lblDevSelectEvent;
+
+  /// No description provided for @lblDevSelectMonster.
+  ///
+  /// In nl, this message translates to:
+  /// **'Selecteer Monster om te Spawnen:'**
+  String get lblDevSelectMonster;
+
+  /// No description provided for @btnDevSpawnAction.
+  ///
+  /// In nl, this message translates to:
+  /// **'SPAWN RECHTSTREEKS 🚀'**
+  String get btnDevSpawnAction;
+
+  /// No description provided for @errorNoGems.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je hebt niet genoeg glimmende edelstenen!'**
+  String get errorNoGems;
+
+  /// No description provided for @btnBuyCut.
+  ///
+  /// In nl, this message translates to:
+  /// **'Frisse Coupe ({cost} Goud)'**
+  String btnBuyCut(Object cost);
+
+  /// No description provided for @btnBuyShave.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gladde Scheerbeurt ({cost} Goud)'**
+  String btnBuyShave(Object cost);
+
+  /// No description provided for @btnBuyDye.
+  ///
+  /// In nl, this message translates to:
+  /// **'Haar Verven (1 GEM)'**
+  String get btnBuyDye;
 }
 
 class _AppLocalizationsDelegate

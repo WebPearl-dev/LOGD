@@ -1,0 +1,23 @@
+{
+  "welcome": "You step into the cool, echoing space of the bank. The walls are built of solid granite and the windows are fitted with thick iron bars. Behind a heavy oak counter sits an old, grumpy dwarf with a huge beard. He scratches in a gigantic logbook with a quill and audibly counts gold tokens in between. He barely looks up as you approach his counter.",
+  "deposit_success": "The dwarf takes your gold pieces, bites one of the coins to check if it's real, and chuckles with satisfaction. 'Wise choice, traveler. In my vault, this is safer than in that dusty satchel of yours. I'll credit it to the ledger immediately.'",
+  "withdraw_success": "The banker looks at you with a deep sigh and a disgruntled gaze. He brings a bag of coins from under the counter with audible protest. 'Must you really? Gold belongs in a vault, not in the pockets of a reckless adventurer. Don't squander it all at the inn!'",
+  "error_limit_reached": "The banker slams his fist on the counter so the inkwell rattles. 'STOP! Do you think I have all the space in the world here? You've reached your deposit limit for today. I won't accept any more gold from an amateur of your level. Come back tomorrow!'",
+  "error_insufficient_bank": "The dwarf looks over the rim of his glasses and raises an eyebrow. 'Are you kidding me? Your bank balance is emptier than the stomach of a forest rat. You can't overdraw here, scoundrel!'",
+  "error_invalid_amount": "The banker shakes his head wearily. 'I don't wear glasses for nothing. Enter a proper amount or clear out of my office!'",
+  "talk_1": "'If you want to keep gold, bring it to a dwarf. Never trust those elves on the town square with your money; they only buy silk clothes and flower wreaths with it.'",
+  "talk_2": "'Did you know that the Green Dragon melts all the gold on your body if he burns you alive? Only the gold kept here in my vault survives that heat. So if you step into that cave... make sure your pockets are empty.'",
+  "talk_3": "'I give you 2% interest on your gold every morning. That's pure generosity from the bank! But don't come in with billions, because above ten million I shut off the tap. Wealth must be earned, not built while sleeping.'",
+  "talk_4": "'Don't look at my beard so much, traveler. There's no gold hidden in it. Although... gold dust shines very nicely in it. What are you standing there for? Do a transaction or get out!'",
+  "talk_5": "'My grandfather always said: 'A dwarf without gold is like an inn without beer.' A terrible thought. So put your coins in the account and get back to work!'",
+  "talk_6": "'Some fools think they can scam me with fake coins made of painted lead. I can smell the difference between pure gold and junk from three meters away, greenhorn. Don't even try it.'",
+  "talk_7": "'You know what the problem is with adventurers nowadays? They spend all their gold on expensive drinks for the Bard in the inn. As if a pretty song protects you from a troll's claws!'",
+  "talk_8": "'Yes, the walls here are solid granite. And yes, the vault door weighs three thousand kilograms. So no, you don't have to ask me if your money is safe from those thieves in the forest.'",
+  "talk_9": "'Every day you survive is a day you can bring more gold to me. That's the only motivation a real hero needs. So get back to the forest quickly.'",
+  "talk_10": "'Why am I looking so grumpy? Because I sit here all day with my nose in the books counting, while you get to slaughter monsters out there! Although... it counts very nicely, it does.'",
+  "talk_11": "'If you are married, I recommend keeping a close eye on your bank balance. Violet and Seth Able have quite a knack for expecting expensive gifts. Love is expensive in Oaktaven.'",
+  "talk_12": "The dwarf sighs deeply and slams his logbook shut with a loud bang. 'Time is money, friend. And you are currently wasting mine without even one gold piece rolling across the counter!'",
+  "talk_13": "'Did you know that the bankers in the underworld are even greedier than me? Ramius, the Grim Reaper, doesn't accept gold at all, by the way. He only wants 'Favor'. So make sure you get rich here, because it's useless there.'",
+  "talk_14": "'As your level rises, your deposit limit with me rises too. Why? Because I simply trust successful heroes more with large amounts than a beginner who still trips over their own sword.'",
+  "talk_15": "'Ssh! Are you quiet now? I was just trying to calculate tomorrow's interest, but your chatter made me lose count. Now I have to start all over again at the letter A...'"
+}

@@ -5,6 +5,9 @@ import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
+import '../services/combat_engine.dart';
+import '../services/forest_manager.dart';
+import '../services/logd_enums.dart';
 
 class TrainingScreen extends StatefulWidget {
   const TrainingScreen({super.key});
@@ -15,13 +18,19 @@ class TrainingScreen extends StatefulWidget {
 
 class _TrainingScreenState extends State<TrainingScreen> {
   final _supabase = Supabase.instance.client;
+  final _combatEngine = CombatEngine();
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
   String username = "";
 
   bool _isLoading = true;
+  bool _isInCombat = false;
   String _statusMessage = "";
+  String _combatLog = "";
+  
+  LogdEnemy? _currentMaster;
+  int _masterHp = 0;
 
   @override
   void initState() {
@@ -53,51 +62,112 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return level * level * 100;
   }
 
-  Future<void> _challengeMaster() async {
+  String _getMasterName(AppLocalizations local) {
+    if (level < 4) return local.master0;
+    if (level < 8) return local.master1;
+    if (level < 12) return local.master2;
+    return local.master3;
+  }
+
+  void _startDuel() {
     final local = AppLocalizations.of(context)!;
-    int xpNeeded = _getXpRequiredForNextLevel();
+    final String mName = _getMasterName(local);
+    
+    setState(() {
+      _isInCombat = true;
+      _combatLog = "";
+      _statusMessage = "";
+      
+      _masterHp = level * 20 + 10;
+      _currentMaster = LogdEnemy(
+        name: mName,
+        level: level + 1,
+        maxHp: _masterHp,
+        currentHp: _masterHp,
+        attackText: local.trainingMasterAttack,
+        minGold: 0,
+        maxGold: 0,
+      );
+    });
+  }
 
-    if (experience < xpNeeded) {
-      setState(() {
-        _statusMessage = local.trainingErrorNoXp;
-      });
-      return;
+  void _onAttackPressed() {
+    if (_currentMaster == null || !_isInCombat) return;
+
+    final local = AppLocalizations.of(context)!;
+    
+    final int pAtk = level * 6 + 5;
+    final int pDef = level * 4 + 3;
+
+    final result = _combatEngine.executeAttackRound(
+      enemy: _currentMaster!.copyWith(currentHp: _masterHp),
+      playerAttack: pAtk,
+      playerDefense: pDef,
+      playerCurrentHp: playerHp,
+      playerMaxHp: playerMaxHp,
+      playerLevel: level,
+    );
+
+    setState(() {
+      _masterHp = (_masterHp - result.damageDealt).clamp(0, 9999);
+      playerHp = (playerHp - result.damageReceived).clamp(0, playerMaxHp);
+
+      String roundLog = local.trainingPlayerAttackLog(result.damageDealt.toString()) +
+                        local.trainingMasterAttackLog(
+                          result.args['attack_text'] ?? local.trainingMasterAttack,
+                          result.damageReceived.toString(),
+                          _currentMaster!.name,
+                        );
+      
+      _combatLog = "$roundLog\n\n$_combatLog";
+
+      if (result.status == CombatStatus.enemyDefeated) {
+        _isInCombat = false;
+        _finalizeLevelUp();
+      } else if (playerHp <= 1) {
+        playerHp = 1;
+        _isInCombat = false;
+        _statusMessage = local.trainingDefeat;
+        _updateHpInCloud();
+      }
+    });
+  }
+
+  Future<void> _updateHpInCloud() async {
+    final user = _supabase.auth.currentUser;
+    if (user != null) {
+      await _supabase.from('profiles').update({'hp': playerHp}).eq('id', user.id);
     }
+  }
 
-    setState(() { _isLoading = true; _statusMessage = ""; });
+  Future<void> _finalizeLevelUp() async {
+    final local = AppLocalizations.of(context)!;
+    final user = _supabase.auth.currentUser;
+    if (user == null) return;
+
+    int newLevel = level + 1;
+    int newMaxHp = playerMaxHp + 10;
+
+    await _supabase.from('profiles').update({
+      'level': newLevel,
+      'max_hp': newMaxHp,
+      'hp': newMaxHp,
+    }).eq('id', user.id);
 
     try {
-      final user = _supabase.auth.currentUser;
-      if (user != null) {
-        int newLevel = level + 1;
-        int newMaxHp = playerMaxHp + 10;
+      await _supabase.from('daily_news').insert({
+        'username': username,
+        'log_type': 'level_up',
+        'reached_level': newLevel,
+      });
+    } catch (_) {}
 
-        await _supabase.from('profiles').update({
-          'level': newLevel,
-          'max_hp': newMaxHp,
-          'hp': newMaxHp,
-        }).eq('id', user.id);
-
-        try {
-          await _supabase.from('daily_news').insert({
-            'username': username,
-            'log_type': 'level_up',
-            'reached_level': newLevel,
-          });
-        } catch (_) {}
-
-        setState(() {
-          level = newLevel;
-          playerMaxHp = newMaxHp;
-          playerHp = newMaxHp;
-          _statusMessage = local.trainingSuccessLevelUp(newLevel.toString());
-        });
-      }
-    } catch (_) {
-      setState(() { _statusMessage = local.smithyErrorUnknown; });
-    } finally {
-      setState(() { _isLoading = false; });
-    }
+    setState(() {
+      level = newLevel;
+      playerMaxHp = newMaxHp;
+      playerHp = newMaxHp;
+      _statusMessage = local.trainingSuccessLevelUp(newLevel.toString());
+    });
   }
 
   @override
@@ -105,14 +175,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
     final local = AppLocalizations.of(context)!;
 
     if (_isLoading) {
-      return const Scaffold(backgroundColor: Color(0xFF1E1E1E), body: Center(child: CircularProgressIndicator(color: LogdCodes.uiRed)));
+      return const Scaffold(backgroundColor: LogdCodes.uiBlueBg, body: Center(child: CircularProgressIndicator(color: LogdCodes.uiRed)));
     }
 
     int xpNeeded = _getXpRequiredForNextLevel();
-    bool canUpgrade = experience >= xpNeeded;
+    bool canChallenge = experience >= xpNeeded && !_isInCombat && _statusMessage.isEmpty;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E),
+      backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
         title: Text(
             local.btnVisitTraining,
@@ -122,7 +192,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 fontWeight: FontWeight.bold
             )
         ),
-        backgroundColor: const Color(0xFF2D2D2D),
+        backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -135,52 +205,81 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LogdText(text: local.trainingWelcome, fontSize: LogdCodes.fontSizeDefault),
-                    const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: Colors.grey)),
+                    if (!_isInCombat) ...[
+                      LogdText(text: local.trainingWelcome, fontSize: LogdCodes.fontSizeDefault),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: Colors.grey)),
+                    ],
 
                     if (_statusMessage.isNotEmpty) ...[
                       LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
                       const SizedBox(height: 14),
                     ],
 
-                    // DE FIX: Volledig gelokaliseerd via .arb sleutels!
-                    LogdText(text: local.trainingStatusTitle, fontSize: LogdCodes.fontSizeCardTitle),
-                    const SizedBox(height: 6),
-                    LogdText(text: local.trainingCurrentLevel(level.toString()), fontSize: LogdCodes.fontSizeDefault),
-                    LogdText(text: "Ervaring (XP): `c$experience / $xpNeeded`w", fontSize: LogdCodes.fontSizeDefault),
+                    if (_isInCombat && _currentMaster != null) ...[
+                      LogdText(text: local.trainingDuelTitle(_currentMaster!.name.toUpperCase()), fontSize: LogdCodes.fontSizeCardTitle),
+                      const SizedBox(height: 8),
+                      LogdText(text: local.trainingMasterHp(_masterHp.toString(), _currentMaster!.maxHp.toString()), fontSize: LogdCodes.fontSizeDefault),
+                      const Divider(color: Colors.grey),
+                      const SizedBox(height: 10),
+                      LogdText(text: _combatLog, fontSize: LogdCodes.fontSizeDefault),
+                    ] else if (_statusMessage.isEmpty) ...[
+                      LogdText(text: local.trainingStatusTitle, fontSize: LogdCodes.fontSizeCardTitle),
+                      const SizedBox(height: 6),
+                      LogdText(text: local.trainingCurrentLevel(level.toString()), fontSize: LogdCodes.fontSizeDefault),
+                      LogdText(text: local.trainingXpLabel(experience.toString(), xpNeeded.toString()), fontSize: LogdCodes.fontSizeDefault),
+                    ],
                   ],
                 ),
               ),
             ),
 
-            if (canUpgrade) ...[
+            if (canChallenge) ...[
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: LogdCodes.uiRed, width: 2),
-                    backgroundColor: const Color(0xFF240D0D),
+                    backgroundColor: LogdCodes.uiRedBg,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                   ),
-                  onPressed: _challengeMaster,
+                  onPressed: _startDuel,
                   child: Text(local.btnChallengeMaster.toUpperCase(), style: const TextStyle(color: LogdCodes.uiRed, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault)),
                 ),
               ),
               const SizedBox(height: 10),
             ],
 
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.blue, width: 2),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+            if (_isInCombat) ...[
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.green, width: 2),
+                    backgroundColor: LogdCodes.uiGreenBg,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                  ),
+                  onPressed: _onAttackPressed,
+                  child: Text(local.btnAttack.toUpperCase(), style: const TextStyle(color: Colors.greenAccent, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: 18)),
+                ),
               ),
-              onPressed: () => Navigator.pop(context),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: Colors.blueAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+            ],
+
+            if (!_isInCombat)
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: LogdCodes.uiBlueDark, width: 2),
+                  backgroundColor: LogdCodes.uiBlueBg,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(color: LogdCodes.uiBlueDark, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+                ),
               ),
-            ),
           ],
         ),
       ),

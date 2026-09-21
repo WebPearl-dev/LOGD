@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/logd_codes.dart';
-import '../widgets/logd_text.dart'; // DE FIX: Nu correct geïmporteerd!
+import '../widgets/logd_text.dart';
 
 class SmithyTabContent extends StatelessWidget {
   final String currentLabel;
@@ -27,46 +27,60 @@ class SmithyTabContent extends StatelessWidget {
     final local = AppLocalizations.of(context)!;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        LogdText(text: "=== ${local.smithyCurrentEquip} ===", fontSize: LogdCodes.fontSizeCardTitle),
-        const SizedBox(height: 6),
-        LogdText(text: currentLabel, fontSize: LogdCodes.fontSizeDefault),
-        const SizedBox(height: 20),
+        // Content deel (scrollbaar voor kleine schermen)
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LogdText(text: "=== ${local.smithyCurrentEquip} ===", fontSize: LogdCodes.fontSizeCardTitle),
+                const SizedBox(height: 6),
+                LogdText(text: currentLabel, fontSize: LogdCodes.fontSizeDefault),
+                const SizedBox(height: 20),
 
-        if (!maxReached) ...[
-          LogdText(text: "=== ${local.smithyUpgradeAvailable} ===", fontSize: LogdCodes.fontSizeCardTitle),
-          const SizedBox(height: 6),
-          LogdText(text: "`c$nextName`w", fontSize: LogdCodes.fontSizeDefault),
-          const SizedBox(height: 4),
-          LogdText(text: local.smithyCostLabel(cost.toString()), fontSize: LogdCodes.fontSizeDefault),
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.yellow, width: 2),
-                backgroundColor: const Color(0xFF1E1E00),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-              ),
-              onPressed: onBuyUpgrade,
-              child: Text(
-                  local.btnBuyUpgrade.toUpperCase(),
-                  style: const TextStyle(
-                      color: Colors.yellowAccent,
-                      fontFamily: LogdCodes.retroFont,
-                      fontSize: LogdCodes.fontSizeDefault,
-                      fontWeight: FontWeight.bold
-                  )
+                if (!maxReached) ...[
+                  LogdText(text: "=== ${local.smithyUpgradeAvailable} ===", fontSize: LogdCodes.fontSizeCardTitle),
+                  const SizedBox(height: 6),
+                  LogdText(text: "`c$nextName`w", fontSize: LogdCodes.fontSizeDefault),
+                  const SizedBox(height: 4),
+                  LogdText(text: local.smithyCostLabel(cost.toString()), fontSize: LogdCodes.fontSizeDefault),
+                ] else ...[
+                  const SizedBox(height: 20),
+                  Center(child: LogdText(text: local.smithyMaxLevel, fontSize: LogdCodes.fontSizeDefault)),
+                ],
+              ],
+            ),
+          ),
+        ),
+
+        // Koopknop (altijd onderaan vastgezet)
+        if (!maxReached)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
+                  backgroundColor: LogdCodes.uiYellowBg,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                ),
+                onPressed: onBuyUpgrade,
+                child: Text(
+                    local.btnBuyUpgrade.toUpperCase(),
+                    style: const TextStyle(
+                        color: LogdCodes.uiYellow,
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeDefault,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ),
             ),
-          )
-        ] else ...[
-          const Spacer(),
-          Center(child: LogdText(text: local.smithyMaxLevel, fontSize: LogdCodes.fontSizeDefault)),
-          const Spacer(),
-        ],
+          ),
       ],
     );
   }

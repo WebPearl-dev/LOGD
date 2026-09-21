@@ -1,0 +1,41 @@
+{
+  "welcome": "`gYou step into the rowdy inn. The smell of roasted meat and strong beer greets you. In the corner, a bard sings a melancholy song, while travelers loudly toss dice.`w\n\n\"Welcome, stranger!\" the innkeeper shouts while cleaning a large mug. \"Pull up a seat at the gambling table, or have a drink!\"",
+  "inn_intro": "`gThe smell of stale beer, roasted meat and pipe smoke greets you. It's a noisy bunch in the inn. Local adventurers laugh loudly at long wooden tables. Behind the bar, the barkeep polishes a wooden mug with a greasy cloth.`w",
+
+  "barman_welcome": "`4Barkeep:`w 'Welcome traveler! If you have gold, I have the coldest beer in the region. It'll give you some temporary muscles or heal your wounds. What can I pour for you?'",
+  "barman_limit_reached": "`4Barkeep:`w 'You've had enough for today, friend. I'm not pouring you any more.'",
+  "drink_ale_success": "`2The barkeep slides a large, foaming mug to you. 'Drink up, hero! It'll do you good.' The beer tastes surprisingly good. You feel the warm energy flowing through your muscles. You feel permanently a bit healthier! (+1 Max HP)`w",
+  "drink_ale_fail": "`4The barkeep slides a large, foaming mug to you. 'Drink up, hero! It'll do you good.' The beer hits your legs immediately. Your head starts spinning... You stumble out of the bar and are too dizzy to spot monsters for now. (-1 Turn)`w",
+  "drink_dragon_success": "`2You drink the Dragon's Breath in one go. A scorching heat pulls through your arms. You feel invincible! (+3 Attack for the next 5 fights)`w",
+
+  "bard_welcome": "`gThe Bard tunes his lute and nods to you. 'Fancy a legend, traveler? Treat me to a drink and I'll sing of your deeds.'`w",
+  "bard_song_warrior": "`2The Bard begins to play and sings an epic song about a hero who managed to slay a horde of trolls with one blow. The song fills you with an unstoppable urge to prove yourself. (+2 Attack today)`w",
+  "bard_song_scavenger": "`2The Bard sings of hidden treasures and mountains of gold. Your eyes glisten and you feel a lot luckier in your search. (+15% Gold gain today)`w",
+  "bard_song_haste": "`2The Bard plays a cheerful, fast rhythm. You feel light-footed and ready to eat miles! (+5 Turns today)`w",
+  "bard_limit_reached": "`wThe Bard puts down his lute. 'My voice must rest, friend. I'll sing for you again tomorrow.'`w",
+
+  "romance_welcome_violet": "`gViolet wipes the bar and smiles at you. 'Hey there, handsome warrior. Have you performed heroics in the forest again?'`w",
+  "romance_welcome_seth": "`gSeth Able tunes his lute and nods to you. 'Welcome back, traveler. Do you have time to listen to my newest poem?'`w",
+  "romance_flirt_success": "`2You give a charming compliment. She blushes briefly, laughs at your joke and quickly wipes the table. 'You're quite the smooth talker, aren't you? Stop by again later.' (+{points} Romance)`w",
+  "romance_flirt_fail": "`4You make a far too brutal remark. She looks at you furiously, grabs a wooden rolling pin and hits you hard on the back of your head. 'Out with you, rascal!' You're thrown out of the inn. (-5 HP)`w",
+  "romance_gift_success": "`2You place a gleaming gem on the bar. Her eyes light up. 'Oh, for me? How incredibly generous of you! You really are different from those other rough knights here.' (+25 Romance)`w",
+  "romance_proposal_ready": "`gYou feel the time is right. With the wedding ring in your pocket, you take a deep breath...`w",
+  "romance_married_welcome": "`2Your partner greets you with a warm kiss. 'Good to have you back! Here's some pocket money for your adventures.' (+{gold} Gold & Fully Healed)`w",
+
+  "shell_welcome": "`gA shady figure slides three cups across the table. 'Wanna bet? There's a pea under one of these cups. Find it and triple your stake!'`w",
+  "shell_win": "`2You point to the middle cup. The man lifts it... YES! The pea is under it. You take your winnings!`w",
+  "shell_lose": "`4You point to the cup, but there's nothing under it. The man grins and rakes in your gold.`w",
+
+  "spy_welcome": "`gYou sit down at the table in the darkest corner. A man in a deep hood looks up. 'Information isn't free, friend...'`w",
+  "spy_result_basic": "`c'My spies have followed {target}. He's walking around with {gold} gold and his health is {hp}/{maxHp}.'`w",
+  "spy_result_bank": "`cThe barkeep whispers: 'I happened to look in the ledger... {target} has at least {gold} gold in his bank account!'`w",
+
+  "veteran_welcome": "You slide a stool next to a rowdy veteran whose armor is full of dents and scratches. He lifts his mug so wildly that beer splashes over the bar. 'Hah! Another greenhorn!' he bellows with a heavy voice. 'Greedy for a real story?'",
+  "veteran_success": "The veteran slaps you hard on your shoulder. 'Look, that's what I like to hear! Listen: the monsters of your level hate feints. If you strike them first, they stagger immediately!' You learn a lot from his drunken rambling. (+{xp} XP)",
+  "veteran_fail": "He takes a deep sip, suddenly looks at you angrily and pushes you off your stool. 'What are you staring at? Go fight yourself instead of drinking my beer!' (-2 HP)",
+
+  "error_no_gold": "`4The barkeep slams the bar:`w 'You don't have enough gold pieces, traveler! Go work in the forest first!'",
+  "error_no_gems": "`4'Do you think I settle for talk? Don't come back until you have gleaming Gems with you!'`w",
+  "error_no_turns": "`4You have no turns left to flirt today!`w",
+  "error_no_ring": "`4You haven't bought a wedding ring at the town square yet!`w"
+}

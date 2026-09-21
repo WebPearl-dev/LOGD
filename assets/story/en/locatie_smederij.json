@@ -1,0 +1,5 @@
+{
+  "welcome": "`gYou step into the scorching hot blacksmith shop. A burly dwarf strikes a glowing sword with a massive hammer. Hot iron hisses in a bucket of water.`w\n\n\"Welcome to my smithy, traveler! Are you tired of that wooden stick and worn-out shirt? Take a look around, but remember: looking is free, buying costs gold!\"",
+  "max_level": "`gYou already possess the absolute best equipment in the realm!`w",
+  "success_buy": "`2You have successfully upgraded to: {name}!`w"
+}

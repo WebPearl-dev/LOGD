@@ -1,11 +1,13 @@
 // lib/screens/bank_screen.dart
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter/services.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../widgets/bank_action_panel.dart';
 import '../theme/logd_codes.dart';
+import '../services/bank_controller.dart';
 
 class BankScreen extends StatefulWidget {
   const BankScreen({super.key});
@@ -15,19 +17,35 @@ class BankScreen extends StatefulWidget {
 }
 
 class _BankScreenState extends State<BankScreen> {
-  final _supabase = Supabase.instance.client;
+  final BankController _con = BankController();
   final _amountController = TextEditingController();
-
-  int goldOnHand = 0, goldInBank = 0, playerHp = 20, playerMaxHp = 20;
-  int gems = 0, turns = 0, level = 1, experience = 0;
-
-  bool _isLoading = true;
-  String _statusMessage = "";
+  
+  Map<String, dynamic> _storyContent = {};
+  String _displayLog = "";
+  bool _isInitLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadBankData();
+    _initBank();
+  }
+
+  Future<void> _initBank() async {
+    await _con.loadBankStats();
+    
+    // Laad JSON verhalen
+    if (!mounted) return;
+    final String lang = Localizations.localeOf(context).languageCode;
+    final String jsonPath = 'assets/story/${lang == 'nl' ? 'nl' : 'en'}/locatie_bank.json';
+    final String jsonString = await rootBundle.loadString(jsonPath);
+    _storyContent = jsonDecode(jsonString);
+
+    if (mounted) {
+      setState(() {
+        _displayLog = _storyContent['welcome'] ?? "...";
+        _isInitLoading = false;
+      });
+    }
   }
 
   @override
@@ -36,111 +54,45 @@ class _BankScreenState extends State<BankScreen> {
     super.dispose();
   }
 
-  Future<void> _loadBankData() async {
-    final user = _supabase.auth.currentUser;
-    if (user != null) {
-      final data = await _supabase.from('profiles').select().eq('id', user.id).single();
-      if (mounted) {
-        setState(() {
-          goldOnHand = data['gold_on_hand'] ?? 0;
-          goldInBank = data['gold_in_bank'] ?? 0;
-          playerHp = data['hp'] ?? 20;
-          playerMaxHp = data['max_hp'] ?? 20;
-          gems = data['gems'] ?? 0;
-          turns = data['turns'] ?? 0;
-          level = data['level'] ?? 1;
-          experience = data['experience'] ?? 0;
-          _isLoading = false;
-        });
-      }
-    }
-  }
-
-  Future<void> _updateCloudGold() async {
-    final user = _supabase.auth.currentUser;
-    if (user != null) {
-      await _supabase.from('profiles').update({
-        'gold_on_hand': goldOnHand,
-        'gold_in_bank': goldInBank,
-      }).eq('id', user.id);
-    }
-  }
-
-  void _depositAll() {
-    if (goldOnHand <= 0) return;
-    final local = AppLocalizations.of(context)!;
-    setState(() {
-      _statusMessage = local.bankSuccessDeposit(goldOnHand.toString());
-      goldInBank += goldOnHand;
-      goldOnHand = 0;
-    });
-    _updateCloudGold();
-  }
-
-  void _withdrawAll() {
-    if (goldInBank <= 0) return;
-    final local = AppLocalizations.of(context)!;
-    setState(() {
-      _statusMessage = local.bankSuccessWithdraw(goldInBank.toString());
-      goldOnHand += goldInBank;
-      goldInBank = 0;
-    });
-    _updateCloudGold();
-  }
-
-  void _handleCustomAmount(bool isDeposit) {
-    final local = AppLocalizations.of(context)!;
-    final int? enteredAmount = int.tryParse(_amountController.text.trim());
-
-    if (enteredAmount == null || enteredAmount <= 0) {
-      setState(() { _statusMessage = local.bankErrorInvalid; });
+  void _handleTransaction(bool isDeposit) async {
+    final int? amount = int.tryParse(_amountController.text.trim());
+    if (amount == null) {
+      setState(() => _displayLog = _storyContent['error_invalid_amount'] ?? "Voer een getal in.");
       return;
     }
 
+    final String? resultKey = isDeposit ? await _con.deposit(amount) : await _con.withdraw(amount);
+
+    if (mounted && resultKey != null) {
+      setState(() {
+        _displayLog = _storyContent[resultKey] ?? resultKey;
+        if (resultKey.contains('success')) {
+          _amountController.clear();
+        }
+      });
+    }
+  }
+
+  void _talkToBanker() {
     setState(() {
-      if (isDeposit) {
-        if (enteredAmount > goldOnHand) {
-          _statusMessage = local.bankErrorNoGoldOnHand;
-        } else {
-          goldOnHand -= enteredAmount;
-          goldInBank += enteredAmount;
-          _statusMessage = local.bankSuccessDeposit(enteredAmount.toString());
-          _amountController.clear();
-        }
-      } else {
-        if (enteredAmount > goldInBank) {
-          _statusMessage = local.bankErrorNoGoldInBank;
-        } else {
-          goldInBank -= enteredAmount;
-          goldOnHand += enteredAmount;
-          _statusMessage = local.bankSuccessWithdraw(enteredAmount.toString());
-          _amountController.clear();
-        }
-      }
+      final String key = _con.getRandomTalkKey();
+      _displayLog = _storyContent[key] ?? "...";
     });
-    _updateCloudGold();
   }
 
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
 
-    if (_isLoading) {
-      return const Scaffold(backgroundColor: Colors.black, body: Center(child: CircularProgressIndicator(color: Colors.green)));
+    if (_isInitLoading) {
+      return const Scaffold(backgroundColor: LogdCodes.uiBlueBg, body: Center(child: CircularProgressIndicator(color: Colors.green)));
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
-        title: Text(
-            local.btnVisitBank,
-            style: const TextStyle(
-                fontFamily: LogdCodes.retroFont,
-                fontSize: LogdCodes.fontSizeDefault,
-                fontWeight: FontWeight.bold
-            )
-        ),
-        backgroundColor: const Color(0xFF2D2D2D),
+        title: Text(local.bankTitle.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+        backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -153,16 +105,10 @@ class _BankScreenState extends State<BankScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LogdText(text: local.bankWelcome, fontSize: LogdCodes.fontSizeDefault),
-                    const Padding(padding: EdgeInsets.symmetric(vertical: 16.0), child: Divider(color: Colors.grey)),
-                    LogdText(text: local.bankInBank(goldInBank), fontSize: LogdCodes.fontSizeCardTitle),
-                    const SizedBox(height: 8),
-                    LogdText(text: local.bankOnHand(goldOnHand), fontSize: LogdCodes.fontSizeCardTitle),
-                    const SizedBox(height: 20),
-                    if (_statusMessage.isNotEmpty) ...[
-                      LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
-                      const SizedBox(height: 20),
-                    ],
+                    LogdText(text: local.bankVaultBalance(_con.goldInBank.toString()), fontSize: LogdCodes.fontSizeCardTitle),
+                    LogdText(text: local.bankOnHandLabel(_con.goldOnHand.toString()), fontSize: LogdCodes.fontSizeDefault),
+                    const Divider(color: Colors.grey, height: 24),
+                    LogdText(text: _displayLog, fontSize: LogdCodes.fontSizeDefault),
                   ],
                 ),
               ),
@@ -171,15 +117,59 @@ class _BankScreenState extends State<BankScreen> {
 
             BankActionPanel(
               amountController: _amountController,
-              onHandleCustomAmount: _handleCustomAmount,
-              onDepositAll: _depositAll,
-              onWithdrawAll: _withdrawAll,
-              onReturnTown: () => Navigator.pop(context),
+              limitInfo: local.bankDepositLimitLabel(_con.remainingDepositLimit.toString()),
+              onHandleCustomAmount: _handleTransaction,
+              onDepositAll: () {
+                _amountController.text = _con.goldOnHand.toString();
+                _handleTransaction(true);
+              },
+              onWithdrawAll: () {
+                _amountController.text = _con.goldInBank.toString();
+                _handleTransaction(false);
+              },
+            ),
+            const SizedBox(height: 8),
+            
+            SizedBox(
+              height: 48,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: LogdCodes.uiCyan, width: 2),
+                  backgroundColor: LogdCodes.uiBlueBg,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                ),
+                onPressed: _talkToBanker,
+                child: Text(local.btnTalkBanker.toUpperCase(), style: const TextStyle(color: LogdCodes.uiBlue, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold)),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            // DE FIX: De terugknop staat nu ALTIJD onderaan, los van het actie-paneel!
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: LogdCodes.uiBlueDark, width: 2),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                backgroundColor: LogdCodes.uiBlueBg,
+              ).copyWith(foregroundColor: WidgetStateProperty.all(LogdCodes.uiBlueDark)),
+              onPressed: () => Navigator.pop(context),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+              ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: LogdStatusBar(currentHp: playerHp, maxHp: playerMaxHp, goldOnHand: goldOnHand, gems: gems, turns: turns, level: level, experience: experience),
+      bottomNavigationBar: LogdStatusBar(
+        currentHp: _con.hp,
+        maxHp: _con.maxHp,
+        goldOnHand: _con.goldOnHand,
+        gems: _con.gems,
+        turns: _con.turns,
+        level: _con.level,
+        experience: _con.experience,
+      ),
     );
   }
 }

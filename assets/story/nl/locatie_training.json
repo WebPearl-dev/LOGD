@@ -1,0 +1,8 @@
+{
+  "welcome": "`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Meester staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je echt klaar voor de volgende stap?\"",
+  "status_req": "Vereiste XP voor Level {nextLvl}: `c{reqXp} XP`w (Huidig: `c{currentXp} XP`w)",
+  "ready": "`2Je bent klaar om te vechten voor je volgende level!`w",
+  "not_ready": "`4Je hebt nog niet genoeg ervaring verdient om mij uit te dagen. Train harder in het bos!`w",
+  "victory": "`2Gefeliciteerd! Je hebt je Meester verslagen en stijgt naar Level {lvl}! Je maximale HP is permanent verhoogd naar {maxHp}.`w",
+  "defeat": "`4Je Meester slaat je met een houten trainingszwaard verrot op de mat: \"Je bent er nog niet klaar voor, leerling!\" Je overleeft het net, maar je HP staat op 1.`w"
+}

@@ -1,0 +1,50 @@
+# ====================================================================
+# PERFECTE .AIEXCLUDE VOOR ANDROID, FLUTTER & DART IN ANDROID STUDIO
+# Voorkomt onnodig token-verbruik en beschermt je quota.
+# ====================================================================
+
+# 1. FLUTTER & DART GENERATED FILES (Grootste token-vreters)
+# --------------------------------------------------------------------
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# 2. AUTOMATISCH GEGENEREERDE BUILD MAPPEN
+# --------------------------------------------------------------------
+build/
+**/build/
+.gradle/
+.kotlin/
+
+# 3. ANDROID STUDIO / INTELLIJ SYSTEM FILES
+# --------------------------------------------------------------------
+.idea/
+*.iml
+.DS_Store
+
+# 4. GEVOELIGE DATA & API SLEUTELS (Privacy & Beveiliging)
+# --------------------------------------------------------------------
+*.keystore
+*.jks
+local.properties
+secrets.xml
+*.key
+apikeys.txt
+
+# 5. GENERATED CODE & ASSETS (Optioneel, bespaart veel tokens)
+# --------------------------------------------------------------------
+# Sluit zware media en native platformmappen uit als je alleen in lib/ werkt
+src/main/assets/
+ios/
+android/
+web/
+macos/
+windows/
+linux/
+
+# 6. DOCUMENTATIE IN HET PROJECT
+# --------------------------------------------------------------------
+documentatie/
+

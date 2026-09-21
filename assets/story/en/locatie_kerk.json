@@ -1,0 +1,11 @@
+{
+  "welcome": "`gYou step into the imposing, silent church. The little light falls through the stained-glass windows onto the altar. There is a scent of incense.`w\n\n\"Kneel down, traveler,\" whispers a monk in a long robe. \"Say a prayer to the Gods of the Realm. But be warned... the Gods are fickle!\"",
+  "bless_gold": "`2The heavens open and a warm beam of light touches you! You find {gold} gold pieces on the altar!`w",
+  "bless_gems": "`2An angel descends and grants you a shiny Gem ({gems} Gem)!`w",
+  "bless_heal": "`2A divine power flows through your veins. All your wounds are healed in one blow!`w",
+  "bless_neutral": "`gYou pray fervently to the Gods... but nothing happens. The silence in the church remains undisturbed.`w",
+  "curse_hp": "`4The sky darkens and a fierce bolt of lightning strikes right before your feet! You lose {hp} HP from the shock!`w",
+  "curse_gold": "`4A sudden gust of wind rushes through the church and secretly blows {gold} gold pieces out of your pouch!`w",
+  "confess_welcome": "You kneel down in the small wooden confessional. 'Speak, my child. What weighs on your heart?' the monk whispers from behind the hatch.",
+  "candle_welcome": "The altar of the Old Gods is bathed in the light of dozens of candles. Each flame stands for a hope, a wish, or a memory."
+}

@@ -6,9 +6,33 @@ enum ForestEventType {
   none,
   fountain,
   giant,
+  hermit,
+  leprechaun,
+  hedgeWizard,
+  merchantWagon,
+  whiteHart,
+  cardShark,
+  talkingTree,
+  ruinedTemple,
+  travellingHerbalist,
+  scholarBadger,
+  skeletonArmour,
+  darkCarnival,
+  abandonedCamp,
+  wishingWell,
+  honeyTree,
+  mushroomRing,
+  huntersTarget,
+  warriorStatue,
+  poachersSnare,
   forcedFountain,
-  forcedGiant,
-  hermit // DE FIX: Nu als legitiem onderdeel toegevoegd aan de type-keten!
+  forcedGiant
+}
+
+enum GhostEventType {
+  none,
+  styx,
+  whispers
 }
 
 enum CombatStatus {
@@ -19,5 +43,10 @@ enum CombatStatus {
   skillThieving,
   skillWarrior,
   fleeSuccess,
-  fleeFailed
+  fleeFailed,
+  ghostPlayerDefeated
 }
+
+enum BardBuffType { none, warrior, scavenger, haste }
+
+enum InnSection { main, barman, gamble, veteran, bounty, spy, news, bard, romance }

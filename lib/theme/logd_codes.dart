@@ -16,11 +16,8 @@ class LogdCodes {
   static const double fontSizeCardTitle = 16.5;
 
   // --- CENTRALE LETTERTYPEN ---
-  // DE RETRO FIX: We veranderen dit naar 'monospace'.
-  // Dit dwingt Flutter om de nostalgische schreef-systeemletter te gebruiken!
   static const String retroFont = 'monospace';
 
-  // ... (behoud de rest van je centrale UI-kleuren zoals ze stonden)
   static const String colorVictory = green;
   static const String colorLoss = orange;
   static const String colorGold = yellow;
@@ -34,4 +31,28 @@ class LogdCodes {
   static const Color uiPurple = Color(0xFFE040FB);
   static const Color uiMagenta = Color(0xFFFF00FF);
   static const Color uiChurch = Color(0xFFE0E0E0);
+  static const Color uiGrey = Color(0xFF9E9E9E);
+  static const Color uiBrown = Color(0xFF8D6E63);
+  static const Color uiPink = Color(0xFFF06292);
+  static const Color uiPinkAccent = Color(0xFFFF4081);
+  static const Color uiCyan = Color(0xFF00BCD4);
+  static const Color uiAmber = Color(0xFFFFC107);
+
+  // FIX: Jouw authentieke diep donkerblauwe achtergrondkleur officieel geregistreerd!
+  static const Color uiBlueBg = Color(0xFF001B24);  // De diepe, donkerblauwe retro BBS-achtergrond!
+  // --- CENTRAL HARDCODE-VRIJE RETRO KLEURWET ---
+  static const Color uiBlueDark = Color(0xFF1976D2); // Rustig, klassiek retro-blauw (zoals je Smederij!)
+  static const Color uiAppBarBg = Color(0xFF2D2D2D); // De officiële, rustige retro grijstint voor de topbalk
+  static const Color uiCardBg = Color(0xFF222222); // De officiële, donkere BBS-grijstint voor informatiekaarten
+
+  // --- RETRO PANEEL ACHTERGRONDEN (Voor keuzeknoppen) ---
+  static const Color uiRedBg = Color(0xFF240D0D);
+  static const Color uiYellowBg = Color(0xFF1E1E00);
+  static const Color uiGreenBg = Color(0xFF0D240D);
+  static const Color uiPurpleBg = Color(0xFF1A0022);
+  static const Color uiOrangeBg = Color(0xFF241400);
+  // --- DRAKEN LAIR SPECTACULAIRE RETRO ACHTERGRONDEN ---
+  static const Color uiDragonRedBg = Color(0xFF2B0505); // Diep, vurig drakenrood voor het Hol
+  static const Color uiDragonGold = Color(0xFFFFD700);  // Glanzend goud voor de legendarische overwinning
+
 }

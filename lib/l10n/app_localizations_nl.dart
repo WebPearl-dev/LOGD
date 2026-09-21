@@ -50,7 +50,7 @@ class AppLocalizationsNl extends AppLocalizations {
     Object damageReceived,
     Object enemy,
   ) {
-    return '`2Je valt aan en doet $damageDealt schade bij de $enemy.`w\nDe $enemy $attackText en doet `4$damageReceived schade`w terug!';
+    return '`2Je valt aan en doet $damageDealt schade bij de $enemy.`w(\nDe $enemy $attackText) en doet `4$damageReceived schade`w terug!';
   }
 
   @override
@@ -65,7 +65,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get townSquareWelcome =>
-      '`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schaduw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w';
+      '`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schazuw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w';
 
   @override
   String get btnGoToForest => 'Ga het bos in';
@@ -216,6 +216,24 @@ class AppLocalizationsNl extends AppLocalizations {
   String get bankErrorInvalid => '`4Vul een geldig aantal in!`w';
 
   @override
+  String bankVaultBalance(Object amount) {
+    return 'Kluissaldo: `y$amount goud`w';
+  }
+
+  @override
+  String bankOnHandLabel(Object amount) {
+    return 'Op zak: `y$amount goud`w';
+  }
+
+  @override
+  String bankDepositLimitLabel(Object amount) {
+    return 'Daglimiet over: `c$amount goud`w';
+  }
+
+  @override
+  String get btnTalkBanker => 'PRAAT MET DE BANKIER';
+
+  @override
   String get raceTitle => 'Kies je Ras';
 
   @override
@@ -285,6 +303,34 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnConfirmSpecialty => 'Kies klasse en betreed het Dorpsplein';
 
   @override
+  String trainingDuelTitle(Object name) {
+    return '=== DUEL MET $name ===';
+  }
+
+  @override
+  String trainingMasterHp(Object current, Object max) {
+    return 'MEESTER HP: `4$current / $max`w';
+  }
+
+  @override
+  String get trainingMasterAttack => 'haalt uit met een houten oefenzwaard';
+
+  @override
+  String trainingPlayerAttackLog(Object damage) {
+    return '`2Je raakt de Meester voor $damage schade.`w';
+  }
+
+  @override
+  String trainingMasterAttackLog(Object attack, Object damage, Object name) {
+    return '\n$name $attack en doet `4$damage schade`w terug!';
+  }
+
+  @override
+  String trainingXpLabel(Object current, Object needed) {
+    return 'Ervaring (XP): `c$current / $needed`w';
+  }
+
+  @override
   String get btnUseSkill => 'Vaardigheid';
 
   @override
@@ -303,15 +349,15 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String skillWarriorSuccess(Object amount, Object enemy) {
-    return '`rJe voert een brute Schildbeuk uit! Je beukt vol in op de $enemy en doet $amount GEGARANDEERDE schade!`w\nDe $enemy is wankel!';
+    return '`rJe voert een brute Schildbeuk uit! Je beukt vol in op de $enemy en doet $amount GEGARANDEERDE schade!`w(\nDe $enemy) is wankel!';
   }
 
   @override
-  String get smithyTitle => 'Smederij \'Het Hete IJzer\'';
+  String get smithyTitle => 'De Markt van Oaktaven';
 
   @override
   String get smithyWelcome =>
-      '`gJe stapt de snikhete smederij binnen. Een gesublimeerde dwerg slaat met een enorme hamer op een gloeiend zwaard. Heet ijzer sist in een emmer water.`w\n\n\"Welkom in mijn smederij, reiziger! Ben je die houten stok en dat versleten shirt beu? Kijk eens rond, maar denk erom: kijken kost niks, kopen kost goud!\"';
+      '`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w';
 
   @override
   String get smithyCurrentEquip => 'Huidige uitrusting:';
@@ -354,64 +400,118 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnVisitBank => 'Bank';
 
   @override
-  String get btnVisitSmithy => 'Smederij';
+  String get btnVisitSmithy => 'Winkels';
 
   @override
   String get smithyAmountLabel => 'Aantal goudstukken';
 
   @override
-  String get wep0 => 'Houten Stok';
+  String get btnVisitPegasus => 'Bezoek Pegasus Wapens';
 
   @override
-  String get wep1 => 'Roestige Dolk';
+  String get btnVisitMerilon => 'Bezoek Merilon Harnassen';
 
   @override
-  String get wep2 => 'Groot Slagersmes';
+  String get btnTalkPegasus => 'Praat met Pegasus';
 
   @override
-  String get wep3 => 'Ijzeren Zwaard';
+  String get btnTalkMerilon => 'Praat met Merilon';
 
   @override
-  String get wep4 => 'Glinsterend Breedzwaard';
+  String get wep0 => 'Blote Vuisten';
 
   @override
-  String get wep5 => 'Zware Strijdhamer';
+  String get wep1 => 'Houten Stok';
 
   @override
-  String get wep6 => 'Driestandige Speer';
+  String get wep2 => 'Roestige Dolk';
 
   @override
-  String get wep7 => 'Kristallen Sabel';
+  String get wep3 => 'Handbijl';
 
   @override
-  String get wep8 => '龍 (Draken) Zwaard';
+  String get wep4 => 'IJzeren Korte Zwaard';
 
   @override
-  String get arm0 => 'Versleten Shirt';
+  String get wep5 => 'Stalen Slagzwaard';
+
+  @override
+  String get wep6 => 'Grote Strijdhamer';
+
+  @override
+  String get wep7 => 'Gekruiste Hellebaard';
+
+  @override
+  String get wep8 => 'Elfen Kruisboog';
+
+  @override
+  String get wep9 => 'Runenzwaard';
+
+  @override
+  String get wep10 => 'Duivenseis (Mace)';
+
+  @override
+  String get wep11 => 'Glanzende Klabat';
+
+  @override
+  String get wep12 => 'Obsidiaan Kling';
+
+  @override
+  String get wep13 => 'Drakenbot Speer';
+
+  @override
+  String get wep14 => 'Hemels Zwaard';
+
+  @override
+  String get wep15 => 'Excalibur van Oaktaven';
+
+  @override
+  String get arm0 => 'Alledaagse Kleding';
 
   @override
   String get arm1 => 'Leren Vest';
 
   @override
-  String get arm2 => 'Versterkt Lederen Pantser';
+  String get arm2 => 'Dik Gekookt Leer';
 
   @override
-  String get arm3 => 'Ijzeren Ringpantser';
+  String get arm3 => 'Geklonken Leren Harnas';
 
   @override
-  String get arm4 => 'Brons Borstplaat';
+  String get arm4 => 'Ringpantser';
 
   @override
-  String get arm5 => 'Stalen Harnas';
+  String get arm5 => 'Lichte Maliënkolder';
 
   @override
-  String get arm6 => 'Mithril Maliënkolder';
+  String get arm6 => 'Zware Stalen Maliënkolder';
 
   @override
-  String get arm7 => 'Betoverd Schild';
+  String get arm7 => 'Bandenpantser';
 
   @override
-  String get arm8 => 'Draken Schubben Pantser';
+  String get arm8 => 'Elfen Borstplaat';
+
+  @override
+  String get arm9 => 'Geciseleerd Brons Pantser';
+
+  @override
+  String get arm10 => 'Ridderlijk Platenpantser';
+
+  @override
+  String get arm11 => 'Runenbescherming';
+
+  @override
+  String get arm12 => 'Obsidiaan Schild & Pantser';
+
+  @override
+  String get arm13 => 'Schilden van Drakenhuid';
+
+  @override
+  String get arm14 => 'Paladijn Kuras';
+
+  @override
+  String get arm15 => 'Het Godenpantser';
 
   @override
   String get trainingTitle => 'De Trainingsruimte van de Meesters';
@@ -431,7 +531,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get trainingNotReady =>
-      '`4Je hebt nog niet genoeg ervaring verdiend om mij uit te dagen. Train harder in het bos!`w';
+      '`4Je hebt nog niet genoeg ervaring verdient om mij uit te dagen. Train harder in het bos!`w';
 
   @override
   String get btnChallengeMaster => 'Daag de Meester uit';
@@ -580,13 +680,44 @@ class AppLocalizationsNl extends AppLocalizations {
       '`wHet mededelingenbord is momenteel leeg. Het is een rustige dag in het rijk...`w';
 
   @override
-  String newsLogDefeated(Object enemy, Object username) {
-    return '`4$username`w is in het bos op brute wijze afgeslacht door een `r$enemy`w!';
+  String newsLogDefeated(Object enemy, Object user) {
+    return '$user is in het bos op brute wijze afgeslacht door een $enemy!';
   }
 
   @override
-  String newsLogLevelUp(Object level, Object username) {
-    return '`2$username`w is gestegen naar `yLevel $level`w na een legendarisch duel in de trainingsruimte!';
+  String newsLogDefeatedBrutal(Object enemy, Object user) {
+    return '$user dacht een held te zijn, maar werd door een $enemy als ontbijt genuttigd!';
+  }
+
+  @override
+  String newsLogLevelUp(Object level, Object user) {
+    return '$user is gestegen naar Level $level na een legendarisch duel in de trainingsruimte!';
+  }
+
+  @override
+  String newsLogMarriage(Object partner, Object user) {
+    return 'Groot feest! $user is vandaag in het huwelijksbootje gestapt met $partner!';
+  }
+
+  @override
+  String get rankingsTitle => 'De Hall of Fame';
+
+  @override
+  String get rankingsWelcome => 'De machtigste krijgers van het rijk:';
+
+  @override
+  String get rankingsEmpty =>
+      'Er zijn nog geen legendarische helden opgestaan...';
+
+  @override
+  String get townCrierTitle => 'De Dorpsomroeper';
+
+  @override
+  String get townCrierPrefix => '`4HOREN, ZIEN EN ZEGT HET VOORT! `w';
+
+  @override
+  String statDk(Object amount) {
+    return 'DK: $amount';
   }
 
   @override
@@ -635,7 +766,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get innWelcome =>
-      '`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aan bij de goktafel, of drink een slok!\"';
+      '`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aansluiten bij de goktafel, of drink een slok!\"';
 
   @override
   String get innDiceTitle => '=== DE GOKTAFEL ===';
@@ -670,13 +801,13 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnVisitInn => 'Herberg';
 
   @override
-  String newsLogInnWin(Object gold, Object username) {
-    return '`2$username`w heeft zojuist `y$gold goudstukken`w gewonnen met dobbelen in de Herberg!';
+  String newsLogInnWin(Object gold, Object user) {
+    return '$user heeft zojuist $gold goudstukken gewonnen met dobbelen in de Herberg!';
   }
 
   @override
-  String newsLogInnLoss(Object gold, Object username) {
-    return '`o$username`w is zojuist volledig blut gespeeld door de kroegbaas en verloor `y$gold goudstukken`w...';
+  String newsLogInnLoss(Object gold, Object user) {
+    return '$user is zojuist volledig blut gespeeld door de kroegbaas en verloor $gold goudstukken...';
   }
 
   @override
@@ -750,8 +881,22 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnChurchPray => 'Doe een Gebed';
 
   @override
+  String get btnChurchConfess => 'Biechten';
+
+  @override
+  String get btnChurchCandle => 'Kaarsje aansteken (1 Gem)';
+
+  @override
   String get churchAlreadyPrayed =>
       '`4Je hebt zojuist al gebeden! De Goden horen je niet als je blijft zeuren.`w';
+
+  @override
+  String get churchAlreadyConfessed =>
+      '`4Je hebt je geweten voor vandaag al gezuiverd.`w';
+
+  @override
+  String get churchAlreadyLitCandle =>
+      '`4Het altaar staat al vol met jouw kaarsen.`w';
 
   @override
   String churchBlessGold(Object gold) {
@@ -778,7 +923,17 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String churchCurseGold(Object gold) {
-    return '`4Een plotselinge windvlaag raast door de kerk en blaast stiekem $gold goudstukken uit je buidel!`w';
+    return '`4Een plotseline windvlaag raast door de kerk en blaast stiekem $gold goudstukken uit je buidel!`w';
+  }
+
+  @override
+  String churchConfessResult(Object xp) {
+    return '`2Je knielt neer en biecht je zonden. De monnik knikt langzaam. Je voelt je geest lichter worden. (+$xp XP)`w';
+  }
+
+  @override
+  String churchCandleResult(Object favor) {
+    return '`cJe steekt een kaarsje aan bij het beeld van de Oude Goden. Een vlaag van vrede trekt door de kerk. Ramius zal dit onthouden. (+$favor Gunst)`w';
   }
 
   @override
@@ -834,6 +989,23 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnStartDay => 'Begin de nieuwe dag';
 
   @override
+  String get resetNightResults => 'Resultaten van de nacht:';
+
+  @override
+  String resetInterestLog(Object amount) {
+    return '• De bank heeft `y$amount goud`w aan rente bijgeschreven (2%).';
+  }
+
+  @override
+  String resetTurnsLog(Object amount) {
+    return '• Je beurten zijn aangevuld naar `c$amount`w.';
+  }
+
+  @override
+  String get resetReadyLog =>
+      '• Je voelt je uitgerust en klaar voor de strijd!';
+
+  @override
   String get eventHermitTitle => 'De Oude Kluizenaar';
 
   @override
@@ -842,7 +1014,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get eventHermitSuccess =>
-      '`2Je drinkt de bittere kruidenthee op. Een golf van intense energie schiet door je benen! Je krijgt +3 extra beurten (turns) voor vandaag.`w';
+      '`2Je drinkt die bittere kruidenthee op. Een golf van intense energie schiet door je benen! Je krijgt +3 extra beurten (turns) voor vandaag.`w';
 
   @override
   String get btnHermitDrink => 'Drink kruidenthee';
@@ -1008,9 +1180,6 @@ class AppLocalizationsNl extends AppLocalizations {
       'Dit toestel ondersteunt geen biometrie.';
 
   @override
-  String get profileBiometricAuthError => 'Verificatie mislukt.';
-
-  @override
   String get profileDatabaseError => 'Er is een fout opgetreden.';
 
   @override
@@ -1038,6 +1207,170 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get btnForestFlee => 'VLUCHTEN';
+
+  @override
+  String get btnForestLeprechaunPlay => 'Speel spel (100 G)';
+
+  @override
+  String get btnForestWizardDrink => 'Drink uit ketel';
+
+  @override
+  String get btnForestWagonSearch => 'Doorzoek grondig';
+
+  @override
+  String get btnForestWagonSmash => 'Sla kisten kapot';
+
+  @override
+  String get btnForestHartBow => 'Buig respectvol';
+
+  @override
+  String get btnForestHartHunt => 'Probeer te jagen';
+
+  @override
+  String get btnForestCardHigher => 'Hoger';
+
+  @override
+  String get btnForestCardLower => 'Lager';
+
+  @override
+  String get btnForestTreeGold => 'Geef goud';
+
+  @override
+  String get btnForestTreeChop => 'Hak schors';
+
+  @override
+  String get btnForestTempleRead => 'Lees boek';
+
+  @override
+  String get btnForestTempleSearch => 'Doorzoek altaar';
+
+  @override
+  String get btnForestHerbalistRed => 'Rode elixir';
+
+  @override
+  String get btnForestHerbalistBlue => 'Blauwe elixir';
+
+  @override
+  String get btnForestBadgerAnswer => 'Beantwoord vraag';
+
+  @override
+  String get btnForestBadgerHunt => 'Jaag das weg';
+
+  @override
+  String get btnForestSkeletonPlunder => 'Plunder harnas';
+
+  @override
+  String get btnForestSkeletonBow => 'Breng eerbetoon';
+
+  @override
+  String get btnForestCarnivalSpin => 'Draai aan rad';
+
+  @override
+  String get btnForestCampEat => 'Eet soep';
+
+  @override
+  String get btnForestCampSearch => 'Doorzoek tenten';
+
+  @override
+  String get btnForestWellOffer => 'Offer edelsteen';
+
+  @override
+  String get btnForestWellFish => 'Vis naar goud';
+
+  @override
+  String get btnForestHoneyClimb => 'Pak honing';
+
+  @override
+  String get btnForestHoneySmoke => 'Rook bijen uit';
+
+  @override
+  String get btnForestMushroomStep => 'Stap in cirkel';
+
+  @override
+  String get btnForestMushroomDestroy => 'Vernietig cirkel';
+
+  @override
+  String get btnForestHunterPlay => 'Schietwedstrijd';
+
+  @override
+  String get btnForestHunterDemand => 'Eis goud';
+
+  @override
+  String get btnForestStatueOffer => 'Offer goud';
+
+  @override
+  String get btnForestStatueClean => 'Maak schoon';
+
+  @override
+  String get btnForestSnareCut => 'Snijd los';
+
+  @override
+  String get btnForestSnareForce => 'Gebruik kracht';
+
+  @override
+  String get btnForestSnareWait => 'Wacht af';
+
+  @override
+  String get innBtnDrinkAle => 'Oaktaven Ale';
+
+  @override
+  String get innBtnDrinkDragon => 'Drakenbloed';
+
+  @override
+  String get innBtnBardGold => 'Trakteer Goud';
+
+  @override
+  String get innBtnBardGem => 'Geef Edelsteen';
+
+  @override
+  String get innBtnFlirt => 'Flirten (1 beurt)';
+
+  @override
+  String get innBtnGift => 'Cadeau (1 gem)';
+
+  @override
+  String get innBtnPropose => 'Doe een aanzoek!';
+
+  @override
+  String get innBtnGambleDice => 'Dobbelen';
+
+  @override
+  String get innBtnGambleShell => 'Bekerspel';
+
+  @override
+  String get innBtnGambleBlackjack => 'Blackjack';
+
+  @override
+  String get innBtnBribe => 'Omkopen (1 Gem)';
+
+  @override
+  String get innBtnBountyAction => 'PREMIE';
+
+  @override
+  String innRomanceLabel(Object points) {
+    return 'Affectie: `p$points / 100`w';
+  }
+
+  @override
+  String get innBtnRichest => 'Vraag wie de rijkste is (50 G)';
+
+  @override
+  String get innGambleShark => 'Kaarten-haai:';
+
+  @override
+  String get innBtnHigher => 'Hoger';
+
+  @override
+  String get innBtnLower => 'Lager';
+
+  @override
+  String get innMenuBard => 'De Bard';
+
+  @override
+  String get innMenuVeteran => 'Veteraan';
+
+  @override
+  String get innMenuBounty => 'Premiejager';
 
   @override
   String get innBlackjackReturn => 'TERUG NAAR DE GELAGKAMER';
@@ -1164,4 +1497,275 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get innFlirtSlapDefeat =>
       '`4Je openingszin slaat de plank volledig mis! Violet is diep beledigd en geeft je een harde klap in je gezicht! (-5 HP)`w';
+
+  @override
+  String get btnVisitHealer => 'KRUIDENHEKS 🌿';
+
+  @override
+  String get dialogWoundedTitle => 'TE ZWAARGEWOND';
+
+  @override
+  String get dialogWoundedMessage =>
+      '`4Je bent te zwaargewond om te vechten. Bezoek de Kruidenheks of de herberg om te herstellen!`w';
+
+  @override
+  String get btnBuyHealing => 'KOOP GENEZING';
+
+  @override
+  String labelHealCost(Object cost) {
+    return 'Kosten voor volledige genezing: `y$cost goudstukken`w';
+  }
+
+  @override
+  String get btnOk => 'OK';
+
+  @override
+  String get healerFallbackWelcome => 'De hut van Althea...';
+
+  @override
+  String get healerFallbackHealthy => 'Je bent al kerngezond!';
+
+  @override
+  String get btnTalkTownfolk => 'PRAAT MET DORPELINGEN 🗣️';
+
+  @override
+  String get dialogRumorTitle => 'DORPSGERUCHTEN';
+
+  @override
+  String get townSquareRumorFallback => 'De dorpelingen zijn stil vandaag...';
+
+  @override
+  String get healerSuccessFallback => 'Je bent genezen!';
+
+  @override
+  String get btnVisitBarber => 'KAPPER MET STYLING 💈';
+
+  @override
+  String get btnBuyTitle => 'KOOP TITEL (1 EDELSTEEN)';
+
+  @override
+  String get btnVisitAlley => 'SCHADUWRIJKE STEEG 🪓';
+
+  @override
+  String get btnResetReputation => 'STRAFBLAD AFKOPEN (5 EDELSTENEN)';
+
+  @override
+  String get btnVisitMightyE => 'DONATEUR MIGHTYE 💎';
+
+  @override
+  String get btnDonateGem => 'DONEER 1 EDELSTEEN';
+
+  @override
+  String get btnVisitWedding => 'TROUW KAPEL 💍';
+
+  @override
+  String get btnMarry => 'JA, IK WIL (500 GOUD)';
+
+  @override
+  String get graveyard_title => 'De Begraafplaats van Oaktaven (Onderwereld)';
+
+  @override
+  String get graveyard_status_dead => 'STATUS: DOOD (Geest)';
+
+  @override
+  String graveyard_favor_points(Object points) {
+    return 'Gunst bij Ramius: $points punten';
+  }
+
+  @override
+  String get graveyard_btn_fight => 'Vecht tegen Gekweld Gesternte (1 Beurt)';
+
+  @override
+  String get graveyard_btn_resurrect => 'Smeek Ramius om Genade';
+
+  @override
+  String get graveyard_btn_haunt => 'Spook in de Herberg (1 Beurt)';
+
+  @override
+  String get graveyard_btn_talk => 'Praat met Ramius';
+
+  @override
+  String get ghost_combat_title => 'ONDERWERELD GEVECHT';
+
+  @override
+  String ghost_combat_monster_label(Object level, Object name) {
+    return 'Monster: $name (LVL $level)';
+  }
+
+  @override
+  String ghost_combat_hp_label(Object current, Object max) {
+    return 'Monster HP: $current / $max';
+  }
+
+  @override
+  String get ghost_combat_btn_attack => 'VAL AAN';
+
+  @override
+  String get ghost_combat_btn_return => 'TERUG NAAR KERKHOF';
+
+  @override
+  String get inn_btn_leave => 'Verlaat de Herberg';
+
+  @override
+  String get inn_btn_talk_veteran => 'LUISTER NAAR VERHAAL';
+
+  @override
+  String inn_section_title(Object section) {
+    return '=== $section ===';
+  }
+
+  @override
+  String get inn_section_barman => '=== De Bar van de Herberg ===';
+
+  @override
+  String get inn_section_gamble => '=== De Goktafel ===';
+
+  @override
+  String get inn_section_veteran => '=== De Oude Krijger ===';
+
+  @override
+  String get inn_section_bounty => '=== De Premiejager ===';
+
+  @override
+  String get inn_section_spy => '=== Schimmige Figuren ===';
+
+  @override
+  String get inn_section_news => '=== Het Dorpsnieuws ===';
+
+  @override
+  String get town_btn_forest => 'Ga het Bos in';
+
+  @override
+  String get town_btn_news => 'Dagelijks Nieuws';
+
+  @override
+  String get town_btn_shops => 'Winkelstraat';
+
+  @override
+  String get town_btn_mystery => 'Mysterieuze Plekken';
+
+  @override
+  String get town_btn_training => 'Krijgshof & Training';
+
+  @override
+  String get town_btn_heart => 'Het Dorpshart';
+
+  @override
+  String get town_sub_shops => 'Smederij';
+
+  @override
+  String get town_sub_bank => 'De Bank';
+
+  @override
+  String get town_sub_barber => 'Kapper';
+
+  @override
+  String get town_sub_alchemist => 'Alchemist';
+
+  @override
+  String get town_sub_healer => 'Kruidenheks';
+
+  @override
+  String get town_sub_alley => 'Schaduwrijke Steeg';
+
+  @override
+  String get town_sub_classroom => 'Training zaal';
+
+  @override
+  String get town_sub_stables => 'De Stallen';
+
+  @override
+  String get town_sub_inn => 'De Herberg';
+
+  @override
+  String get town_sub_church => 'De Kerk';
+
+  @override
+  String get town_sub_wedding => 'Trouwkapel';
+
+  @override
+  String get town_sub_townfolk => 'Dorpelingen';
+
+  @override
+  String get town_sub_mightye => 'Donateur Mightye';
+
+  @override
+  String get inn_news_empty =>
+      'Er is vandaag nog niets voorgevallen in het rijk...';
+
+  @override
+  String get inn_spy_empty =>
+      'Er dwalen momenteel geen andere reizigers in de herberg...';
+
+  @override
+  String get inn_btn_spy_action => 'SPIONEER (10 GOUD)';
+
+  @override
+  String get inn_title => 'De Herberg \'De Dronken Draak\'';
+
+  @override
+  String get profileBiometricAuthError => 'Verificatie mislukt.';
+
+  @override
+  String get btnStyxOnboard => 'STAP OP HET VLOT (KOST 2 TURNS)';
+
+  @override
+  String get btnStyxStay => 'BLIJF AAN DE OEVER';
+
+  @override
+  String get btnWhispersListen => 'LUISTER AANDACHTIG';
+
+  @override
+  String get btnWhispersLeave => 'ZWEEF SNEL VERDER';
+
+  @override
+  String get dragon_lair_title => 'Het Hol van de Groene Draak';
+
+  @override
+  String get btn_attack_dragon => 'Val de Groene Draak aan!';
+
+  @override
+  String get btn_sneak_away => 'Sluip stilletjes weg';
+
+  @override
+  String get btn_dragon_continue => 'Accepteer je lot';
+
+  @override
+  String news_dragon_kill(Object kills, Object user) {
+    return '$user heeft de Groene Draak verslagen en redt het rijk! Dit is hun ${kills}e overwinning!';
+  }
+
+  @override
+  String get btnDevAddGold => '+10K GOUD';
+
+  @override
+  String get btnDevAddGems => '+5 EDELSTENEN';
+
+  @override
+  String get btnDevAddTurns => '+10 BEURTEN';
+
+  @override
+  String get lblDevSelectEvent => 'Selecteer Event om te Spawnen:';
+
+  @override
+  String get lblDevSelectMonster => 'Selecteer Monster om te Spawnen:';
+
+  @override
+  String get btnDevSpawnAction => 'SPAWN RECHTSTREEKS 🚀';
+
+  @override
+  String get errorNoGems => 'Je hebt niet genoeg glimmende edelstenen!';
+
+  @override
+  String btnBuyCut(Object cost) {
+    return 'Frisse Coupe ($cost Goud)';
+  }
+
+  @override
+  String btnBuyShave(Object cost) {
+    return 'Gladde Scheerbeurt ($cost Goud)';
+  }
+
+  @override
+  String get btnBuyDye => 'Haar Verven (1 GEM)';
 }

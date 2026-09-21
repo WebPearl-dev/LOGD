@@ -8,7 +8,7 @@
 PRODUCT_NAME = logd
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.logd
+PRODUCT_BUNDLE_IDENTIFIER = nl.webpearl.logd
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 nl.webpearl. All rights reserved.

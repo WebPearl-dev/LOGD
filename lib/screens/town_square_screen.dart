@@ -1,21 +1,27 @@
 // lib/screens/town_square_screen.dart
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../widgets/town_square_panels.dart';
+import '../widgets/town_square_menu_router.dart';
+import '../services/town_square_controller.dart';
+import '../services/town_square_actions.dart';
 import '../theme/logd_codes.dart';
-import 'forest_screen.dart';
 import 'profile_settings_screen.dart';
 import 'bank_screen.dart';
 import 'smithy_screen.dart';
 import 'training_screen.dart';
-import 'graveyard_screen.dart';
-import 'daily_news_screen.dart';
 import 'inn_screen.dart';
 import 'stables_screen.dart';
 import 'church_screen.dart';
 import 'alchemist_screen.dart';
+import 'daily_news_screen.dart';
+import 'developer_panel_screen.dart';
+import 'rankings_screen.dart';
+
+import '../services/new_day_service.dart';
+import 'new_day_screen.dart';
 
 class TownSquareScreen extends StatefulWidget {
   const TownSquareScreen({super.key});
@@ -25,210 +31,420 @@ class TownSquareScreen extends StatefulWidget {
 }
 
 class _TownSquareScreenState extends State<TownSquareScreen> {
-  final _supabase = Supabase.instance.client;
-  Map<String, dynamic>? _playerData;
-  bool _isLoading = true;
+  final TownSquareController _con = TownSquareController();
+  String _activeSubLocation = "MAIN";
+  String _alleyStatusMessage = "",
+      _mightyEStatusMessage = "",
+      _weddingStatusMessage = "";
 
   @override
   void initState() {
     super.initState();
-    _loadPlayerData();
+    _refreshData();
+    _checkForNewDay();
   }
 
-  Future<void> _loadPlayerData() async {
-    try {
-      final user = _supabase.auth.currentUser;
-      if (user != null) {
-        final data = await _supabase.from('profiles').select().eq('id', user.id).single();
-
-        if (mounted) {
-          // --- HIER DRAAIT DE AUTOMATISCHE MIDDERNACHT RESET ---
-          final String todayStr = DateTime.now().toIso8601String().split('T')[0];
-          final String lastResetStr = data['last_reset_date']?.toString() ?? '2020-01-01';
-
-          if (todayStr != lastResetStr) {
-            final int mountLvl = data['mount_level'] ?? 0;
-            int extraTurns = 0;
-            if (mountLvl == 1) extraTurns = 2;
-            if (mountLvl == 2) extraTurns = 5;
-            if (mountLvl == 3) extraTurns = 8;
-            if (mountLvl == 4) extraTurns = 15;
-
-            final int totalNewTurns = 10 + extraTurns;
-            final int maxHp = data['max_hp'] ?? 20;
-
-            await _supabase.from('profiles').update({
-              'turns': totalNewTurns,
-              'hp': maxHp,
-              'alive': true,
-              'prayed_this_turn': false,
-              'last_reset_date': todayStr,
-            }).eq('id', user.id);
-
-            _showNewDayDialog();
-            return;
-          }
-
-          final bool isAlive = data['alive'] ?? true;
-          if (!isAlive) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const GraveyardScreen()));
-            return;
-          }
-
-          setState(() {
-            _playerData = data;
-            _isLoading = false;
-          });
-        }
-      }
-    } catch (e) {
-      if (mounted) { setState(() { _isLoading = false; }); }
+  void _checkForNewDay() async {
+    final result = await NewDayService.checkAndPerformReset();
+    if (result.triggered && mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NewDayScreen(result: result)),
+      ).then((_) => _refreshData());
     }
   }
 
-  void _showNewDayDialog() {
-    final local = AppLocalizations.of(context)!;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xFF1E1E1E),
-          // DE FIX: Dialoog titel font hersteld naar centrale retro wet
-          title: Text(local.resetNewDayTitle, style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeCardTitle, color: LogdCodes.uiGreen, fontWeight: FontWeight.bold)),
-          content: LogdText(text: local.resetNewDayMessage, fontSize: LogdCodes.fontSizeDefault),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiGreen, width: 2), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))),
-                onPressed: () {
-                  Navigator.pop(context);
-                  setState(() { _isLoading = true; });
-                  _loadPlayerData();
-                },
-                // DE FIX: Start dag knop font hersteld naar de wet
-                child: Text(local.btnStartDay.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
-              ),
-            ),
-          ],
-        );
-      },
-    );
+  void _refreshData() {
+    _con.loadLiveStats(context, () {
+      if (mounted) {
+        setState(() {
+          _con.isLoading = false;
+        });
+      }
+    });
+  }
+
+  void _onHealPressed(int cost, int maxHp, AppLocalizations local) async {
+    bool success = await _con.handleHealerPurchase(cost, maxHp);
+    setState(() {
+      _con.healerStatusMessage = success
+          ? (_con.storyContent['healer_success'] ?? local.healerSuccessFallback)
+          : local.smithyErrorNoGold;
+    });
+    if (success) _refreshData();
+  }
+
+  void _onBarberPressed() async {
+    bool success = await _con.handleBarberPurchase();
+    setState(() {
+      _con.barberStatusMessage = success
+          ? (_con.barberContent['success'] ?? "...")
+          : (_con.barberContent['error_no_gem'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onBarberCutPressed(int level, AppLocalizations local) async {
+    final int cost = level * 50;
+    bool success = await _con.handleFreshCutPurchase(cost);
+    setState(() {
+      _con.barberStatusMessage = success
+          ? (_con.barberContent['cut_success'] ?? "...")
+          : (_con.barberContent['error_no_gold'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onBarberShavePressed(int level, int maxHp, AppLocalizations local) async {
+    final int cost = level * 20;
+    bool success = await _con.handleSmoothShavePurchase(cost, maxHp);
+    setState(() {
+      _con.barberStatusMessage = success
+          ? (_con.barberContent['shave_success'] ?? "...")
+          : (_con.barberContent['error_no_gold'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onBarberDyePressed() async {
+    bool success = await _con.handleDyeHairPurchase();
+    setState(() {
+      _con.barberStatusMessage = success
+          ? (_con.barberContent['dye_success'] ?? "...")
+          : (_con.barberContent['error_no_gem'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onAlleyPressed() async {
+    bool success = await _con.handleAlleyPurchase();
+    setState(() {
+      _alleyStatusMessage = success
+          ? (_con.storyContent['dark_alley_success'] ?? "...")
+          : (_con.barberContent['error_no_gem'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onMightyEPressed() async {
+    bool success = await _con.handleMightyEPurchase();
+    setState(() {
+      _mightyEStatusMessage = success
+          ? (_con.storyContent['mightye_success'] ?? "...")
+          : (_con.barberContent['error_no_gem'] ?? "...");
+    });
+    if (success) _refreshData();
+  }
+
+  void _onWeddingPressed(AppLocalizations local) async {
+    int res = await _con.handleWeddingPurchase();
+    setState(() {
+      if (res == 0) {
+        _weddingStatusMessage = _con.storyContent['wedding_success'] ?? "...";
+      }
+      if (res == 1) {
+        _weddingStatusMessage =
+            _con.storyContent['wedding_error_married'] ?? "...";
+      }
+      if (res == 2) {
+        _weddingStatusMessage =
+            _con.storyContent['wedding_error_no_gold'] ?? "...";
+      }
+      if (res == 3) {
+        _weddingStatusMessage = local.smithyErrorUnknown;
+      }
+    });
+    if (res == 0) _refreshData();
   }
 
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
-    if (_isLoading) {
-      return const Scaffold(backgroundColor: Colors.black, body: Center(child: CircularProgressIndicator(color: Colors.green)));
+    if (_con.isLoading) {
+      return const Scaffold(
+        backgroundColor: LogdCodes.uiBlueBg,
+        body: Center(child: CircularProgressIndicator(color: Colors.green)),
+      );
     }
 
-    final level = _playerData?['level'] ?? 1;
-    final currentHp = _playerData?['hp'] ?? 20;
-    final maxHp = _playerData?['max_hp'] ?? 20;
-    final goldOnHand = _playerData?['gold_on_hand'] ?? 0;
-    final gems = _playerData?['gems'] ?? 0;
-    final turns = _playerData?['turns'] ?? 0;
-    final experience = _playerData?['experience'] ?? 0;
-    final username = _playerData?['username'] ?? 'Reiziger';
+    final currentHp = _con.playerData?['hp'] ?? 20,
+        maxHp = _con.playerData?['max_hp'] ?? 20;
+    final goldOnHand = _con.playerData?['gold_on_hand'] ?? 0,
+        gems = _con.playerData?['gems'] ?? 0,
+        turns = _con.playerData?['turns'] ?? 0;
+    final level = _con.playerData?['level'] ?? 1,
+        experience = _con.playerData?['experience'] ?? 0,
+        username = _con.playerData?['username'] ?? local.defaultUsername,
+        isMarried = _con.playerData?['is_married'] ?? false,
+        bounty = _con.playerData?['bounty'] ?? 0;
+    final bool isPanelActive =
+        _activeSubLocation == "HEALER" ||
+        _activeSubLocation == "BARBER" ||
+        _activeSubLocation == "ALLEY" ||
+        _activeSubLocation == "MIGHTYE" ||
+        _activeSubLocation == "WEDDING";
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E),
-      appBar: AppBar(
-        // DE FIX: Toont nu puur en alleen de spelersnaam. Niveau en beurten staan al sfeervol onderaan!
-        title: Text(
-          username,
-          style: const TextStyle(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, res) {
+        if (!didPop && _activeSubLocation != "MAIN") {
+          setState(() {
+            _activeSubLocation = "MAIN";
+            _alleyStatusMessage = "";
+            _mightyEStatusMessage = "";
+            _weddingStatusMessage = "";
+          });
+        }
+      },
+
+      child: Scaffold(
+        backgroundColor: LogdCodes.uiBlueBg,
+        appBar: AppBar(
+          title: Text(
+            _activeSubLocation == "MAIN"
+                ? username
+                : _activeSubLocation == "BARBER"
+                ? local.btnVisitBarber.toUpperCase()
+                : _activeSubLocation == "HEALER"
+                ? local.btnVisitHealer.toUpperCase()
+                : _activeSubLocation == "ALLEY"
+                ? local.btnVisitAlley.toUpperCase()
+                : _activeSubLocation == "MIGHTYE"
+                ? local.btnVisitMightyE.toUpperCase()
+                : _activeSubLocation == "WEDDING"
+                ? local.btnVisitWedding.toUpperCase()
+                : "=== ${_activeSubLocation.replaceAll('SUB_', '')} ===",
+            style: const TextStyle(
               fontFamily: LogdCodes.retroFont,
-              fontSize: LogdCodes.fontSizeDefault,
-              fontWeight: FontWeight.bold
-          ),
-        ),
-        backgroundColor: const Color(0xFF2D2D2D),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.grey),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((_) {
-                setState(() { _isLoading = true; }); _loadPlayerData();
-              });
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: LogdText(text: local.townSquareWelcome, fontSize: LogdCodes.fontSizeDefault),
-                ),
-              ),
+              fontSize: LogdCodes.fontSizeCardTitle,
+              fontWeight: FontWeight.bold,
             ),
-
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 3.2,
-              children: [
-                _buildGridButton(local.btnVisitBank.toUpperCase(), Colors.yellow, const Color(0xFF1E1E00), () => _navigateTo(const BankScreen())),
-                _buildGridButton(local.btnVisitSmithy.toUpperCase(), Colors.orange, const Color(0xFF241400), () => _navigateTo(const SmithyScreen())),
-                _buildGridButton(local.btnVisitTraining.toUpperCase(), Colors.red, const Color(0xFF240D0D), () => _navigateTo(const TrainingScreen())),
-                _buildGridButton(local.btnVisitInn.toUpperCase(), const Color(0xFFE040FB), const Color(0xFF1F0024), () => _navigateTo(const InnScreen())),
-                _buildGridButton(local.btnVisitStables.toUpperCase(), LogdCodes.uiBlue, const Color(0xFF001B24), () => _navigateTo(const StablesScreen())),
-                _buildGridButton(local.btnVisitChurch.toUpperCase(), LogdCodes.uiChurch, const Color(0xFF222222), () => _navigateTo(const ChurchScreen())),
-                _buildGridButton(local.btnVisitAlchemist.toUpperCase(), LogdCodes.uiMagenta, const Color(0xFF240024), () => _navigateTo(const AlchemistScreen())),
-                _buildGridButton(local.btnVisitNews.toUpperCase(), Colors.blue, const Color(0xFF0D1B24), () => _navigateTo(const DailyNewsScreen())),
-                _buildGridButton(local.btnGoToForest.toUpperCase(), Colors.green, const Color(0xFF0D240D), () => _navigateTo(const ForestScreen())),
-              ],
+          ),
+          backgroundColor: LogdCodes.uiAppBarBg,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.code, color: Colors.purpleAccent),
+              onPressed: () => _navigateTo(const DeveloperPanelScreen()),
             ),
-            const SizedBox(height: 6),
+            IconButton(
+              icon: const Icon(Icons.settings, color: Colors.grey),
+              onPressed: () => _navigateTo(const ProfileSettingsScreen()),
+            ),
           ],
         ),
-      ),
-      bottomNavigationBar: LogdStatusBar(
-        currentHp: currentHp, maxHp: maxHp, goldOnHand: goldOnHand, gems: gems, turns: turns, level: level, experience: experience,
-      ),
-    );
-  }
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: isPanelActive
+                        ? const SizedBox.shrink()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // DE DORPSOMROEPER: Toont het allerlaatste nieuws als een schreeuw op het plein!
+                              if (_con.latestNewsItem != null) ...[
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withAlpha(20),
+                                    border: Border.all(color: Colors.redAccent, width: 1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: LogdText(
+                                    text: "${local.townCrierPrefix}${_con.parseNewsItem(local, _con.latestNewsItem!)}",
+                                    fontSize: LogdCodes.fontSizeDefault - 1,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                              ],
 
-  void _navigateTo(Widget screen) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => screen)).then((_) {
-      setState(() { _isLoading = true; });
-      _loadPlayerData();
-    });
-  }
+                              LogdText(
+                                text: _con.storyContent['welcome'] ?? "",
+                                fontSize: LogdCodes.fontSizeDefault,
+                              ),
 
-  Widget _buildGridButton(String label, Color color, Color bg, VoidCallback onPressed) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: color, width: 2),
-        backgroundColor: bg,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-      ),
-      onPressed: onPressed,
-      // DE FIX: Dorpsplein gridknoppen font en size synchroon gezet met de rest van de game
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: color,
-            fontFamily: LogdCodes.retroFont,
-            fontWeight: FontWeight.bold,
-            fontSize: LogdCodes.fontSizeDefault - 2,
-            letterSpacing: 0.5
+                              if (bounty > 0) ...[
+                                const SizedBox(height: 16),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.redAccent, width: 1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: LogdText(
+                                    text: _con.storyContent['guard_warning'] ?? "",
+                                    fontSize: LogdCodes.fontSizeDefault - 1,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                  ),
+                ),
+              ),
+              if (isPanelActive)
+                Expanded(
+                  flex: 12,
+                  child: TownSquarePanels(
+                    activeSubLocation: _activeSubLocation,
+                    playerData: _con.playerData,
+                    // DE FIX: Geef de cloud-data live door aan de panels!
+                    storyContent: _con.storyContent,
+                    barberContent: _con.barberContent,
+                    healerStatusMessage: _con.healerStatusMessage,
+                    barberStatusMessage: _con.barberStatusMessage,
+                    alleyStatusMessage: _alleyStatusMessage,
+                    mightyEStatusMessage: _mightyEStatusMessage,
+                    weddingStatusMessage: _weddingStatusMessage,
+                    currentHp: currentHp,
+                    maxHp: maxHp,
+                    gems: gems,
+                    level: level,
+                    isMarried: isMarried,
+                    onHealPressed: () =>
+                        _onHealPressed(level * 20, maxHp, local),
+                    onBarberPressed: _onBarberPressed,
+                    onBarberCutPressed: () => _onBarberCutPressed(level, local),
+                    onBarberShavePressed: () => _onBarberShavePressed(level, maxHp, local),
+                    onBarberDyePressed: _onBarberDyePressed,
+                    onAlleyPressed: _onAlleyPressed,
+                    onMightyEPressed: _onMightyEPressed,
+                    onWeddingPressed: () => _onWeddingPressed(local),
+                    onLeavePressed: () => setState(() {
+                      _activeSubLocation = "MAIN";
+                    }),
+                  ),
+                )
+              else
+                TownSquareMenuRouter(
+                  activeSubLocation: _activeSubLocation,
+                  onForestPressed: () => TownSquareActions.navigateToForest(
+                    context,
+                    currentHp,
+                    local,
+                    _navigateTo,
+                  ),
+                  onNewsPressed: () => _navigateTo(const DailyNewsScreen()),
+                  onSubMenuPressed: (m) =>
+                      setState(() => _activeSubLocation = m),
+                  onSmithyPressed: () => _navigateTo(const SmithyScreen()),
+                  onBankPressed: () => _navigateTo(const BankScreen()),
+                  onBarberPressed: () => setState(() {
+                    _activeSubLocation = "BARBER";
+                  }),
+                  onAlchemistPressed: () =>
+                      _navigateTo(const AlchemistScreen()),
+                  onHealerPressed: () => setState(() {
+                    _activeSubLocation = "HEALER";
+                  }),
+                  onAlleyPressed: () => setState(() {
+                    _activeSubLocation = "ALLEY";
+                  }),
+                  onTrainingPressed: () => _navigateTo(const TrainingScreen()),
+                  onStablesPressed: () => _navigateTo(const StablesScreen()),
+                  onInnPressed: () => _navigateTo(const InnScreen()),
+                  onChurchPressed: () {
+                    final int bounty = _con.playerData?['bounty'] ?? 0;
+                    if (bounty > 0) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: LogdCodes.uiCardBg,
+                          title: const Text("HALT!", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                          content: LogdText(text: _con.storyContent['guard_block_church'] ?? ""),
+                          actions: [
+                            TextButton(onPressed: () => Navigator.pop(context), child: Text(local.btnOk, style: const TextStyle(color: Colors.grey))),
+                          ],
+                        ),
+                      );
+                    } else {
+                      _navigateTo(const ChurchScreen());
+                    }
+                  },
+                  onWeddingPressed: () => setState(() {
+                    _activeSubLocation = "WEDDING";
+                  }),
+                  onTownfolkPressed: () => TownSquareActions.showRumorDialog(
+                    context,
+                    local,
+                    _con.getRandomRumor(local.townSquareRumorFallback),
+                  ),
+                  onMightyEPressed: () => setState(() {
+                    _activeSubLocation = "MIGHTYE";
+                  }),
+                  onRankingsPressed: () => _navigateTo(const RankingsScreen()),
+                ),
+              if (_activeSubLocation != "MAIN" && !isPanelActive) ...[
+                const SizedBox(height: 10),
+                OutlinedButton(
+                  style:
+                      OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: LogdCodes.uiBlueDark,
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                      ).copyWith(
+                        foregroundColor: WidgetStateProperty.all<Color>(
+                          LogdCodes.uiBlueDark,
+                        ),
+                      ),
+                  onPressed: () {
+                    setState(() {
+                      _activeSubLocation = "MAIN";
+                      _alleyStatusMessage = "";
+                      _mightyEStatusMessage = "";
+                      _weddingStatusMessage = "";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: Text(
+                        local.btnReturnTown.toUpperCase(),
+                        style: const TextStyle(
+                          fontFamily: LogdCodes.retroFont,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              const SizedBox(height: 6),
+            ],
+          ),
+        ),
+        bottomNavigationBar: LogdStatusBar(
+          currentHp: currentHp,
+          maxHp: maxHp,
+          goldOnHand: goldOnHand,
+          gems: gems,
+          turns: turns,
+          level: level,
+          experience: experience,
         ),
       ),
     );
+  }
+
+  void _navigateTo(Widget s) {
+    Navigator.push(context, MaterialPageRoute(builder: (c) => s)).then((_) {
+      if (mounted) {
+        setState(() {
+          _con.isLoading = true;
+        });
+        _refreshData();
+      }
+    });
   }
 }

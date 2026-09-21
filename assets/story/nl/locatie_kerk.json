@@ -1,0 +1,11 @@
+{
+  "welcome": "`gJe stapt de imposante, stille kerk binnen. Het weinige licht valt door de glas-in-loodramen op het altaar. Er hangt een geur van wierook.`w\n\n\"Kniel neer, reiziger,\" fluistert een monnik in een lange pij. \"Doe een gebed tot de Goden van het Rijk. Maar wees gewaarschuwd... de Goden zijn wispelturig!\"",
+  "bless_gold": "`2De hemel opent zich en een warme lichtstraal raakt je aan! Je vindt {gold} goudstukken op het altaar!`w",
+  "bless_gems": "`2Een engel daalt neer en schenkt je een glimmende Edelsteen ({gems} Gem)!`w",
+  "bless_heal": "`2Een goddelijke kracht stroomt door je aderen. Al je wonden zijn in één klap genezen!`w",
+  "bless_neutral": "`gJe bidt vurig tot de Goden... maar er gebeurt niets. De stilte in de kerk blijft onverstoord.`w",
+  "curse_hp": "`4De hemel betrekt en een felle bliksemstraal slaat vlak voor je voeten in! Je verliest {hp} HP door de schok!`w",
+  "curse_gold": "`4Een plotselinge windvlaag raast door de kerk en blaast stiekem {gold} goudstukken uit je buidel!`w",
+  "confess_welcome": "Je knielt neer in de kleine houten biechtstoel. 'Spreek maar, mijn kind. Wat weegt er op je hart?' fluistert de monnik vanachter het luikje.",
+  "candle_welcome": "Het altaar van de Oude Goden baadt in het licht van tientallen kaarsen. Elke vlam staat voor een hoop, een wens of een herinnering."
+}

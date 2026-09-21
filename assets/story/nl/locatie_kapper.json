@@ -1,0 +1,11 @@
+{
+  "welcome": "In deze schone, lichte salon ruikt het naar scheerzeep. Achter de stoel staat een flamboyante kapper met een vlijmscherp scheermes: 'Welkom, welgeëerde avonturier! Ben je hier voor een frisse coupe, of wil je die wilde haren eens fatsoenlijk laten stylen?'",
+  "success": "De kapper gaat vliegensvlug met zijn schaar door je haar: 'Magnifiek! Prachtig! Vanaf vandaag zal iedereen op het dorpsplein je aanspreken met je nieuwe, koninklijke titel!'",
+  "error_no_gem": "`4De kapper schudt zijn hoofd: 'Ik werk uitsluitend voor echte glimmende edelstenen, schat. Kom terug als je een edelsteen kunt missen!'`w",
+  "title_options_male": "Sir,Lord,Baron,Hertog,Graaf,Legende",
+  "title_options_female": "Lady,Barones,Hertogin,Gravin,Legende",
+  "cut_success": "De kapper knipt met chirurgische precisie. Je ziet er fantastisch uit! Je voelt je een stuk aantrekkelijker.",
+  "shave_success": "Met een warm doekje en een vlijmscherp mes maakt hij je huid babyglad. Je voelt je als herboren!",
+  "dye_success": "Met wat exotische extracten tovert hij een nieuwe gloed in je haar: 'Een gedurfde keuze, het staat je beeldig!'",
+  "error_no_gold": "`4De kapper zucht: 'Passie is gratis, mijn vakmanschap niet. Kom terug als je genoeg goud hebt!'`w"
+}

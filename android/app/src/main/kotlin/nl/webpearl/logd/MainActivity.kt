@@ -1,4 +1,4 @@
-package com.example.logd // <--- LET OP: Laat jouw eigen unieke package-regel hier bovenaan staan!
+package nl.webpearl.logd
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

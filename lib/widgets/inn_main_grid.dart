@@ -24,34 +24,34 @@ class InnMainGrid extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 2.1,
+            childAspectRatio: 2.3,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              _buildGridButton(label: local.innDiceTitle.toUpperCase(), color: Colors.amber, onTap: () => onSectionChange("DICE")),
-              // DE FIX: Volledig gelokaliseerd via de juiste .arb getters!
-              _buildGridButton(label: local.innMenuBlackjack.toUpperCase(), color: Colors.amber.shade700, onTap: () => onSectionChange("BLACKJACK")),
-              _buildGridButton(label: local.innMenuBartender.toUpperCase(), color: Colors.orange, onTap: () => onSectionChange("BARTENDER")),
-              _buildGridButton(label: local.innMenuFlirt.toUpperCase(), color: Colors.purple, onTap: () => onSectionChange("FLIRT")),
-              _buildGridButton(label: local.innMenuSpy.toUpperCase(), color: Colors.red, onTap: () => onSectionChange("SPY")),
-              _buildGridButton(label: local.innMenuNews.toUpperCase(), color: Colors.cyan, onTap: () => onSectionChange("NEWS")),
+              _buildGridButton(label: local.innMenuBartender.toUpperCase(), color: LogdCodes.uiOrange, onTap: () => onSectionChange("BARMAN")),
+              _buildGridButton(label: local.innMenuBard.toUpperCase(), color: LogdCodes.uiBlue, onTap: () => onSectionChange("BARD")),
+              _buildGridButton(label: local.innMenuFlirt.toUpperCase(), color: LogdCodes.uiPurple, onTap: () => onSectionChange("ROMANCE")),
+              _buildGridButton(label: local.innMenuVeteran.toUpperCase(), color: LogdCodes.uiBrown, onTap: () => onSectionChange("VETERAN")),
+              _buildGridButton(label: local.innMenuGamble.toUpperCase(), color: LogdCodes.uiAmber, onTap: () => onSectionChange("GAMBLE")),
+              _buildGridButton(label: local.innMenuSpy.toUpperCase(), color: LogdCodes.uiRed, onTap: () => onSectionChange("SPY")),
+              _buildGridButton(label: local.innMenuNews.toUpperCase(), color: LogdCodes.uiCyan, onTap: () => onSectionChange("NEWS")),
+              _buildGridButton(label: local.innMenuBounty.toUpperCase(), color: LogdCodes.uiGrey, onTap: () => onSectionChange("BOUNTY")),
             ],
           ),
         ),
         const SizedBox(height: 10),
         OutlinedButton(
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.blue, width: 2),
+            side: const BorderSide(color: LogdCodes.uiBlueDark, width: 2),
             minimumSize: const Size.fromHeight(48),
-            // DE FIX: Vormgeving gelijkgetrokken met de rest van de game
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
           ),
           onPressed: onReturnTown,
           child: Text(
               local.btnReturnTown.toUpperCase(),
               style: const TextStyle(
-                color: Colors.blueAccent,
+                color: LogdCodes.uiBlueDark,
                 fontWeight: FontWeight.bold,
-                fontFamily: LogdCodes.retroFont, // DE FIX: Nu ook met de retro-schreef letter!
+                fontFamily: LogdCodes.retroFont,
                 fontSize: LogdCodes.fontSizeDefault,
               )
           ),
@@ -64,7 +64,7 @@ class InnMainGrid extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: color, width: 2),
-        backgroundColor: color.withValues(alpha: 0.08),
+        backgroundColor: color.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       ),
       onPressed: onTap,
@@ -74,8 +74,8 @@ class InnMainGrid extends StatelessWidget {
         style: TextStyle(
           color: color,
           fontWeight: FontWeight.bold,
-          fontFamily: LogdCodes.retroFont, // DE FIX: Zorgt dat de knopletters de schreef behouden
-          fontSize: LogdCodes.fontSizeDefault - 2, // Iets compacter voor een strakke fit in de gridcellen
+          fontFamily: LogdCodes.retroFont,
+          fontSize: LogdCodes.fontSizeDefault - 3,
         ),
       ),
     );
