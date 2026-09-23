@@ -2999,6 +2999,12 @@ abstract class AppLocalizations {
   /// **'ZWEEF SNEL VERDER'**
   String get btnWhispersLeave;
 
+  /// No description provided for @dialogGuardHaltTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'HALT!'**
+  String get dialogGuardHaltTitle;
+
   /// No description provided for @dragon_lair_title.
   ///
   /// In nl, this message translates to:

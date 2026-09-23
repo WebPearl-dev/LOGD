@@ -1738,6 +1738,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnWhispersLeave => 'ZWEEF SNEL VERDER';
 
   @override
+  String get dialogGuardHaltTitle => 'HALT!';
+
+  @override
   String get dragon_lair_title => 'Het Hol van de Groene Draak';
 
   @override

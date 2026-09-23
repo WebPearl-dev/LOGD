@@ -1730,6 +1730,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnWhispersLeave => 'FLOAT AWAY QUICKLY';
 
   @override
+  String get dialogGuardHaltTitle => 'HALT!';
+
+  @override
   String get dragon_lair_title => 'The Green Dragon\'s Lair';
 
   @override

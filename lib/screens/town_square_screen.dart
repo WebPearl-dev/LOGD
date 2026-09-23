@@ -229,15 +229,15 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
             _activeSubLocation == "MAIN"
                 ? TownSquareController.cleanColorCodesOnly(username)
                 : _activeSubLocation == "BARBER"
-                ? local.btnVisitBarber.toUpperCase()
+                ? local.town_sub_barber.toUpperCase()
                 : _activeSubLocation == "HEALER"
-                ? local.btnVisitHealer.toUpperCase()
+                ? local.town_sub_healer.toUpperCase()
                 : _activeSubLocation == "ALLEY"
-                ? local.btnVisitAlley.toUpperCase()
+                ? local.town_sub_alley.toUpperCase()
                 : _activeSubLocation == "MIGHTYE"
-                ? local.btnVisitMightyE.toUpperCase()
+                ? local.town_sub_mightye.toUpperCase()
                 : _activeSubLocation == "WEDDING"
-                ? local.btnVisitWedding.toUpperCase()
+                ? local.town_sub_wedding.toUpperCase()
                 : _activeSubLocation == "SUB_SHOPS"
                 ? local.town_btn_shops.toUpperCase()
                 : _activeSubLocation == "SUB_MYSTERY"
@@ -390,7 +390,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                         context: context,
                         builder: (context) => AlertDialog(
                           backgroundColor: LogdCodes.uiCardBg,
-                          title: const Text("HALT!", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                          title: Text(local.dialogGuardHaltTitle.toUpperCase(), style: const TextStyle(color: LogdCodes.uiRed, fontWeight: FontWeight.bold, fontFamily: LogdCodes.retroFont)),
                           content: LogdText(text: _con.storyContent['guard_block_church'] ?? ""),
                           actions: [
                             TextButton(onPressed: () => Navigator.pop(context), child: Text(local.btnOk, style: const TextStyle(color: Colors.grey))),
