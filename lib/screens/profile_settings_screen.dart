@@ -33,6 +33,10 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   int _devClickCount = 0;
   Map<String, dynamic>? _profileData;
 
+  bool _isAccountExpanded = true;
+  bool _isLanguageExpanded = false;
+  bool _isCommunityExpanded = false;
+
   @override
   void initState() {
     super.initState();
@@ -422,39 +426,62 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     );
   }
 
-  Widget _buildSectionCard({
+  Widget _buildExpandableSectionCard({
     required String title,
     required Color titleColor,
+    required bool isExpanded,
+    required VoidCallback onToggle,
     required List<Widget> children,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 24.0),
+      margin: const EdgeInsets.only(bottom: 16.0),
       decoration: BoxDecoration(
         color: LogdCodes.uiCardBg,
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: titleColor.withValues(alpha: 0.5), width: 1.5),
+        border: Border.all(color: titleColor.withValues(alpha: isExpanded ? 0.6 : 0.3), width: 1.5),
       ),
-      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Container(width: 4, height: 18, color: titleColor),
-              const SizedBox(width: 8),
-              Text(
-                title.toUpperCase(),
-                style: TextStyle(
-                  fontFamily: LogdCodes.retroFont,
-                  fontSize: LogdCodes.fontSizeCardTitle,
-                  fontWeight: FontWeight.bold,
-                  color: titleColor,
-                ),
+          InkWell(
+            onTap: onToggle,
+            borderRadius: BorderRadius.circular(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Container(width: 4, height: 18, color: titleColor),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      title.toUpperCase(),
+                      style: TextStyle(
+                        fontFamily: LogdCodes.retroFont,
+                        fontSize: LogdCodes.fontSizeCardTitle,
+                        fontWeight: FontWeight.bold,
+                        color: titleColor,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    color: titleColor,
+                    size: 24,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 16),
-          ...children,
+          if (isExpanded) ...[
+            Divider(height: 1, color: titleColor.withValues(alpha: 0.2)),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: children,
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -541,9 +568,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ],
 
               // SECTION 1: Karakters & Account
-              _buildSectionCard(
+              _buildExpandableSectionCard(
                 title: local.settingsSectionAccount,
                 titleColor: LogdCodes.uiYellow,
+                isExpanded: _isAccountExpanded,
+                onToggle: () => setState(() => _isAccountExpanded = !_isAccountExpanded),
                 children: [
                   // Karakternaam
                   TextField(
@@ -687,9 +716,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ),
 
               // SECTION 2: Taal & Voorkeuren
-              _buildSectionCard(
+              _buildExpandableSectionCard(
                 title: local.settingsSectionLanguage,
                 titleColor: LogdCodes.uiCyan,
+                isExpanded: _isLanguageExpanded,
+                onToggle: () => setState(() => _isLanguageExpanded = !_isLanguageExpanded),
                 children: [
                   Text(
                     local.settingsLanguageTitle,
@@ -756,9 +787,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               ),
 
               // SECTION 3: Over LOGD & Community
-              _buildSectionCard(
+              _buildExpandableSectionCard(
                 title: local.settingsSectionCommunity,
                 titleColor: LogdCodes.uiGreen,
+                isExpanded: _isCommunityExpanded,
+                onToggle: () => setState(() => _isCommunityExpanded = !_isCommunityExpanded),
                 children: [
                   _buildCommunityTile(
                     title: local.settingsAboutTitle,
