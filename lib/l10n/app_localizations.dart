@@ -3430,6 +3430,114 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Sluiten'**
   String get btnClose;
+
+  /// No description provided for @tutorialTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hoe te Spelen'**
+  String get tutorialTitle;
+
+  /// No description provided for @tutorialStepProgress.
+  ///
+  /// In nl, this message translates to:
+  /// **'Stap {current} van {total}'**
+  String tutorialStepProgress(int current, int total);
+
+  /// No description provided for @tutorialStep1Title.
+  ///
+  /// In nl, this message translates to:
+  /// **'1. Het Dorpshart & Gebouwen'**
+  String get tutorialStep1Title;
+
+  /// No description provided for @tutorialStep1Content.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gHet Dorpshart is het bruisende centrum van het rijk.`w\n\nHier vind je alle belangrijke gebouwen:\n\n• `yDe Bank`w: Stall je goud veilig tegen struikrovers en verdien rente.\n• `cHerberg & Genezer`w: Herstel je HP, ontmoet reizigers of neem een behandeling.\n• `pKerk & Altaar`w: Bied offers voor goddelijke zegeningen.\n• `2Winkels & Stallen`w: Koop uitrusting, elixers en rijdieren.'**
+  String get tutorialStep1Content;
+
+  /// No description provided for @tutorialStep2Title.
+  ///
+  /// In nl, this message translates to:
+  /// **'2. Het Bos & De Gevechten'**
+  String get tutorialStep2Title;
+
+  /// No description provided for @tutorialStep2Content.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gHet Bos is de plek waar je als avonturier traint!`w\n\n• Elke zoektocht of gevecht kost `c1 Dagelijkse Beurt`w.\n• Versla monsters om `yGoud`w en `cErvaring (XP)`w te verzamelen.\n• Pas op voor je HP: als je bezwijkt in de strijd, ben je `4DOOD`w en verlies je al het goud dat je op zak had!'**
+  String get tutorialStep2Content;
+
+  /// No description provided for @tutorialStep3Title.
+  ///
+  /// In nl, this message translates to:
+  /// **'3. Smederij & Uitrusting'**
+  String get tutorialStep3Title;
+
+  /// No description provided for @tutorialStep3Content.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gZonder goede spullen ben je kansloos tegen sterke monsters!`w\n\n• Bezoek de `ySmederij`w op het dorpsplein.\n• Koop krachtige `yWapens`w om meer schade uit te delen.\n• Koop stevige `cHarnassen`w om minder schade te incasseren.\n• Upgrade je spullen zodra je genoeg goud hebt gespaard.'**
+  String get tutorialStep3Content;
+
+  /// No description provided for @tutorialStep4Title.
+  ///
+  /// In nl, this message translates to:
+  /// **'4. Krijgshof & Level-Ups'**
+  String get tutorialStep4Title;
+
+  /// No description provided for @tutorialStep4Content.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gHeb je voldoende XP verzameld in het bos?`w\n\n• Ga naar het `pKrijgshof`w op het Dorpsplein.\n• Daag de Meester uit voor een test van je krachten.\n• Versla de Meester om te `2Stijgen in Level`w!\n• Je stijgt in Max HP, leert nieuwe vaardigheden en krijgt toegang tot betere uitrusting.'**
+  String get tutorialStep4Content;
+
+  /// No description provided for @tutorialStep5Title.
+  ///
+  /// In nl, this message translates to:
+  /// **'5. Nieuwe Dag & De Draak'**
+  String get tutorialStep5Title;
+
+  /// No description provided for @tutorialStep5Content.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gElke nieuwe dag brengt nieuwe kansen!`w\n\n• Elke 24 uur vindt er een `cNieuwe Dag`w reset plaats.\n• Je krijgt nieuwe bosbeurten en rente over je bankgoud.\n• Blijf vechten, sparen en trainen tot je `yLevel 15`w bereikt.\n• Maak je klaar voor het ultieme gevecht tegen de legendarische `4Gouden Draak`w!'**
+  String get tutorialStep5Content;
+
+  /// No description provided for @tutorialBtnPrevious.
+  ///
+  /// In nl, this message translates to:
+  /// **'Vorige'**
+  String get tutorialBtnPrevious;
+
+  /// No description provided for @tutorialBtnNext.
+  ///
+  /// In nl, this message translates to:
+  /// **'Volgende'**
+  String get tutorialBtnNext;
+
+  /// No description provided for @tutorialBtnSkip.
+  ///
+  /// In nl, this message translates to:
+  /// **'Overslaan'**
+  String get tutorialBtnSkip;
+
+  /// No description provided for @tutorialBtnFinish.
+  ///
+  /// In nl, this message translates to:
+  /// **'Begrepen / Start Spel'**
+  String get tutorialBtnFinish;
+
+  /// No description provided for @settingsTutorialTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Hoe te spelen (Tutorial)'**
+  String get settingsTutorialTitle;
+
+  /// No description provided for @settingsTutorialSubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bekijk de interactieve spelhandleiding'**
+  String get settingsTutorialSubtitle;
 }
 
 class _AppLocalizationsDelegate

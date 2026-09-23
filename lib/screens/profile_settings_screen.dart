@@ -10,6 +10,7 @@ import '../main.dart';
 import 'auth_screen.dart';
 import 'developer_panel_screen.dart';
 import '../services/guest_manager.dart';
+import '../widgets/logd_tutorial_dialog.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
   const ProfileSettingsScreen({super.key});
@@ -793,6 +794,17 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                 isExpanded: _isCommunityExpanded,
                 onToggle: () => setState(() => _isCommunityExpanded = !_isCommunityExpanded),
                 children: [
+                  _buildCommunityTile(
+                    title: local.settingsTutorialTitle,
+                    subtitle: local.settingsTutorialSubtitle,
+                    color: LogdCodes.uiCyan,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const LogdTutorialDialog(),
+                      );
+                    },
+                  ),
                   _buildCommunityTile(
                     title: local.settingsAboutTitle,
                     subtitle: local.settingsAboutSubtitle,

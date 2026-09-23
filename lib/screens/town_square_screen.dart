@@ -25,6 +25,8 @@ import '../services/new_day_service.dart';
 import 'new_day_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../services/guest_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/logd_tutorial_dialog.dart';
 
 class TownSquareScreen extends StatefulWidget {
   const TownSquareScreen({super.key});
@@ -39,6 +41,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   String _alleyStatusMessage = "",
       _mightyEStatusMessage = "",
       _weddingStatusMessage = "";
+  bool _hasCheckedTutorial = false;
 
   @override
   void initState() {
@@ -64,8 +67,26 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
         setState(() {
           _con.isLoading = false;
         });
+        _checkAndShowTutorial();
       }
     });
+  }
+
+  Future<void> _checkAndShowTutorial() async {
+    if (_hasCheckedTutorial) return;
+    _hasCheckedTutorial = true;
+    final prefs = await SharedPreferences.getInstance();
+    final bool hasSeen = prefs.getBool('has_seen_tutorial') ?? false;
+    if (!hasSeen && mounted) {
+      await prefs.setBool('has_seen_tutorial', true);
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const LogdTutorialDialog(),
+        );
+      }
+    }
   }
 
   void _onHealPressed(int cost, int maxHp, AppLocalizations local) async {

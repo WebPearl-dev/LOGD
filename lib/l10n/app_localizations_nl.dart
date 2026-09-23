@@ -1981,4 +1981,66 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get btnClose => 'Sluiten';
+
+  @override
+  String get tutorialTitle => 'Hoe te Spelen';
+
+  @override
+  String tutorialStepProgress(int current, int total) {
+    return 'Stap $current van $total';
+  }
+
+  @override
+  String get tutorialStep1Title => '1. Het Dorpshart & Gebouwen';
+
+  @override
+  String get tutorialStep1Content =>
+      '`gHet Dorpshart is het bruisende centrum van het rijk.`w\n\nHier vind je alle belangrijke gebouwen:\n\n• `yDe Bank`w: Stall je goud veilig tegen struikrovers en verdien rente.\n• `cHerberg & Genezer`w: Herstel je HP, ontmoet reizigers of neem een behandeling.\n• `pKerk & Altaar`w: Bied offers voor goddelijke zegeningen.\n• `2Winkels & Stallen`w: Koop uitrusting, elixers en rijdieren.';
+
+  @override
+  String get tutorialStep2Title => '2. Het Bos & De Gevechten';
+
+  @override
+  String get tutorialStep2Content =>
+      '`gHet Bos is de plek waar je als avonturier traint!`w\n\n• Elke zoektocht of gevecht kost `c1 Dagelijkse Beurt`w.\n• Versla monsters om `yGoud`w en `cErvaring (XP)`w te verzamelen.\n• Pas op voor je HP: als je bezwijkt in de strijd, ben je `4DOOD`w en verlies je al het goud dat je op zak had!';
+
+  @override
+  String get tutorialStep3Title => '3. Smederij & Uitrusting';
+
+  @override
+  String get tutorialStep3Content =>
+      '`gZonder goede spullen ben je kansloos tegen sterke monsters!`w\n\n• Bezoek de `ySmederij`w op het dorpsplein.\n• Koop krachtige `yWapens`w om meer schade uit te delen.\n• Koop stevige `cHarnassen`w om minder schade te incasseren.\n• Upgrade je spullen zodra je genoeg goud hebt gespaard.';
+
+  @override
+  String get tutorialStep4Title => '4. Krijgshof & Level-Ups';
+
+  @override
+  String get tutorialStep4Content =>
+      '`gHeb je voldoende XP verzameld in het bos?`w\n\n• Ga naar het `pKrijgshof`w op het Dorpsplein.\n• Daag de Meester uit voor een test van je krachten.\n• Versla de Meester om te `2Stijgen in Level`w!\n• Je stijgt in Max HP, leert nieuwe vaardigheden en krijgt toegang tot betere uitrusting.';
+
+  @override
+  String get tutorialStep5Title => '5. Nieuwe Dag & De Draak';
+
+  @override
+  String get tutorialStep5Content =>
+      '`gElke nieuwe dag brengt nieuwe kansen!`w\n\n• Elke 24 uur vindt er een `cNieuwe Dag`w reset plaats.\n• Je krijgt nieuwe bosbeurten en rente over je bankgoud.\n• Blijf vechten, sparen en trainen tot je `yLevel 15`w bereikt.\n• Maak je klaar voor het ultieme gevecht tegen de legendarische `4Gouden Draak`w!';
+
+  @override
+  String get tutorialBtnPrevious => 'Vorige';
+
+  @override
+  String get tutorialBtnNext => 'Volgende';
+
+  @override
+  String get tutorialBtnSkip => 'Overslaan';
+
+  @override
+  String get tutorialBtnFinish => 'Begrepen / Start Spel';
+
+  @override
+  String get settingsTutorialTitle => 'Hoe te spelen (Tutorial)';
+
+  @override
+  String get settingsTutorialSubtitle =>
+      'Bekijk de interactieve spelhandleiding';
 }

@@ -1971,4 +1971,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btnClose => 'Close';
+
+  @override
+  String get tutorialTitle => 'How to Play';
+
+  @override
+  String tutorialStepProgress(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get tutorialStep1Title => '1. Town Square & Buildings';
+
+  @override
+  String get tutorialStep1Content =>
+      '`gThe Town Square is the vibrant heart of the realm.`w\n\nHere you\'ll find all essential places:\n\n• `yThe Bank`w: Safely store your gold against robbers and earn interest.\n• `cInn & Herbalist`w: Restore your HP, meet travelers, or enjoy a treatment.\n• `pChurch & Shrine`w: Make offerings for divine blessings.\n• `2Shops & Stables`w: Purchase equipment, potions, and mounts.';
+
+  @override
+  String get tutorialStep2Title => '2. The Forest & Combat';
+
+  @override
+  String get tutorialStep2Content =>
+      '`gThe Forest is where you train as an adventurer!`w\n\n• Each search or battle costs `c1 Daily Turn`w.\n• Defeat monsters to collect `yGold`w and `cExperience (XP)`w.\n• Watch your HP: if you fall in battle, you are `4DEAD`w and lose all gold on hand!';
+
+  @override
+  String get tutorialStep3Title => '3. Smithy & Equipment';
+
+  @override
+  String get tutorialStep3Content =>
+      '`gWithout proper gear, you stand no chance against fierce monsters!`w\n\n• Visit the `ySmithy`w in the town square.\n• Buy powerful `yWeapons`w to deal higher damage.\n• Buy sturdy `cArmor`w to reduce incoming damage.\n• Upgrade your equipment as soon as you save up enough gold.';
+
+  @override
+  String get tutorialStep4Title => '4. Training Grounds & Level-Ups';
+
+  @override
+  String get tutorialStep4Content =>
+      '`gGathered enough XP in the forest?`w\n\n• Head to the `pTraining Grounds`w in the Town Square.\n• Challenge the Master to a test of your strength.\n• Defeat the Master to `2Level Up`w!\n• You\'ll increase Max HP, gain new capabilities, and unlock better equipment.';
+
+  @override
+  String get tutorialStep5Title => '5. New Day & The Dragon';
+
+  @override
+  String get tutorialStep5Content =>
+      '`gEvery new day brings fresh opportunities!`w\n\n• Every 24 hours a `cNew Day`w reset takes place.\n• You receive fresh forest turns and interest on banked gold.\n• Keep fighting, saving, and training until you reach `yLevel 15`w.\n• Prepare yourself for the final showdown against the legendary `4Golden Dragon`w!';
+
+  @override
+  String get tutorialBtnPrevious => 'Previous';
+
+  @override
+  String get tutorialBtnNext => 'Next';
+
+  @override
+  String get tutorialBtnSkip => 'Skip';
+
+  @override
+  String get tutorialBtnFinish => 'Got it / Start Game';
+
+  @override
+  String get settingsTutorialTitle => 'How to Play (Tutorial)';
+
+  @override
+  String get settingsTutorialSubtitle => 'View the interactive game guide';
 }
