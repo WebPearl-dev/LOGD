@@ -337,6 +337,24 @@ abstract class AppLocalizations {
   /// **'`2Naam succesvol gewijzigd!`w'**
   String get profileSuccessUpdate;
 
+  /// No description provided for @profileChangeEmail.
+  ///
+  /// In nl, this message translates to:
+  /// **'E-mailadres wijzigen'**
+  String get profileChangeEmail;
+
+  /// No description provided for @profileEmailSuccessUpdate.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2E-mailadres succesvol gewijzigd!`w'**
+  String get profileEmailSuccessUpdate;
+
+  /// No description provided for @profileEmailError.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4E-mailadres wijzigen mislukt.`w'**
+  String get profileEmailError;
+
   /// No description provided for @btnSave.
   ///
   /// In nl, this message translates to:

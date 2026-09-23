@@ -23,6 +23,8 @@ import 'dragon_shrine_screen.dart';
 
 import '../services/new_day_service.dart';
 import 'new_day_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../services/guest_manager.dart';
 
 class TownSquareScreen extends StatefulWidget {
   const TownSquareScreen({super.key});
@@ -41,6 +43,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   @override
   void initState() {
     super.initState();
+    _con.isLoading = true;
     _refreshData();
     _checkForNewDay();
   }
@@ -230,10 +233,11 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
           backgroundColor: LogdCodes.uiAppBarBg,
           automaticallyImplyLeading: false,
           actions: [
-            IconButton(
-              icon: const Icon(Icons.code, color: Colors.purpleAccent),
-              onPressed: () => _navigateTo(const DeveloperPanelScreen()),
-            ),
+            if (!GuestManager.isGuest && Supabase.instance.client.auth.currentUser?.email == 'm.j.kuiper95@gmail.com')
+              IconButton(
+                icon: const Icon(Icons.code, color: Colors.purpleAccent),
+                onPressed: () => _navigateTo(const DeveloperPanelScreen()),
+              ),
             IconButton(
               icon: const Icon(Icons.settings, color: Colors.grey),
               onPressed: () => _navigateTo(const ProfileSettingsScreen()),

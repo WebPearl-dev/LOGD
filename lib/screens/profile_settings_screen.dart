@@ -5,10 +5,11 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
-import '../widgets/profile_action_panel.dart'; // Importeer je nieuwe paneel widget!
+import '../widgets/profile_action_panel.dart';
 import '../theme/logd_codes.dart';
 import 'auth_screen.dart';
 import 'developer_panel_screen.dart';
+import '../services/guest_manager.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
   const ProfileSettingsScreen({super.key});
@@ -20,6 +21,7 @@ class ProfileSettingsScreen extends StatefulWidget {
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   final _supabase = Supabase.instance.client;
   final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
   final LocalAuthentication _auth = LocalAuthentication();
 
   bool _biometricEnabled = false;
@@ -37,13 +39,14 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   @override
   void dispose() {
     _nameController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
   Future<void> _loadInitialData() async {
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      final data = await _supabase.from('profiles').select().eq('id', user.id).single();
+      final data = await _supabase.from('profiles').select().eq('id', user.id).maybeSingle();
       final bool canCheck = await _auth.canCheckBiometrics;
       final bool isSupported = await _auth.isDeviceSupported();
       _deviceSupportsBiometrics = canCheck || isSupported;
@@ -53,7 +56,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
 
       if (mounted) {
         setState(() {
-          _nameController.text = data['username'] ?? '';
+          _nameController.text = data?['username'] ?? '';
+          _emailController.text = user.email ?? '';
           _biometricEnabled = _deviceSupportsBiometrics && userPreference;
         });
       }
@@ -76,6 +80,26 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     }
   }
 
+  Future<void> _updateEmail() async {
+    final local = AppLocalizations.of(context)!;
+    setState(() { _isLoading = true; _statusMessage = ""; });
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) return;
+      final newEmail = _emailController.text.trim();
+      if (newEmail.isEmpty) {
+        setState(() { _statusMessage = "`4${local.profileDatabaseError}"; });
+        return;
+      }
+      await _supabase.auth.updateUser(UserAttributes(email: newEmail));
+      setState(() { _statusMessage = local.profileEmailSuccessUpdate; });
+    } catch (e) {
+      setState(() { _statusMessage = local.profileEmailError; });
+    } finally {
+      setState(() { _isLoading = false; });
+    }
+  }
+
   Future<void> _toggleBiometrics(bool enabled) async {
     final local = AppLocalizations.of(context)!;
     final prefs = await SharedPreferences.getInstance();
@@ -88,7 +112,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
 
       try {
         final bool didAuthenticate = await _auth.authenticate(
-          localizedReason: local.profileBiometricReason, // DE FIX: Nu gelokaliseerd!
+          localizedReason: local.profileBiometricReason,
           options: const AuthenticationOptions(biometricOnly: true),
         );
 
@@ -108,6 +132,10 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   }
 
   void _onTitleTapped() {
+    final user = _supabase.auth.currentUser;
+    if (GuestManager.isGuest || user?.email != 'm.j.kuiper95@gmail.com') {
+      return;
+    }
     _devClickCount++;
     if (_devClickCount >= 5) {
       setState(() { _devClickCount = 0; });
@@ -153,6 +181,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
+    final user = _supabase.auth.currentUser;
+    final bool isEmailEditable = !GuestManager.isGuest && user != null;
 
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
@@ -186,6 +216,33 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+
+              if (isEmailEditable) ...[
+                TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
+                  decoration: InputDecoration(
+                    labelText: local.profileChangeEmail,
+                    labelStyle: const TextStyle(color: Colors.grey, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
+                    enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.yellow)),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.cyan, width: 2),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                    ),
+                    onPressed: _isLoading ? null : _updateEmail,
+                    child: Text(local.btnSave.toUpperCase(), style: const TextStyle(color: Colors.cyanAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
 
               Card(
                 color: const Color(0xFF262626),

@@ -54,9 +54,6 @@ class TownSquareController {
       barberContent = jsonDecode(results[1]) as Map<String, dynamic>;
       bosContent = jsonDecode(results[2]) as Map<String, dynamic>;
 
-      isLoading = false;
-      onUpdate();
-
       if (GuestManager.isGuest) {
         playerData = GuestManager.guestProfile;
         latestNewsItem = {
@@ -64,6 +61,7 @@ class TownSquareController {
           'username': 'Gast Reiziger',
           'message': 'Welkom in de wereld van de Gouden Draak als gast!'
         };
+        isLoading = false;
         onUpdate();
         return;
       }
@@ -95,6 +93,7 @@ class TownSquareController {
         }
       }
       
+      isLoading = false;
       onUpdate();
     } catch (e) {
       debugPrint("Error in loadLiveStats: $e");

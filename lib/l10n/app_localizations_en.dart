@@ -162,6 +162,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileSuccessUpdate => '`2Name successfully changed!`w';
 
   @override
+  String get profileChangeEmail => 'Change Email Address';
+
+  @override
+  String get profileEmailSuccessUpdate => '`2Email successfully updated!`w';
+
+  @override
+  String get profileEmailError => '`4Failed to update email address.`w';
+
+  @override
   String get btnSave => 'Save';
 
   @override

@@ -164,6 +164,16 @@ class AppLocalizationsNl extends AppLocalizations {
   String get profileSuccessUpdate => '`2Naam succesvol gewijzigd!`w';
 
   @override
+  String get profileChangeEmail => 'E-mailadres wijzigen';
+
+  @override
+  String get profileEmailSuccessUpdate =>
+      '`2E-mailadres succesvol gewijzigd!`w';
+
+  @override
+  String get profileEmailError => '`4E-mailadres wijzigen mislukt.`w';
+
+  @override
   String get btnSave => 'Opslaan';
 
   @override
