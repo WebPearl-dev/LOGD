@@ -1,4 +1,3 @@
-// lib/screens/daily_news_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
@@ -6,6 +5,7 @@ import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
 import '../services/guest_manager.dart';
+import '../services/town_square_controller.dart';
 
 class DailyNewsScreen extends StatefulWidget {
   const DailyNewsScreen({super.key});
@@ -16,6 +16,7 @@ class DailyNewsScreen extends StatefulWidget {
 
 class _DailyNewsScreenState extends State<DailyNewsScreen> {
   final _supabase = Supabase.instance.client;
+  final _townSquareController = TownSquareController();
   List<Map<String, dynamic>> _newsLogs = [];
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
@@ -30,6 +31,11 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
 
   Future<void> _loadNewsAndStats() async {
     try {
+      if (mounted) {
+        final languageCode = Localizations.localeOf(context).languageCode;
+        await TownSquareController.ensureMonsterDataLoaded(languageCode);
+      }
+
       if (GuestManager.isGuest) {
         final playerData = GuestManager.guestProfile;
         if (mounted) {
@@ -88,34 +94,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
   }
 
   String _parseLogToText(AppLocalizations local, Map<String, dynamic> log) {
-    final String type = log['log_type'] ?? '';
-    final String user = log['username'] ?? local.newsUnknownPlayer;
-
-    final int numericLevel = log['reached_level'] ?? log['value_after'] ?? 0;
-    final String levelStr = numericLevel.toString();
-
-    final int numericGold = log['gold_amount'] ?? log['gold'] ?? 0;
-    final String goldStr = numericGold.toString();
-
-    if (type == 'level_up') {
-      return local.newsLogLevelUp(levelStr, user);
-    }
-    if (type == 'defeated') {
-      return local.newsLogDefeated(log['enemy_name'] ?? 'een monster', user);
-    }
-    if (type == 'defeated_brutal') {
-      return local.newsLogDefeatedBrutal(log['enemy_name'] ?? 'een monster', user);
-    }
-    if (type == 'inn_win') {
-      return local.newsLogInnWin(goldStr, user);
-    }
-    if (type == 'inn_loss') {
-      return local.newsLogInnLoss(goldStr, user);
-    }
-    if (type == 'marriage') {
-      return local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
-    }
-    return log['log_text'] ?? log['message'] ?? '';
+    return _townSquareController.parseNewsItem(local, log);
   }
 
   @override
