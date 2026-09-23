@@ -6,6 +6,7 @@ import '../widgets/logd_text.dart';
 import '../theme/logd_codes.dart'; // Importeer je centrale styles!
 import 'town_square_screen.dart';
 import 'race_selection_screen.dart';
+import '../services/guest_manager.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -105,7 +106,7 @@ class _AuthScreenState extends State<AuthScreen> {
       appBar: AppBar(
         // DE FIX: AppBar titel volledig gekoppeld aan de centrale retro-wetten!
         title: const Text(
-            'LOGD',
+            'Legend of the Golden Dragon',
             style: TextStyle(
                 fontFamily: LogdCodes.retroFont,
                 fontSize: LogdCodes.fontSizeDefault,
@@ -191,6 +192,34 @@ class _AuthScreenState extends State<AuthScreen> {
                       (_isLogin ? local.btnLogin : local.btnRegister).toUpperCase(),
                       // DE FIX: Knoptekst font en grootte hersteld
                       style: const TextStyle(color: Colors.yellowAccent, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  height: 50,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: LogdCodes.uiCyan, width: 2),
+                      backgroundColor: LogdCodes.uiBlueBg,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                    ),
+                    onPressed: () {
+                      GuestManager.resetGuestProfile();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TownSquareScreen()),
+                      );
+                    },
+                    child: Text(
+                      local.authGuestLogin.toUpperCase(),
+                      style: const TextStyle(
+                        color: LogdCodes.uiCyan,
+                        fontFamily: LogdCodes.retroFont,
+                        fontWeight: FontWeight.bold,
+                        fontSize: LogdCodes.fontSizeDefault,
+                      ),
                     ),
                   ),
                 ),

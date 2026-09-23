@@ -1,6 +1,6 @@
-// lib/services/bank_controller.dart
 import 'dart:math';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'guest_manager.dart';
 
 class BankController {
   final _supabase = Supabase.instance.client;
@@ -18,6 +18,21 @@ class BankController {
   bool isLoading = true;
 
   Future<void> loadBankStats() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      goldOnHand = data['gold_on_hand'] ?? 0;
+      goldInBank = data['gold_in_bank'] ?? 0;
+      level = data['level'] ?? 1;
+      dailyDeposited = data['daily_deposited'] ?? 0;
+      gems = data['gems'] ?? 0;
+      turns = data['turns'] ?? 0;
+      hp = data['hp'] ?? 20;
+      maxHp = data['max_hp'] ?? 20;
+      experience = data['experience'] ?? 0;
+      isLoading = false;
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final data = await _supabase.from('profiles').select().eq('id', user.id).single();
@@ -66,6 +81,13 @@ class BankController {
   }
 
   Future<void> _updateCloud() async {
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['gold_in_bank'] = goldInBank;
+      GuestManager.guestProfile['daily_deposited'] = dailyDeposited;
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       await _supabase.from('profiles').update({

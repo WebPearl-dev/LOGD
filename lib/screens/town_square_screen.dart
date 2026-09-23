@@ -19,6 +19,7 @@ import 'alchemist_screen.dart';
 import 'daily_news_screen.dart';
 import 'developer_panel_screen.dart';
 import 'rankings_screen.dart';
+import 'dragon_shrine_screen.dart';
 
 import '../services/new_day_service.dart';
 import 'new_day_screen.dart';
@@ -119,9 +120,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   void _onAlleyPressed() async {
     bool success = await _con.handleAlleyPurchase();
     setState(() {
-      _alleyStatusMessage = success
-          ? (_con.storyContent['dark_alley_success'] ?? "...")
-          : (_con.barberContent['error_no_gem'] ?? "...");
+      _alleyStatusMessage = _con.alleyStatusMessage;
     });
     if (success) _refreshData();
   }
@@ -202,7 +201,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
         appBar: AppBar(
           title: Text(
             _activeSubLocation == "MAIN"
-                ? username
+                ? TownSquareController.cleanColorCodesOnly(username)
                 : _activeSubLocation == "BARBER"
                 ? local.btnVisitBarber.toUpperCase()
                 : _activeSubLocation == "HEALER"
@@ -213,6 +212,14 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                 ? local.btnVisitMightyE.toUpperCase()
                 : _activeSubLocation == "WEDDING"
                 ? local.btnVisitWedding.toUpperCase()
+                : _activeSubLocation == "SUB_SHOPS"
+                ? local.town_btn_shops.toUpperCase()
+                : _activeSubLocation == "SUB_MYSTERY"
+                ? local.town_btn_mystery.toUpperCase()
+                : _activeSubLocation == "SUB_TRAINING"
+                ? local.town_btn_training.toUpperCase()
+                : _activeSubLocation == "SUB_TOWN"
+                ? local.town_btn_heart.toUpperCase()
                 : "=== ${_activeSubLocation.replaceAll('SUB_', '')} ===",
             style: const TextStyle(
               fontFamily: LogdCodes.retroFont,
@@ -379,6 +386,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                     _activeSubLocation = "MIGHTYE";
                   }),
                   onRankingsPressed: () => _navigateTo(const RankingsScreen()),
+                  onDragonShrinePressed: () => _navigateTo(const DragonShrineScreen()),
                 ),
               if (_activeSubLocation != "MAIN" && !isPanelActive) ...[
                 const SizedBox(height: 10),

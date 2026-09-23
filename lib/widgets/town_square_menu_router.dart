@@ -22,6 +22,7 @@ class TownSquareMenuRouter extends StatelessWidget {
   final VoidCallback onTownfolkPressed;
   final VoidCallback onMightyEPressed;
   final VoidCallback onRankingsPressed;
+  final VoidCallback onDragonShrinePressed;
 
   const TownSquareMenuRouter({
     super.key,
@@ -43,6 +44,7 @@ class TownSquareMenuRouter extends StatelessWidget {
     required this.onTownfolkPressed,
     required this.onMightyEPressed,
     required this.onRankingsPressed,
+    required this.onDragonShrinePressed,
   });
 
   @override
@@ -172,14 +174,19 @@ class TownSquareMenuRouter extends StatelessWidget {
             ),
             buildMenuButton(
               label: local.btnVisitHealer,
-              color: Colors.teal,
+              color: LogdCodes.uiTeal,
               onPressed: onHealerPressed,
             ), // Teal voor de Kruidenheks!
             buildMenuButton(
               label: local.btnVisitAlley,
-              color: Colors.purple,
+              color: LogdCodes.uiPurple,
               onPressed: onAlleyPressed,
             ), // Paars voor Sly!
+            buildMenuButton(
+              label: local.btnVisitDragonShrine,
+              color: LogdCodes.uiAmber,
+              onPressed: onDragonShrinePressed,
+            ),
           ],
         );
 
@@ -193,7 +200,7 @@ class TownSquareMenuRouter extends StatelessWidget {
           childAspectRatio: 3.2,
           children: [
             buildMenuButton(
-              label: local.btnVisitTraining,
+              label: "Training",
               color: LogdCodes.uiRed,
               onPressed: onTrainingPressed,
             ),

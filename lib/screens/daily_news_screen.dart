@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 
 class DailyNewsScreen extends StatefulWidget {
   const DailyNewsScreen({super.key});
@@ -27,9 +28,28 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     _loadNewsAndStats();
   }
 
-  // Gecorrigeerd: Maak de methode bruikbaar voor de RefreshIndicator
   Future<void> _loadNewsAndStats() async {
     try {
+      if (GuestManager.isGuest) {
+        final playerData = GuestManager.guestProfile;
+        if (mounted) {
+          setState(() {
+            _newsLogs = [
+              {'log_type': 'welcome', 'username': 'Gast Reiziger', 'message': 'Welkom in het gasterijk van de Gouden Draak!'}
+            ];
+            goldOnHand = playerData['gold_on_hand'] ?? 0;
+            gems = playerData['gems'] ?? 0;
+            turns = playerData['turns'] ?? 0;
+            level = playerData['level'] ?? 1;
+            experience = playerData['experience'] ?? 0;
+            playerHp = playerData['hp'] ?? 20;
+            playerMaxHp = playerData['max_hp'] ?? 20;
+            _isLoading = false;
+          });
+        }
+        return;
+      }
+
       final user = _supabase.auth.currentUser;
       if (user != null) {
         final newsData = await _supabase
@@ -67,16 +87,13 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     }
   }
 
-  // --- CORE RETRO LOGS FIX: PARST DE DATABASE-KOLOMMEN IN DE EXACT JUISTE VOLGORDE ---
   String _parseLogToText(AppLocalizations local, Map<String, dynamic> log) {
     final String type = log['log_type'] ?? '';
     final String user = log['username'] ?? local.newsUnknownPlayer;
 
-    // Haal dynamic het level op uit de juiste database-kolom
     final int numericLevel = log['reached_level'] ?? log['value_after'] ?? 0;
     final String levelStr = numericLevel.toString();
 
-    // Haal dynamic het goudbedrag op uit de gok-kolommen
     final int numericGold = log['gold_amount'] ?? log['gold'] ?? 0;
     final String goldStr = numericGold.toString();
 
@@ -98,7 +115,6 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     if (type == 'marriage') {
       return local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
     }
-    // Mocht er een ruwe tekst in staan (zoals bij de eekhoorn), toon die dan als fallback
     return log['log_text'] ?? log['message'] ?? '';
   }
 
@@ -117,7 +133,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
         title: Text(
-          local.btnVisitNews.toUpperCase(),
+          "DE DORPSOMROEPER",
           style: const TextStyle(
             fontFamily: LogdCodes.retroFont,
             fontSize: LogdCodes.fontSizeDefault,
@@ -141,7 +157,6 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
               child: Divider(color: Colors.grey),
             ),
 
-            // DYNAMIC UPDATE FIX: Trek het scherm naar beneden om het nieuws LIVE te verversen!
             Expanded(
               child: _newsLogs.isEmpty
                   ? Center(
@@ -156,7 +171,6 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
                       onRefresh: _loadNewsAndStats,
                       child: ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(),
-                        // Nodig voor de RefreshIndicator
                         itemCount: _newsLogs.length,
                         itemBuilder: (context, index) {
                           final log = _newsLogs[index];
@@ -179,7 +193,6 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
             ),
             const SizedBox(height: 10),
 
-            // DE RETRO THEME FIX: Volledig hardcode-vrij via uiBlueDark en uiBlueBg!
             OutlinedButton(
               style:
                   OutlinedButton.styleFrom(

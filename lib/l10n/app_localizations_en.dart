@@ -125,6 +125,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authSwitchToLogin => 'Already have a character? Log in here';
 
   @override
+  String get authGuestLogin => 'Play as guest';
+
+  @override
   String get authErrorEmpty => 'Please fill in all fields!';
 
   @override
@@ -230,7 +233,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get btnTalkBanker => 'TALK TO THE BANKER';
+  String get btnTalkBanker => 'Talk to the banker';
 
   @override
   String get raceTitle => 'Choose your Race';
@@ -723,6 +726,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newsUnknownPlayer => 'Unknown Traveler';
 
   @override
+  String get newsUnknownEnemy => 'a monster';
+
+  @override
+  String get newsUnknownPartner => 'someone';
+
+  @override
   String get defaultUsername => 'Traveler';
 
   @override
@@ -1064,7 +1073,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get innMenuMain => 'The Common Room';
 
   @override
-  String get innMenuSpy => 'Spy on People (-10 Gold)';
+  String get innMenuSpy => 'Spy on People';
 
   @override
   String get innMenuNews => 'Read Newspaper & Rumors';
@@ -1729,6 +1738,16 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String newsLogDragonAttack(Object user) {
+    return '`4HEAR YE, HEAR YE!`w $user enters the Green Dragon\'s lair! The roar echoes through the mountains...';
+  }
+
+  @override
+  String newsLogDragonDefeat(Object user) {
+    return '`4HEAR YE, HEAR YE!`w $user was brutally roasted by the Green Dragon! Oaktaven mourns...';
+  }
+
+  @override
   String get btnDevAddGold => '+10K GOLD';
 
   @override
@@ -1761,4 +1780,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btnBuyDye => 'Dye Hair (1 GEM)';
+
+  @override
+  String get dragonShrineTitle => 'The Dragon Shrine';
+
+  @override
+  String get dragonShrineWelcome =>
+      '`gYou step into a hidden, ivy-covered ruin just outside the town square. In the center floats a mystic, softly glowing crystal pulsing with pure energy. As you approach, the energy forms into the face of an ancient forest god.`w';
+
+  @override
+  String dragonShrinePoints(Object amount) {
+    return 'Dragon Points (DP): `y$amount`w';
+  }
+
+  @override
+  String get dragonShrineNoPoints =>
+      '`4The energy in the crystal remains dull and dim. The voice of the forest god sounds cold: \"You do not carry the mark of a dragon slayer, mortal. You have no business here.\"`w';
+
+  @override
+  String get btnUpgradeAtk => 'PERMANENT ATTACK (+1 ATK)';
+
+  @override
+  String get btnUpgradeDef => 'PERMANENT DEFENSE (+1 DEF)';
+
+  @override
+  String get btnUpgradeHp => 'PERMANENT VITALITY (+5 HP)';
+
+  @override
+  String get btnUpgradeTurns => 'FOREST WALKER BLESSING (+1 TURN)';
+
+  @override
+  String get dragonShrineSuccess =>
+      '`2The forest god touches you with a beam of light. \"The transaction is complete. Go forth and use your new powers wisely!\"`w';
+
+  @override
+  String get btnVisitDragonShrine => 'Dragon Shrine';
 }

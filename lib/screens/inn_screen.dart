@@ -137,7 +137,13 @@ class _InnScreenState extends State<InnScreen> {
     return Scaffold(
       backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
-        title: Text(_activeSection == "MAIN" ? local.innTitle : "=== $_activeSection ===", style: const TextStyle(fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold)),
+        title: Text(
+            _activeSection == "MAIN"
+                ? local.innTitle
+                : (_activeSection == "VETERAN" && Localizations.localeOf(context).languageCode == 'nl'
+                    ? "=== VETERAAN ==="
+                    : "=== $_activeSection ==="),
+            style: const TextStyle(fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold)),
         backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),

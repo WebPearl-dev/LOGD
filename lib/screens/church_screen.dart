@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 
 class ChurchScreen extends StatefulWidget {
   const ChurchScreen({super.key});
@@ -36,6 +37,26 @@ class _ChurchScreenState extends State<ChurchScreen> {
   }
 
   Future<void> _loadChurchData() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      if (mounted) {
+        setState(() {
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          level = data['level'] ?? 1;
+          experience = data['experience'] ?? 0;
+          playerHp = data['hp'] ?? 20;
+          playerMaxHp = data['max_hp'] ?? 20;
+          prayedThisTurn = data['prayed_this_turn'] ?? false;
+          confessedThisTurn = data['confessed_this_turn'] ?? false;
+          litCandleThisTurn = data['lit_candle_this_turn'] ?? false;
+          _isLoading = false;
+        });
+      }
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user == null) {
       if (mounted) setState(() => _isLoading = false);
@@ -111,6 +132,19 @@ class _ChurchScreenState extends State<ChurchScreen> {
       }
     }
 
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['gems'] = gems;
+      GuestManager.guestProfile['hp'] = playerHp;
+      GuestManager.guestProfile['prayed_this_turn'] = true;
+      setState(() {
+        prayedThisTurn = true;
+        _statusMessage = msg;
+        _isLoading = false;
+      });
+      return;
+    }
+
     try {
       final user = _supabase.auth.currentUser;
       if (user != null) {
@@ -144,6 +178,17 @@ class _ChurchScreenState extends State<ChurchScreen> {
 
     int xpGained = level * 5;
     experience += xpGained;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['experience'] = experience;
+      GuestManager.guestProfile['confessed_this_turn'] = true;
+      setState(() {
+        confessedThisTurn = true;
+        _statusMessage = local.churchConfessResult(xpGained.toString());
+        _isLoading = false;
+      });
+      return;
+    }
 
     try {
       final user = _supabase.auth.currentUser;
@@ -182,6 +227,19 @@ class _ChurchScreenState extends State<ChurchScreen> {
 
     int favorGained = level * 2 + 5;
     gems -= 1;
+
+    if (GuestManager.isGuest) {
+      int currentFavor = GuestManager.guestProfile['favor'] ?? 50;
+      GuestManager.guestProfile['gems'] = gems;
+      GuestManager.guestProfile['favor'] = currentFavor + favorGained;
+      GuestManager.guestProfile['lit_candle_this_turn'] = true;
+      setState(() {
+        litCandleThisTurn = true;
+        _statusMessage = local.churchCandleResult(favorGained.toString());
+        _isLoading = false;
+      });
+      return;
+    }
 
     try {
       final user = _supabase.auth.currentUser;

@@ -271,6 +271,12 @@ abstract class AppLocalizations {
   /// **'Heb je al een karakter? Log hier in'**
   String get authSwitchToLogin;
 
+  /// No description provided for @authGuestLogin.
+  ///
+  /// In nl, this message translates to:
+  /// **'Inloggen als gast'**
+  String get authGuestLogin;
+
   /// No description provided for @authErrorEmpty.
   ///
   /// In nl, this message translates to:
@@ -442,7 +448,7 @@ abstract class AppLocalizations {
   /// No description provided for @btnTalkBanker.
   ///
   /// In nl, this message translates to:
-  /// **'PRAAT MET DE BANKIER'**
+  /// **'Praat met de bankier'**
   String get btnTalkBanker;
 
   /// No description provided for @raceTitle.
@@ -1279,6 +1285,18 @@ abstract class AppLocalizations {
   /// **'Onbekende Reiziger'**
   String get newsUnknownPlayer;
 
+  /// No description provided for @newsUnknownEnemy.
+  ///
+  /// In nl, this message translates to:
+  /// **'een monster'**
+  String get newsUnknownEnemy;
+
+  /// No description provided for @newsUnknownPartner.
+  ///
+  /// In nl, this message translates to:
+  /// **'iemand'**
+  String get newsUnknownPartner;
+
   /// No description provided for @defaultUsername.
   ///
   /// In nl, this message translates to:
@@ -1828,7 +1846,7 @@ abstract class AppLocalizations {
   /// No description provided for @innMenuSpy.
   ///
   /// In nl, this message translates to:
-  /// **'Mensen Bespioneren (-10 Goud)'**
+  /// **'Mensen Bespioneren'**
   String get innMenuSpy;
 
   /// No description provided for @innMenuNews.
@@ -2993,6 +3011,18 @@ abstract class AppLocalizations {
   /// **'{user} heeft de Groene Draak verslagen en redt het rijk! Dit is hun {kills}e overwinning!'**
   String news_dragon_kill(Object kills, Object user);
 
+  /// No description provided for @newsLogDragonAttack.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4HOREN, ZIEN EN ZEGT HET VOORT!`w {user} betreedt het hol van de Groene Draak! Het gebrul trilt door de bergen...'**
+  String newsLogDragonAttack(Object user);
+
+  /// No description provided for @newsLogDragonDefeat.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4HOREN, ZIEN EN ZEGT HET VOORT!`w {user} is op brute wijze geroosterd door de Groene Draak! Oaktaven rouwt...'**
+  String newsLogDragonDefeat(Object user);
+
   /// No description provided for @btnDevAddGold.
   ///
   /// In nl, this message translates to:
@@ -3052,6 +3082,66 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Haar Verven (1 GEM)'**
   String get btnBuyDye;
+
+  /// No description provided for @dragonShrineTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Het Drakenheiligdom'**
+  String get dragonShrineTitle;
+
+  /// No description provided for @dragonShrineWelcome.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gJe stapt een verborgen, met klimop begroeide ruïne net buiten het dorpsplein binnen. In het midden zweeft een mystiek, zacht gloeiend kristal dat pulseert met pure energie. Zodra je dichterbij komt, vormt de energie zich tot het gezicht van een oude woudgod.`w'**
+  String get dragonShrineWelcome;
+
+  /// No description provided for @dragonShrinePoints.
+  ///
+  /// In nl, this message translates to:
+  /// **'Drakenpunten (DP): `y{amount}`w'**
+  String dragonShrinePoints(Object amount);
+
+  /// No description provided for @dragonShrineNoPoints.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4De energie in het kristal blijft flets en dof. De stem van de woudgod klinkt koud: \"Je draagt de markering van een drakendoder niet bij je, sterveling. Je hebt hier niets te zoeken.\"`w'**
+  String get dragonShrineNoPoints;
+
+  /// No description provided for @btnUpgradeAtk.
+  ///
+  /// In nl, this message translates to:
+  /// **'PERMANENTE AANVAL (+1 ATK)'**
+  String get btnUpgradeAtk;
+
+  /// No description provided for @btnUpgradeDef.
+  ///
+  /// In nl, this message translates to:
+  /// **'PERMANENTE VERDEDIGING (+1 DEF)'**
+  String get btnUpgradeDef;
+
+  /// No description provided for @btnUpgradeHp.
+  ///
+  /// In nl, this message translates to:
+  /// **'PERMANENTE LEVENSKRACHT (+5 HP)'**
+  String get btnUpgradeHp;
+
+  /// No description provided for @btnUpgradeTurns.
+  ///
+  /// In nl, this message translates to:
+  /// **'WOUDLOPER ZEGENING (+1 BEURT)'**
+  String get btnUpgradeTurns;
+
+  /// No description provided for @dragonShrineSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2De woudgod raakt je aan met een straal van licht. \"De transactie is voltooid. Ga heen en gebruik je nieuwe krachten wijs!\"`w'**
+  String get dragonShrineSuccess;
+
+  /// No description provided for @btnVisitDragonShrine.
+  ///
+  /// In nl, this message translates to:
+  /// **'Draken Heiligdom'**
+  String get btnVisitDragonShrine;
 }
 
 class _AppLocalizationsDelegate

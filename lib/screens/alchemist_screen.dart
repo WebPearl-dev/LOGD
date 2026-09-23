@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 
 class AlchemistScreen extends StatefulWidget {
   const AlchemistScreen({super.key});
@@ -33,6 +34,26 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
   }
 
   Future<void> _loadAlchemistData() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      if (mounted) {
+        setState(() {
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          level = data['level'] ?? 1;
+          experience = data['experience'] ?? 0;
+          playerHp = data['hp'] ?? 20;
+          playerMaxHp = data['max_hp'] ?? 20;
+          potionAtk = data['potion_attack'] ?? 0;
+          potionDef = data['potion_defense'] ?? 0;
+          elixirsBoughtToday = data['elixirs_bought_today'] ?? 0;
+          _isLoading = false;
+        });
+      }
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final data = await _supabase.from('profiles').select().eq('id', user.id).single();
@@ -75,20 +96,48 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
 
     setState(() { _isLoading = true; _statusMessage = ""; });
 
+    int newGold = goldOnHand - _potionCost;
+    int newAtkBoost = isAttack ? 5 : potionAtk;
+    int newDefBoost = isAttack ? potionDef : 5;
+    int newElixirsBought = elixirsBoughtToday + 1;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = newGold;
+      GuestManager.guestProfile['potion_attack'] = newAtkBoost;
+      GuestManager.guestProfile['potion_defense'] = newDefBoost;
+      GuestManager.guestProfile['elixirs_bought_today'] = newElixirsBought;
+      setState(() {
+        goldOnHand = newGold;
+        potionAtk = newAtkBoost;
+        potionDef = newDefBoost;
+        elixirsBoughtToday = newElixirsBought;
+        _statusMessage = local.alchemistSuccessBuy(isAttack ? "+5 Attack" : "+5 Defense");
+        _isLoading = false;
+      });
+      return;
+    }
+
     try {
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        int newGold = goldOnHand - _potionCost;
-        int newAtkBoost = isAttack ? 5 : potionAtk;
-        int newDefBoost = isAttack ? potionDef : 5;
-        int newElixirsBought = elixirsBoughtToday + 1;
-
-        await _supabase.from('profiles').update({
-          'gold_on_hand': newGold,
-          'potion_attack': newAtkBoost,
-          'potion_defense': newDefBoost,
-          'elixirs_bought_today': newElixirsBought,
-        }).eq('id', user.id);
+        try {
+          await _supabase.from('profiles').update({
+            'gold_on_hand': newGold,
+            'potion_attack': newAtkBoost,
+            'potion_defense': newDefBoost,
+            'elixirs_bought_today': newElixirsBought,
+          }).eq('id', user.id);
+        } catch (e) {
+          if (e.toString().contains('column') || e.toString().contains('42703')) {
+            await _supabase.from('profiles').update({
+              'gold_on_hand': newGold,
+              'potion_attack': newAtkBoost,
+              'potion_defense': newDefBoost,
+            }).eq('id', user.id);
+          } else {
+            rethrow;
+          }
+        }
 
         setState(() {
           goldOnHand = newGold;
@@ -98,7 +147,8 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
           _statusMessage = local.alchemistSuccessBuy(isAttack ? "+5 Attack" : "+5 Defense");
         });
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint("Alchemist buy error: $e");
       setState(() { _statusMessage = local.smithyErrorUnknown; });
     } finally {
       setState(() { _isLoading = false; });

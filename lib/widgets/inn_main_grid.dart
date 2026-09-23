@@ -24,7 +24,7 @@ class InnMainGrid extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 2.3,
+            childAspectRatio: 3.2,
             physics: const NeverScrollableScrollPhysics(),
             children: [
               _buildGridButton(label: local.innMenuBartender.toUpperCase(), color: LogdCodes.uiOrange, onTap: () => onSectionChange("BARMAN")),
@@ -75,7 +75,7 @@ class InnMainGrid extends StatelessWidget {
           color: color,
           fontWeight: FontWeight.bold,
           fontFamily: LogdCodes.retroFont,
-          fontSize: LogdCodes.fontSizeDefault - 3,
+          fontSize: LogdCodes.fontSizeDefault - 1,
         ),
       ),
     );

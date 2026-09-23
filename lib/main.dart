@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/auth_screen.dart';
 import 'screens/graveyard_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         Locale('nl'),
         Locale('en'),
       ],
-      home: const AuthScreen(),
+      home: const SplashScreen(),
 
       // DE LIVE BEVEILIGINGS-GUARD: Volledig herschreven naar een veilige Future-opzet!
       builder: (context, child) {

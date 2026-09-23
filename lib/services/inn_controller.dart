@@ -1,6 +1,6 @@
-// lib/services/inn_controller.dart
 import 'dart:async';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'guest_manager.dart';
 
 class InnController {
   final SupabaseClient supabase = Supabase.instance.client;
@@ -18,6 +18,27 @@ class InnController {
   String bardBuff = "none"; // "warrior", "scavenger", "haste"
 
   Future<void> loadLiveStats() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      username = data['username'] ?? "Gast Reiziger";
+      goldOnHand = data['gold_on_hand'] ?? 0;
+      gems = data['gems'] ?? 0;
+      turns = data['turns'] ?? 0;
+      level = data['level'] ?? 1;
+      experience = data['experience'] ?? 0;
+      playerHp = data['hp'] ?? 20;
+      playerMaxHp = data['max_hp'] ?? 20;
+      gender = (data['gender'] ?? "male").toLowerCase();
+      romancePoints = data['romance_points'] ?? 0;
+      drinksToday = data['drinks_today'] ?? 0;
+      dragonBreathFights = data['dragon_breath_fights'] ?? 0;
+      bardBuff = data['bard_buff'] ?? "none";
+      isMarried = data['is_married'] ?? false;
+      hasRing = data['has_ring'] ?? false;
+      isLoading = false;
+      return;
+    }
+
     final user = supabase.auth.currentUser;
     if (user != null) {
       final data = await supabase
@@ -48,6 +69,22 @@ class InnController {
   }
 
   Future<void> updateCloudStats() async {
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['gems'] = gems;
+      GuestManager.guestProfile['hp'] = playerHp;
+      GuestManager.guestProfile['max_hp'] = playerMaxHp;
+      GuestManager.guestProfile['turns'] = turns;
+      GuestManager.guestProfile['experience'] = experience;
+      GuestManager.guestProfile['alive'] = playerHp > 0;
+      GuestManager.guestProfile['romance_points'] = romancePoints;
+      GuestManager.guestProfile['drinks_today'] = drinksToday;
+      GuestManager.guestProfile['dragon_breath_fights'] = dragonBreathFights;
+      GuestManager.guestProfile['bard_buff'] = bardBuff;
+      GuestManager.guestProfile['is_married'] = isMarried;
+      return;
+    }
+
     final user = supabase.auth.currentUser;
     if (user != null) {
       await supabase
@@ -71,6 +108,8 @@ class InnController {
   }
 
   Future<bool> checkForSourBeer() async {
+    if (GuestManager.isGuest) return false;
+
     final user = supabase.auth.currentUser;
     if (user == null) return false;
 
@@ -93,6 +132,9 @@ class InnController {
   }
 
   Future<Map<String, dynamic>?> spyOnRival(String targetId) async {
+    if (GuestManager.isGuest) {
+      return {'username': 'Rivaal', 'hp': 20, 'max_hp': 20, 'gold_on_hand': 150};
+    }
     final res = await supabase
         .from('profiles')
         .select('username, hp, max_hp, gold_on_hand')
@@ -102,6 +144,9 @@ class InnController {
   }
 
   Future<Map<String, dynamic>?> bribeBarman(String targetId) async {
+    if (GuestManager.isGuest) {
+      return {'username': 'Rivaal', 'gold_in_bank': 500};
+    }
     final res = await supabase
         .from('profiles')
         .select('username, gold_in_bank')
@@ -111,6 +156,12 @@ class InnController {
   }
 
   Future<List<Map<String, dynamic>>> getSpyTargets() async {
+    if (GuestManager.isGuest) {
+      return [
+        {'id': 'dummy1', 'username': 'Bravoura', 'level': 3, 'gold_on_hand': 300},
+        {'id': 'dummy2', 'username': 'Shadow', 'level': 5, 'gold_on_hand': 850},
+      ];
+    }
     final user = supabase.auth.currentUser;
     if (user == null) return [];
     final res = await supabase
@@ -122,6 +173,9 @@ class InnController {
   }
 
   Future<Map<String, dynamic>?> getRichestPlayer() async {
+    if (GuestManager.isGuest) {
+      return {'username': 'Kroes', 'gold_on_hand': 50000};
+    }
     final res = await supabase
         .from('profiles')
         .select('username, gold_on_hand')
@@ -133,6 +187,11 @@ class InnController {
   }
 
   Future<List<Map<String, dynamic>>> getBountyTargets() async {
+    if (GuestManager.isGuest) {
+      return [
+        {'id': 'dummy1', 'username': 'Bravoura', 'level': 3},
+      ];
+    }
     final user = supabase.auth.currentUser;
     if (user == null) return [];
     final res = await supabase
@@ -144,15 +203,21 @@ class InnController {
   }
 
   Future<List<Map<String, dynamic>>> getLatestNews() async {
+    if (GuestManager.isGuest) {
+      return [
+        {'log_type': 'welcome', 'username': 'Gast Reiziger', 'message': 'Welkom in de herberg!'}
+      ];
+    }
     final res = await supabase
         .from('daily_news')
-        .select('username, log_type, reached_level, created_at')
+        .select()
         .order('created_at', ascending: false)
         .limit(15);
     return List<Map<String, dynamic>>.from(res);
   }
 
   Future<bool> insertBounty(String targetId, int amount) async {
+    if (GuestManager.isGuest) return true;
     try {
       await supabase.from('bounties').insert({
         'hunter_id': supabase.auth.currentUser!.id,

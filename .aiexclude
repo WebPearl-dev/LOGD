@@ -47,4 +47,6 @@ linux/
 # 6. DOCUMENTATIE IN HET PROJECT
 # --------------------------------------------------------------------
 documentatie/
+.artifacts/
+
 

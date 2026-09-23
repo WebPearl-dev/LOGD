@@ -149,14 +149,23 @@ class _ForestScreenState extends State<ForestScreen> {
         final local = AppLocalizations.of(context)!;
         String log = "";
         if (res.status == CombatStatus.skillMagic) {
-          final String template = _storyContent['skill_magic'] ?? local.skillMagicSuccess(res.hpHealed.toString());
+          final String key = res.args['log_key'] ?? 'skill_magic';
+          final String template = _storyContent[key] ?? _storyContent['skill_magic'] ?? local.skillMagicSuccess(res.hpHealed.toString());
           log = template.contains('{amount}') ? template.replaceAll('{amount}', res.hpHealed.toString()) : template;
         } else if (res.status == CombatStatus.skillThieving) {
-          final String template = _storyContent['skill_thieving'] ?? local.skillThievingSuccess(res.goldEarned.toString(), enemyName);
-          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.goldEarned.toString()).replaceAll('{enemy}', enemyName) : template;
+          final String key = res.args['log_key'] ?? 'skill_thieving';
+          final String template = _storyContent[key] ?? _storyContent['skill_thieving'] ?? local.skillThievingSuccess(res.goldEarned.toString(), enemyName);
+          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.goldEarned.toString()) : template;
         } else if (res.status == CombatStatus.skillWarrior) {
-          final String template = _storyContent['skill_warrior'] ?? local.skillWarriorSuccess(enemyName, res.damageDealt.toString());
-          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.damageDealt.toString()).replaceAll('{enemy}', enemyName) : template;
+          final String key = res.args['log_key'] ?? 'skill_warrior';
+          final String template = _storyContent[key] ?? _storyContent['skill_warrior'] ?? local.skillWarriorSuccess(enemyName, res.damageDealt.toString());
+          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.damageDealt.toString()) : template;
+        }
+        if (log.contains('{enemy}')) {
+          log = log.replaceAll('{enemy}', enemyName);
+        }
+        if (log.contains('[Monster_Naam]')) {
+          log = log.replaceAll('[Monster_Naam]', enemyName);
         }
         _controller.combatLog += "\n\n$log\n\n";
       });

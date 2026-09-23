@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../logd_text.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/inn_controller.dart';
+import '../../services/town_square_controller.dart';
 import '../../theme/logd_codes.dart';
 
 class InnLogDisplay extends StatelessWidget {
@@ -58,11 +59,21 @@ class InnLogDisplay extends StatelessWidget {
           } else if (type == 'inn_loss') {
             parsedText = local.newsLogInnLoss(goldStr, user);
           } else if (type == 'defeated') {
-            parsedText = local.newsLogDefeated(log['enemy_name'] ?? 'een monster', user);
+            final rawEnemy = log['enemy_name'] ?? '';
+            final enemyName = rawEnemy.isNotEmpty ? TownSquareController.getMonsterName(rawEnemy) : 'een monster';
+            parsedText = local.newsLogDefeated(enemyName, user);
           } else if (type == 'defeated_brutal') {
-            parsedText = local.newsLogDefeatedBrutal(log['enemy_name'] ?? 'een monster', user);
+            final rawEnemy = log['enemy_name'] ?? '';
+            final enemyName = rawEnemy.isNotEmpty ? TownSquareController.getMonsterName(rawEnemy) : 'een monster';
+            parsedText = local.newsLogDefeatedBrutal(enemyName, user);
           } else if (type == 'marriage') {
             parsedText = local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
+          } else if (type == 'dragon_kill') {
+            parsedText = local.news_dragon_kill(user, log['kills']?.toString() ?? '1');
+          } else if (type == 'dragon_attack') {
+            parsedText = local.newsLogDragonAttack(user);
+          } else if (type == 'dragon_defeat') {
+            parsedText = local.newsLogDragonDefeat(user);
           } else {
             parsedText = log['log_text'] ?? log['message'] ?? local.innNewsEnterLog(user);
           }

@@ -37,6 +37,7 @@ class LogdCodes {
   static const Color uiPinkAccent = Color(0xFFFF4081);
   static const Color uiCyan = Color(0xFF00BCD4);
   static const Color uiAmber = Color(0xFFFFC107);
+  static const Color uiTeal = Color(0xFF009688);
 
   // FIX: Jouw authentieke diep donkerblauwe achtergrondkleur officieel geregistreerd!
   static const Color uiBlueBg = Color(0xFF001B24);  // De diepe, donkerblauwe retro BBS-achtergrond!

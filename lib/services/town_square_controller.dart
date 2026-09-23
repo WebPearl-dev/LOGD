@@ -1,10 +1,10 @@
-// lib/services/town_square_controller.dart
-import 'dart:convert'; // DE FIX: Alleen hier bovenaan, brandschoon!
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
+import 'guest_manager.dart';
 
 class TownSquareController {
   final _supabase = Supabase.instance.client;
@@ -14,12 +14,24 @@ class TownSquareController {
   Map<String, dynamic>? latestNewsItem;
   Map<String, dynamic> storyContent = {};
   Map<String, dynamic> barberContent = {};
+  static Map<String, dynamic> bosContent = {};
 
   bool isLoading = true;
   String healerStatusMessage = "";
   String barberStatusMessage = "";
   String mightyEStatusMessage = "";
   String weddingStatusMessage = "";
+  String alleyStatusMessage = "";
+
+  static String getMonsterName(String rawKey) {
+    if (bosContent.containsKey('${rawKey}_name')) {
+      return bosContent['${rawKey}_name'];
+    }
+    if (bosContent.containsKey(rawKey)) {
+      return bosContent[rawKey];
+    }
+    return rawKey;
+  }
 
   Future<void> loadLiveStats(
     BuildContext context,
@@ -28,7 +40,34 @@ class TownSquareController {
     try {
       final String languageCode = Localizations.localeOf(context).languageCode;
 
-      // FIX: Wacht kort als de user nog null is (bijv. direct na inloggen)
+      final String mainPath = 'assets/story/$languageCode/locatie_dorpsplein.json';
+      final String barberPath = 'assets/story/$languageCode/locatie_kapper.json';
+      final String bosPath = 'assets/story/$languageCode/locatie_bos.json';
+
+      final results = await Future.wait([
+        rootBundle.loadString(mainPath),
+        rootBundle.loadString(barberPath),
+        rootBundle.loadString(bosPath),
+      ]);
+
+      storyContent = jsonDecode(results[0]) as Map<String, dynamic>;
+      barberContent = jsonDecode(results[1]) as Map<String, dynamic>;
+      bosContent = jsonDecode(results[2]) as Map<String, dynamic>;
+
+      isLoading = false;
+      onUpdate();
+
+      if (GuestManager.isGuest) {
+        playerData = GuestManager.guestProfile;
+        latestNewsItem = {
+          'log_type': 'welcome',
+          'username': 'Gast Reiziger',
+          'message': 'Welkom in de wereld van de Gouden Draak als gast!'
+        };
+        onUpdate();
+        return;
+      }
+
       var user = _supabase.auth.currentUser;
       if (user == null) {
         await Future.delayed(const Duration(milliseconds: 500));
@@ -36,36 +75,26 @@ class TownSquareController {
       }
 
       if (user != null) {
-        final data = await _supabase
+        final profileRes = await _supabase
             .from('profiles')
             .select()
             .eq('id', user.id)
-            .maybeSingle(); // Gebruik maybeSingle om crashes bij ontbrekend profiel te voorkomen
+            .maybeSingle();
 
-        if (data != null) {
-          playerData = data;
-          
-          final String mainPath = 'assets/story/$languageCode/locatie_dorpsplein.json';
-          final String barberPath = 'assets/story/$languageCode/locatie_kapper.json';
+        if (profileRes != null) {
+          playerData = profileRes;
+        }
 
-          final String mainJson = await rootBundle.loadString(mainPath);
-          final String barberJson = await rootBundle.loadString(barberPath);
-
-          storyContent = jsonDecode(mainJson) as Map<String, dynamic>;
-          barberContent = jsonDecode(barberJson) as Map<String, dynamic>;
-
-          final newsRes = await _supabase
-              .from('daily_news')
-              .select()
-              .order('created_at', ascending: false)
-              .limit(1);
-          if (newsRes.isNotEmpty) {
-            latestNewsItem = newsRes.first;
-          }
+        final newsRes = await _supabase
+            .from('daily_news')
+            .select()
+            .order('created_at', ascending: false)
+            .limit(1);
+        if (newsRes.isNotEmpty) {
+          latestNewsItem = newsRes.first;
         }
       }
       
-      isLoading = false;
       onUpdate();
     } catch (e) {
       debugPrint("Error in loadLiveStats: $e");
@@ -77,6 +106,14 @@ class TownSquareController {
   Future<bool> handleHealerPurchase(int cost, int maxHp) async {
     final int gold = playerData?['gold_on_hand'] ?? 0;
     if (gold < cost) return false;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = gold - cost;
+      GuestManager.guestProfile['hp'] = maxHp;
+      GuestManager.guestProfile['alive'] = true;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
 
     final user = _supabase.auth.currentUser;
     if (user != null) {
@@ -95,36 +132,38 @@ class TownSquareController {
     final String gender = playerData?['gender'] ?? 'M';
     if (userGems < 1) return false;
 
+    final String rawTitles = (gender == 'F')
+        ? (barberContent['title_options_female'] ?? "")
+        : (barberContent['title_options_male'] ?? "");
+
+    final List<String> titles = rawTitles.split(',');
+
+    String newUsername = currentName;
+    if (titles.isNotEmpty && rawTitles.isNotEmpty) {
+      final String randomTitle = titles[_random.nextInt(titles.length)].trim();
+      final String colorCode = _extractColor(currentName);
+      final String cleanName = _cleanUsername(currentName);
+      newUsername = "$colorCode$randomTitle $cleanName";
+    }
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gems'] = userGems - 1;
+      GuestManager.guestProfile['username'] = newUsername;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      final String rawTitles = (gender == 'F')
-          ? (barberContent['title_options_female'] ?? "")
-          : (barberContent['title_options_male'] ?? "");
-
-      final List<String> titles = rawTitles.split(',');
-
-      final String rawMale = barberContent['title_options_male'] ?? "";
-      final String rawFemale = barberContent['title_options_female'] ?? "";
-      final List<String> allPossibleTitles = [
-        ...rawMale.split(','),
-        ...rawFemale.split(','),
-      ];
-
-      String newUsername = currentName;
-      if (titles.isNotEmpty && rawTitles.isNotEmpty) {
-        final String randomTitle = titles[_random.nextInt(titles.length)];
-
-        String cleanName = currentName;
-        for (var t in allPossibleTitles) {
-          if (t.isNotEmpty) cleanName = cleanName.replaceAll('$t ', '');
-        }
-        newUsername = "$randomTitle $cleanName";
-      }
-
       await _supabase
           .from('profiles')
           .update({'gems': userGems - 1, 'username': newUsername})
           .eq('id', user.id);
+
+      if (playerData != null) {
+        playerData!['gems'] = userGems - 1;
+        playerData!['username'] = newUsername;
+      }
       return true;
     }
     return false;
@@ -134,6 +173,13 @@ class TownSquareController {
     final int gold = playerData?['gold_on_hand'] ?? 0;
     final int romance = playerData?['romance_points'] ?? 0;
     if (gold < cost) return false;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = gold - cost;
+      GuestManager.guestProfile['romance_points'] = romance + 10;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
 
     final user = _supabase.auth.currentUser;
     if (user != null) {
@@ -151,11 +197,18 @@ class TownSquareController {
     final int currentHp = playerData?['hp'] ?? 0;
     if (gold < cost) return false;
 
+    final int healAmount = (maxHp * 0.2).round();
+    final int newHp = min(maxHp, currentHp + healAmount);
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = gold - cost;
+      GuestManager.guestProfile['hp'] = newHp;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      final int healAmount = (maxHp * 0.2).round();
-      final int newHp = min(maxHp, currentHp + healAmount);
-
       await _supabase
           .from('profiles')
           .update({'gold_on_hand': gold - cost, 'hp': newHp})
@@ -170,22 +223,29 @@ class TownSquareController {
     String currentName = playerData?['username'] ?? "";
     if (userGems < 1) return false;
 
+    final colors = ['p', 'c', 'g', 'y', 'r'];
+    final color = colors[_random.nextInt(colors.length)];
+
+    final String cleanName = _cleanUsername(currentName);
+    final String newUsername = "`$color$cleanName";
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gems'] = userGems - 1;
+      GuestManager.guestProfile['username'] = newUsername;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      // Kies willekeurig uit een set kleuren (p=purple, c=cyan, g=green, y=yellow, r=red)
-      final colors = ['p', 'c', 'g', 'y', 'r'];
-      final color = colors[_random.nextInt(colors.length)];
-
-      // Verwijder eventuele oude kleurcode aan het begin (bijv. `p)
-      if (currentName.startsWith('`') && currentName.length > 2) {
-        currentName = currentName.substring(2);
-      }
-      final String newUsername = "`$color$currentName";
-
       await _supabase
           .from('profiles')
           .update({'gems': userGems - 1, 'username': newUsername})
           .eq('id', user.id);
+      if (playerData != null) {
+        playerData!['gems'] = userGems - 1;
+        playerData!['username'] = newUsername;
+      }
       return true;
     }
     return false;
@@ -193,15 +253,44 @@ class TownSquareController {
 
   Future<bool> handleAlleyPurchase() async {
     final int userGems = playerData?['gems'] ?? 0;
-    if (userGems < 5) return false;
+    if (userGems < 5) {
+      alleyStatusMessage = barberContent['error_no_gem'] ?? "...";
+      return false;
+    }
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gems'] = userGems - 5;
+      GuestManager.guestProfile['bounty'] = 0;
+      GuestManager.guestProfile['reputation'] = 0;
+      playerData = GuestManager.guestProfile;
+      alleyStatusMessage = storyContent['dark_alley_success'] ?? "...";
+      return true;
+    }
 
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      // RESET: Strafblad afkopen (Bounty en Reputatie terug naar neutraal)
       await _supabase
           .from('profiles')
           .update({'gems': userGems - 5, 'bounty': 0, 'reputation': 0})
           .eq('id', user.id);
+      
+      if (playerData != null) {
+        playerData!['gems'] = userGems - 5;
+        playerData!['bounty'] = 0;
+        playerData!['reputation'] = 0;
+      }
+
+      alleyStatusMessage = storyContent['dark_alley_success'] ?? "...";
+
+      try {
+        final String name = playerData?['username'] ?? "Een gure reiziger";
+        await _supabase.from('daily_news').insert({
+          'log_type': 'alley_bribe',
+          'username': name,
+          'message': "$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.",
+        });
+      } catch (_) {}
+
       return true;
     }
     return false;
@@ -212,16 +301,32 @@ class TownSquareController {
     final String currentName = playerData?['username'] ?? "";
     if (userGems < 1) return false;
 
+    final String rawTitles = storyContent['mightye_titles'] ?? "Donateur";
+    final List<String> donorTitles = rawTitles.split(',');
+    final String randomTitle = donorTitles[_random.nextInt(donorTitles.length)].trim();
+
+    final String colorCode = _extractColor(currentName);
+    final String cleanName = _cleanUsername(currentName);
+    final String newUsername = "$colorCode$randomTitle $cleanName";
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gems'] = userGems - 1;
+      GuestManager.guestProfile['username'] = newUsername;
+      playerData = GuestManager.guestProfile;
+      return true;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
-      final String donorTitle = storyContent['title_donor'] ?? "";
-      String cleanName = currentName.replaceAll('$donorTitle ', '');
-      final String newUsername = "$donorTitle $cleanName";
-
       await _supabase
           .from('profiles')
           .update({'gems': userGems - 1, 'username': newUsername})
           .eq('id', user.id);
+
+      if (playerData != null) {
+        playerData!['gems'] = userGems - 1;
+        playerData!['username'] = newUsername;
+      }
       return true;
     }
     return false;
@@ -234,6 +339,13 @@ class TownSquareController {
     if (isMarried) return 1;
     if (gold < 500) return 2;
 
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = gold - 500;
+      GuestManager.guestProfile['is_married'] = true;
+      playerData = GuestManager.guestProfile;
+      return 0;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       await _supabase
@@ -241,7 +353,6 @@ class TownSquareController {
           .update({'gold_on_hand': gold - 500, 'is_married': true})
           .eq('id', user.id);
 
-      // NIEUW: Log het huwelijk op het nieuwsbord!
       try {
         final String gender = playerData?['gender'] ?? 'M';
         final String partnerName = (gender == 'F') ? "Seth" : "Violet";
@@ -276,10 +387,14 @@ class TownSquareController {
       return local.newsLogLevelUp(levelStr, user);
     }
     if (type == 'defeated') {
-      return local.newsLogDefeated(log['enemy_name'] ?? 'een monster', user);
+      final String enemyKey = log['enemy_name'] ?? '';
+      final String enemyName = getMonsterName(enemyKey);
+      return local.newsLogDefeated(enemyName, user);
     }
     if (type == 'defeated_brutal') {
-      return local.newsLogDefeatedBrutal(log['enemy_name'] ?? 'een monster', user);
+      final String enemyKey = log['enemy_name'] ?? '';
+      final String enemyName = getMonsterName(enemyKey);
+      return local.newsLogDefeatedBrutal(enemyName, user);
     }
     if (type == 'inn_win') {
       return local.newsLogInnWin(goldStr, user);
@@ -288,8 +403,59 @@ class TownSquareController {
       return local.newsLogInnLoss(goldStr, user);
     }
     if (type == 'marriage') {
-      return local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
+      final String partner = log['partner_name'] ?? local.newsUnknownPartner;
+      return local.newsLogMarriage(partner, user);
     }
+    if (type == 'dragon_attack') {
+      return local.newsLogDragonAttack(user);
+    }
+    if (type == 'dragon_defeat') {
+      return local.newsLogDragonDefeat(user);
+    }
+    if (type == 'dragon_kill') {
+      return local.news_dragon_kill(levelStr, user);
+    }
+    
     return log['log_text'] ?? log['message'] ?? '';
+  }
+
+  String _extractColor(String name) {
+    if (name.isEmpty) return "";
+    final RegExp colorRegex = RegExp(r"[`'][a-zA-Z0-9]");
+    final match = colorRegex.firstMatch(name);
+    return match?.group(0) ?? "";
+  }
+
+  static String cleanColorCodesOnly(String name) {
+    if (name.isEmpty) return name;
+    final RegExp colorRegex = RegExp(r"[`'][a-zA-Z0-9]");
+    return name.replaceAll(colorRegex, '').trim();
+  }
+
+  String _cleanUsername(String name) {
+    String clean = name;
+    
+    final RegExp colorRegex = RegExp(r"[`'][a-zA-Z0-9]");
+    clean = clean.replaceAll(colorRegex, '');
+
+    final List<String> allTitles = [];
+    final String rawMale = barberContent['title_options_male'] ?? "";
+    final String rawFemale = barberContent['title_options_female'] ?? "";
+    final String rawMightyE = storyContent['mightye_titles'] ?? "";
+    
+    allTitles.addAll(rawMale.split(','));
+    allTitles.addAll(rawFemale.split(','));
+    allTitles.addAll(rawMightyE.split(','));
+    allTitles.addAll(["Donateur", "Donor", "Sir", "Lady", "Lord", "Baron", "Barones", "Hertog", "Hertogin", "Graaf", "Gravin", "Legende"]);
+
+    final titles = allTitles.map((t) => t.trim()).where((t) => t.isNotEmpty).toSet().toList();
+    titles.sort((a, b) => b.length.compareTo(a.length));
+
+    for (var t in titles) {
+      clean = clean.replaceAll(RegExp('^$t\\s*', caseSensitive: false), '');
+      clean = clean.replaceAll(RegExp('\\b$t\\b', caseSensitive: false), '');
+    }
+
+    return clean.trim();
   }
 }

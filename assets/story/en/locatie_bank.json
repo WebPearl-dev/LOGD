@@ -4,6 +4,7 @@
   "withdraw_success": "The banker looks at you with a deep sigh and a disgruntled gaze. He brings a bag of coins from under the counter with audible protest. 'Must you really? Gold belongs in a vault, not in the pockets of a reckless adventurer. Don't squander it all at the inn!'",
   "error_limit_reached": "The banker slams his fist on the counter so the inkwell rattles. 'STOP! Do you think I have all the space in the world here? You've reached your deposit limit for today. I won't accept any more gold from an amateur of your level. Come back tomorrow!'",
   "error_insufficient_bank": "The dwarf looks over the rim of his glasses and raises an eyebrow. 'Are you kidding me? Your bank balance is emptier than the stomach of a forest rat. You can't overdraw here, scoundrel!'",
+  "error_insufficient_hand": "The banker glares at you. 'You can't deposit gold you don't even have in your hands! Are you trying to hand me invisible coins? Get out of here until you actually have the gold!'",
   "error_invalid_amount": "The banker shakes his head wearily. 'I don't wear glasses for nothing. Enter a proper amount or clear out of my office!'",
   "talk_1": "'If you want to keep gold, bring it to a dwarf. Never trust those elves on the town square with your money; they only buy silk clothes and flower wreaths with it.'",
   "talk_2": "'Did you know that the Green Dragon melts all the gold on your body if he burns you alive? Only the gold kept here in my vault survives that heat. So if you step into that cave... make sure your pockets are empty.'",

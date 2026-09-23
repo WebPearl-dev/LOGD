@@ -8,6 +8,7 @@ import '../theme/logd_codes.dart';
 import '../services/combat_engine.dart';
 import '../services/forest_manager.dart';
 import '../services/logd_enums.dart';
+import '../services/guest_manager.dart';
 
 class TrainingScreen extends StatefulWidget {
   const TrainingScreen({super.key});
@@ -22,6 +23,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
+  int permanentBonusAtk = 0, permanentBonusDef = 0;
   String username = "";
 
   bool _isLoading = true;
@@ -39,6 +41,26 @@ class _TrainingScreenState extends State<TrainingScreen> {
   }
 
   Future<void> _loadTrainingData() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      if (mounted) {
+        setState(() {
+          username = data['username'] ?? "Gast Reiziger";
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          level = data['level'] ?? 1;
+          experience = data['experience'] ?? 0;
+          playerHp = data['hp'] ?? 20;
+          playerMaxHp = data['max_hp'] ?? 20;
+          permanentBonusAtk = data['permanent_bonus_atk'] ?? 0;
+          permanentBonusDef = data['permanent_bonus_def'] ?? 0;
+          _isLoading = false;
+        });
+      }
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final data = await _supabase.from('profiles').select().eq('id', user.id).single();
@@ -52,6 +74,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
           experience = data['experience'] ?? 0;
           playerHp = data['hp'] ?? 20;
           playerMaxHp = data['max_hp'] ?? 20;
+          permanentBonusAtk = data['permanent_bonus_atk'] ?? 0;
+          permanentBonusDef = data['permanent_bonus_def'] ?? 0;
           _isLoading = false;
         });
       }
@@ -96,8 +120,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
     final local = AppLocalizations.of(context)!;
     
-    final int pAtk = level * 6 + 5;
-    final int pDef = level * 4 + 3;
+    final int pAtk = level * 6 + 5 + permanentBonusAtk;
+    final int pDef = level * 4 + 3 + permanentBonusDef;
 
     final result = _combatEngine.executeAttackRound(
       enemy: _currentMaster!.copyWith(currentHp: _masterHp),
@@ -134,6 +158,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
   }
 
   Future<void> _updateHpInCloud() async {
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['hp'] = playerHp;
+      return;
+    }
     final user = _supabase.auth.currentUser;
     if (user != null) {
       await _supabase.from('profiles').update({'hp': playerHp}).eq('id', user.id);
@@ -142,11 +170,24 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   Future<void> _finalizeLevelUp() async {
     final local = AppLocalizations.of(context)!;
-    final user = _supabase.auth.currentUser;
-    if (user == null) return;
-
     int newLevel = level + 1;
     int newMaxHp = playerMaxHp + 10;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['level'] = newLevel;
+      GuestManager.guestProfile['max_hp'] = newMaxHp;
+      GuestManager.guestProfile['hp'] = newMaxHp;
+      setState(() {
+        level = newLevel;
+        playerMaxHp = newMaxHp;
+        playerHp = newMaxHp;
+        _statusMessage = local.trainingSuccessLevelUp(newLevel.toString());
+      });
+      return;
+    }
+
+    final user = _supabase.auth.currentUser;
+    if (user == null) return;
 
     await _supabase.from('profiles').update({
       'level': newLevel,
@@ -185,7 +226,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
         title: Text(
-            local.btnVisitTraining,
+            local.btnVisitTraining.toUpperCase(),
             style: const TextStyle(
                 fontFamily: LogdCodes.retroFont,
                 fontSize: LogdCodes.fontSizeDefault,

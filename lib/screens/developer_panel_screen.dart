@@ -6,6 +6,7 @@ import '../widgets/logd_text.dart';
 import '../services/forest_manager.dart';
 import '../services/logd_enums.dart';
 import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 import 'forest_screen.dart';
 
 class DeveloperPanelScreen extends StatefulWidget {
@@ -39,15 +40,32 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
         _allEnemies.sort((a, b) => a.level.compareTo(b.level));
         if (_allEnemies.isNotEmpty) _selectedEnemy = _allEnemies.first;
         _isLoading = false;
-        if (ForestManager.loadError.isNotEmpty && _allEnemies.isEmpty) {
-          _statusMessage = "`y[DIAGNOSE]: ${ForestManager.loadError}`w";
-        }
       });
     }
   }
 
   Future<void> _executeCheat(String column, dynamic value, {bool isIncrement = false}) async {
     final local = AppLocalizations.of(context)!;
+    if (GuestManager.isGuest) {
+      if (isIncrement) {
+        final int currentVal = GuestManager.guestProfile[column] ?? 0;
+        GuestManager.guestProfile[column] = currentVal + (value as int);
+      } else if (column == 'heal') {
+        int maxHp = GuestManager.guestProfile['max_hp'] ?? 20;
+        GuestManager.guestProfile['hp'] = maxHp;
+        GuestManager.guestProfile['alive'] = true;
+      } else if (column == 'level_up') {
+        int lvl = (GuestManager.guestProfile['level'] ?? 1) + 1;
+        int maxHp = (GuestManager.guestProfile['max_hp'] ?? 20) + 10;
+        GuestManager.guestProfile['level'] = lvl;
+        GuestManager.guestProfile['max_hp'] = maxHp;
+        GuestManager.guestProfile['hp'] = maxHp;
+        GuestManager.guestProfile['alive'] = true;
+      }
+      setState(() { _statusMessage = local.devSuccessMessage; });
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user == null) return;
 
@@ -62,11 +80,16 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
       } else if (column == 'level_up') {
         final data = await _supabase.from('profiles').select('level, max_hp').eq('id', user.id).single();
         await _supabase.from('profiles').update({
-          'level': (data['level'] ?? 1) + 1, 'max_hp': (data['max_hp'] ?? 20) + 10, 'hp': (data['max_hp'] ?? 20) + 10, 'alive': true
+          'level': (data['level'] ?? 1) + 1, 
+          'max_hp': (data['max_hp'] ?? 20) + 10, 
+          'hp': (data['max_hp'] ?? 20) + 10, 
+          'alive': true
         }).eq('id', user.id);
       }
       setState(() { _statusMessage = local.devSuccessMessage; });
-    } catch (_) {}
+    } catch (e) {
+      debugPrint("Cheat error: $e");
+    }
   }
 
   void _forceSpawnMonster() {
@@ -76,10 +99,18 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
   }
 
   Future<void> _forceEvent() async {
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['turns'] = 999;
+      if (!mounted) return;
+      _forestManager.setForcedDevEnemy(null);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ForestScreen(forcedEvent: _selectedEvent)));
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user == null) return;
     try {
-      await _supabase.from('profiles').update({'forest_turns': 999}).eq('id', user.id);
+      await _supabase.from('profiles').update({'turns': 999}).eq('id', user.id);
       if (!mounted) return;
       _forestManager.setForcedDevEnemy(null);
       Navigator.push(context, MaterialPageRoute(builder: (context) => ForestScreen(forcedEvent: _selectedEvent)));
@@ -96,7 +127,7 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
     return Scaffold(
       backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
-        title: Text(local.devScreenTitle.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiPurple, fontSize: LogdCodes.fontSizeCardTitle, fontWeight: FontWeight.bold)),
+        title: Text(local.devScreenTitle.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiPurple, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
         backgroundColor: LogdCodes.uiAppBarBg, automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -106,16 +137,23 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
             LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
             const SizedBox(height: 10),
           ],
-          Wrap(
-            spacing: 8, runSpacing: 8,
+          
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 3.2,
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               _buildDevButton(local.btnDevHeal, () => _executeCheat('heal', null)),
+              _buildDevButton("LEVEL UP", () => _executeCheat('level_up', null)), 
               _buildDevButton(local.btnDevAddGold, () => _executeCheat('gold_on_hand', 10000, isIncrement: true)),
               _buildDevButton(local.btnDevAddGems, () => _executeCheat('gems', 5, isIncrement: true)),
-              _buildDevButton(local.btnDevAddTurns, () => _executeCheat('forest_turns', 10, isIncrement: true)),
-              _buildDevButton(local.btnDevLevelUp, () => _executeCheat('level_up', null)),
+              _buildDevButton(local.btnDevAddTurns, () => _executeCheat('turns', 10, isIncrement: true)),
             ],
           ),
+          
           const Padding(padding: EdgeInsets.symmetric(vertical: 8.0), child: Divider(color: LogdCodes.uiPurple)),
 
           LogdText(text: local.lblDevSelectEvent, fontSize: LogdCodes.fontSizeDefault),
@@ -123,8 +161,9 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
           Theme(
             data: Theme.of(context).copyWith(canvasColor: LogdCodes.uiCardBg),
             child: DropdownButton<ForestEventType>(
-              value: _selectedEvent, isExpanded: true, style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiGreen),
-              items: ForestEventType.values.map((e) => DropdownMenuItem(value: e, child: Text("EVENT: \${e.toString().split('.').last.toUpperCase()}"))).toList(),
+              value: _selectedEvent, isExpanded: true, 
+              style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiGreen, fontSize: 13),
+              items: ForestEventType.values.map((e) => DropdownMenuItem(value: e, child: Text("EVENT: ${e.toString().split('.').last.toUpperCase()}"))).toList(),
               onChanged: (val) { if (val != null) setState(() => _selectedEvent = val); },
             ),
           ),
@@ -143,8 +182,9 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
             Theme(
               data: Theme.of(context).copyWith(canvasColor: LogdCodes.uiCardBg),
               child: DropdownButton<LogdEnemy>(
-                value: _selectedEnemy, isExpanded: true, style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiRed),
-                items: _allEnemies.map((e) => DropdownMenuItem(value: e, child: Text("LVL \${e.level} - e.name.toUpperCase() (HP: {e.maxHp})"))).toList(),
+                value: _selectedEnemy, isExpanded: true, 
+                style: const TextStyle(fontFamily: LogdCodes.retroFont, color: LogdCodes.uiRed, fontSize: 13),
+                items: _allEnemies.map((e) => DropdownMenuItem(value: e, child: Text("LVL ${e.level} - ${e.name.toUpperCase()} (HP: ${e.maxHp})"))).toList(),
                 onChanged: (val) { if (val != null) setState(() => _selectedEnemy = val); },
               ),
             ),
@@ -168,10 +208,27 @@ class _DeveloperPanelScreenState extends State<DeveloperPanelScreen> {
   }
 
   Widget _buildDevButton(String label, VoidCallback onPressed) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(side: const BorderSide(color: LogdCodes.uiPurple), backgroundColor: LogdCodes.uiPurpleBg, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))),
-      onPressed: onPressed,
-      child: Text(label.toUpperCase(), style: const TextStyle(color: LogdCodes.uiPurple, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 3, fontWeight: FontWeight.bold)),
+    return SizedBox(
+      height: 50,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: LogdCodes.uiPurple, width: 1.5), 
+          backgroundColor: LogdCodes.uiPurpleBg, 
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+          padding: const EdgeInsets.symmetric(horizontal: 4)
+        ),
+        onPressed: onPressed,
+        child: Text(
+          label.toUpperCase(), 
+          textAlign: TextAlign.center, 
+          style: const TextStyle(
+            color: LogdCodes.uiPurple, 
+            fontFamily: LogdCodes.retroFont, 
+            fontSize: 13,
+            fontWeight: FontWeight.bold
+          )
+        ),
+      ),
     );
   }
 }

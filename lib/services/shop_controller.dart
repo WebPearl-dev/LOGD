@@ -1,9 +1,9 @@
-// lib/services/shop_controller.dart
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'guest_manager.dart';
 
 class ShopItem {
   final String nameKey;
@@ -70,9 +70,8 @@ class ShopController {
   Future<void> loadShopStats(BuildContext context) async {
     try {
       final String lang = Localizations.localeOf(context).languageCode;
-      final user = _supabase.auth.currentUser;
-      if (user != null) {
-        final data = await _supabase.from('profiles').select().eq('id', user.id).single();
+      if (GuestManager.isGuest) {
+        final data = GuestManager.guestProfile;
         goldOnHand = data['gold_on_hand'] ?? 0;
         weaponLvl = data['weapon_level'] ?? 0;
         armorLvl = data['armor_level'] ?? 0;
@@ -82,13 +81,27 @@ class ShopController {
         hp = data['hp'] ?? 20;
         maxHp = data['max_hp'] ?? 20;
         experience = data['experience'] ?? 0;
-
-        final String jsonPath = 'assets/story/$lang/locatie_winkels.json';
-        final String jsonString = await rootBundle.loadString(jsonPath);
-        storyContent = jsonDecode(jsonString);
-
-        isLoading = false;
+      } else {
+        final user = _supabase.auth.currentUser;
+        if (user != null) {
+          final data = await _supabase.from('profiles').select().eq('id', user.id).single();
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          weaponLvl = data['weapon_level'] ?? 0;
+          armorLvl = data['armor_level'] ?? 0;
+          level = data['level'] ?? 1;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          hp = data['hp'] ?? 20;
+          maxHp = data['max_hp'] ?? 20;
+          experience = data['experience'] ?? 0;
+        }
       }
+
+      final String jsonPath = 'assets/story/$lang/locatie_winkels.json';
+      final String jsonString = await rootBundle.loadString(jsonPath);
+      storyContent = jsonDecode(jsonString);
+
+      isLoading = false;
     } catch (e) {
       debugPrint("Error loading shop stats: $e");
       isLoading = false;
@@ -121,7 +134,7 @@ class ShopController {
     }
 
     await _updateCloud();
-    return isWeapon ? "pegasus_buy_success" : "merilon_buy_success";
+    return isWeapon ? "pegasus_buy_$weaponLvl" : "merilon_buy_$armorLvl";
   }
 
   String getRandomTalkKey(bool isPegasus) {
@@ -129,6 +142,13 @@ class ShopController {
   }
 
   Future<void> _updateCloud() async {
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['weapon_level'] = weaponLvl;
+      GuestManager.guestProfile['armor_level'] = armorLvl;
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       await _supabase.from('profiles').update({

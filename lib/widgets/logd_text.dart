@@ -5,11 +5,13 @@ import '../theme/logd_codes.dart'; // Importeer je centrale styles!
 class LogdText extends StatelessWidget {
   final String text;
   final double? fontSize; // Maak nullable om de centrale fallback te gebruiken
+  final TextAlign? textAlign;
 
   const LogdText({
     super.key,
     required this.text,
     this.fontSize, // Geen hardcoded default meer hier
+    this.textAlign,
   });
 
   static String capitalize(String s) {
@@ -23,6 +25,7 @@ class LogdText extends StatelessWidget {
     final double effectiveFontSize = fontSize ?? LogdCodes.fontSizeDefault;
 
     return RichText(
+      textAlign: textAlign ?? TextAlign.start,
       text: TextSpan(
         children: _parseText(text, effectiveFontSize),
         style: TextStyle(

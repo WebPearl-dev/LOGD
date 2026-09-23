@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 
 class RankingsScreen extends StatefulWidget {
   const RankingsScreen({super.key});
@@ -18,7 +19,6 @@ class _RankingsScreenState extends State<RankingsScreen> {
   List<Map<String, dynamic>> _rankings = [];
   bool _isLoading = true;
 
-  // Stats voor de statusbalk
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
 
@@ -30,9 +30,33 @@ class _RankingsScreenState extends State<RankingsScreen> {
 
   Future<void> _loadRankingsAndStats() async {
     try {
+      if (GuestManager.isGuest) {
+        final playerData = GuestManager.guestProfile;
+        if (mounted) {
+          setState(() {
+            _rankings = [
+              {
+                'username': playerData['username'] ?? 'Gast Reiziger',
+                'dragon_kills': playerData['dragon_kills'] ?? 0,
+                'level': playerData['level'] ?? 1,
+                'experience': playerData['experience'] ?? 0,
+              }
+            ];
+            goldOnHand = playerData['gold_on_hand'] ?? 0;
+            gems = playerData['gems'] ?? 0;
+            turns = playerData['turns'] ?? 0;
+            level = playerData['level'] ?? 1;
+            experience = playerData['experience'] ?? 0;
+            playerHp = playerData['hp'] ?? 20;
+            playerMaxHp = playerData['max_hp'] ?? 20;
+            _isLoading = false;
+          });
+        }
+        return;
+      }
+
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        // Haal de top 50 spelers op, gesorteerd op DK, Level en XP
         final rankingsData = await _supabase
             .from('profiles')
             .select('username, dragon_kills, level, experience')

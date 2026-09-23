@@ -4,7 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
-import '../theme/logd_codes.dart'; // Importeer je centrale styles!
+import '../theme/logd_codes.dart';
+import '../services/guest_manager.dart';
 
 class StablesScreen extends StatefulWidget {
   const StablesScreen({super.key});
@@ -35,6 +36,24 @@ class _StablesScreenState extends State<StablesScreen> {
   }
 
   Future<void> _loadStablesData() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      if (mounted) {
+        setState(() {
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          level = data['level'] ?? 1;
+          experience = data['experience'] ?? 0;
+          playerHp = data['hp'] ?? 20;
+          playerMaxHp = data['max_hp'] ?? 20;
+          mountLvl = data['mount_level'] ?? 0;
+          _isLoading = false;
+        });
+      }
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final data = await _supabase.from('profiles').select().eq('id', user.id).single();
@@ -80,12 +99,26 @@ class _StablesScreenState extends State<StablesScreen> {
 
     setState(() { _isLoading = true; _statusMessage = ""; });
 
+    int newGold = goldOnHand - goldPrice;
+    int newGems = gems - gemPrice;
+
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = newGold;
+      GuestManager.guestProfile['gems'] = newGems;
+      GuestManager.guestProfile['mount_level'] = nextLvl;
+      setState(() {
+        goldOnHand = newGold;
+        gems = newGems;
+        mountLvl = nextLvl;
+        _statusMessage = local.stablesSuccessBuy(_getMountName(local, nextLvl));
+        _isLoading = false;
+      });
+      return;
+    }
+
     try {
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        int newGold = goldOnHand - goldPrice;
-        int newGems = gems - gemPrice;
-
         await _supabase.from('profiles').update({
           'gold_on_hand': newGold,
           'gems': newGems,
@@ -120,7 +153,6 @@ class _StablesScreenState extends State<StablesScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        // DE FIX: AppBar gekoppeld aan de centrale wetten
         title: Text(
             local.stablesTitle,
             style: const TextStyle(
@@ -181,7 +213,6 @@ class _StablesScreenState extends State<StablesScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                   ),
                   onPressed: _buyMount,
-                  // DE FIX: Hardcoded font en size (15) omgezet naar centraal designthemamodel
                   child: Text(
                       local.btnBuyUpgrade.toUpperCase(),
                       style: const TextStyle(
@@ -204,7 +235,6 @@ class _StablesScreenState extends State<StablesScreen> {
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                // DE FIX: Hardcoded font-properties weggesneden
                 child: Text(
                     local.btnReturnTown.toUpperCase(),
                     style: const TextStyle(

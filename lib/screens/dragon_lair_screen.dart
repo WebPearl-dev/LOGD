@@ -9,6 +9,7 @@ import '../theme/logd_codes.dart';
 import '../services/combat_engine.dart';
 import '../services/forest_manager.dart';
 import '../services/logd_enums.dart';
+import '../services/guest_manager.dart';
 
 class DragonLairScreen extends StatefulWidget {
   const DragonLairScreen({super.key});
@@ -39,42 +40,61 @@ class _DragonLairScreenState extends State<DragonLairScreen> {
   }
 
   Future<void> _loadLairAndPlayerData() async {
-    final user = _supabase.auth.currentUser;
-    if (user != null) {
-      try {
-        final data = await _supabase.from('profiles').select().eq('id', user.id).single();
-        if (!mounted) return;
-        final String lang = Localizations.localeOf(context).languageCode;
-        final String jsonString = await DefaultAssetBundle.of(context).loadString('assets/story/$lang/locatie_draak.json');
-        final Map<String, dynamic> decoded = json.decode(jsonString);
+    try {
+      final String lang = Localizations.localeOf(context).languageCode;
+      final String jsonString = await DefaultAssetBundle.of(context).loadString('assets/story/$lang/locatie_draak.json');
+      final Map<String, dynamic> decoded = json.decode(jsonString);
 
-        if (mounted) {
-          setState(() {
-            _charName = data['username'] ?? "Held";
-            level = data['level'] ?? 15;
-            experience = data['experience'] ?? 0;
-            goldOnHand = data['gold_on_hand'] ?? 0;
-            gems = data['gems'] ?? 0;
-            turns = data['turns'] ?? 0;
-            playerHp = data['hp'] ?? 100;
-            playerMaxHp = data['max_hp'] ?? 100;
-            dragonKills = data['dragon_kills'] ?? 0;
-            dragonPoints = data['dragon_points'] ?? 0;
-
-            _dragonMaxHp = 1000 + (dragonKills * 250);
-            _dragonHp = _dragonMaxHp;
-
-            playerAttack = level * 5;
-            playerDefense = level * 4;
-
-            _storyTexts = decoded.map((key, value) => MapEntry(key, value.toString()));
-            _displayLog = _storyTexts['welcome'] ?? "";
-            _isLoading = false;
-          });
+      Map<String, dynamic> data;
+      if (GuestManager.isGuest) {
+        data = GuestManager.guestProfile;
+      } else {
+        final user = _supabase.auth.currentUser;
+        if (user != null) {
+          data = await _supabase.from('profiles').select().eq('id', user.id).single();
+        } else {
+          data = GuestManager.guestProfile;
         }
-      } catch (_) {
-        if (mounted) setState(() => _isLoading = false);
       }
+
+      if (mounted) {
+        setState(() {
+          _charName = data['username'] ?? "Held";
+          level = data['level'] ?? 15;
+          experience = data['experience'] ?? 0;
+          goldOnHand = data['gold_on_hand'] ?? 0;
+          gems = data['gems'] ?? 0;
+          turns = data['turns'] ?? 0;
+          playerHp = data['hp'] ?? 100;
+          playerMaxHp = data['max_hp'] ?? 100;
+          dragonKills = data['dragon_kills'] ?? 0;
+          dragonPoints = data['dragon_points'] ?? 0;
+
+          final int permAtk = data['permanent_bonus_atk'] ?? 0;
+          final int permDef = data['permanent_bonus_def'] ?? 0;
+
+          _dragonMaxHp = 1000 + (dragonKills * 250);
+          _dragonHp = _dragonMaxHp;
+
+          playerAttack = level * 5 + permAtk;
+          playerDefense = level * 4 + permDef;
+
+          _storyTexts = decoded.map((key, value) => MapEntry(key, value.toString()));
+          _displayLog = _storyTexts['welcome'] ?? "";
+          _isLoading = false;
+        });
+
+        if (!GuestManager.isGuest) {
+          try {
+            await _supabase.from('daily_news').insert({
+              'log_type': 'dragon_attack',
+              'username': _charName,
+            });
+          } catch (_) {}
+        }
+      }
+    } catch (_) {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -115,30 +135,63 @@ class _DragonLairScreenState extends State<DragonLairScreen> {
   }
 
   void _finalizeDragonLairCombat(bool playerWon) async {
-    final user = _supabase.auth.currentUser;
-    if (user == null) return;
-
     final local = AppLocalizations.of(context)!;
 
     if (playerWon) {
-      await _supabase.from('profiles').update({
-        'level': 1, 'experience': 0, 'gold_on_hand': 0, 'weapon_level': 0, 'armor_level': 0,
-        'hp': playerMaxHp, 'dragon_kills': dragonKills + 1, 'dragon_points': dragonPoints + 1,
-      }).eq('id', user.id);
+      if (GuestManager.isGuest) {
+        GuestManager.guestProfile['level'] = 1;
+        GuestManager.guestProfile['experience'] = 0;
+        GuestManager.guestProfile['gold_on_hand'] = 0;
+        GuestManager.guestProfile['weapon_level'] = 0;
+        GuestManager.guestProfile['armor_level'] = 0;
+        GuestManager.guestProfile['hp'] = playerMaxHp;
+        GuestManager.guestProfile['dragon_kills'] = dragonKills + 1;
+        GuestManager.guestProfile['dragon_points'] = dragonPoints + 1;
+      } else {
+        final user = _supabase.auth.currentUser;
+        if (user != null) {
+          await _supabase.from('profiles').update({
+            'level': 1, 'experience': 0, 'gold_on_hand': 0, 'weapon_level': 0, 'armor_level': 0,
+            'hp': playerMaxHp, 'dragon_kills': dragonKills + 1, 'dragon_points': dragonPoints + 1,
+          }).eq('id', user.id);
 
-      final String killCountStr = (dragonKills + 1).toString();
-      final String announcement = local.news_dragon_kill(_charName, killCountStr);
+          final String killCountStr = (dragonKills + 1).toString();
+          final String announcement = local.news_dragon_kill(_charName, killCountStr);
 
-      await _supabase.from('daily_news').insert({
-        'log_type': 'dragon_kill', 'username': _charName, 'log_text': announcement,
-      });
+          try {
+            await _supabase.from('daily_news').insert({
+              'log_type': 'dragon_kill',
+              'username': _charName,
+              'kills': dragonKills + 1,
+              'log_text': announcement,
+            });
+          } catch (_) {}
+        }
+      }
 
       setState(() { _displayLog = _storyTexts['victory_text'] ?? ""; });
     } else {
       final int reducedXp = (experience * 0.9).toInt();
-      await _supabase.from('profiles').update({
-        'alive': false, 'gold_on_hand': 0, 'hp': 0, 'experience': reducedXp,
-      }).eq('id', user.id);
+      if (GuestManager.isGuest) {
+        GuestManager.guestProfile['alive'] = false;
+        GuestManager.guestProfile['gold_on_hand'] = 0;
+        GuestManager.guestProfile['hp'] = 0;
+        GuestManager.guestProfile['experience'] = reducedXp;
+      } else {
+        final user = _supabase.auth.currentUser;
+        if (user != null) {
+          await _supabase.from('profiles').update({
+            'alive': false, 'gold_on_hand': 0, 'hp': 0, 'experience': reducedXp,
+          }).eq('id', user.id);
+
+          try {
+            await _supabase.from('daily_news').insert({
+              'log_type': 'dragon_defeat',
+              'username': _charName,
+            });
+          } catch (_) {}
+        }
+      }
 
       setState(() { _displayLog = _storyTexts['defeat_text'] ?? ""; });
     }

@@ -117,9 +117,10 @@ class InnActionButtons extends StatelessWidget {
   Widget _buildBtn({required String label, required Color color, required VoidCallback onTap, double? width, Color? bgColor}) {
     return SizedBox(
       width: width,
-      height: 44,
+      height: 38,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           side: BorderSide(color: color, width: 2),
           backgroundColor: bgColor ?? color.withValues(alpha: 0.1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
@@ -128,7 +129,7 @@ class InnActionButtons extends StatelessWidget {
         child: Text(
           label.toUpperCase(),
           textAlign: TextAlign.center,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold, fontFamily: LogdCodes.retroFont, fontSize: 10),
+          style: TextStyle(color: color, fontWeight: FontWeight.bold, fontFamily: LogdCodes.retroFont, fontSize: 15),
         ),
       ),
     );

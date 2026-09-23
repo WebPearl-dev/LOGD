@@ -1,0 +1,9 @@
+{
+  "welcome": "You step into a hidden, ivy-covered ruin just outside the town square. In the center floats a mystic, softly glowing crystal pulsing with pure energy. As you approach, the energy forms into the face of an ancient forest god. His voice echoes directly in your mind: 'Welcome back, dragon slayer. I see the shine of victory in your soul. You have earned dragon shards. Exchange them with me to permanently strengthen your soul for your next journeys...'",
+  "upgrade_atk": "The forest god nods and touches your arms with a beam of pure light. You feel your muscles contract and harden. 'Your strikes will cut deeper from now on, in this life and all lives hereafter.'",
+  "upgrade_def": "The crystal flashes brightly and an invisible shield of energy settles under your skin. 'Your skin becomes as hard as oak bark. The claws of monsters will less easily get a grip on you.'",
+  "upgrade_hp": "A warm, red glow envelops your chest. You hear your own heartbeat pounding more powerfully in your ears. 'Your life source flows deeper. You will be able to take more hits before Ramius comes to claim your soul.'",
+  "upgrade_turns": "A soft breeze rustles through the ruin and your feet suddenly feel light as feathers. 'You are now a friend of the forest. You will tire less quickly during your daily quests.'",
+  "no_points": "The energy in the crystal remains dull and dim. The voice of the forest god sounds cold and disappointed: 'You do not carry the mark of a dragon slayer, mortal. You have no business here. Go back to the forest, survive the dangers, and bring me the soul of the Green Dragon if you want to claim real power!'",
+  "success_generic": "The crystal slowly fades and the apparition vanishes back into the mist. 'The transaction is complete. Go forth and use your new powers wisely, legend!'"
+}

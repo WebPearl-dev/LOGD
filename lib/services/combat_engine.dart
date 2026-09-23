@@ -60,11 +60,15 @@ class CombatEngine {
       }
 
       // Bij winst op de draak hoeven we geen goud/XP te berekenen, dat handelt de reset-transactie af
+      int gold = enemy.minGold + _random.nextInt(enemy.maxGold - enemy.minGold + 1);
+      int xp = enemy.level * 15 + _random.nextInt(10);
       return CombatResult(
         status: CombatStatus.enemyDefeated,
         args: {'enemy': enemy.name},
         isCombatOver: true,
         damageDealt: playerDamage,
+        goldEarned: gold,
+        xpEarned: xp,
       );
     }
 
@@ -121,6 +125,7 @@ class CombatEngine {
       return CombatResult(
         status: CombatStatus.skillMagic,
         hpHealed: healAmount,
+        args: {'log_key': 'skill_magic_$playerLevel'},
         isCombatOver: false,
       );
     } else if (specialty == PlayerSpecialty.thieving) {
@@ -128,7 +133,7 @@ class CombatEngine {
       return CombatResult(
         status: CombatStatus.skillThieving,
         goldEarned: stolenGold,
-        args: {'enemy': enemy.name},
+        args: {'enemy': enemy.name, 'log_key': 'skill_thieving_$playerLevel'},
         isCombatOver: false,
       );
     } else {
@@ -146,18 +151,22 @@ class CombatEngine {
             damageDealt: heavyDamage,
           );
         }
+        int gold = enemy.minGold + _random.nextInt(enemy.maxGold - enemy.minGold + 1);
+        int xp = enemy.level * 15 + _random.nextInt(10);
         return CombatResult(
           status: CombatStatus.enemyDefeated,
           args: {'enemy': enemy.name},
           isCombatOver: true,
           damageDealt: heavyDamage,
+          goldEarned: gold,
+          xpEarned: xp,
         );
       }
 
       return CombatResult(
         status: CombatStatus.skillWarrior,
         damageDealt: heavyDamage,
-        args: {'enemy': enemy.name},
+        args: {'enemy': enemy.name, 'log_key': 'skill_warrior_$playerLevel'},
         isCombatOver: false,
       );
     }

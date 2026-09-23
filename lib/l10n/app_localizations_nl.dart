@@ -126,6 +126,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get authSwitchToLogin => 'Heb je al een karakter? Log hier in';
 
   @override
+  String get authGuestLogin => 'Inloggen als gast';
+
+  @override
   String get authErrorEmpty => 'Vul alle velden in!';
 
   @override
@@ -231,7 +234,7 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get btnTalkBanker => 'PRAAT MET DE BANKIER';
+  String get btnTalkBanker => 'Praat met de bankier';
 
   @override
   String get raceTitle => 'Kies je Ras';
@@ -727,6 +730,12 @@ class AppLocalizationsNl extends AppLocalizations {
   String get newsUnknownPlayer => 'Onbekende Reiziger';
 
   @override
+  String get newsUnknownEnemy => 'een monster';
+
+  @override
+  String get newsUnknownPartner => 'iemand';
+
+  @override
   String get defaultUsername => 'Reiziger';
 
   @override
@@ -1070,7 +1079,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get innMenuMain => 'De Gelagkamer';
 
   @override
-  String get innMenuSpy => 'Mensen Bespioneren (-10 Goud)';
+  String get innMenuSpy => 'Mensen Bespioneren';
 
   @override
   String get innMenuNews => 'Krant & Geruchten Lezen';
@@ -1736,6 +1745,16 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
+  String newsLogDragonAttack(Object user) {
+    return '`4HOREN, ZIEN EN ZEGT HET VOORT!`w $user betreedt het hol van de Groene Draak! Het gebrul trilt door de bergen...';
+  }
+
+  @override
+  String newsLogDragonDefeat(Object user) {
+    return '`4HOREN, ZIEN EN ZEGT HET VOORT!`w $user is op brute wijze geroosterd door de Groene Draak! Oaktaven rouwt...';
+  }
+
+  @override
   String get btnDevAddGold => '+10K GOUD';
 
   @override
@@ -1768,4 +1787,39 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get btnBuyDye => 'Haar Verven (1 GEM)';
+
+  @override
+  String get dragonShrineTitle => 'Het Drakenheiligdom';
+
+  @override
+  String get dragonShrineWelcome =>
+      '`gJe stapt een verborgen, met klimop begroeide ruïne net buiten het dorpsplein binnen. In het midden zweeft een mystiek, zacht gloeiend kristal dat pulseert met pure energie. Zodra je dichterbij komt, vormt de energie zich tot het gezicht van een oude woudgod.`w';
+
+  @override
+  String dragonShrinePoints(Object amount) {
+    return 'Drakenpunten (DP): `y$amount`w';
+  }
+
+  @override
+  String get dragonShrineNoPoints =>
+      '`4De energie in het kristal blijft flets en dof. De stem van de woudgod klinkt koud: \"Je draagt de markering van een drakendoder niet bij je, sterveling. Je hebt hier niets te zoeken.\"`w';
+
+  @override
+  String get btnUpgradeAtk => 'PERMANENTE AANVAL (+1 ATK)';
+
+  @override
+  String get btnUpgradeDef => 'PERMANENTE VERDEDIGING (+1 DEF)';
+
+  @override
+  String get btnUpgradeHp => 'PERMANENTE LEVENSKRACHT (+5 HP)';
+
+  @override
+  String get btnUpgradeTurns => 'WOUDLOPER ZEGENING (+1 BEURT)';
+
+  @override
+  String get dragonShrineSuccess =>
+      '`2De woudgod raakt je aan met een straal van licht. \"De transactie is voltooid. Ga heen en gebruik je nieuwe krachten wijs!\"`w';
+
+  @override
+  String get btnVisitDragonShrine => 'Draken Heiligdom';
 }

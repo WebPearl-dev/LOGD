@@ -1,7 +1,7 @@
 // lib/screens/ghost_combat_screen.dart
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../theme/logd_codes.dart';
@@ -87,7 +87,7 @@ class _GhostCombatScreenState extends State<GhostCombatScreen> {
           _storyTexts = monstersDecoded.map((key, value) => MapEntry(key, value.toString()));
           _storyTexts.addAll(locationDecoded.map((key, value) => MapEntry(key, value.toString())));
           
-          final int roll = (DateTime.now().millisecondsSinceEpoch % 100);
+          final int roll = Random().nextInt(100);
           if (roll < 20) {
             _activeEvent = (roll < 10) ? GhostEventType.styx : GhostEventType.whispers;
             _combatLog = (_activeEvent == GhostEventType.styx) 
@@ -188,10 +188,12 @@ class _GhostCombatScreenState extends State<GhostCombatScreen> {
       _enemyHp = (_enemyHp - result.damageDealt).clamp(0, _activeEnemy.maxHp);
 
       final String logTemplate = _storyTexts['combat_round_log'] ?? "";
-      _combatLog = logTemplate
+      final String roundLog = logTemplate
           .replaceAll('{player_dmg}', result.damageDealt.toString())
           .replaceAll('{enemy_atk_text}', _activeEnemy.attackText)
           .replaceAll('{enemy_dmg}', result.damageReceived.toString());
+      
+      _combatLog += "\n\n$roundLog";
 
       if (result.isCombatOver) {
         _isCombatOver = true;
@@ -201,36 +203,22 @@ class _GhostCombatScreenState extends State<GhostCombatScreen> {
   }
 
   void _finalizeCombat(CombatResult result) async {
-    final user = Supabase.instance.client.auth.currentUser;
-    if (user == null) return;
+    final bool victory = result.status == CombatStatus.enemyDefeated;
+    
+    await _graveyardController.finalizeGhostCombat(
+      victory: victory,
+      favorEarned: result.favorEarned,
+      currentHp: _ghostHp,
+    );
 
-    if (result.status == CombatStatus.enemyDefeated) {
-      final profile = await Supabase.instance.client.from('profiles').select('favor').eq('id', user.id).single();
-      final int currentFavor = profile['favor'] ?? 0;
-      final int newFavor = currentFavor + result.favorEarned;
-
-      await Supabase.instance.client.from('profiles').update({
-        'favor': newFavor,
-        'hp': _ghostHp,
-      }).eq('id', user.id);
-
+    if (mounted) {
       setState(() {
-        final String template = _storyTexts['combat_victory'] ?? "";
-        _combatLog += template.replaceAll('{favor}', result.favorEarned.toString());
-      });
-    } else {
-      final userRef = Supabase.instance.client;
-      // Haal eerst de beurten op om te kunnen decrementeren
-      final profileRes = await userRef.from('profiles').select('turns').eq('id', user.id).single();
-      final int currentTurns = profileRes['turns'] ?? 0;
-      
-      await userRef.from('profiles').update({
-        'hp': 0,
-        'turns': (currentTurns - 2).clamp(0, 100),
-      }).eq('id', user.id);
-
-      setState(() {
-        _combatLog += _storyTexts['combat_defeat'] ?? "";
+        if (victory) {
+          final String template = _storyTexts['combat_victory'] ?? "";
+          _combatLog += template.replaceAll('{favor}', result.favorEarned.toString());
+        } else {
+          _combatLog += _storyTexts['combat_defeat'] ?? "";
+        }
       });
     }
   }

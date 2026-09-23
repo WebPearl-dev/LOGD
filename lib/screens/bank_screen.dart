@@ -85,13 +85,23 @@ class _BankScreenState extends State<BankScreen> {
     final local = AppLocalizations.of(context)!;
 
     if (_isInitLoading) {
-      return const Scaffold(backgroundColor: LogdCodes.uiBlueBg, body: Center(child: CircularProgressIndicator(color: Colors.green)));
+      return const Scaffold(
+        backgroundColor: LogdCodes.uiBlueBg,
+        body: Center(child: CircularProgressIndicator(color: LogdCodes.uiGreen)),
+      );
     }
 
     return Scaffold(
       backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
-        title: Text(local.bankTitle.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+        title: Text(
+          local.bankTitle.toUpperCase(),
+          style: const TextStyle(
+            fontFamily: LogdCodes.retroFont,
+            fontSize: LogdCodes.fontSizeDefault,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),
@@ -105,8 +115,14 @@ class _BankScreenState extends State<BankScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LogdText(text: local.bankVaultBalance(_con.goldInBank.toString()), fontSize: LogdCodes.fontSizeCardTitle),
-                    LogdText(text: local.bankOnHandLabel(_con.goldOnHand.toString()), fontSize: LogdCodes.fontSizeDefault),
+                    LogdText(
+                      text: local.bankVaultBalance(_con.goldInBank.toString()),
+                      fontSize: LogdCodes.fontSizeCardTitle,
+                    ),
+                    LogdText(
+                      text: local.bankOnHandLabel(_con.goldOnHand.toString()),
+                      fontSize: LogdCodes.fontSizeDefault,
+                    ),
                     const Divider(color: Colors.grey, height: 24),
                     LogdText(text: _displayLog, fontSize: LogdCodes.fontSizeDefault),
                   ],
@@ -136,26 +152,45 @@ class _BankScreenState extends State<BankScreen> {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: LogdCodes.uiCyan, width: 2),
                   backgroundColor: LogdCodes.uiBlueBg,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
                 ),
                 onPressed: _talkToBanker,
-                child: Text(local.btnTalkBanker.toUpperCase(), style: const TextStyle(color: LogdCodes.uiBlue, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold)),
+                child: Text(
+                  local.btnTalkBanker.toUpperCase(),
+                  style: const TextStyle(
+                    color: LogdCodes.uiBlue,
+                    fontFamily: LogdCodes.retroFont,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
 
             const SizedBox(height: 10),
 
-            // DE FIX: De terugknop staat nu ALTIJD onderaan, los van het actie-paneel!
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: LogdCodes.uiBlueDark, width: 2),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
                 backgroundColor: LogdCodes.uiBlueBg,
-              ).copyWith(foregroundColor: WidgetStateProperty.all(LogdCodes.uiBlueDark)),
+              ).copyWith(
+                foregroundColor: WidgetStateProperty.all(LogdCodes.uiBlueDark),
+              ),
               onPressed: () => Navigator.pop(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(local.btnReturnTown.toUpperCase(), style: const TextStyle(fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+                child: Text(
+                  local.btnReturnTown.toUpperCase(),
+                  style: const TextStyle(
+                    fontFamily: LogdCodes.retroFont,
+                    fontSize: LogdCodes.fontSizeDefault,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],

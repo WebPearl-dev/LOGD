@@ -48,6 +48,6 @@
 "combat_victory": "\n\n`2You have defeated the phantom! Ramius grants you +{favor} Favor.`w",
 "combat_defeat": "\n\n`4Your spiritual energy is depleted! Ramius laughs at you personally and takes 2 extra turns.`w",
 "combat_round_log": "`2You deal {player_dmg} damage.`w\n{enemy_atk_text} `4You receive {enemy_dmg} spiritual damage.`w",
-"enemy_fallback_name": "Schim"
+"enemy_fallback_name": "Phantom"
 
 }

@@ -23,7 +23,11 @@ class NewDayScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              LogdText(text: "`y== ${local.resetNewDayTitle.toUpperCase()} ==`w", fontSize: 22),
+              LogdText(
+                text: "`y== ${local.resetNewDayTitle.toUpperCase()} ==`w",
+                fontSize: 22,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 30),
               
               LogdText(text: local.resetNewDayMessage, fontSize: LogdCodes.fontSizeDefault),
@@ -52,7 +56,15 @@ class NewDayScreen extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Text(local.btnStartDay.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: 16)),
+                  child: Text(
+                    local.btnStartDay.toUpperCase(),
+                    style: const TextStyle(
+                      color: LogdCodes.uiGreen,
+                      fontFamily: LogdCodes.retroFont,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ),
             ],

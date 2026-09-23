@@ -1,4 +1,3 @@
-// lib/services/forest_controller.dart
 import 'dart:math';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'forest_manager.dart';
@@ -6,6 +5,7 @@ import 'forest_monster_manager.dart';
 import 'forest_event_manager.dart';
 import 'combat_engine.dart';
 import 'logd_enums.dart';
+import 'guest_manager.dart';
 
 class ForestController {
   final _supabase = Supabase.instance.client;
@@ -38,6 +38,40 @@ class ForestController {
   }
 
   Future<void> loadLiveStats() async {
+    if (GuestManager.isGuest) {
+      final data = GuestManager.guestProfile;
+      username = data['username'] ?? "Gast Reiziger";
+      level = data['level'] ?? 1;
+      playerHp = data['hp'] ?? 20;
+      playerMaxHp = data['max_hp'] ?? 20;
+      goldOnHand = data['gold_on_hand'] ?? 0;
+      gems = data['gems'] ?? 0;
+      turns = data['turns'] ?? 0;
+      experience = data['experience'] ?? 0;
+
+      bardBuff = data['bard_buff'] ?? "none";
+      dragonBreathFights = data['dragon_breath_fights'] ?? 0;
+
+      final String dbSpec = (data['specialty'] ?? '').toString().toLowerCase();
+      specialty = PlayerSpecialty.magic;
+      for (var type in PlayerSpecialty.values) {
+        if (type.name.toLowerCase() == dbSpec) { specialty = type; break; }
+      }
+
+      final int atkPotionBoost = data['potion_attack'] ?? 0;
+      final int defPotionBoost = data['potion_defense'] ?? 0;
+      final int permAtk = data['permanent_bonus_atk'] ?? 0;
+      final int permDef = data['permanent_bonus_def'] ?? 0;
+      
+      int baseAtk = (level * 5 + 3) + atkPotionBoost + permAtk;
+      if (bardBuff == "warrior") baseAtk += 2;
+      if (dragonBreathFights > 0) baseAtk += 3;
+
+      playerAttack = baseAtk;
+      playerDefense = (level * 3 + 2) + defPotionBoost + permDef;
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final data = await _supabase.from('profiles').select().eq('id', user.id).single();
@@ -50,7 +84,6 @@ class ForestController {
       turns = data['turns'] ?? 0;
       experience = data['experience'] ?? 0;
 
-      // Laad Herberg Buffs
       bardBuff = data['bard_buff'] ?? "none";
       dragonBreathFights = data['dragon_breath_fights'] ?? 0;
 
@@ -60,22 +93,34 @@ class ForestController {
         if (type.name.toLowerCase() == dbSpec) { specialty = type; break; }
       }
 
-      // --- DE CORE BUFF CALCULATION ---
       final int atkPotionBoost = data['potion_attack'] ?? 0;
       final int defPotionBoost = data['potion_defense'] ?? 0;
+      final int permAtk = data['permanent_bonus_atk'] ?? 0;
+      final int permDef = data['permanent_bonus_def'] ?? 0;
       
-      int baseAtk = (level * 5 + 3) + atkPotionBoost;
-      
-      // Pas Herberg Buffs toe
+      int baseAtk = (level * 5 + 3) + atkPotionBoost + permAtk;
       if (bardBuff == "warrior") baseAtk += 2;
       if (dragonBreathFights > 0) baseAtk += 3;
 
       playerAttack = baseAtk;
-      playerDefense = (level * 3 + 2) + defPotionBoost;
+      playerDefense = (level * 3 + 2) + defPotionBoost + permDef;
     }
   }
 
   Future<void> updateCloudStats() async {
+    if (GuestManager.isGuest) {
+      final String specName = specialty.name;
+      GuestManager.guestProfile['hp'] = playerHp;
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['gems'] = gems;
+      GuestManager.guestProfile['turns'] = turns;
+      GuestManager.guestProfile['experience'] = experience;
+      GuestManager.guestProfile['alive'] = playerHp > 0;
+      GuestManager.guestProfile['specialty'] = specName.toUpperCase() + specName.substring(1);
+      GuestManager.guestProfile['dragon_breath_fights'] = dragonBreathFights;
+      return;
+    }
+
     final user = _supabase.auth.currentUser;
     if (user != null) {
       final String specName = specialty.name;
@@ -123,7 +168,7 @@ class ForestController {
     updateCloudStats();
   }
 
-  void handleAttack(Function(CombatResult) onDefeated, Function onDied, Function(CombatResult) onContinue) {
+  Future<void> handleAttack(Function(CombatResult) onDefeated, Function onDied, Function(CombatResult) onContinue) async {
     if (currentEnemy == null || isCombatOver) return;
 
     final result = _combatEngine.executeAttackRound(
@@ -140,7 +185,6 @@ class ForestController {
     playerHp = (playerHp - result.damageReceived).clamp(0, playerMaxHp);
 
     if (result.status == CombatStatus.enemyDefeated) {
-      // --- DE SCAVENGER BUFF ---
       int finalGold = result.goldEarned;
       if (bardBuff == "scavenger") {
         finalGold = (finalGold * 1.15).round();
@@ -150,7 +194,6 @@ class ForestController {
       experience += result.xpEarned;
       isCombatOver = true;
 
-      // Verbruik Drakenbloed na overwinning
       if (dragonBreathFights > 0) {
         dragonBreathFights--;
       }
@@ -169,10 +212,10 @@ class ForestController {
     } else {
       onContinue(result);
     }
-    updateCloudStats();
+    await updateCloudStats();
   }
 
-  void handleSkill(Function(CombatResult) onResult) {
+  Future<void> handleSkill(Function(CombatResult) onResult) async {
     if (currentEnemy == null || isCombatOver || skillUsedThisFight) return;
 
     final result = _combatEngine.executeSpecialSkill(
@@ -204,7 +247,7 @@ class ForestController {
     }
 
     onResult(result);
-    updateCloudStats();
+    await updateCloudStats();
   }
 
   void handleFlee(Function onSuccess, Function(int) onFailed, Function onDeath) {
@@ -252,6 +295,7 @@ class ForestController {
   }
 
   Future<void> _logDeathToNews(String enemyName) async {
+    if (GuestManager.isGuest) return;
     try {
       final bool isBrutal = _random.nextInt(100) < 20;
       await _supabase.from('daily_news').insert({
