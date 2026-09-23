@@ -3160,6 +3160,276 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Draken Heiligdom'**
   String get btnVisitDragonShrine;
+
+  /// No description provided for @guestPlayerName.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gast Reiziger'**
+  String get guestPlayerName;
+
+  /// No description provided for @guestWelcomeNews.
+  ///
+  /// In nl, this message translates to:
+  /// **'Welkom in de wereld van de Gouden Draak als gast!'**
+  String get guestWelcomeNews;
+
+  /// No description provided for @alleyBribeDefaultName.
+  ///
+  /// In nl, this message translates to:
+  /// **'Een gure reiziger'**
+  String get alleyBribeDefaultName;
+
+  /// No description provided for @alleyBribeNews.
+  ///
+  /// In nl, this message translates to:
+  /// **'{name} heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.'**
+  String alleyBribeNews(String name);
+
+  /// No description provided for @mightyEDefaultTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Donateur'**
+  String get mightyEDefaultTitle;
+
+  /// No description provided for @defaultTravelerName.
+  ///
+  /// In nl, this message translates to:
+  /// **'Reiziger'**
+  String get defaultTravelerName;
+
+  /// No description provided for @settingsSectionAccount.
+  ///
+  /// In nl, this message translates to:
+  /// **'Karakter & Account'**
+  String get settingsSectionAccount;
+
+  /// No description provided for @settingsSectionLanguage.
+  ///
+  /// In nl, this message translates to:
+  /// **'Taal & Voorkeuren'**
+  String get settingsSectionLanguage;
+
+  /// No description provided for @settingsSectionCommunity.
+  ///
+  /// In nl, this message translates to:
+  /// **'Over LOGD & Community'**
+  String get settingsSectionCommunity;
+
+  /// No description provided for @profileSaveName.
+  ///
+  /// In nl, this message translates to:
+  /// **'Naam Opslaan'**
+  String get profileSaveName;
+
+  /// No description provided for @profileSaveEmail.
+  ///
+  /// In nl, this message translates to:
+  /// **'E-mail Opslaan'**
+  String get profileSaveEmail;
+
+  /// No description provided for @profileChangePassword.
+  ///
+  /// In nl, this message translates to:
+  /// **'Wachtwoord wijzigen'**
+  String get profileChangePassword;
+
+  /// No description provided for @profileNewPasswordLabel.
+  ///
+  /// In nl, this message translates to:
+  /// **'Nieuw wachtwoord'**
+  String get profileNewPasswordLabel;
+
+  /// No description provided for @profileSavePassword.
+  ///
+  /// In nl, this message translates to:
+  /// **'Wachtwoord Opslaan'**
+  String get profileSavePassword;
+
+  /// No description provided for @profilePasswordSuccessUpdate.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Wachtwoord succesvol gewijzigd!`w'**
+  String get profilePasswordSuccessUpdate;
+
+  /// No description provided for @profilePasswordErrorEmpty.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Vul een nieuw wachtwoord in!`w'**
+  String get profilePasswordErrorEmpty;
+
+  /// No description provided for @profilePasswordError.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Wachtwoord wijzigen mislukt.`w'**
+  String get profilePasswordError;
+
+  /// No description provided for @settingsLanguageTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Talenkiezer'**
+  String get settingsLanguageTitle;
+
+  /// No description provided for @settingsLangDutch.
+  ///
+  /// In nl, this message translates to:
+  /// **'Nederlands 🇳🇱'**
+  String get settingsLangDutch;
+
+  /// No description provided for @settingsLangEnglish.
+  ///
+  /// In nl, this message translates to:
+  /// **'English 🇬🇧'**
+  String get settingsLangEnglish;
+
+  /// No description provided for @settingsAboutTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Over LOGD'**
+  String get settingsAboutTitle;
+
+  /// No description provided for @settingsAboutSubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Lees het verhaal achter Legend of the Golden Dragon.'**
+  String get settingsAboutSubtitle;
+
+  /// No description provided for @settingsAboutStory.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren \'80 en \'90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w'**
+  String get settingsAboutStory;
+
+  /// No description provided for @settingsShareTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'App Delen'**
+  String get settingsShareTitle;
+
+  /// No description provided for @settingsShareSubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Nodig vrienden uit om het rijk te betreden.'**
+  String get settingsShareSubtitle;
+
+  /// No description provided for @settingsShareDialogTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Deel het Rijk'**
+  String get settingsShareDialogTitle;
+
+  /// No description provided for @settingsShareDialogText.
+  ///
+  /// In nl, this message translates to:
+  /// **'`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w'**
+  String get settingsShareDialogText;
+
+  /// No description provided for @settingsBtnShare.
+  ///
+  /// In nl, this message translates to:
+  /// **'Deel nu'**
+  String get settingsBtnShare;
+
+  /// No description provided for @settingsRateTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'App Raten'**
+  String get settingsRateTitle;
+
+  /// No description provided for @settingsRateSubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Laat een 5-sterren review achter in de Play Store.'**
+  String get settingsRateSubtitle;
+
+  /// No description provided for @settingsRateDialogTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Beoordeel LOGD'**
+  String get settingsRateDialogTitle;
+
+  /// No description provided for @settingsRateDialogText.
+  ///
+  /// In nl, this message translates to:
+  /// **'`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w'**
+  String get settingsRateDialogText;
+
+  /// No description provided for @settingsBtnRate.
+  ///
+  /// In nl, this message translates to:
+  /// **'Beoordelen'**
+  String get settingsBtnRate;
+
+  /// No description provided for @settingsFeedbackTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Feedback'**
+  String get settingsFeedbackTitle;
+
+  /// No description provided for @settingsFeedbackSubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Stuur ideeën of foutmeldingen naar de makers.'**
+  String get settingsFeedbackSubtitle;
+
+  /// No description provided for @settingsFeedbackDialogTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Stuur Feedback'**
+  String get settingsFeedbackDialogTitle;
+
+  /// No description provided for @settingsFeedbackDialogText.
+  ///
+  /// In nl, this message translates to:
+  /// **'`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w'**
+  String get settingsFeedbackDialogText;
+
+  /// No description provided for @settingsFeedbackHint.
+  ///
+  /// In nl, this message translates to:
+  /// **'Typ hier je feedback...'**
+  String get settingsFeedbackHint;
+
+  /// No description provided for @settingsFeedbackSent.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Bedankt! Je feedback is ontvangen.`w'**
+  String get settingsFeedbackSent;
+
+  /// No description provided for @settingsBtnSend.
+  ///
+  /// In nl, this message translates to:
+  /// **'Versturen'**
+  String get settingsBtnSend;
+
+  /// No description provided for @settingsPrivacyTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyTitle;
+
+  /// No description provided for @settingsPrivacySubtitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Bekijk hoe wij omgaan met je spelersgegevens.'**
+  String get settingsPrivacySubtitle;
+
+  /// No description provided for @settingsPrivacyDialogTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyDialogTitle;
+
+  /// No description provided for @settingsPrivacyDialogText.
+  ///
+  /// In nl, this message translates to:
+  /// **'`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w'**
+  String get settingsPrivacyDialogText;
+
+  /// No description provided for @btnClose.
+  ///
+  /// In nl, this message translates to:
+  /// **'Sluiten'**
+  String get btnClose;
 }
 
 class _AppLocalizationsDelegate

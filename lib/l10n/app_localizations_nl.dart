@@ -1832,4 +1832,153 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get btnVisitDragonShrine => 'Draken Heiligdom';
+
+  @override
+  String get guestPlayerName => 'Gast Reiziger';
+
+  @override
+  String get guestWelcomeNews =>
+      'Welkom in de wereld van de Gouden Draak als gast!';
+
+  @override
+  String get alleyBribeDefaultName => 'Een gure reiziger';
+
+  @override
+  String alleyBribeNews(String name) {
+    return '$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.';
+  }
+
+  @override
+  String get mightyEDefaultTitle => 'Donateur';
+
+  @override
+  String get defaultTravelerName => 'Reiziger';
+
+  @override
+  String get settingsSectionAccount => 'Karakter & Account';
+
+  @override
+  String get settingsSectionLanguage => 'Taal & Voorkeuren';
+
+  @override
+  String get settingsSectionCommunity => 'Over LOGD & Community';
+
+  @override
+  String get profileSaveName => 'Naam Opslaan';
+
+  @override
+  String get profileSaveEmail => 'E-mail Opslaan';
+
+  @override
+  String get profileChangePassword => 'Wachtwoord wijzigen';
+
+  @override
+  String get profileNewPasswordLabel => 'Nieuw wachtwoord';
+
+  @override
+  String get profileSavePassword => 'Wachtwoord Opslaan';
+
+  @override
+  String get profilePasswordSuccessUpdate =>
+      '`2Wachtwoord succesvol gewijzigd!`w';
+
+  @override
+  String get profilePasswordErrorEmpty => '`4Vul een nieuw wachtwoord in!`w';
+
+  @override
+  String get profilePasswordError => '`4Wachtwoord wijzigen mislukt.`w';
+
+  @override
+  String get settingsLanguageTitle => 'Talenkiezer';
+
+  @override
+  String get settingsLangDutch => 'Nederlands 🇳🇱';
+
+  @override
+  String get settingsLangEnglish => 'English 🇬🇧';
+
+  @override
+  String get settingsAboutTitle => 'Over LOGD';
+
+  @override
+  String get settingsAboutSubtitle =>
+      'Lees het verhaal achter Legend of the Golden Dragon.';
+
+  @override
+  String get settingsAboutStory =>
+      '`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren \'80 en \'90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w';
+
+  @override
+  String get settingsShareTitle => 'App Delen';
+
+  @override
+  String get settingsShareSubtitle =>
+      'Nodig vrienden uit om het rijk te betreden.';
+
+  @override
+  String get settingsShareDialogTitle => 'Deel het Rijk';
+
+  @override
+  String get settingsShareDialogText =>
+      '`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w';
+
+  @override
+  String get settingsBtnShare => 'Deel nu';
+
+  @override
+  String get settingsRateTitle => 'App Raten';
+
+  @override
+  String get settingsRateSubtitle =>
+      'Laat een 5-sterren review achter in de Play Store.';
+
+  @override
+  String get settingsRateDialogTitle => 'Beoordeel LOGD';
+
+  @override
+  String get settingsRateDialogText =>
+      '`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w';
+
+  @override
+  String get settingsBtnRate => 'Beoordelen';
+
+  @override
+  String get settingsFeedbackTitle => 'Feedback';
+
+  @override
+  String get settingsFeedbackSubtitle =>
+      'Stuur ideeën of foutmeldingen naar de makers.';
+
+  @override
+  String get settingsFeedbackDialogTitle => 'Stuur Feedback';
+
+  @override
+  String get settingsFeedbackDialogText =>
+      '`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w';
+
+  @override
+  String get settingsFeedbackHint => 'Typ hier je feedback...';
+
+  @override
+  String get settingsFeedbackSent => '`2Bedankt! Je feedback is ontvangen.`w';
+
+  @override
+  String get settingsBtnSend => 'Versturen';
+
+  @override
+  String get settingsPrivacyTitle => 'Privacy Policy';
+
+  @override
+  String get settingsPrivacySubtitle =>
+      'Bekijk hoe wij omgaan met je spelersgegevens.';
+
+  @override
+  String get settingsPrivacyDialogTitle => 'Privacy Policy';
+
+  @override
+  String get settingsPrivacyDialogText =>
+      '`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w';
+
+  @override
+  String get btnClose => 'Sluiten';
 }

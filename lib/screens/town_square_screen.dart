@@ -121,7 +121,8 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   }
 
   void _onAlleyPressed() async {
-    bool success = await _con.handleAlleyPurchase();
+    final local = AppLocalizations.of(context)!;
+    bool success = await _con.handleAlleyPurchase(local);
     setState(() {
       _alleyStatusMessage = _con.alleyStatusMessage;
     });
@@ -129,7 +130,8 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   }
 
   void _onMightyEPressed() async {
-    bool success = await _con.handleMightyEPurchase();
+    final local = AppLocalizations.of(context)!;
+    bool success = await _con.handleMightyEPurchase(local);
     setState(() {
       _mightyEStatusMessage = success
           ? (_con.storyContent['mightye_success'] ?? "...")
@@ -139,7 +141,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
   }
 
   void _onWeddingPressed(AppLocalizations local) async {
-    int res = await _con.handleWeddingPurchase();
+    int res = await _con.handleWeddingPurchase(local);
     setState(() {
       if (res == 0) {
         _weddingStatusMessage = _con.storyContent['wedding_success'] ?? "...";
@@ -233,7 +235,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
           backgroundColor: LogdCodes.uiAppBarBg,
           automaticallyImplyLeading: false,
           actions: [
-            if (!GuestManager.isGuest && Supabase.instance.client.auth.currentUser?.email == 'm.j.kuiper95@gmail.com')
+            if (!GuestManager.isGuest && (_con.playerData?['is_admin'] == true || Supabase.instance.client.auth.currentUser?.email == 'samhaoir@live.nl'))
               IconButton(
                 icon: const Icon(Icons.code, color: Colors.purpleAccent),
                 onPressed: () => _navigateTo(const DeveloperPanelScreen()),

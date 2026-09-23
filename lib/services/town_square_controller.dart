@@ -38,6 +38,7 @@ class TownSquareController {
     VoidCallback onUpdate,
   ) async {
     try {
+      final local = AppLocalizations.of(context);
       final String languageCode = Localizations.localeOf(context).languageCode;
 
       final String mainPath = 'assets/story/$languageCode/locatie_dorpsplein.json';
@@ -58,8 +59,8 @@ class TownSquareController {
         playerData = GuestManager.guestProfile;
         latestNewsItem = {
           'log_type': 'welcome',
-          'username': 'Gast Reiziger',
-          'message': 'Welkom in de wereld van de Gouden Draak als gast!'
+          'username': storyContent['guest_username'] ?? local?.guestPlayerName ?? 'Gast Reiziger',
+          'message': storyContent['guest_welcome_news'] ?? local?.guestWelcomeNews ?? 'Welkom in de wereld van de Gouden Draak als gast!'
         };
         isLoading = false;
         onUpdate();
@@ -250,7 +251,7 @@ class TownSquareController {
     return false;
   }
 
-  Future<bool> handleAlleyPurchase() async {
+  Future<bool> handleAlleyPurchase([AppLocalizations? local]) async {
     final int userGems = playerData?['gems'] ?? 0;
     if (userGems < 5) {
       alleyStatusMessage = barberContent['error_no_gem'] ?? "...";
@@ -282,11 +283,15 @@ class TownSquareController {
       alleyStatusMessage = storyContent['dark_alley_success'] ?? "...";
 
       try {
-        final String name = playerData?['username'] ?? "Een gure reiziger";
+        final String fallbackName = local?.alleyBribeDefaultName ?? (storyContent['alley_bribe_default_name'] ?? "Een gure reiziger");
+        final String name = playerData?['username'] ?? fallbackName;
+        final String message = storyContent['alley_bribe_news'] != null
+            ? storyContent['alley_bribe_news'].replaceAll('{name}', name)
+            : (local?.alleyBribeNews(name) ?? "$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.");
         await _supabase.from('daily_news').insert({
           'log_type': 'alley_bribe',
           'username': name,
-          'message': "$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.",
+          'message': message,
         });
       } catch (_) {}
 
@@ -295,12 +300,12 @@ class TownSquareController {
     return false;
   }
 
-  Future<bool> handleMightyEPurchase() async {
+  Future<bool> handleMightyEPurchase([AppLocalizations? local]) async {
     final int userGems = playerData?['gems'] ?? 0;
     final String currentName = playerData?['username'] ?? "";
     if (userGems < 1) return false;
 
-    final String rawTitles = storyContent['mightye_titles'] ?? "Donateur";
+    final String rawTitles = storyContent['mightye_titles'] ?? (local?.mightyEDefaultTitle ?? "Donateur");
     final List<String> donorTitles = rawTitles.split(',');
     final String randomTitle = donorTitles[_random.nextInt(donorTitles.length)].trim();
 
@@ -331,7 +336,7 @@ class TownSquareController {
     return false;
   }
 
-  Future<int> handleWeddingPurchase() async {
+  Future<int> handleWeddingPurchase([AppLocalizations? local]) async {
     final int gold = playerData?['gold_on_hand'] ?? 0;
     final bool isMarried = playerData?['is_married'] ?? false;
 
@@ -355,8 +360,9 @@ class TownSquareController {
       try {
         final String gender = playerData?['gender'] ?? 'M';
         final String partnerName = (gender == 'F') ? "Seth" : "Violet";
+        final String fallbackName = local?.defaultTravelerName ?? (storyContent['default_traveler'] ?? "Reiziger");
         await _supabase.from('daily_news').insert({
-          'username': playerData?['username'] ?? "Reiziger",
+          'username': playerData?['username'] ?? fallbackName,
           'log_type': 'marriage',
           'partner_name': partnerName,
         });

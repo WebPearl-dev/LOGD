@@ -1824,4 +1824,151 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btnVisitDragonShrine => 'Dragon Shrine';
+
+  @override
+  String get guestPlayerName => 'Guest Traveler';
+
+  @override
+  String get guestWelcomeNews =>
+      'Welcome to the world of the Golden Dragon as a guest!';
+
+  @override
+  String get alleyBribeDefaultName => 'A shady traveler';
+
+  @override
+  String alleyBribeNews(String name) {
+    return '$name secretly handed over some gems to Sly and suddenly looks a lot better behaved.';
+  }
+
+  @override
+  String get mightyEDefaultTitle => 'Donor';
+
+  @override
+  String get defaultTravelerName => 'Traveler';
+
+  @override
+  String get settingsSectionAccount => 'Character & Account';
+
+  @override
+  String get settingsSectionLanguage => 'Language & Preferences';
+
+  @override
+  String get settingsSectionCommunity => 'About LOGD & Community';
+
+  @override
+  String get profileSaveName => 'Save Name';
+
+  @override
+  String get profileSaveEmail => 'Save Email';
+
+  @override
+  String get profileChangePassword => 'Change Password';
+
+  @override
+  String get profileNewPasswordLabel => 'New Password';
+
+  @override
+  String get profileSavePassword => 'Save Password';
+
+  @override
+  String get profilePasswordSuccessUpdate =>
+      '`2Password changed successfully!`w';
+
+  @override
+  String get profilePasswordErrorEmpty => '`4Please enter a new password!`w';
+
+  @override
+  String get profilePasswordError => '`4Failed to change password.`w';
+
+  @override
+  String get settingsLanguageTitle => 'Language Selector';
+
+  @override
+  String get settingsLangDutch => 'Dutch 🇳🇱';
+
+  @override
+  String get settingsLangEnglish => 'English 🇬🇧';
+
+  @override
+  String get settingsAboutTitle => 'About LOGD';
+
+  @override
+  String get settingsAboutSubtitle =>
+      'Read the story behind Legend of the Golden Dragon.';
+
+  @override
+  String get settingsAboutStory =>
+      '`gLegend of the Golden Dragon is a homage to the classic BBS text adventures of the \'80s and \'90s.\n\nIn a world full of danger, dark monsters, and ancient legends, travelers fight for glory, gold, and the defeat of the fearsome Golden Dragon.\n\nBuild your character, visit the town square, battle in the forest, and conquer a place in the rankings!`w';
+
+  @override
+  String get settingsShareTitle => 'Share App';
+
+  @override
+  String get settingsShareSubtitle => 'Invite friends to join the realm.';
+
+  @override
+  String get settingsShareDialogTitle => 'Share the Realm';
+
+  @override
+  String get settingsShareDialogText =>
+      '`gWord of mouth travels faster than a dragon on the wind!\n\nShare LOGD with your friends and battle together in the town square.`w';
+
+  @override
+  String get settingsBtnShare => 'Share now';
+
+  @override
+  String get settingsRateTitle => 'Rate App';
+
+  @override
+  String get settingsRateSubtitle => 'Leave a 5-star review in the Play Store.';
+
+  @override
+  String get settingsRateDialogTitle => 'Rate LOGD';
+
+  @override
+  String get settingsRateDialogText =>
+      '`yEnjoying your adventures in the realm?\n\nLeave a 5-star review to support the creators and attract more travelers to the village!`w';
+
+  @override
+  String get settingsBtnRate => 'Rate now';
+
+  @override
+  String get settingsFeedbackTitle => 'Feedback';
+
+  @override
+  String get settingsFeedbackSubtitle =>
+      'Send ideas or bug reports to creators.';
+
+  @override
+  String get settingsFeedbackDialogTitle => 'Send Feedback';
+
+  @override
+  String get settingsFeedbackDialogText =>
+      '`cHave a suggestion for a new feature or found a bug?\n\nLet us know! Your feedback helps improve the realm.`w';
+
+  @override
+  String get settingsFeedbackHint => 'Type your feedback here...';
+
+  @override
+  String get settingsFeedbackSent =>
+      '`2Thank you! Your feedback has been received.`w';
+
+  @override
+  String get settingsBtnSend => 'Send';
+
+  @override
+  String get settingsPrivacyTitle => 'Privacy Policy';
+
+  @override
+  String get settingsPrivacySubtitle => 'View how we handle your player data.';
+
+  @override
+  String get settingsPrivacyDialogTitle => 'Privacy Policy';
+
+  @override
+  String get settingsPrivacyDialogText =>
+      '`wAt LOGD we respect every traveler\'s privacy.\n\n• We only collect your email address and character name for account management.\n• Passwords are stored securely encrypted via Supabase Auth.\n• We never sell or share your data with third parties.\n• You can permanently delete your account and data at any time.`w';
+
+  @override
+  String get btnClose => 'Close';
 }
