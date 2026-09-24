@@ -30,6 +30,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
   }
 
   Future<void> _loadNewsAndStats() async {
+    final local = AppLocalizations.of(context)!;
     try {
       if (mounted) {
         final languageCode = Localizations.localeOf(context).languageCode;
@@ -41,7 +42,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
         if (mounted) {
           setState(() {
             _newsLogs = [
-              {'log_type': 'welcome', 'username': 'Gast Reiziger', 'message': 'Welkom in het gasterijk van de Gouden Draak!'}
+              {'log_type': 'welcome', 'username': local.guestPlayerName, 'message': local.guestWelcomeNews}
             ];
             goldOnHand = playerData['gold_on_hand'] ?? 0;
             gems = playerData['gems'] ?? 0;
@@ -103,23 +104,23 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
 
     if (_isLoading) {
       return const Scaffold(
-        backgroundColor: Color(0xFF1E1E1E),
-        body: Center(child: CircularProgressIndicator(color: Colors.green)),
+        backgroundColor: LogdCodes.uiBlueBg,
+        body: Center(child: CircularProgressIndicator(color: LogdCodes.uiGreen)),
       );
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E),
+      backgroundColor: LogdCodes.uiBlueBg,
       appBar: AppBar(
         title: Text(
-          "DE DORPSOMROEPER",
+          local.townCrierTitle.toUpperCase(),
           style: const TextStyle(
             fontFamily: LogdCodes.retroFont,
             fontSize: LogdCodes.fontSizeDefault,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: const Color(0xFF2D2D2D),
+        backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -133,7 +134,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 12.0),
-              child: Divider(color: Colors.grey),
+              child: Divider(color: LogdCodes.uiGrey),
             ),
 
             Expanded(
@@ -145,8 +146,8 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
                       ),
                     )
                   : RefreshIndicator(
-                      color: Colors.green,
-                      backgroundColor: const Color(0xFF2D2D2D),
+                      color: LogdCodes.uiGreen,
+                      backgroundColor: LogdCodes.uiAppBarBg,
                       onRefresh: _loadNewsAndStats,
                       child: ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(),

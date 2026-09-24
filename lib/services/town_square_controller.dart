@@ -17,107 +17,6 @@ class TownSquareController {
   static Map<String, dynamic> bosContent = {};
   static Map<String, dynamic> begraafplaatsContent = {};
 
-  bool isLoading = true;
-  String healerStatusMessage = "";
-  String barberStatusMessage = "";
-  String mightyEStatusMessage = "";
-  String weddingStatusMessage = "";
-  String alleyStatusMessage = "";
-
-  static const Map<String, String> _monsterFallbackMap = {
-    // Level 1
-    'm_1_0': 'Kleine pixie',
-    'm_1_1': 'Agressieve bosrat',
-    'm_1_2': 'Reusachtige kakkerlak',
-    'm_1_3': 'Boompad',
-    // Level 2
-    'm_2_0': 'Hondsdolle eekhoorn',
-    'm_2_1': 'Bosgoblin',
-    'm_2_2': 'Zakkenroller',
-    'm_2_3': 'Boze das',
-    // Level 3
-    'm_3_0': 'Struikrover',
-    'm_3_1': 'Reuzenspin',
-    'm_3_2': 'Wilde zwijn',
-    'm_3_3': 'Wegpiraat',
-    // Level 4
-    'm_4_0': 'Goblin verkenner',
-    'm_4_1': 'Bloeddorstige Orc',
-    'm_4_2': 'Skelet',
-    'm_4_3': 'Zwerm killerbijen',
-    // Level 5
-    'm_5_0': 'Woudtrol',
-    'm_5_1': 'Hagedis-man',
-    'm_5_2': 'Oger',
-    'm_5_3': 'Geestenverschijning',
-    // Level 6
-    'm_6_0': 'Harpy',
-    'm_6_1': 'Minotaurus kalf',
-    'm_6_2': 'Gargoyle',
-    'm_6_3': 'Moerasslijm',
-    // Level 7
-    'm_7_0': 'Weerwolf',
-    'm_7_1': 'Goblin bokser',
-    'm_7_2': 'Duistere magiër',
-    'm_7_3': 'Moerasmonster',
-    // Level 8
-    'm_8_0': 'Wraith',
-    'm_8_1': 'Zielenvreter',
-    'm_8_2': 'Golem',
-    'm_8_3': 'Kwaadaardige boomgeest',
-    // Level 9
-    'm_9_0': 'Manticore',
-    'm_9_1': 'Wyvern',
-    'm_9_2': 'Robin hood',
-    'm_9_3': 'Bergreus',
-    // Level 10
-    'm_10_0': 'Zwarte ridder',
-    'm_10_1': 'Schaduwreiziger',
-    'm_10_2': 'Cycloop',
-    'm_10_3': 'Bosdraak kalf',
-    // Level 11
-    'm_11_0': 'Regenererend slijm',
-    'm_11_1': 'Vampier',
-    'm_11_2': 'Banshee',
-    'm_11_3': 'Weerwolf alfa',
-    // Level 12
-    'm_12_0': 'Killerbijen koningin',
-    'm_12_1': 'Necromancer',
-    'm_12_2': 'Beholder',
-    'm_12_3': 'Schaduwmagiër',
-    // Level 13
-    'm_13_0': 'Goblin sjamaan',
-    'm_13_1': 'Vuur-elemental',
-    'm_13_2': 'Lich',
-    'm_13_3': 'Oude eiken-ent',
-    // Level 14
-    'm_14_0': 'Horrifying slime',
-    'm_14_1': 'Dragon spawn',
-    'm_14_2': 'Oude titaan',
-    'm_14_3': 'Hydra',
-    // Level 15
-    'm_15_0': 'Changeling',
-    'm_15_1': 'Demon lord',
-    'm_15_2': 'Dark elf assassin',
-    'm_15_3': 'Gouden draak',
-    // Begraafplaats
-    'enemy_name_1': 'Een Dwaallicht',
-    'enemy_name_2': 'De Spookachtige Verschijning',
-    'enemy_name_3': 'Een Huilende Banshee',
-    'enemy_name_4': 'De Grafschender',
-    'enemy_name_5': 'Een Rusteloze Poltergeist',
-    'enemy_name_6': 'Het Rusteloze Skelet',
-    'enemy_name_7': 'De Schaduw van een Gevallen Ridder',
-    'enemy_name_8': 'De IJzige Geest',
-    'enemy_name_9': 'Een Zielenvreter',
-    'enemy_name_10': 'Een Grote Zielenvreter',
-    'enemy_name_11': 'Het Schimmige Fantoom',
-    'enemy_name_12': 'De Necromancer-Geest',
-    'enemy_name_13': 'Een Ondode Lich-Koning',
-    'enemy_name_14': 'De Onderwereld Bewaker',
-    'enemy_name_15': 'De Schim van de Vorige Held',
-  };
-
   static Future<void> ensureMonsterDataLoaded([String languageCode = 'nl']) async {
     if (bosContent.isNotEmpty && begraafplaatsContent.isNotEmpty) return;
     try {
@@ -134,55 +33,21 @@ class TownSquareController {
     }
   }
 
+  bool isLoading = true;
+  String healerStatusMessage = "";
+  String barberStatusMessage = "";
+  String mightyEStatusMessage = "";
+  String weddingStatusMessage = "";
+  String alleyStatusMessage = "";
+
   static String getMonsterName(String rawKey) {
-    if (rawKey.trim().isEmpty) return 'een monster';
-
-    String key = rawKey.trim();
-
-    // 1. Check bosContent
-    if (bosContent.containsKey('${key}_name')) {
-      final name = bosContent['${key}_name'].toString();
-      if (name.isNotEmpty) return cleanColorCodesOnly(name);
+    if (bosContent.containsKey('${rawKey}_name')) {
+      return bosContent['${rawKey}_name'];
     }
-    if (bosContent.containsKey(key)) {
-      final name = bosContent[key].toString();
-      if (name.isNotEmpty) return cleanColorCodesOnly(name);
+    if (bosContent.containsKey(rawKey)) {
+      return bosContent[rawKey];
     }
-
-    // 2. Check begraafplaatsContent
-    if (begraafplaatsContent.containsKey(key)) {
-      final name = begraafplaatsContent[key].toString();
-      if (name.isNotEmpty) return cleanColorCodesOnly(name);
-    }
-    if (begraafplaatsContent.containsKey('enemy_name_$key')) {
-      final name = begraafplaatsContent['enemy_name_$key'].toString();
-      if (name.isNotEmpty) return cleanColorCodesOnly(name);
-    }
-    if (begraafplaatsContent.containsKey('${key}_name')) {
-      final name = begraafplaatsContent['${key}_name'].toString();
-      if (name.isNotEmpty) return cleanColorCodesOnly(name);
-    }
-
-    // 3. Fallback map lookup
-    final String? fallback = _monsterFallbackMap[key] ?? _monsterFallbackMap['${key}_name'];
-    if (fallback != null && fallback.isNotEmpty) {
-      return cleanColorCodesOnly(fallback);
-    }
-
-    // 4. Raw key pattern match fallback
-    final RegExp rawCodePattern = RegExp(r'^(m_\d+_\d+|enemy_name_\d+|enemy_\d+|\d+)$');
-    if (rawCodePattern.hasMatch(key)) {
-      if (key == 'm_4_3') return 'Zwerm killerbijen';
-      if (key == 'm_4_1') return 'Bloeddorstige Orc';
-      return 'Bosmonster';
-    }
-
-    final String cleaned = cleanColorCodesOnly(key);
-    if (RegExp(r'^m_\d+').hasMatch(cleaned)) {
-      return 'Bosmonster';
-    }
-
-    return cleaned.isNotEmpty ? cleaned : 'een monster';
+    return rawKey;
   }
 
   Future<void> loadLiveStats(
@@ -196,19 +61,16 @@ class TownSquareController {
       final String mainPath = 'assets/story/$languageCode/locatie_dorpsplein.json';
       final String barberPath = 'assets/story/$languageCode/locatie_kapper.json';
       final String bosPath = 'assets/story/$languageCode/locatie_bos.json';
-      final String begraafplaatsPath = 'assets/story/$languageCode/monsters_begraafplaats.json';
 
       final results = await Future.wait([
-        rootBundle.loadString(mainPath).catchError((_) => '{}'),
-        rootBundle.loadString(barberPath).catchError((_) => '{}'),
-        rootBundle.loadString(bosPath).catchError((_) => '{}'),
-        rootBundle.loadString(begraafplaatsPath).catchError((_) => '{}'),
+        rootBundle.loadString(mainPath),
+        rootBundle.loadString(barberPath),
+        rootBundle.loadString(bosPath),
       ]);
 
       storyContent = jsonDecode(results[0]) as Map<String, dynamic>;
       barberContent = jsonDecode(results[1]) as Map<String, dynamic>;
       bosContent = jsonDecode(results[2]) as Map<String, dynamic>;
-      begraafplaatsContent = jsonDecode(results[3]) as Map<String, dynamic>;
 
       if (GuestManager.isGuest) {
         playerData = GuestManager.guestProfile;
@@ -576,13 +438,7 @@ class TownSquareController {
       return local.news_dragon_kill(levelStr, user);
     }
     
-    String message = log['log_text'] ?? log['message'] ?? '';
-    if (message.isNotEmpty) {
-      message = message.replaceAllMapped(RegExp(r'\bm_\d+_\d+\b'), (match) {
-        return getMonsterName(match.group(0)!);
-      });
-    }
-    return message;
+    return log['log_text'] ?? log['message'] ?? '';
   }
 
   String _extractColor(String name) {
@@ -599,7 +455,6 @@ class TownSquareController {
   }
 
   String _cleanUsername(String name) {
-    if (name.isEmpty) return name;
     String clean = name;
     
     final RegExp colorRegex = RegExp(r"[`'][a-zA-Z0-9]");
@@ -613,39 +468,14 @@ class TownSquareController {
     allTitles.addAll(rawMale.split(','));
     allTitles.addAll(rawFemale.split(','));
     allTitles.addAll(rawMightyE.split(','));
-    allTitles.addAll([
-      "Donateur", "Patroon", "Grootmeester", "Weldoener", "Mecenas",
-      "Sir", "Lady", "Lord", "Baron", "Barones", "Hertog", "Hertogin", "Graaf", "Gravin",
-      "Duke", "Duchess", "Count", "Countess", "Legend", "Legende", "Donor", "Patron"
-    ]);
+    allTitles.addAll(["Donateur", "Donor", "Sir", "Lady", "Lord", "Baron", "Barones", "Hertog", "Hertogin", "Graaf", "Gravin", "Legende"]);
 
-    final titles = allTitles
-        .map((t) => t.trim())
-        .where((t) => t.isNotEmpty)
-        .toSet()
-        .toList();
-
-    // Sort descending by length so longer titles match before shorter substrings
+    final titles = allTitles.map((t) => t.trim()).where((t) => t.isNotEmpty).toSet().toList();
     titles.sort((a, b) => b.length.compareTo(a.length));
 
-    bool titleRemoved = true;
-    while (titleRemoved) {
-      titleRemoved = false;
-      clean = clean.trim();
-      for (var t in titles) {
-        final regStart = RegExp('^$t\\b\\s*', caseSensitive: false);
-        if (regStart.hasMatch(clean)) {
-          clean = clean.replaceFirst(regStart, '');
-          titleRemoved = true;
-          break;
-        }
-        final regWord = RegExp('\\b$t\\b\\s*', caseSensitive: false);
-        if (regWord.hasMatch(clean)) {
-          clean = clean.replaceAll(regWord, '');
-          titleRemoved = true;
-          break;
-        }
-      }
+    for (var t in titles) {
+      clean = clean.replaceAll(RegExp('^$t\\s*', caseSensitive: false), '');
+      clean = clean.replaceAll(RegExp('\\b$t\\b', caseSensitive: false), '');
     }
 
     return clean.trim();
