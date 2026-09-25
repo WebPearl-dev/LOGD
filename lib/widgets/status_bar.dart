@@ -29,7 +29,7 @@ class LogdStatusBar extends StatelessWidget {
     final double xpProgress = xpNeeded > 0 ? (experience / xpNeeded).clamp(0.0, 1.0) : 0.0;
 
     return Container(
-      color: const Color(0xFF2D2D2D), // Antracietgrijze retro balk
+      color: LogdCodes.uiAppBarBg, // Antracietgrijze retro balk
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: SafeArea(
         child: Column(
@@ -51,7 +51,7 @@ class LogdStatusBar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildStatText("LVL: $level", Colors.white),
+                _buildStatText("LVL: $level", LogdCodes.uiChurch),
                 _buildStatText("⏳ TURNS: $turns", LogdCodes.uiOrange),
                 _buildStatText("XP: $experience/$xpNeeded", LogdCodes.uiPurple),
               ],
@@ -63,7 +63,7 @@ class LogdStatusBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(2.0),
               child: LinearProgressIndicator(
                 value: xpProgress,
-                backgroundColor: Colors.grey.shade900,
+                backgroundColor: LogdCodes.uiCardBg,
                 color: LogdCodes.uiPurple,
                 minHeight: 4,
               ),

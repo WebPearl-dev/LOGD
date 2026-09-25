@@ -29,37 +29,37 @@ class ProfileActionPanel extends StatelessWidget {
           height: 45,
           child: OutlinedButton(
             style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.yellow, width: 2),
+                side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))
             ),
             onPressed: isLoading ? null : onUpdateUsername,
-            child: Text(local.btnSave.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+            child: Text(local.btnSave.toUpperCase(), style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(height: 40),
 
         OutlinedButton(
           style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.cyan, width: 2),
+              side: const BorderSide(color: LogdCodes.uiCyan, width: 2),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))
           ),
           onPressed: isLoading ? null : onLogout,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Text(local.profileLogout.toUpperCase(), style: const TextStyle(color: Colors.cyanAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+            child: Text(local.profileLogout.toUpperCase(), style: const TextStyle(color: LogdCodes.uiCyan, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(height: 12),
 
         OutlinedButton(
           style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.red, width: 2),
+              side: const BorderSide(color: LogdCodes.uiRed, width: 2),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0))
           ),
           onPressed: isLoading ? null : () => onDeleteAccountAttempt(context),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Text(local.profileDeleteAccount.toUpperCase(), style: const TextStyle(color: Colors.redAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
+            child: Text(local.profileDeleteAccount.toUpperCase(), style: const TextStyle(color: LogdCodes.uiRed, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault, fontWeight: FontWeight.bold)),
           ),
         ),
       ],

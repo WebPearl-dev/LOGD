@@ -36,12 +36,12 @@ class BankActionPanel extends StatelessWidget {
         TextField(
           controller: amountController,
           keyboardType: TextInputType.number,
-          style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
+          style: const TextStyle(color: LogdCodes.uiChurch, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
           decoration: InputDecoration(
             labelText: local.smithyAmountLabel,
-            labelStyle: const TextStyle(color: Colors.grey, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
-            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.yellow)),
+            labelStyle: const TextStyle(color: LogdCodes.uiGrey, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault),
+            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: LogdCodes.uiGrey)),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: LogdCodes.uiYellow)),
           ),
         ),
         const SizedBox(height: 16),
@@ -51,22 +51,22 @@ class BankActionPanel extends StatelessWidget {
             Expanded(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.yellow, width: 2),
+                  side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: () => onHandleCustomAmount(true),
-                child: Text(local.btnDepositCustom.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
+                child: Text(local.btnDepositCustom.toUpperCase(), style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.yellow, width: 2),
+                  side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: () => onHandleCustomAmount(false),
-                child: Text(local.btnWithdrawCustom.toUpperCase(), style: const TextStyle(color: Colors.yellowAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
+                child: Text(local.btnWithdrawCustom.toUpperCase(), style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -78,22 +78,22 @@ class BankActionPanel extends StatelessWidget {
             Expanded(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.green, width: 2),
+                  side: const BorderSide(color: LogdCodes.uiGreen, width: 2),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: onDepositAll,
-                child: Text(local.btnDepositAll.toUpperCase(), style: const TextStyle(color: Colors.greenAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
+                child: Text(local.btnDepositAll.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.green, width: 2),
+                  side: const BorderSide(color: LogdCodes.uiGreen, width: 2),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
                 ),
                 onPressed: onWithdrawAll,
-                child: Text(local.btnWithdrawAll.toUpperCase(), style: const TextStyle(color: Colors.greenAccent, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
+                child: Text(local.btnWithdrawAll.toUpperCase(), style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont, fontSize: LogdCodes.fontSizeDefault - 2, fontWeight: FontWeight.bold)),
               ),
             ),
           ],

@@ -32,39 +32,39 @@ class CombatActionPanel extends StatelessWidget {
         Expanded(
           child: OutlinedButton(
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.red, width: 2),
-              backgroundColor: const Color(0xFF240D0D),
+              side: const BorderSide(color: LogdCodes.uiRed, width: 2),
+              backgroundColor: LogdCodes.uiRedBg,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               padding: const EdgeInsets.symmetric(horizontal: 2), // Iets meer ademruimte aan de binnenkant
             ),
             onPressed: onAttackPressed,
-            child: const Text("VAL AAN", style: TextStyle(color: Colors.redAccent, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
+            child: const Text("VAL AAN", style: TextStyle(color: LogdCodes.uiRed, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: OutlinedButton(
             style: OutlinedButton.styleFrom(
-              side: BorderSide(color: skillUsedThisFight ? Colors.grey.shade800 : Colors.purple, width: 2),
-              backgroundColor: skillUsedThisFight ? Colors.black : const Color(0xFF1A0022),
+              side: BorderSide(color: skillUsedThisFight ? LogdCodes.uiGrey : LogdCodes.uiPurple, width: 2),
+              backgroundColor: skillUsedThisFight ? LogdCodes.uiCardBg : LogdCodes.uiPurpleBg,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               padding: const EdgeInsets.symmetric(horizontal: 2),
             ),
             onPressed: onUseSkillPressed,
-            child: Text(skillLabel.toUpperCase(), style: TextStyle(color: skillUsedThisFight ? Colors.grey : Colors.purpleAccent, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
+            child: Text(skillLabel.toUpperCase(), style: TextStyle(color: skillUsedThisFight ? LogdCodes.uiGrey : LogdCodes.uiPurple, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: OutlinedButton(
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.yellow, width: 2),
-              backgroundColor: const Color(0xFF1E1E00),
+              side: const BorderSide(color: LogdCodes.uiYellow, width: 2),
+              backgroundColor: LogdCodes.uiYellowBg,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               padding: const EdgeInsets.symmetric(horizontal: 2),
             ),
             onPressed: onFleePressed,
-            child: const Text("VLUCHT", style: TextStyle(color: Colors.yellowAccent, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
+            child: const Text("VLUCHT", style: TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont, fontWeight: FontWeight.bold, fontSize: LogdCodes.fontSizeDefault - 2)),
           ),
         ),
       ],

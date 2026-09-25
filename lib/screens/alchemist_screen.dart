@@ -160,11 +160,11 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
     final local = AppLocalizations.of(context)!;
 
     if (_isLoading) {
-      return const Scaffold(backgroundColor: Color(0xFF1E1E1E), body: Center(child: CircularProgressIndicator(color: LogdCodes.uiMagenta)));
+      return const Scaffold(backgroundColor: LogdCodes.uiCardBg, body: Center(child: CircularProgressIndicator(color: LogdCodes.uiMagenta)));
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E),
+      backgroundColor: LogdCodes.uiCardBg,
       appBar: AppBar(
         title: Text(
             local.alchemistTitle,
@@ -174,7 +174,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                 fontWeight: FontWeight.bold
             )
         ),
-        backgroundColor: const Color(0xFF2D2D2D),
+        backgroundColor: LogdCodes.uiAppBarBg,
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -188,7 +188,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LogdText(text: local.alchemistWelcome, fontSize: LogdCodes.fontSizeDefault),
-                    const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: Colors.grey)),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: LogdCodes.uiGrey)),
                     if (_statusMessage.isNotEmpty) ...[
                       LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),
                       const SizedBox(height: 10),
@@ -211,8 +211,8 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
 
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, width: 2),
-                backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.black12 : const Color(0xFF240024),
+                side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiGrey : LogdCodes.uiMagenta, width: 2),
+                backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiCardBg : LogdCodes.uiPurpleBg,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               ),
               onPressed: () => _buyPotion(true),
@@ -221,7 +221,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                   child: Text(
                       local.btnBuyAtkPotion.toUpperCase(),
                       style: TextStyle(
-                          color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta,
+                          color: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiGrey : LogdCodes.uiMagenta,
                           fontFamily: LogdCodes.retroFont,
                           fontSize: LogdCodes.fontSizeDefault,
                           fontWeight: FontWeight.bold
@@ -233,8 +233,8 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
 
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta, width: 2),
-                backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.black12 : const Color(0xFF240024),
+                side: BorderSide(color: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiGrey : LogdCodes.uiMagenta, width: 2),
+                backgroundColor: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiCardBg : LogdCodes.uiPurpleBg,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               ),
               onPressed: () => _buyPotion(false),
@@ -243,7 +243,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                   child: Text(
                       local.btnBuyDefPotion.toUpperCase(),
                       style: TextStyle(
-                          color: elixirsBoughtToday >= _maxPotionsPerDay ? Colors.grey : LogdCodes.uiMagenta,
+                          color: elixirsBoughtToday >= _maxPotionsPerDay ? LogdCodes.uiGrey : LogdCodes.uiMagenta,
                           fontFamily: LogdCodes.retroFont,
                           fontSize: LogdCodes.fontSizeDefault,
                           fontWeight: FontWeight.bold
@@ -255,7 +255,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
 
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.blue, width: 2),
+                side: const BorderSide(color: LogdCodes.uiBlue, width: 2),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               ),
               onPressed: () => Navigator.pop(context),
@@ -264,7 +264,7 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
                 child: Text(
                     local.btnReturnTown.toUpperCase(),
                     style: const TextStyle(
-                        color: Colors.blueAccent,
+                        color: LogdCodes.uiBlue,
                         fontFamily: LogdCodes.retroFont,
                         fontSize: LogdCodes.fontSizeDefault,
                         fontWeight: FontWeight.bold
