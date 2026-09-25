@@ -1,0 +1,11 @@
+{
+  "about_story": "`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren '80 en '90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w",
+  "share_dialog_title": "Deel het Rijk",
+  "share_dialog_text": "`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w",
+  "rate_dialog_title": "Beoordeel LOGD",
+  "rate_dialog_text": "`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w",
+  "feedback_dialog_title": "Stuur Feedback",
+  "feedback_dialog_text": "`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w",
+  "privacy_dialog_title": "Privacy Policy",
+  "privacy_dialog_text": "`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w"
+}

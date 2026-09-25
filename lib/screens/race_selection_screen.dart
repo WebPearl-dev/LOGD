@@ -130,7 +130,7 @@ class _RaceSelectionScreenState extends State<RaceSelectionScreen> {
                 }),
             ]
             else ...[
-              LogdText(text: local.raceWelcome, fontSize: LogdCodes.fontSizeDefault),
+              LogdText(text: _storyContent['race_welcome'] ?? "Voordat je het rijk betreedt...", fontSize: LogdCodes.fontSizeDefault),
               const SizedBox(height: 20),
               _buildSelectionButton(local.raceHuman, _selectedRace == 'HUMAN', Colors.yellow, () => setState(() => _selectedRace = 'HUMAN')),
               const SizedBox(height: 10),

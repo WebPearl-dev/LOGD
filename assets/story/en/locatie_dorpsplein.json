@@ -21,5 +21,11 @@
   "gender_welcome": "`gBefore you choose your race, traveler... Are you a brave Warrior or a courageous Huntress? Choose your gender wisely.`w",
   "gender_male": "Male ♂️",
   "gender_female": "Female ♀️",
-  "btn_confirm_gender": "Confirm Gender"
+  "btn_confirm_gender": "Confirm Gender",
+  "race_welcome": "`gBefore you enter the realm, you must determine what you are made of. Choose carefully, traveler...`w",
+  "specialty_welcome": "`gEvery traveler in the realm excels in something else. Choose the path that matches your fighting style...`w",
+  "news_welcome": "`gYou walk to the wooden notice board in the middle of the square. A few fresh sheets of parchment are gently flapping in the wind.\n\n\"Hear ye, hear ye! This is what has occurred in our realm today:\"",
+  "healer_fallback_welcome": "Althea's hut...",
+  "guest_welcome_news": "Welcome to the world of the Golden Dragon as a guest!",
+  "reset_new_day_message": "`2The sun rises over the realm and the birds begin to chirp. You feel rested and full of energy for new adventures!`w\n\nYour turns are replenished and the gates to the Town Square are wide open again!"
 }

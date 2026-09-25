@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import 'town_square_screen.dart';
 
@@ -28,8 +29,24 @@ class SpecialtySelectionScreen extends StatefulWidget {
 
 class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
   final _supabase = Supabase.instance.client;
+  Map<String, dynamic> _storyContent = {};
   String _selectedSpecialty = 'Magic';
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStoryContent();
+  }
+
+  Future<void> _loadStoryContent() async {
+    final content = await StoryService.loadLocationContent(context, 'locatie_dorpsplein');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+      });
+    }
+  }
 
   Future<void> _confirmSpecialty() async {
     setState(() { _isLoading = true; });
@@ -113,7 +130,7 @@ class _SpecialtySelectionScreenState extends State<SpecialtySelectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LogdText(text: local.specialtyWelcome, fontSize: LogdCodes.fontSizeDefault),
+            LogdText(text: _storyContent['specialty_welcome'] ?? "Elke reiziger in het rijk blinkt ergens anders in uit...", fontSize: LogdCodes.fontSizeDefault),
             const SizedBox(height: 16),
 
             Expanded(

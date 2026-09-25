@@ -1,0 +1,11 @@
+{
+  "about_story": "`gLegend of the Golden Dragon is a homage to the classic BBS text adventures of the '80s and '90s.\n\nIn a world full of danger, dark monsters, and ancient legends, travelers fight for glory, gold, and the defeat of the fearsome Golden Dragon.\n\nBuild your character, visit the town square, battle in the forest, and conquer a place in the rankings!`w",
+  "share_dialog_title": "Share the Realm",
+  "share_dialog_text": "`gWord of mouth travels faster than a dragon on the wind!\n\nShare LOGD with your friends and battle together in the town square.`w",
+  "rate_dialog_title": "Rate LOGD",
+  "rate_dialog_text": "`yEnjoying your adventures in the realm?\n\nLeave a 5-star review to support the creators and attract more travelers to the village!`w",
+  "feedback_dialog_title": "Send Feedback",
+  "feedback_dialog_text": "`cHave a suggestion for a new feature or found a bug?\n\nLet us know! Your feedback helps improve the realm.`w",
+  "privacy_dialog_title": "Privacy Policy",
+  "privacy_dialog_text": "`wAt LOGD we respect every traveler's privacy.\n\n• We only collect your email address and character name for account management.\n• Passwords are stored securely encrypted via Supabase Auth.\n• We never sell or share your data with third parties.\n• You can permanently delete your account and data at any time.`w"
+}

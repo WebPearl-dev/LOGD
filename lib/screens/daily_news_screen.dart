@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import '../services/guest_manager.dart';
 import '../services/town_square_controller.dart';
@@ -18,6 +19,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
   final _supabase = Supabase.instance.client;
   final _townSquareController = TownSquareController();
   List<Map<String, dynamic>> _newsLogs = [];
+  Map<String, dynamic> _storyContent = {};
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
@@ -35,6 +37,8 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
       if (mounted) {
         final languageCode = Localizations.localeOf(context).languageCode;
         await TownSquareController.ensureMonsterDataLoaded(languageCode);
+        if (!mounted) return;
+        _storyContent = await StoryService.loadLocationContent(context, 'locatie_dorpsplein');
       }
 
       if (GuestManager.isGuest) {
@@ -42,7 +46,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
         if (mounted) {
           setState(() {
             _newsLogs = [
-              {'log_type': 'welcome', 'username': local.guestPlayerName, 'message': local.guestWelcomeNews}
+              {'log_type': 'welcome', 'username': local.guestPlayerName, 'message': _storyContent['guest_welcome_news'] ?? 'Welkom in de wereld van de Gouden Draak als gast!'}
             ];
             goldOnHand = playerData['gold_on_hand'] ?? 0;
             gems = playerData['gems'] ?? 0;
@@ -129,7 +133,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             LogdText(
-              text: local.newsWelcome,
+              text: _storyContent['news_welcome'] ?? "Het dagelijks nieuws van het rijk:",
               fontSize: LogdCodes.fontSizeDefault,
             ),
             const Padding(

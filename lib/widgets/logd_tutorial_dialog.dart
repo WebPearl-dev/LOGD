@@ -1,6 +1,6 @@
-// lib/widgets/logd_tutorial_dialog.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import 'logd_text.dart';
 
@@ -14,39 +14,74 @@ class LogdTutorialDialog extends StatefulWidget {
 class _LogdTutorialDialogState extends State<LogdTutorialDialog> {
   int _currentStep = 0;
   static const int _totalSteps = 5;
+  Map<String, dynamic> _storyContent = {};
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTutorial();
+  }
+
+  Future<void> _loadTutorial() async {
+    final content = await StoryService.loadLocationContent(context, 'tutorial');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
 
+    if (_isLoading) {
+      return Dialog(
+        backgroundColor: LogdCodes.uiCardBg,
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(color: LogdCodes.uiCyan),
+              const SizedBox(width: 16),
+              Text(local.tutorialTitle, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+            ],
+          ),
+        ),
+      );
+    }
+
     final List<_TutorialStep> steps = [
       _TutorialStep(
         title: local.tutorialStep1Title,
-        content: local.tutorialStep1Content,
+        content: _storyContent['step1_content'] ?? "",
         icon: Icons.location_city,
         color: LogdCodes.uiCyan,
       ),
       _TutorialStep(
         title: local.tutorialStep2Title,
-        content: local.tutorialStep2Content,
+        content: _storyContent['step2_content'] ?? "",
         icon: Icons.forest,
         color: LogdCodes.uiGreen,
       ),
       _TutorialStep(
         title: local.tutorialStep3Title,
-        content: local.tutorialStep3Content,
+        content: _storyContent['step3_content'] ?? "",
         icon: Icons.shield,
         color: LogdCodes.uiYellow,
       ),
       _TutorialStep(
         title: local.tutorialStep4Title,
-        content: local.tutorialStep4Content,
+        content: _storyContent['step4_content'] ?? "",
         icon: Icons.military_tech,
         color: LogdCodes.uiPurple,
       ),
       _TutorialStep(
         title: local.tutorialStep5Title,
-        content: local.tutorialStep5Content,
+        content: _storyContent['step5_content'] ?? "",
         icon: Icons.wb_sunny,
         color: LogdCodes.uiRed,
       ),

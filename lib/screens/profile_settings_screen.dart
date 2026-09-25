@@ -10,6 +10,7 @@ import '../main.dart';
 import 'auth_screen.dart';
 import 'developer_panel_screen.dart';
 import '../services/guest_manager.dart';
+import '../services/story_service.dart';
 import '../widgets/logd_tutorial_dialog.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
@@ -33,6 +34,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   String _statusMessage = "";
   int _devClickCount = 0;
   Map<String, dynamic>? _profileData;
+  Map<String, dynamic> _storyContent = {};
 
   bool _isAccountExpanded = true;
   bool _isLanguageExpanded = false;
@@ -42,6 +44,16 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   void initState() {
     super.initState();
     _loadInitialData();
+    _loadStoryContent();
+  }
+
+  Future<void> _loadStoryContent() async {
+    final content = await StoryService.loadLocationContent(context, 'settings');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+      });
+    }
   }
 
   @override
@@ -375,7 +387,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                LogdText(text: local.settingsFeedbackDialogText, fontSize: LogdCodes.fontSizeDefault),
+                LogdText(text: _storyContent['feedback_dialog_text'] ?? "Heb je een suggestie of bug gevonden? Laat het ons weten!", fontSize: LogdCodes.fontSizeDefault),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _feedbackController,
@@ -811,7 +823,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     color: LogdCodes.uiGreen,
                     onTap: () => _showRetroDialog(
                       title: local.settingsAboutTitle,
-                      textContent: local.settingsAboutStory,
+                      textContent: _storyContent['about_story'] ?? "Legend of the Golden Dragon...",
                       titleColor: LogdCodes.uiGreen,
                     ),
                   ),
@@ -821,7 +833,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     color: LogdCodes.uiYellow,
                     onTap: () => _showRetroDialog(
                       title: local.settingsShareDialogTitle,
-                      textContent: local.settingsShareDialogText,
+                      textContent: _storyContent['share_dialog_text'] ?? "Deel het rijk...",
                       titleColor: LogdCodes.uiYellow,
                       customActions: [
                         TextButton(
@@ -850,7 +862,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     color: LogdCodes.uiYellow,
                     onTap: () => _showRetroDialog(
                       title: local.settingsRateDialogTitle,
-                      textContent: local.settingsRateDialogText,
+                      textContent: _storyContent['rate_dialog_text'] ?? "Geniet je van je avonturen?",
                       titleColor: LogdCodes.uiYellow,
                       customActions: [
                         TextButton(
@@ -885,7 +897,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     color: LogdCodes.uiPurple,
                     onTap: () => _showRetroDialog(
                       title: local.settingsPrivacyDialogTitle,
-                      textContent: local.settingsPrivacyDialogText,
+                      textContent: _storyContent['privacy_dialog_text'] ?? "Bij LOGD respecteren we de privacy...",
                       titleColor: LogdCodes.uiPurple,
                     ),
                   ),

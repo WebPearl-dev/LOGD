@@ -36,7 +36,7 @@
   "merilon_buy_12": "'Jet black and mysterious. It absorbs the light around you, making you look delightfully slender and intimidating in the shadow of the forest.'",
   "merilon_buy_13": "'Made from the scales of fallen reptiles. This armor laughs at fire. Ideal if you plan on attending a barbecue anytime soon...'",
   "merilon_buy_14": "'Blessed in the great cathedral. The golden trim radiates pure authority. Even the Necromancers will think twice before touching you.'",
-  "merilon_buy_15": "Merilon makes a theatrical bow. 'The absolute pinnacle of haute couture and defense. Forged by the gods, worn by you. The Green Dragon will break his own teeth on your chest!',",
+  "merilon_buy_15": "Merilon makes a theatrical bow. 'The absolute pinnacle of haute couture and defense. Forged by the gods, worn by you. The Green Dragon will break his own teeth on your chest!'",
   "pegasus_talk_1": "'A good sword is like a good friend: it never betrays you in the dark. Except if it's a rune sword, those tend to glow sometimes.'",
   "pegasus_talk_2": "'Those elves across the street with their shiny armors... Beautiful, sure, but when a troll hits with a tree trunk, shine is useless. Then you need a heavy weapon to strike first!'",
   "pegasus_talk_3": "'Did you know I once forged a sword for Master Kane? That man split a boulder in two as if it were a ripe melon. Good times.'",
@@ -56,5 +56,7 @@
   "merilon_talk_7": "'Interest at the bank is nice, but investing in a gleaming plate armor is truly a safe investment in your future.'",
   "merilon_talk_8": "'My prices are non-negotiable. Elegance knows no discount. Fortunately, you do get a neat trade-in price for your old rags.'",
   "merilon_talk_9": "'The smell of that furnace across the street ruins the texture of my silk curtains. But well, a town needs a smith, no matter how rowdy he is.'",
-  "merilon_talk_10": "'Try to walk upright when you leave my shop. My armors only truly come into their own with a royal posture!'"
+  "merilon_talk_10": "'Try to walk upright when you leave my shop. My armors only truly come into their own with a royal posture!'",
+  "smithy_welcome": "`gYou walk onto the lively market. To the left you see the smoking forge of Pegasus, to the right the elegant boutique of Merilon.`w",
+  "alchemist_welcome": "`gYou step into a dark, mystic laboratory. Everywhere glass flasks bubble with strange, steaming liquids. An old alchemist with thick glasses looks up:\n\n\"Ah, an adventurer! Looking for extra strength for the forest? My elixers grant you temporary unprecedented power in your next battles. Choose wisely!\"`w"
 }

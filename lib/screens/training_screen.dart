@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import '../services/combat_engine.dart';
 import '../services/forest_manager.dart';
@@ -20,6 +21,7 @@ class TrainingScreen extends StatefulWidget {
 class _TrainingScreenState extends State<TrainingScreen> {
   final _supabase = Supabase.instance.client;
   final _combatEngine = CombatEngine();
+  Map<String, dynamic> _storyContent = {};
 
   int goldOnHand = 0, gems = 0, turns = 0, level = 1, experience = 0;
   int playerHp = 20, playerMaxHp = 20;
@@ -38,6 +40,16 @@ class _TrainingScreenState extends State<TrainingScreen> {
   void initState() {
     super.initState();
     _loadTrainingData();
+    _loadStoryContent();
+  }
+
+  Future<void> _loadStoryContent() async {
+    final content = await StoryService.loadLocationContent(context, 'locatie_training');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+      });
+    }
   }
 
   Future<void> _loadTrainingData() async {
@@ -247,7 +259,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (!_isInCombat) ...[
-                      LogdText(text: local.trainingWelcome, fontSize: LogdCodes.fontSizeDefault),
+                      LogdText(text: _storyContent['welcome'] ?? "Je stapt de serene trainingsruimte binnen...", fontSize: LogdCodes.fontSizeDefault),
                       const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: Colors.grey)),
                     ],
 

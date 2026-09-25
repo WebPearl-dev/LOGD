@@ -77,7 +77,7 @@ class TownSquareController {
         latestNewsItem = {
           'log_type': 'welcome',
           'username': storyContent['guest_username'] ?? local?.guestPlayerName ?? 'Gast Reiziger',
-          'message': storyContent['guest_welcome_news'] ?? local?.guestWelcomeNews ?? 'Welkom in de wereld van de Gouden Draak als gast!'
+          'message': storyContent['guest_welcome_news'] ?? 'Welkom in de wereld van de Gouden Draak als gast!'
         };
         isLoading = false;
         onUpdate();

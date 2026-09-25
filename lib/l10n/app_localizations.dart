@@ -163,12 +163,6 @@ abstract class AppLocalizations {
   /// **'`4Vluchten mislukt! De {enemy} blokkeert je weg en doet {damage} schade tijdens je vluchtpoging!`w'**
   String fleeFailed(Object damage, Object enemy);
 
-  /// No description provided for @townSquareWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schazuw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w'**
-  String get townSquareWelcome;
-
   /// No description provided for @btnGoToForest.
   ///
   /// In nl, this message translates to:
@@ -373,12 +367,6 @@ abstract class AppLocalizations {
   /// **'De Centrale Bank van het Rijk'**
   String get bankTitle;
 
-  /// No description provided for @bankWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe loopt het statige gebouw van de bank binnen. Een dwerg achter de balie kijkt je streng aan door zijn bril.`w\n\n\"Welkom reiziger. Hier kun je je goud veilig stallen voor het geval je de monsters in het bos onderschat. Wat wil je doen?\"'**
-  String get bankWelcome;
-
   /// No description provided for @bankInBank.
   ///
   /// In nl, this message translates to:
@@ -475,12 +463,6 @@ abstract class AppLocalizations {
   /// **'Kies je Ras'**
   String get raceTitle;
 
-  /// No description provided for @raceWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gVoordat je het rijk betreedt, moet je bepalen uit welk hout je gesneden bent. Kies zorgvuldig, reiziger...`w'**
-  String get raceWelcome;
-
   /// No description provided for @raceHuman.
   ///
   /// In nl, this message translates to:
@@ -540,12 +522,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Kies je Specialisatie'**
   String get specialtyTitle;
-
-  /// No description provided for @specialtyWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gElke reiziger in het rijk blinkt ergens anders in uit. Kies het pad dat bij jouw vechtstijl past...`w'**
-  String get specialtyWelcome;
 
   /// No description provided for @specMagic.
   ///
@@ -660,12 +636,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'De Markt van Oaktaven'**
   String get smithyTitle;
-
-  /// No description provided for @smithyWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w'**
-  String get smithyWelcome;
 
   /// No description provided for @smithyCurrentEquip.
   ///
@@ -961,12 +931,6 @@ abstract class AppLocalizations {
   /// **'De Trainingsruimte van de Meesters'**
   String get trainingTitle;
 
-  /// No description provided for @trainingWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Meester staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je echt klaar voor de volgende stap?\"'**
-  String get trainingWelcome;
-
   /// No description provided for @trainingStatusReq.
   ///
   /// In nl, this message translates to:
@@ -1039,12 +1003,6 @@ abstract class AppLocalizations {
   /// **'De Oude Waterbron'**
   String get eventFountainTitle;
 
-  /// No description provided for @eventFountainDesc.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe struikelt over een overgroeide, vervallen waterbron bedekt met mos. In het kristalheldere water op de bodem zie je iets glinsteren...`w\n\nWat doe je?'**
-  String get eventFountainDesc;
-
   /// No description provided for @btnEventFountainDive.
   ///
   /// In nl, this message translates to:
@@ -1080,12 +1038,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'De Slapende Reus'**
   String get eventGiantTitle;
-
-  /// No description provided for @eventGiantDesc.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gVoor je op het pad ligt een gigantische bosreus luidruchtig te ronken. De grond trilt bij elke snurk. Om zijn nek hangt een leren buidel...`w\n\nWat doe je?'**
-  String get eventGiantDesc;
 
   /// No description provided for @btnEventGiantSneak.
   ///
@@ -1165,12 +1117,6 @@ abstract class AppLocalizations {
   /// **'De Schimmige Begraafplaats'**
   String get graveyardTitle;
 
-  /// No description provided for @graveyardWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`4Je bent gestorven!`w\n\n`gDe ijzige mist trekt op en je staat oog in oog met Magere Hein. Zijn holle ogen staren diep in je ziel. Een zware stem galmt door de stilte:`w\n\n\"Je tijd is gekomen, sterveling. Maar ik ben in een gulle bui... Als je mij een kostbare Edelsteen schenkt of een deel van je Ervaring opoffert, geef ik je je sterfelijke lichaam direct terug. Wat kies je?\"'**
-  String get graveyardWelcome;
-
   /// No description provided for @btnGraveyardOfferGem.
   ///
   /// In nl, this message translates to:
@@ -1218,12 +1164,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Het Dagelijks Nieuws van het Rijk'**
   String get newsTitle;
-
-  /// No description provided for @newsWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe loopt naar het houten mededelingenbord in het midden van het plein. Er hangen een paar vers perkamenten vellen die door de wind zachtjes klapperen.`w\n\n\"Hoor en zegt het voort! Dit is wat er vandaag in ons rijk is voorgevallen:\"'**
-  String get newsWelcome;
 
   /// No description provided for @newsEmpty.
   ///
@@ -1387,12 +1327,6 @@ abstract class AppLocalizations {
   /// **'Herberg \'De Dronken Draak\''**
   String get innTitle;
 
-  /// No description provided for @innWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aansluiten bij de goktafel, of drink een slok!\"'**
-  String get innWelcome;
-
   /// No description provided for @innDiceTitle.
   ///
   /// In nl, this message translates to:
@@ -1458,12 +1392,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'De Koninklijke Stallen'**
   String get stablesTitle;
-
-  /// No description provided for @stablesWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe loopt de stallen binnen. De geur van vers hooi en leder vult de ruimte. De stalmeester loopt op je af en tikt tegen zijn hoed:`w\n\n\"Welkom reiziger! Zoek je een trouwe metgezel voor je reizen? Een goed rijdier beschermt je in de strijd en zorgt dat je elke dag sneller kunt reizen!\"'**
-  String get stablesWelcome;
 
   /// No description provided for @stablesCurrentMount.
   ///
@@ -1554,12 +1482,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Het Serene Klooster'**
   String get churchTitle;
-
-  /// No description provided for @churchWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe stapt de imposante, stille kerk binnen. Het weinige licht valt door de glas-in-loodramen op het altaar. Er hangt een geur van wierook en oude perkamenten.`w\n\n\"Kniel neer, reiziger,\" fluistert een monnik in een lange pij. \"Doe een gebed tot de Goden van het Rijk. Maar wees gewaarschuwd... de Goden zijn wispelturig!\"'**
-  String get churchWelcome;
 
   /// No description provided for @btnChurchPray.
   ///
@@ -1657,12 +1579,6 @@ abstract class AppLocalizations {
   /// **'De Alchemist'**
   String get alchemistTitle;
 
-  /// No description provided for @alchemistWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe stapt een donker, mystiek laboratorium binnen. Overal pruttelen glazen kolven met vreemde, dampende vloeistoffen. Een oude alchemist met een dikke bril kijkt op:`w\n\n\"Ah, een avonturier! Zoek je extra kracht voor in het bos? Mijn elixers geven je tijdelijk ongekende macht in je eerstvolgende gevechten. Kies verstandig!\"'**
-  String get alchemistWelcome;
-
   /// No description provided for @alchemistCurrentBoosts.
   ///
   /// In nl, this message translates to:
@@ -1717,12 +1633,6 @@ abstract class AppLocalizations {
   /// **'Een Nieuwe Dag Breekt Aan!'**
   String get resetNewDayTitle;
 
-  /// No description provided for @resetNewDayMessage.
-  ///
-  /// In nl, this message translates to:
-  /// **'`2De zon komt op over het rijk en de vogels beginnen te fluiten. Je voelt je uitgerust en vol energie voor nieuwe avonturen!`w\n\nJe beurten zijn aangevuld en de poorten naar het Dorpsplein staan weer wijd open!'**
-  String get resetNewDayMessage;
-
   /// No description provided for @btnStartDay.
   ///
   /// In nl, this message translates to:
@@ -1758,12 +1668,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'De Oude Kluizenaar'**
   String get eventHermitTitle;
-
-  /// No description provided for @eventHermitDesc.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gTussen de dichte begroeiing zie je een kleine, gecamoufleerde hut. Een stokoude kluizenaar met een lange baard zit voor de deur op een boomstam.`w\n\n\"Ah, jonge reiziger,\" spreekt hij met een krakerige stem. \"Je bent ver van het Dorpsplein. Drink een beker kruidenthee met mij. Het zal je vermoeide benen direct verkwikken!\"'**
-  String get eventHermitDesc;
 
   /// No description provided for @eventHermitSuccess.
   ///
@@ -2621,12 +2525,6 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get btnOk;
 
-  /// No description provided for @healerFallbackWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'De hut van Althea...'**
-  String get healerFallbackWelcome;
-
   /// No description provided for @healerFallbackHealthy.
   ///
   /// In nl, this message translates to:
@@ -3113,12 +3011,6 @@ abstract class AppLocalizations {
   /// **'Het Drakenheiligdom'**
   String get dragonShrineTitle;
 
-  /// No description provided for @dragonShrineWelcome.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe stapt een verborgen, met klimop begroeide ruïne net buiten het dorpsplein binnen. In het midden zweeft een mystiek, zacht gloeiend kristal dat pulseert met pure energie. Zodra je dichterbij komt, vormt de energie zich tot het gezicht van een oude woudgod.`w'**
-  String get dragonShrineWelcome;
-
   /// No description provided for @dragonShrinePoints.
   ///
   /// In nl, this message translates to:
@@ -3172,12 +3064,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Gast Reiziger'**
   String get guestPlayerName;
-
-  /// No description provided for @guestWelcomeNews.
-  ///
-  /// In nl, this message translates to:
-  /// **'Welkom in de wereld van de Gouden Draak als gast!'**
-  String get guestWelcomeNews;
 
   /// No description provided for @alleyBribeDefaultName.
   ///
@@ -3299,12 +3185,6 @@ abstract class AppLocalizations {
   /// **'Lees het verhaal achter Legend of the Golden Dragon.'**
   String get settingsAboutSubtitle;
 
-  /// No description provided for @settingsAboutStory.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren \'80 en \'90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w'**
-  String get settingsAboutStory;
-
   /// No description provided for @settingsShareTitle.
   ///
   /// In nl, this message translates to:
@@ -3322,12 +3202,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Deel het Rijk'**
   String get settingsShareDialogTitle;
-
-  /// No description provided for @settingsShareDialogText.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w'**
-  String get settingsShareDialogText;
 
   /// No description provided for @settingsBtnShare.
   ///
@@ -3353,12 +3227,6 @@ abstract class AppLocalizations {
   /// **'Beoordeel LOGD'**
   String get settingsRateDialogTitle;
 
-  /// No description provided for @settingsRateDialogText.
-  ///
-  /// In nl, this message translates to:
-  /// **'`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w'**
-  String get settingsRateDialogText;
-
   /// No description provided for @settingsBtnRate.
   ///
   /// In nl, this message translates to:
@@ -3382,12 +3250,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Stuur Feedback'**
   String get settingsFeedbackDialogTitle;
-
-  /// No description provided for @settingsFeedbackDialogText.
-  ///
-  /// In nl, this message translates to:
-  /// **'`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w'**
-  String get settingsFeedbackDialogText;
 
   /// No description provided for @settingsFeedbackHint.
   ///
@@ -3425,12 +3287,6 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get settingsPrivacyDialogTitle;
 
-  /// No description provided for @settingsPrivacyDialogText.
-  ///
-  /// In nl, this message translates to:
-  /// **'`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w'**
-  String get settingsPrivacyDialogText;
-
   /// No description provided for @btnClose.
   ///
   /// In nl, this message translates to:
@@ -3455,23 +3311,11 @@ abstract class AppLocalizations {
   /// **'1. Het Dorpshart & Gebouwen'**
   String get tutorialStep1Title;
 
-  /// No description provided for @tutorialStep1Content.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gHet Dorpshart is het bruisende centrum van het rijk.`w\n\nHier vind je alle belangrijke gebouwen:\n\n• `yDe Bank`w: Stall je goud veilig tegen struikrovers en verdien rente.\n• `cHerberg & Genezer`w: Herstel je HP, ontmoet reizigers of neem een behandeling.\n• `pKerk & Altaar`w: Bied offers voor goddelijke zegeningen.\n• `2Winkels & Stallen`w: Koop uitrusting, elixers en rijdieren.'**
-  String get tutorialStep1Content;
-
   /// No description provided for @tutorialStep2Title.
   ///
   /// In nl, this message translates to:
   /// **'2. Het Bos & De Gevechten'**
   String get tutorialStep2Title;
-
-  /// No description provided for @tutorialStep2Content.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gHet Bos is de plek waar je als avonturier traint!`w\n\n• Elke zoektocht of gevecht kost `c1 Dagelijkse Beurt`w.\n• Versla monsters om `yGoud`w en `cErvaring (XP)`w te verzamelen.\n• Pas op voor je HP: als je bezwijkt in de strijd, ben je `4DOOD`w en verlies je al het goud dat je op zak had!'**
-  String get tutorialStep2Content;
 
   /// No description provided for @tutorialStep3Title.
   ///
@@ -3479,35 +3323,17 @@ abstract class AppLocalizations {
   /// **'3. Smederij & Uitrusting'**
   String get tutorialStep3Title;
 
-  /// No description provided for @tutorialStep3Content.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gZonder goede spullen ben je kansloos tegen sterke monsters!`w\n\n• Bezoek de `ySmederij`w op het dorpsplein.\n• Koop krachtige `yWapens`w om meer schade uit te delen.\n• Koop stevige `cHarnassen`w om minder schade te incasseren.\n• Upgrade je spullen zodra je genoeg goud hebt gespaard.'**
-  String get tutorialStep3Content;
-
   /// No description provided for @tutorialStep4Title.
   ///
   /// In nl, this message translates to:
   /// **'4. Krijgshof & Level-Ups'**
   String get tutorialStep4Title;
 
-  /// No description provided for @tutorialStep4Content.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gHeb je voldoende XP verzameld in het bos?`w\n\n• Ga naar het `pKrijgshof`w op het Dorpsplein.\n• Daag de Meester uit voor een test van je krachten.\n• Versla de Meester om te `2Stijgen in Level`w!\n• Je stijgt in Max HP, leert nieuwe vaardigheden en krijgt toegang tot betere uitrusting.'**
-  String get tutorialStep4Content;
-
   /// No description provided for @tutorialStep5Title.
   ///
   /// In nl, this message translates to:
   /// **'5. Nieuwe Dag & De Draak'**
   String get tutorialStep5Title;
-
-  /// No description provided for @tutorialStep5Content.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gElke nieuwe dag brengt nieuwe kansen!`w\n\n• Elke 24 uur vindt er een `cNieuwe Dag`w reset plaats.\n• Je krijgt nieuwe bosbeurten en rente over je bankgoud.\n• Blijf vechten, sparen en trainen tot je `yLevel 15`w bereikt.\n• Maak je klaar voor het ultieme gevecht tegen de legendarische `4Gouden Draak`w!'**
-  String get tutorialStep5Content;
 
   /// No description provided for @tutorialBtnPrevious.
   ///

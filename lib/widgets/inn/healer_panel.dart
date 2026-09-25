@@ -28,7 +28,7 @@ class HealerPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
     final String welcomeText =
-        storyContent['healer_welcome'] ?? local.healerFallbackWelcome;
+        storyContent['healer_welcome'] ?? "De hut van Althea...";
     final String healthyText =
         storyContent['healer_healthy'] ?? local.healerFallbackHealthy;
 

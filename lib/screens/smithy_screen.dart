@@ -122,7 +122,7 @@ class _SmithyScreenState extends State<SmithyScreen> {
               height: 110,
               child: SingleChildScrollView(
                 child: LogdText(
-                  text: _displayLog.isEmpty ? local.smithyWelcome : _displayLog,
+                  text: _displayLog.isEmpty ? (_con.storyContent['smithy_welcome'] ?? "") : _displayLog,
                   fontSize: LogdCodes.fontSizeDefault,
                 ),
               ),

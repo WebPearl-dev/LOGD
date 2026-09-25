@@ -64,10 +64,6 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get townSquareWelcome =>
-      '`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schazuw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w';
-
-  @override
   String get btnGoToForest => 'Ga het bos in';
 
   @override
@@ -183,10 +179,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get bankTitle => 'De Centrale Bank van het Rijk';
 
   @override
-  String get bankWelcome =>
-      '`gJe loopt het statige gebouw van de bank binnen. Een dwerg achter de balie kijkt je streng aan door zijn bril.`w\n\n\"Welkom reiziger. Hier kun je je goud veilig stallen voor het geval je de monsters in het bos onderschat. Wat wil je doen?\"';
-
-  @override
   String bankInBank(Object amount) {
     return 'Goud op de bank: `y$amount goudstukken`w';
   }
@@ -250,10 +242,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get raceTitle => 'Kies je Ras';
 
   @override
-  String get raceWelcome =>
-      '`gVoordat je het rijk betreedt, moet je bepalen uit welk hout je gesneden bent. Kies zorgvuldig, reiziger...`w';
-
-  @override
   String get raceHuman => 'Mens';
 
   @override
@@ -286,10 +274,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get specialtyTitle => 'Kies je Specialisatie';
-
-  @override
-  String get specialtyWelcome =>
-      '`gElke reiziger in het rijk blinkt ergens anders in uit. Kies het pad dat bij jouw vechtstijl past...`w';
 
   @override
   String get specMagic => 'Mystieke Krachten (Magic)';
@@ -367,10 +351,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get smithyTitle => 'De Markt van Oaktaven';
-
-  @override
-  String get smithyWelcome =>
-      '`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w';
 
   @override
   String get smithyCurrentEquip => 'Huidige uitrusting:';
@@ -530,10 +510,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get trainingTitle => 'De Trainingsruimte van de Meesters';
 
   @override
-  String get trainingWelcome =>
-      '`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Meester staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je echt klaar voor de volgende stap?\"';
-
-  @override
   String trainingStatusReq(Object currentXp, Object nextLvl, Object reqXp) {
     return 'Vereiste XP voor Level $nextLvl: `c$reqXp XP`w (Huidig: `c$currentXp XP`w)';
   }
@@ -577,10 +553,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get eventFountainTitle => 'De Oude Waterbron';
 
   @override
-  String get eventFountainDesc =>
-      '`gJe struikelt over een overgroeide, vervallen waterbron bedekt met mos. In het kristalheldere water op de bodem zie je iets glinsteren...`w\n\nWat doe je?';
-
-  @override
   String get btnEventFountainDive => 'Duik erin';
 
   @override
@@ -602,10 +574,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get eventGiantTitle => 'De Slapende Reus';
-
-  @override
-  String get eventGiantDesc =>
-      '`gVoor je op het pad ligt een gigantische bosreus luidruchtig te ronken. De grond trilt bij elke snurk. Om zijn nek hangt een leren buidel...`w\n\nWat doe je?';
 
   @override
   String get btnEventGiantSneak => 'Sluip erlangs';
@@ -653,10 +621,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get graveyardTitle => 'De Schimmige Begraafplaats';
 
   @override
-  String get graveyardWelcome =>
-      '`4Je bent gestorven!`w\n\n`gDe ijzige mist trekt op en je staat oog in oog met Magere Hein. Zijn holle ogen staren diep in je ziel. Een zware stem galmt door de stilte:`w\n\n\"Je tijd is gekomen, sterveling. Maar ik ben in een gulle bui... Als je mij een kostbare Edelsteen schenkt of een deel van je Ervaring opoffert, geef ik je je sterfelijke lichaam direct terug. Wat kies je?\"';
-
-  @override
   String get btnGraveyardOfferGem => 'Offer 1 Edelsteen (Gem)';
 
   @override
@@ -683,10 +647,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get newsTitle => 'Het Dagelijks Nieuws van het Rijk';
-
-  @override
-  String get newsWelcome =>
-      '`gJe loopt naar het houten mededelingenbord in het midden van het plein. Er hangen een paar vers perkamenten vellen die door de wind zachtjes klapperen.`w\n\n\"Hoor en zegt het voort! Dit is wat er vandaag in ons rijk is voorgevallen:\"';
 
   @override
   String get newsEmpty =>
@@ -784,10 +744,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get innTitle => 'Herberg \'De Dronken Draak\'';
 
   @override
-  String get innWelcome =>
-      '`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aansluiten bij de goktafel, of drink een slok!\"';
-
-  @override
   String get innDiceTitle => '=== DE GOKTAFEL ===';
 
   @override
@@ -831,10 +787,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get stablesTitle => 'De Koninklijke Stallen';
-
-  @override
-  String get stablesWelcome =>
-      '`gJe loopt de stallen binnen. De geur van vers hooi en leder vult de ruimte. De stalmeester loopt op je af en tikt tegen zijn hoed:`w\n\n\"Welkom reiziger! Zoek je een trouwe metgezel voor je reizen? Een goed rijdier beschermt je in de strijd en zorgt dat je elke dag sneller kunt reizen!\"';
 
   @override
   String stablesCurrentMount(Object mount) {
@@ -891,10 +843,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get churchTitle => 'Het Serene Klooster';
-
-  @override
-  String get churchWelcome =>
-      '`gJe stapt de imposante, stille kerk binnen. Het weinige licht valt door de glas-in-loodramen op het altaar. Er hangt een geur van wierook en oude perkamenten.`w\n\n\"Kniel neer, reiziger,\" fluistert een monnik in een lange pij. \"Doe een gebed tot de Goden van het Rijk. Maar wees gewaarschuwd... de Goden zijn wispelturig!\"';
 
   @override
   String get btnChurchPray => 'Doe een Gebed';
@@ -962,10 +910,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get alchemistTitle => 'De Alchemist';
 
   @override
-  String get alchemistWelcome =>
-      '`gJe stapt een donker, mystiek laboratorium binnen. Overal pruttelen glazen kolven met vreemde, dampende vloeistoffen. Een oude alchemist met een dikke bril kijkt op:`w\n\n\"Ah, een avonturier! Zoek je extra kracht voor in het bos? Mijn elixers geven je tijdelijk ongekende macht in je eerstvolgende gevechten. Kies verstandig!\"';
-
-  @override
   String alchemistCurrentBoosts(Object atk, Object def) {
     return 'Actieve elixers: `2$atk Atk`w | `c$def Def`w';
   }
@@ -1001,10 +945,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get resetNewDayTitle => 'Een Nieuwe Dag Breekt Aan!';
 
   @override
-  String get resetNewDayMessage =>
-      '`2De zon komt op over het rijk en de vogels beginnen te fluiten. Je voelt je uitgerust en vol energie voor nieuwe avonturen!`w\n\nJe beurten zijn aangevuld en de poorten naar het Dorpsplein staan weer wijd open!';
-
-  @override
   String get btnStartDay => 'Begin de nieuwe dag';
 
   @override
@@ -1026,10 +966,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get eventHermitTitle => 'De Oude Kluizenaar';
-
-  @override
-  String get eventHermitDesc =>
-      '`gTussen de dichte begroeiing zie je een kleine, gecamoufleerde hut. Een stokoude kluizenaar met een lange baard zit voor de deur op een boomstam.`w\n\n\"Ah, jonge reiziger,\" spreekt hij met een krakerige stem. \"Je bent ver van het Dorpsplein. Drink een beker kruidenthee met mij. Het zal je vermoeide benen direct verkwikken!\"';
 
   @override
   String get eventHermitSuccess =>
@@ -1539,9 +1475,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnOk => 'OK';
 
   @override
-  String get healerFallbackWelcome => 'De hut van Althea...';
-
-  @override
   String get healerFallbackHealthy => 'Je bent al kerngezond!';
 
   @override
@@ -1805,10 +1738,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get dragonShrineTitle => 'Het Drakenheiligdom';
 
   @override
-  String get dragonShrineWelcome =>
-      '`gJe stapt een verborgen, met klimop begroeide ruïne net buiten het dorpsplein binnen. In het midden zweeft een mystiek, zacht gloeiend kristal dat pulseert met pure energie. Zodra je dichterbij komt, vormt de energie zich tot het gezicht van een oude woudgod.`w';
-
-  @override
   String dragonShrinePoints(Object amount) {
     return 'Drakenpunten (DP): `y$amount`w';
   }
@@ -1838,10 +1767,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get guestPlayerName => 'Gast Reiziger';
-
-  @override
-  String get guestWelcomeNews =>
-      'Welkom in de wereld van de Gouden Draak als gast!';
 
   @override
   String get alleyBribeDefaultName => 'Een gure reiziger';
@@ -1908,10 +1833,6 @@ class AppLocalizationsNl extends AppLocalizations {
       'Lees het verhaal achter Legend of the Golden Dragon.';
 
   @override
-  String get settingsAboutStory =>
-      '`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren \'80 en \'90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w';
-
-  @override
   String get settingsShareTitle => 'App Delen';
 
   @override
@@ -1920,10 +1841,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get settingsShareDialogTitle => 'Deel het Rijk';
-
-  @override
-  String get settingsShareDialogText =>
-      '`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w';
 
   @override
   String get settingsBtnShare => 'Deel nu';
@@ -1939,10 +1856,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settingsRateDialogTitle => 'Beoordeel LOGD';
 
   @override
-  String get settingsRateDialogText =>
-      '`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w';
-
-  @override
   String get settingsBtnRate => 'Beoordelen';
 
   @override
@@ -1954,10 +1867,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get settingsFeedbackDialogTitle => 'Stuur Feedback';
-
-  @override
-  String get settingsFeedbackDialogText =>
-      '`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w';
 
   @override
   String get settingsFeedbackHint => 'Typ hier je feedback...';
@@ -1979,10 +1888,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settingsPrivacyDialogTitle => 'Privacy Policy';
 
   @override
-  String get settingsPrivacyDialogText =>
-      '`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w';
-
-  @override
   String get btnClose => 'Sluiten';
 
   @override
@@ -1997,36 +1902,16 @@ class AppLocalizationsNl extends AppLocalizations {
   String get tutorialStep1Title => '1. Het Dorpshart & Gebouwen';
 
   @override
-  String get tutorialStep1Content =>
-      '`gHet Dorpshart is het bruisende centrum van het rijk.`w\n\nHier vind je alle belangrijke gebouwen:\n\n• `yDe Bank`w: Stall je goud veilig tegen struikrovers en verdien rente.\n• `cHerberg & Genezer`w: Herstel je HP, ontmoet reizigers of neem een behandeling.\n• `pKerk & Altaar`w: Bied offers voor goddelijke zegeningen.\n• `2Winkels & Stallen`w: Koop uitrusting, elixers en rijdieren.';
-
-  @override
   String get tutorialStep2Title => '2. Het Bos & De Gevechten';
-
-  @override
-  String get tutorialStep2Content =>
-      '`gHet Bos is de plek waar je als avonturier traint!`w\n\n• Elke zoektocht of gevecht kost `c1 Dagelijkse Beurt`w.\n• Versla monsters om `yGoud`w en `cErvaring (XP)`w te verzamelen.\n• Pas op voor je HP: als je bezwijkt in de strijd, ben je `4DOOD`w en verlies je al het goud dat je op zak had!';
 
   @override
   String get tutorialStep3Title => '3. Smederij & Uitrusting';
 
   @override
-  String get tutorialStep3Content =>
-      '`gZonder goede spullen ben je kansloos tegen sterke monsters!`w\n\n• Bezoek de `ySmederij`w op het dorpsplein.\n• Koop krachtige `yWapens`w om meer schade uit te delen.\n• Koop stevige `cHarnassen`w om minder schade te incasseren.\n• Upgrade je spullen zodra je genoeg goud hebt gespaard.';
-
-  @override
   String get tutorialStep4Title => '4. Krijgshof & Level-Ups';
 
   @override
-  String get tutorialStep4Content =>
-      '`gHeb je voldoende XP verzameld in het bos?`w\n\n• Ga naar het `pKrijgshof`w op het Dorpsplein.\n• Daag de Meester uit voor een test van je krachten.\n• Versla de Meester om te `2Stijgen in Level`w!\n• Je stijgt in Max HP, leert nieuwe vaardigheden en krijgt toegang tot betere uitrusting.';
-
-  @override
   String get tutorialStep5Title => '5. Nieuwe Dag & De Draak';
-
-  @override
-  String get tutorialStep5Content =>
-      '`gElke nieuwe dag brengt nieuwe kansen!`w\n\n• Elke 24 uur vindt er een `cNieuwe Dag`w reset plaats.\n• Je krijgt nieuwe bosbeurten en rente over je bankgoud.\n• Blijf vechten, sparen en trainen tot je `yLevel 15`w bereikt.\n• Maak je klaar voor het ultieme gevecht tegen de legendarische `4Gouden Draak`w!';
 
   @override
   String get tutorialBtnPrevious => 'Vorige';

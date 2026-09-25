@@ -64,10 +64,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get townSquareWelcome =>
-      '`gWelcome to the Town Square of `yLord of the Golden Dragon`w!\n\nThe sun shines over the realm. Travelers talk in the shade, and in the distance you hear the roaring from the forest... What are you going to do today?`w';
-
-  @override
   String get btnGoToForest => 'Enter the forest';
 
   @override
@@ -180,10 +176,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bankTitle => 'The Central Bank of the Realm';
 
   @override
-  String get bankWelcome =>
-      '`gYou walk into the stately building of the bank. A dwarf behind the counter stares at you strictly through his glasses.`w\n\n\"Welcome traveler. Here you can safely store your gold in case you underestimate the monsters in the forest. What do you want to do?\"';
-
-  @override
   String bankInBank(Object amount) {
     return 'Gold in bank: `y$amount gold pieces`w';
   }
@@ -248,10 +240,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get raceTitle => 'Choose your Race';
 
   @override
-  String get raceWelcome =>
-      '`gBefore you enter the realm, you must determine what you are made of. Choose carefully, traveler...`w';
-
-  @override
   String get raceHuman => 'Human';
 
   @override
@@ -283,10 +271,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get specialtyTitle => 'Choose your Specialty';
-
-  @override
-  String get specialtyWelcome =>
-      '`gEvery traveler in the realm excels in something else. Choose the path that matches your fighting style...`w';
 
   @override
   String get specMagic => 'Mystic Powers (Magic)';
@@ -364,10 +348,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get smithyTitle => 'The Market of Oaktaven';
-
-  @override
-  String get smithyWelcome =>
-      '`gYou walk onto the lively market. To the left you see the smoking forge of Pegasus, to the right the elegant boutique of Merilon.`w';
 
   @override
   String get smithyCurrentEquip => 'Current equipment:';
@@ -527,10 +507,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get trainingTitle => 'The Training Room of the Masters';
 
   @override
-  String get trainingWelcome =>
-      '`gYou step into the serene, incense-scented training room. Your Master stands with crossed arms in the middle of the mat.`w\n\n\"Welcome, traveler. I see you have fought in the forest. But are you truly ready for the next step?\"';
-
-  @override
   String trainingStatusReq(Object currentXp, Object nextLvl, Object reqXp) {
     return 'Required XP for Level $nextLvl: `c$reqXp XP`w (Current: `c$currentXp XP`w)';
   }
@@ -573,10 +549,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eventFountainTitle => 'The Old Water Fountain';
 
   @override
-  String get eventFountainDesc =>
-      '`gYou stumble upon an overgrown, dilapidated water fountain covered in moss. In the crystal-clear water at the bottom, you see something gleaming...`w\n\nWhat do you do?';
-
-  @override
   String get btnEventFountainDive => 'Dive in';
 
   @override
@@ -598,10 +570,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eventGiantTitle => 'The Sleeping Giant';
-
-  @override
-  String get eventGiantDesc =>
-      '`gAhead on the path, a gigantic forest giant lies snoring loudly. The ground shakes with every snore. Around his neck hangs a leather pouch...`w\n\nWhat do you do?';
 
   @override
   String get btnEventGiantSneak => 'Sneak past';
@@ -649,10 +617,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get graveyardTitle => 'The Shadowy Graveyard';
 
   @override
-  String get graveyardWelcome =>
-      '`4You have died!`w\n\n`gThe icy mist clears and you stand face to face with the Grim Reaper. His hollow eyes stare deep into your soul. A heavy voice echoes through the silence:`w\n\n\"Your time has come, mortal. But I am in a generous mood... If you grant me a precious Gem or sacrifice a part of your Experience, I will give you your mortal body back immediately. What do you choose?\"';
-
-  @override
   String get btnGraveyardOfferGem => 'Offer 1 Gem';
 
   @override
@@ -679,10 +643,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newsTitle => 'The Daily News of the Realm';
-
-  @override
-  String get newsWelcome =>
-      '`gYou walk to the wooden notice board in the middle of the square. A few fresh sheets of parchment are gently flapping in the wind.`w\n\n\"Hear ye, hear ye! This is what has occurred in our realm today:\"';
 
   @override
   String get newsEmpty =>
@@ -779,10 +739,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get innTitle => 'Inn \'The Drunken Dragon\'';
 
   @override
-  String get innWelcome =>
-      '`gYou step into the rowdy inn. The smell of roasted meat and strong beer welcomes you. In the corner, a bard sings a terrible retro song, while travelers loudly roll dice.`w\n\n\"Welcome, stranger!\" cries the innkeeper while cleaning a large mug. \"Pull up a chair at the gamble table, or have a drink!\"';
-
-  @override
   String get innDiceTitle => '=== THE GAMBLE TABLE ===';
 
   @override
@@ -826,10 +782,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stablesTitle => 'The Royal Stables';
-
-  @override
-  String get stablesWelcome =>
-      '`gYou enter the stables. The scent of fresh hay and leather fills the air. The stable master walks up to you and taps his hat:`w\n\n\"Welcome traveler! Looking for a loyal companion for your travels? A good mount protects you in battle and ensures you can travel faster every day!\"';
 
   @override
   String stablesCurrentMount(Object mount) {
@@ -886,10 +838,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get churchTitle => 'The Serene Monastery';
-
-  @override
-  String get churchWelcome =>
-      '`gYou step into the imposing, quiet church. The little light falls through the stained-glass windows onto the altar. There is a scent of incense and old parchments.`w\n\n\"Kneel down, traveler,\" whispers a monk in a long robe. \"Say a prayer to the Gods of the Realm. But be warned... the Gods are fickle!\"';
 
   @override
   String get btnChurchPray => 'Say a Prayer';
@@ -957,10 +905,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get alchemistTitle => 'The Alchemist';
 
   @override
-  String get alchemistWelcome =>
-      '`gYou step into a dark, mystic laboratory. Everywhere glass flasks bubble with strange, steaming liquids. An old alchemist with thick glasses looks up:`w\n\n\"Ah, an adventurer! Looking for extra strength for the forest? My elixirs grant you temporary unprecedented power in your next battles. Choose wisely!\"';
-
-  @override
   String alchemistCurrentBoosts(Object atk, Object def) {
     return 'Active elixirs: `2$atk Atk`w | `c$def Def`w';
   }
@@ -996,10 +940,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetNewDayTitle => 'A New Day Dawns!';
 
   @override
-  String get resetNewDayMessage =>
-      '`2The sun rises over the realm and the birds begin to chirp. You feel rested and full of energy for new adventures!`w\n\nYour turns are replenished and the gates to the Town Square are wide open again!';
-
-  @override
   String get btnStartDay => 'Begin the new day';
 
   @override
@@ -1020,10 +960,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eventHermitTitle => 'The Old Hermit';
-
-  @override
-  String get eventHermitDesc =>
-      '`gAmong the dense vegetation you see a small, camouflaged hut. A centuries-old hermit with a long beard sits on a log in front of the door.`w\n\n\"Ah, young traveler,\" he speaks with a crackling voice. \"You are far from the Town Square. Drink a cup of herbal tea with me. It will refresh your tired legs immediately!\"';
 
   @override
   String get eventHermitSuccess =>
@@ -1532,9 +1468,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnOk => 'OK';
 
   @override
-  String get healerFallbackWelcome => 'Althea\'s hut...';
-
-  @override
   String get healerFallbackHealthy => 'You are already perfectly healthy!';
 
   @override
@@ -1797,10 +1730,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dragonShrineTitle => 'The Dragon Shrine';
 
   @override
-  String get dragonShrineWelcome =>
-      '`gYou step into a hidden, ivy-covered ruin just outside the town square. In the center floats a mystic, softly glowing crystal pulsing with pure energy. As you approach, the energy forms into the face of an ancient forest god.`w';
-
-  @override
   String dragonShrinePoints(Object amount) {
     return 'Dragon Points (DP): `y$amount`w';
   }
@@ -1830,10 +1759,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get guestPlayerName => 'Guest Traveler';
-
-  @override
-  String get guestWelcomeNews =>
-      'Welcome to the world of the Golden Dragon as a guest!';
 
   @override
   String get alleyBribeDefaultName => 'A shady traveler';
@@ -1900,10 +1825,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Read the story behind Legend of the Golden Dragon.';
 
   @override
-  String get settingsAboutStory =>
-      '`gLegend of the Golden Dragon is a homage to the classic BBS text adventures of the \'80s and \'90s.\n\nIn a world full of danger, dark monsters, and ancient legends, travelers fight for glory, gold, and the defeat of the fearsome Golden Dragon.\n\nBuild your character, visit the town square, battle in the forest, and conquer a place in the rankings!`w';
-
-  @override
   String get settingsShareTitle => 'Share App';
 
   @override
@@ -1911,10 +1832,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsShareDialogTitle => 'Share the Realm';
-
-  @override
-  String get settingsShareDialogText =>
-      '`gWord of mouth travels faster than a dragon on the wind!\n\nShare LOGD with your friends and battle together in the town square.`w';
 
   @override
   String get settingsBtnShare => 'Share now';
@@ -1929,10 +1846,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsRateDialogTitle => 'Rate LOGD';
 
   @override
-  String get settingsRateDialogText =>
-      '`yEnjoying your adventures in the realm?\n\nLeave a 5-star review to support the creators and attract more travelers to the village!`w';
-
-  @override
   String get settingsBtnRate => 'Rate now';
 
   @override
@@ -1944,10 +1857,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsFeedbackDialogTitle => 'Send Feedback';
-
-  @override
-  String get settingsFeedbackDialogText =>
-      '`cHave a suggestion for a new feature or found a bug?\n\nLet us know! Your feedback helps improve the realm.`w';
 
   @override
   String get settingsFeedbackHint => 'Type your feedback here...';
@@ -1969,10 +1878,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPrivacyDialogTitle => 'Privacy Policy';
 
   @override
-  String get settingsPrivacyDialogText =>
-      '`wAt LOGD we respect every traveler\'s privacy.\n\n• We only collect your email address and character name for account management.\n• Passwords are stored securely encrypted via Supabase Auth.\n• We never sell or share your data with third parties.\n• You can permanently delete your account and data at any time.`w';
-
-  @override
   String get btnClose => 'Close';
 
   @override
@@ -1987,36 +1892,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tutorialStep1Title => '1. Town Square & Buildings';
 
   @override
-  String get tutorialStep1Content =>
-      '`gThe Town Square is the vibrant heart of the realm.`w\n\nHere you\'ll find all essential places:\n\n• `yThe Bank`w: Safely store your gold against robbers and earn interest.\n• `cInn & Herbalist`w: Restore your HP, meet travelers, or enjoy a treatment.\n• `pChurch & Shrine`w: Make offerings for divine blessings.\n• `2Shops & Stables`w: Purchase equipment, potions, and mounts.';
-
-  @override
   String get tutorialStep2Title => '2. The Forest & Combat';
-
-  @override
-  String get tutorialStep2Content =>
-      '`gThe Forest is where you train as an adventurer!`w\n\n• Each search or battle costs `c1 Daily Turn`w.\n• Defeat monsters to collect `yGold`w and `cExperience (XP)`w.\n• Watch your HP: if you fall in battle, you are `4DEAD`w and lose all gold on hand!';
 
   @override
   String get tutorialStep3Title => '3. Smithy & Equipment';
 
   @override
-  String get tutorialStep3Content =>
-      '`gWithout proper gear, you stand no chance against fierce monsters!`w\n\n• Visit the `ySmithy`w in the town square.\n• Buy powerful `yWeapons`w to deal higher damage.\n• Buy sturdy `cArmor`w to reduce incoming damage.\n• Upgrade your equipment as soon as you save up enough gold.';
-
-  @override
   String get tutorialStep4Title => '4. Training Grounds & Level-Ups';
 
   @override
-  String get tutorialStep4Content =>
-      '`gGathered enough XP in the forest?`w\n\n• Head to the `pTraining Grounds`w in the Town Square.\n• Challenge the Master to a test of your strength.\n• Defeat the Master to `2Level Up`w!\n• You\'ll increase Max HP, gain new capabilities, and unlock better equipment.';
-
-  @override
   String get tutorialStep5Title => '5. New Day & The Dragon';
-
-  @override
-  String get tutorialStep5Content =>
-      '`gEvery new day brings fresh opportunities!`w\n\n• Every 24 hours a `cNew Day`w reset takes place.\n• You receive fresh forest turns and interest on banked gold.\n• Keep fighting, saving, and training until you reach `yLevel 15`w.\n• Prepare yourself for the final showdown against the legendary `4Golden Dragon`w!';
 
   @override
   String get tutorialBtnPrevious => 'Previous';

@@ -23,5 +23,11 @@
   "gender_welcome": "`gVoordat je je ras kiest, reiziger... Ben je een dappere Krijger of een moedige Krijgster? Kies je geslacht zorgvuldig.`w",
   "gender_male": "Man ♂️",
   "gender_female": "Vrouw ♀️",
-  "btn_confirm_gender": "Bevestig Geslacht"
+  "btn_confirm_gender": "Bevestig Geslacht",
+  "race_welcome": "`gVoordat je het rijk betreedt, moet je bepalen uit welk hout je gesneden bent. Kies zorgvuldig, reiziger...`w",
+  "specialty_welcome": "`gElke reiziger in het rijk blinkt ergens anders in uit. Kies het pad dat bij jouw vechtstijl past...`w",
+  "news_welcome": "`gJe loopt naar het houten mededelingenbord in het midden van het plein. Er hangen een paar vers perkamenten vellen die door de wind zachtjes klapperen.\n\n\"Hoor en zegt het voort! Dit is wat er vandaag in ons rijk is voorgevallen:\"",
+  "healer_fallback_welcome": "De hut van Althea...",
+  "guest_welcome_news": "Welkom in de wereld van de Gouden Draak als gast!",
+  "reset_new_day_message": "`2De zon komt op over het rijk en de vogels beginnen te fluiten. Je voelt je uitgerust en vol energie voor nieuwe avonturen!`w\n\nJe beurten zijn aangevuld en de poorten naar het Dorpsplein staan weer wijd open!"
 }

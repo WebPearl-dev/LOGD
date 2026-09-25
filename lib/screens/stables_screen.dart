@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import '../services/guest_manager.dart';
 
@@ -16,6 +17,7 @@ class StablesScreen extends StatefulWidget {
 
 class _StablesScreenState extends State<StablesScreen> {
   final _supabase = Supabase.instance.client;
+  Map<String, dynamic> _storyContent = {};
 
   final List<int> _mountGoldCosts = "0,500,1500,5000,20000".split(',').map(int.parse).toList();
   final List<int> _mountGemCosts = "0,0,0,0,5".split(',').map(int.parse).toList();
@@ -33,6 +35,16 @@ class _StablesScreenState extends State<StablesScreen> {
   void initState() {
     super.initState();
     _loadStablesData();
+    _loadStoryContent();
+  }
+
+  Future<void> _loadStoryContent() async {
+    final content = await StoryService.loadLocationContent(context, 'locatie_stallen');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+      });
+    }
   }
 
   Future<void> _loadStablesData() async {
@@ -174,7 +186,7 @@ class _StablesScreenState extends State<StablesScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LogdText(text: local.stablesWelcome, fontSize: LogdCodes.fontSizeDefault),
+                    LogdText(text: _storyContent['welcome'] ?? "Je loopt de stallen binnen...", fontSize: LogdCodes.fontSizeDefault),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: Divider(color: Colors.grey)),
                     if (_statusMessage.isNotEmpty) ...[
                       LogdText(text: _statusMessage, fontSize: LogdCodes.fontSizeDefault),

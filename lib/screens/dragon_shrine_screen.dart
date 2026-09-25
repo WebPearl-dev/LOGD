@@ -28,7 +28,7 @@ class _DragonShrineScreenState extends State<DragonShrineScreen> {
     await _con.loadShrineStats(context);
     if (mounted) {
       setState(() {
-        _displayLog = _con.storyContent['dragonShrineWelcome'] ?? "";
+        _displayLog = _con.storyContent['welcome'] ?? "";
         _isInitLoading = false;
       });
     }

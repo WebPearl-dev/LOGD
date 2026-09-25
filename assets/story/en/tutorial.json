@@ -1,0 +1,12 @@
+{
+  "step1_title": "1. Town Square & Buildings",
+  "step1_content": "`gThe Town Square is the vibrant heart of the realm.`w\n\nHere you'll find all essential places:\n\n• `yThe Bank`w: Safely store your gold against robbers and earn interest.\n• `cInn & Herbalist`w: Restore your HP, meet travelers, or enjoy a treatment.\n• `pChurch & Shrine`w: Make offerings for divine blessings.\n• `2Shops & Stables`w: Purchase equipment, potions, and mounts.",
+  "step2_title": "2. The Forest & Combat",
+  "step2_content": "`gThe Forest is where you train as an adventurer!`w\n\n• Each search or battle costs `c1 Daily Turn`w.\n• Defeat monsters to collect `yGold`w and `cExperience (XP)`w.\n• Watch your HP: if you fall in battle, you are `4DEAD`w and lose all gold on hand!",
+  "step3_title": "3. Smithy & Equipment",
+  "step3_content": "`gWithout proper gear, you stand no chance against fierce monsters!`w\n\n• Visit the `ySmithy`w in the town square.\n• Buy powerful `yWeapons`w to deal higher damage.\n• Buy sturdy `cArmor`w to reduce incoming damage.\n• Upgrade your equipment as soon as you save up enough gold.",
+  "step4_title": "4. Training Grounds & Level-Ups",
+  "step4_content": "`gGathered enough XP in the forest?`w\n\n• Head to the `pTraining Grounds`w in the Town Square.\n• Challenge the Master to a test of your strength.\n• Defeat the Master to `2Level Up`w!\n• You'll increase Max HP, gain new capabilities, and unlock better equipment.",
+  "step5_title": "5. New Day & The Dragon",
+  "step5_content": "`gEvery new day brings fresh opportunities!`w\n\n• Every 24 hours a `cNew Day`w reset takes place.\n• You receive fresh forest turns and interest on banked gold.\n• Keep fighting, saving, and training until you reach `yLevel 15`w.\n• Prepare yourself for the final showdown against the legendary `4Golden Dragon`w!"
+}

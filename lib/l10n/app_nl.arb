@@ -10,7 +10,7 @@
   "roundContinue": "`2Je valt aan en doet {damageDealt} schade bij de {enemy}.`w(\nDe {enemy} {attackText}) en doet `4{damageReceived} schade`w terug!",
   "fleeSuccess": "`gJe rent hard weg en ontsnapt veilig aan de {enemy}!`w",
   "fleeFailed": "`4Vluchten mislukt! De {enemy} blokkeert je weg en doet {damage} schade tijdens je vluchtpoging!`w",
-  "townSquareWelcome": "`gWelkom op het Dorpsplein van `yLord of the Golden Dragon`w!\n\nDe zon schijnt over het rijk. Reizigers praten in de schazuw, en in de verte hoor je het gebrul uit het bos... Wat ga je vandaag doen?`w",
+
   "btnGoToForest": "Ga het bos in",
   "forestSearching": "`gJe sluipt voorzichtig door het dichte struikgewas op zoek naar gevaar...`w",
   "btnAttack": "Aanvallen",
@@ -45,7 +45,7 @@
   "btnSave": "Opslaan",
   "btnCancel": "Annuleren",
   "bankTitle": "De Centrale Bank van het Rijk",
-  "bankWelcome": "`gJe loopt het statige gebouw van de bank binnen. Een dwerg achter de balie kijkt je streng aan door zijn bril.`w\n\n\"Welkom reiziger. Hier kun je je goud veilig stallen voor het geval je de monsters in het bos onderschat. Wat wil je doen?\"",
+
   "bankInBank": "Goud op de bank: `y{amount} goudstukken`w",
   "bankOnHand": "Goud op zak: `y{amount} goudstukken`w",
   "btnDepositAll": "Alles storten",
@@ -62,7 +62,7 @@
   "bankDepositLimitLabel": "Daglimiet over: `c{amount} goud`w",
   "btnTalkBanker": "Praat met de bankier",
   "raceTitle": "Kies je Ras",
-  "raceWelcome": "`gVoordat je het rijk betreedt, moet je bepalen uit welk hout je gesneden bent. Kies zorgvuldig, reiziger...`w",
+
   "raceHuman": "Mens",
   "raceHumanDesc": "Gebalanceerd en gedreven. Start met `y+5 extra beurten`w voor vandaag.",
   "raceElf": "Elf",
@@ -73,7 +73,7 @@
   "raceOrcDesc": "Brutaal en ijzersterk. Start met `r+5 maximale HP`w.",
   "btnConfirmRace": "Bevestig keuze en start avontuur",
   "specialtyTitle": "Kies je Specialisatie",
-  "specialtyWelcome": "`gElke reiziger in het rijk blinkt ergens anders in uit. Kies het pad dat bij jouw vechtstijl past...`w",
+
   "specMagic": "Mystieke Krachten (Magic)",
   "specMagicDesc": "Meester van de elementen. Start met de spreuk `cRegeneratie`w om jezelf te genezen in gevechten.",
   "specThieving": "Diefstal (Thieving)",
@@ -93,7 +93,7 @@
   "skillThievingSuccess": "`yJe gebruikt je Zakkenrollen vaardigheid tijdens de aanval en slaat {amount} extra goudstukken uit de {enemy}!`w",
   "skillWarriorSuccess": "`rJe voert een brute Schildbeuk uit! Je beukt vol in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w(\nDe {enemy}) is wankel!",
   "smithyTitle": "Smederij 'Het Hete IJzer'",
-  "smithyWelcome": "`gJe stapt de snikhete smederij binnen. Een gesublimeerde dwerg slaat met een enorme hamer op een gloeiend zwaard. Heet ijzer sist in een emmer water.`w\n\n\"Welkom in mijn smederij, reiziger! Ben je die houten stok en dat versleten shirt beu? Kijk eens rond, maar denk erom: kijken kost niks, kopen kost goud!\"",
+
   "smithyCurrentEquip": "Huidige uitrusting:",
   "smithyWeaponLabel": "Wapen: `c{name}`w (Lvl {lvl})",
   "smithyArmorLabel": "Pantser: `c{name}`w (Lvl {lvl})",
@@ -107,7 +107,7 @@
   "btnVisitSmithy": "Winkels",
   "smithyAmountLabel": "Aantal goudstukken",
   "smithyTitle": "De Markt van Oaktaven",
-  "smithyWelcome": "`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w",
+
   "btnVisitPegasus": "Bezoek Pegasus Wapens",
   "btnVisitMerilon": "Bezoek Merilon Harnassen",
   "btnTalkPegasus": "Praat met Pegasus",
@@ -145,7 +145,7 @@
   "arm14": "Paladijn Kuras",
   "arm15": "Het Godenpantser",
   "trainingTitle": "De Trainingsruimte van de Meesters",
-  "trainingWelcome": "`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Meester staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je echt klaar voor de volgende stap?\"",
+
   "trainingStatusReq": "Vereiste XP voor Level {nextLvl}: `c{reqXp} XP`w (Huidig: `c{currentXp} XP`w)",
   "trainingReady": "`2Je bent klaar om te vechten voor je volgende level!`w",
   "trainingNotReady": "`4Je hebt nog niet genoeg ervaring verdient om mij uit te dagen. Train harder in het bos!`w",
@@ -158,14 +158,14 @@
   "master3": "Meester Drake",
   "btnVisitTraining": "Trainingsruimte",
   "eventFountainTitle": "De Oude Waterbron",
-  "eventFountainDesc": "`gJe struikelt over een overgroeide, vervallen waterbron bedekt met mos. In het kristalheldere water op de bodem zie je iets glinsteren...`w\n\nWat doe je?",
+
   "btnEventFountainDive": "Duik erin",
   "btnEventFountainLeave": "Loop door",
   "eventFountainSuccess": "`2Je springt in het koude water en graait op de bodem. Je komt boven met een handvol van {amount} oude goudstukken!`w",
   "eventFountainFail": "`4Plons! Je springt mis, stoot je knie keihard tegen een scherpe rots en verliest {amount} HP. Het glinsterende object bleek een waardeloos stuk glas te zijn...`w",
   "eventFountainLeaveLog": "`wJe vertrouwt het niet en loopt voorzichtig verder door het struikgewas.`w",
   "eventGiantTitle": "De Slapende Reus",
-  "eventGiantDesc": "`gVoor je op het pad ligt een gigantische bosreus luidruchtig te ronken. De grond trilt bij elke snurk. Om zijn nek hangt een leren buidel...`w\n\nWat doe je?",
+
   "btnEventGiantSneak": "Sluip erlangs",
   "btnEventGiantSteal": "Probeer te bestelen",
   "eventGiantSneakSuccess": "`2Je houdt je adem in en sluipt op je tenen langs de reus. Deze behoedzame actie levert je {amount} ervaring (XP) op!`w",
@@ -179,7 +179,7 @@
   "smithyTabArmor": "Pantsers",
   "smithyErrorUnknown": "`4Er is een onbekende fout opgetreden.`w",
   "graveyardTitle": "De Schimmige Begraafplaats",
-  "graveyardWelcome": "`4Je bent gestorven!`w\n\n`gDe ijzige mist trekt op en je staat oog in oog met Magere Hein. Zijn holle ogen staren diep in je ziel. Een zware stem galmt door de stilte:`w\n\n\"Je tijd is gekomen, sterveling. Maar ik ben in een gulle bui... Als je mij een kostbare Edelsteen schenkt of een deel van je Ervaring opoffert, geef ik je je sterfelijke lichaam direct terug. Wat kies je?\"",
+
   "btnGraveyardOfferGem": "Offer 1 Edelsteen (Gem)",
   "btnGraveyardOfferXp": "Offer 100 XP",
   "btnGraveyardAcceptLot": "Accepteer je lot (Wacht tot morgen)",
@@ -188,7 +188,7 @@
   "graveyardErrorNoXp": "`4Je hebt niet eens genoeg ervaring om op te offeren! Hein schudt zijn hoofd.`w",
   "graveyardWaitMessage": "`gJe dwaalt rustig rond tussen de grafstenen en wacht op de nieuwe dag...`w",
   "newsTitle": "Het Dagelijks Nieuws van het Rijk",
-  "newsWelcome": "`gJe loopt naar het houten mededelingenbord in het midden van het plein. Er hangen een paar vers perkamenten vellen die door de wind zachtjes klapperen.`w\n\n\"Hoor en zegt het voort! Dit is wat er vandaag in ons rijk is voorgevallen:\"",
+
   "newsEmpty": "`wHet mededelingenbord is momenteel leeg. Het is een rustige dag in het rijk...`w",
   "newsLogDefeated": "{user} is in het bos op brute wijze afgeslacht door een {enemy}!",
   "newsLogDefeatedBrutal": "{user} dacht een held te zijn, maar werd door een {enemy} als ontbijt genuttigd!",
@@ -216,7 +216,7 @@
   "devSpawnMonsterTitle": "=== SPAWN MONSTER TEST ===",
   "devSpawnMonsterDesc": "Klik op een monster hieronder om direct een gevecht in het bos te forceren en de balans te controleren:",
   "innTitle": "Herberg 'De Dronken Draak'",
-  "innWelcome": "`gJe stapt de rumoerige herberg binnen. De geur van gebraden vlees en stevig bier komt je tegemoet. In de hoek zingt een bard een vals retro-lied, terwijl reizigers luidruchtig met dobbelstenen gooien.`w\n\n\"Welkom, vreemdeling!\" roept de herbergier terwijl hij een grote pul schoonmaakt. \"Schuif gezellig aansluiten bij de goktafel, of drink een slok!\"",
+
   "innDiceTitle": "=== DE GOKTAFEL ===",
   "innDiceDesc": "Zet goud in om te dobbelen tegen de kroegbazen. Hoogste worp wint!",
   "btnInnRoll": "Gooi dobbelstenen",
@@ -228,7 +228,7 @@
   "newsLogInnWin": "{user} heeft zojuist {gold} goudstukken gewonnen met dobbelen in de Herberg!",
   "newsLogInnLoss": "{user} is zojuist volledig blut gespeeld door de kroegbaas en verloor {gold} goudstukken...",
   "stablesTitle": "De Koninklijke Stallen",
-  "stablesWelcome": "`gJe loopt de stallen binnen. De geur van vers hooi en leder vult de ruimte. De stalmeester loopt op je af en tikt tegen zijn hoed:`w\n\n\"Welkom reiziger! Zoek je een trouwe metgezel voor je reizen? Een goed rijdier beschermt je in de strijd en zorgt dat je elke dag sneller kunt reizen!\"",
+
   "stablesCurrentMount": "Je huidige rijdier: `c{mount}`w",
   "stablesNoMount": "Geen (Je loopt te voet)",
   "stablesUpgradeAvailable": "=== BESCHIKBAAR RIJDIER ===",
@@ -244,7 +244,7 @@
   "mount3": "Schaduwwolf",
   "mount4": "Gouden Draak",
   "churchTitle": "Het Serene Klooster",
-  "churchWelcome": "`gJe stapt de imposante, stille kerk binnen. Het weinige licht valt door de glas-in-loodramen op het altaar. Er hangt een geur van wierook en oude perkamenten.`w\n\n\"Kniel neer, reiziger,\" fluistert een monnik in een lange pij. \"Doe een gebed tot de Goden van het Rijk. Maar wees gewaarschuwd... de Goden zijn wispelturig!\"",
+
   "btnChurchPray": "Doe een Gebed",
   "btnChurchConfess": "Biechten",
   "btnChurchCandle": "Kaarsje aansteken (1 Gem)",
@@ -261,7 +261,7 @@
   "churchCandleResult": "`cJe steekt een kaarsje aan bij het beeld van de Oude Goden. Een vlaag van vrede trekt door de kerk. Ramius zal dit onthouden. (+{favor} Gunst)`w",
   "btnVisitChurch": "Kerk",
   "alchemistTitle": "De Alchemist",
-  "alchemistWelcome": "`gJe stapt een donker, mystiek laboratorium binnen. Overal pruttelen glazen kolven met vreemde, dampende vloeistoffen. Een oude alchemist met een dikke bril kijkt op:`w\n\n\"Ah, een avonturier! Zoek je extra kracht voor in het bos? Mijn elixers geven je tijdelijk ongekende macht in je eerstvolgende gevechten. Kies verstandig!\"",
+
   "alchemistCurrentBoosts": "Actieve elixers: `2{atk} Atk`w | `c{def} Def`w",
   "btnBuyAtkPotion": "Koop Drakebloed (+5 Atk)",
   "btnBuyDefPotion": "Koop IJzerhuid (+5 Def)",
@@ -272,14 +272,14 @@
   "trainingSuccessLevelUp": "`2Gefeliciteerd! Je hebt de Meester verslagen in een episch gevecht en bent gestegen naar Level {level}!`w",
   "btnChallengeMaster": "Daag de Meester uit",
   "resetNewDayTitle": "Een Nieuwe Dag Breekt Aan!",
-  "resetNewDayMessage": "`2De zon komt op over het rijk en de vogels beginnen te fluiten. Je voelt je uitgerust en vol energie voor nieuwe avonturen!`w\n\nJe beurten zijn aangevuld en de poorten naar het Dorpsplein staan weer wijd open!",
+
   "btnStartDay": "Begin de nieuwe dag",
   "resetNightResults": "Resultaten van de nacht:",
   "resetInterestLog": "• De bank heeft `y{amount} goud`w aan rente bijgeschreven (2%).",
   "resetTurnsLog": "• Je beurten zijn aangevuld naar `c{amount}`w.",
   "resetReadyLog": "• Je voelt je uitgerust en klaar voor de strijd!",
   "eventHermitTitle": "De Oude Kluizenaar",
-  "eventHermitDesc": "`gTussen de dichte begroeiing zie je een kleine, gecamoufleerde hut. Een stokoude kluizenaar met een lange baard zit voor de deur op een boomstam.`w\n\n\"Ah, jonge reiziger,\" spreekt hij met een krakerige stem. \"Je bent ver van het Dorpsplein. Drink een beker kruidenthee met mij. Het zal je vermoeide benen direct verkwikken!\"",
+
   "eventHermitSuccess": "`2Je drinkt die bittere kruidenthee op. Een golf van intense energie schiet door je benen! Je krijgt +3 extra beurten (turns) voor vandaag.`w",
   "btnHermitDrink": "Drink kruidenthee",
   "btnSkillFallback": "VAARDIGHEID",
@@ -435,7 +435,7 @@
   "btnBuyHealing": "KOOP GENEZING",
   "labelHealCost": "Kosten voor volledige genezing: `y{cost} goudstukken`w",
   "btnOk": "OK",
-  "healerFallbackWelcome": "De hut van Althea...",
+
   "healerFallbackHealthy": "Je bent al kerngezond!",
   "btnTalkTownfolk": "PRAAT MET DORPELINGEN 🗣️",
   "dialogRumorTitle": "DORPSGERUCHTEN",
@@ -517,7 +517,7 @@
   "btnBuyShave": "Gladde Scheerbeurt ({cost} Goud)",
   "btnBuyDye": "Haar Verven (1 GEM)",
   "dragonShrineTitle": "Het Drakenheiligdom",
-  "dragonShrineWelcome": "`gJe stapt een verborgen, met klimop begroeide ruïne net buiten het dorpsplein binnen. In het midden zweeft een mystiek, zacht gloeiend kristal dat pulseert met pure energie. Zodra je dichterbij komt, vormt de energie zich tot het gezicht van een oude woudgod.`w",
+
   "dragonShrinePoints": "Drakenpunten (DP): `y{amount}`w",
   "dragonShrineNoPoints": "`4De energie in het kristal blijft flets en dof. De stem van de woudgod klinkt koud: \"Je draagt de markering van een drakendoder niet bij je, sterveling. Je hebt hier niets te zoeken.\"`w",
   "btnUpgradeAtk": "PERMANENTE AANVAL (+1 ATK)",
@@ -527,7 +527,7 @@
   "dragonShrineSuccess": "`2De woudgod raakt je aan met een straal van licht. \"De transactie is voltooid. Ga heen en gebruik je nieuwe krachten wijs!\"`w",
   "btnVisitDragonShrine": "Draken Heiligdom",
   "guestPlayerName": "Gast Reiziger",
-  "guestWelcomeNews": "Welkom in de wereld van de Gouden Draak als gast!",
+
   "alleyBribeDefaultName": "Een gure reiziger",
   "alleyBribeNews": "{name} heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.",
   "@alleyBribeNews": {
@@ -555,28 +555,28 @@
   "settingsLangEnglish": "English 🇬🇧",
   "settingsAboutTitle": "Over LOGD",
   "settingsAboutSubtitle": "Lees het verhaal achter Legend of the Golden Dragon.",
-  "settingsAboutStory": "`gLegend of the Golden Dragon is een eerbetoon aan de klassieke BBS-tekstadventures uit de jaren '80 en '90.\n\nIn een wereld vol gevaar, duistere monsters en oude legenden strijden reizigers om roem, goud en het verslaan van de vreselijke Gouden Draak.\n\nBouw je karakter op, bezoek het dorpsplein, vecht in het bos en verover een plek in de ranglijsten!`w",
+
   "settingsShareTitle": "App Delen",
   "settingsShareSubtitle": "Nodig vrienden uit om het rijk te betreden.",
   "settingsShareDialogTitle": "Deel het Rijk",
-  "settingsShareDialogText": "`gMond-tot-mondreclame reist sneller dan een draak op de wind!\n\nDeel LOGD met je vrienden en strijd samen op het dorpsplein.`w",
+
   "settingsBtnShare": "Deel nu",
   "settingsRateTitle": "App Raten",
   "settingsRateSubtitle": "Laat een 5-sterren review achter in de Play Store.",
   "settingsRateDialogTitle": "Beoordeel LOGD",
-  "settingsRateDialogText": "`yGeniet je van je avonturen in het rijk?\n\nLaat een 5-sterren review achter om de makers te steunen en meer reizigers naar het dorp te trekken!`w",
+
   "settingsBtnRate": "Beoordelen",
   "settingsFeedbackTitle": "Feedback",
   "settingsFeedbackSubtitle": "Stuur ideeën of foutmeldingen naar de makers.",
   "settingsFeedbackDialogTitle": "Stuur Feedback",
-  "settingsFeedbackDialogText": "`cHeb je een suggestie voor een nieuwe feature of heb je een bug gevonden?\n\nLaat het ons weten! Jouw feedback helpt het rijk te verbeteren.`w",
+
   "settingsFeedbackHint": "Typ hier je feedback...",
   "settingsFeedbackSent": "`2Bedankt! Je feedback is ontvangen.`w",
   "settingsBtnSend": "Versturen",
   "settingsPrivacyTitle": "Privacy Policy",
   "settingsPrivacySubtitle": "Bekijk hoe wij omgaan met je spelersgegevens.",
   "settingsPrivacyDialogTitle": "Privacy Policy",
-  "settingsPrivacyDialogText": "`wBij LOGD respecteren we de privacy van elke reiziger.\n\n• Wij verzamelen uitsluitend je e-mailadres en karakternaam voor accountbeheer.\n• Wachtwoorden worden veilig versleuteld opgeslagen via Supabase Auth.\n• We verkopen of delen nooit je gegevens met derden.\n• Je kunt op elk moment je account en gegevens definitief verwijderen.`w",
+
   "btnClose": "Sluiten",
   "tutorialTitle": "Hoe te Spelen",
   "tutorialStepProgress": "Stap {current} van {total}",
@@ -591,15 +591,15 @@
     }
   },
   "tutorialStep1Title": "1. Het Dorpshart & Gebouwen",
-  "tutorialStep1Content": "`gHet Dorpshart is het bruisende centrum van het rijk.`w\n\nHier vind je alle belangrijke gebouwen:\n\n• `yDe Bank`w: Stall je goud veilig tegen struikrovers en verdien rente.\n• `cHerberg & Genezer`w: Herstel je HP, ontmoet reizigers of neem een behandeling.\n• `pKerk & Altaar`w: Bied offers voor goddelijke zegeningen.\n• `2Winkels & Stallen`w: Koop uitrusting, elixers en rijdieren.",
+
   "tutorialStep2Title": "2. Het Bos & De Gevechten",
-  "tutorialStep2Content": "`gHet Bos is de plek waar je als avonturier traint!`w\n\n• Elke zoektocht of gevecht kost `c1 Dagelijkse Beurt`w.\n• Versla monsters om `yGoud`w en `cErvaring (XP)`w te verzamelen.\n• Pas op voor je HP: als je bezwijkt in de strijd, ben je `4DOOD`w en verlies je al het goud dat je op zak had!",
+
   "tutorialStep3Title": "3. Smederij & Uitrusting",
-  "tutorialStep3Content": "`gZonder goede spullen ben je kansloos tegen sterke monsters!`w\n\n• Bezoek de `ySmederij`w op het dorpsplein.\n• Koop krachtige `yWapens`w om meer schade uit te delen.\n• Koop stevige `cHarnassen`w om minder schade te incasseren.\n• Upgrade je spullen zodra je genoeg goud hebt gespaard.",
+
   "tutorialStep4Title": "4. Krijgshof & Level-Ups",
-  "tutorialStep4Content": "`gHeb je voldoende XP verzameld in het bos?`w\n\n• Ga naar het `pKrijgshof`w op het Dorpsplein.\n• Daag de Meester uit voor een test van je krachten.\n• Versla de Meester om te `2Stijgen in Level`w!\n• Je stijgt in Max HP, leert nieuwe vaardigheden en krijgt toegang tot betere uitrusting.",
+
   "tutorialStep5Title": "5. Nieuwe Dag & De Draak",
-  "tutorialStep5Content": "`gElke nieuwe dag brengt nieuwe kansen!`w\n\n• Elke 24 uur vindt er een `cNieuwe Dag`w reset plaats.\n• Je krijgt nieuwe bosbeurten en rente over je bankgoud.\n• Blijf vechten, sparen en trainen tot je `yLevel 15`w bereikt.\n• Maak je klaar voor het ultieme gevecht tegen de legendarische `4Gouden Draak`w!",
+
   "tutorialBtnPrevious": "Vorige",
   "tutorialBtnNext": "Volgende",
   "tutorialBtnSkip": "Overslaan",

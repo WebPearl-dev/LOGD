@@ -1,18 +1,49 @@
-// lib/screens/new_day_screen.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/logd_text.dart';
+import '../services/story_service.dart';
 import '../theme/logd_codes.dart';
 import '../services/new_day_service.dart';
 
-class NewDayScreen extends StatelessWidget {
+class NewDayScreen extends StatefulWidget {
   final NewDayResult result;
 
   const NewDayScreen({super.key, required this.result});
 
   @override
+  State<NewDayScreen> createState() => _NewDayScreenState();
+}
+
+class _NewDayScreenState extends State<NewDayScreen> {
+  Map<String, dynamic> _storyContent = {};
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStory();
+  }
+
+  Future<void> _loadStory() async {
+    final content = await StoryService.loadLocationContent(context, 'locatie_dorpsplein');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
+
+    if (_isLoading) {
+      return const Scaffold(
+        backgroundColor: LogdCodes.uiBlueBg,
+        body: Center(child: CircularProgressIndicator(color: LogdCodes.uiGreen)),
+      );
+    }
 
     return Scaffold(
       backgroundColor: LogdCodes.uiBlueBg,
@@ -30,7 +61,7 @@ class NewDayScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               
-              LogdText(text: local.resetNewDayMessage, fontSize: LogdCodes.fontSizeDefault),
+              LogdText(text: _storyContent['reset_new_day_message'] ?? "De zon komt op over het rijk en de vogels beginnen te fluiten.", fontSize: LogdCodes.fontSizeDefault),
               const SizedBox(height: 24),
               
               const Divider(color: Colors.grey),
@@ -39,10 +70,10 @@ class NewDayScreen extends StatelessWidget {
               LogdText(text: local.resetNightResults, fontSize: LogdCodes.fontSizeCardTitle),
               const SizedBox(height: 10),
               
-              if (result.interestEarned > 0)
-                LogdText(text: local.resetInterestLog(result.interestEarned.toString()), fontSize: LogdCodes.fontSizeDefault),
+              if (widget.result.interestEarned > 0)
+                LogdText(text: local.resetInterestLog(widget.result.interestEarned.toString()), fontSize: LogdCodes.fontSizeDefault),
               
-              LogdText(text: local.resetTurnsLog(result.newTurns.toString()), fontSize: LogdCodes.fontSizeDefault),
+              LogdText(text: local.resetTurnsLog(widget.result.newTurns.toString()), fontSize: LogdCodes.fontSizeDefault),
               LogdText(text: local.resetReadyLog, fontSize: LogdCodes.fontSizeDefault),
               
               const SizedBox(height: 40),
