@@ -135,8 +135,6 @@ class _DragonLairScreenState extends State<DragonLairScreen> {
   }
 
   void _finalizeDragonLairCombat(bool playerWon) async {
-    final local = AppLocalizations.of(context)!;
-
     if (playerWon) {
       if (GuestManager.isGuest) {
         GuestManager.guestProfile['level'] = 1;
@@ -156,7 +154,8 @@ class _DragonLairScreenState extends State<DragonLairScreen> {
           }).eq('id', user.id);
 
           final String killCountStr = (dragonKills + 1).toString();
-          final String announcement = local.news_dragon_kill(_charName, killCountStr);
+          final String template = _storyTexts['news_dragon_kill'] ?? '{user} has defeated the Green Dragon and saves the realm! This is their {kills} victory!';
+          final String announcement = template.replaceAll('{user}', _charName).replaceAll('{kills}', killCountStr);
 
           try {
             await _supabase.from('daily_news').insert({

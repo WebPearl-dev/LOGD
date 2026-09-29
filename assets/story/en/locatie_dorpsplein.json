@@ -27,5 +27,21 @@
   "news_welcome": "`gYou walk to the wooden notice board in the middle of the square. A few fresh sheets of parchment are gently flapping in the wind.\n\n\"Hear ye, hear ye! This is what has occurred in our realm today:\"",
   "healer_fallback_welcome": "Althea's hut...",
   "guest_welcome_news": "Welcome to the world of the Golden Dragon as a guest!",
-  "reset_new_day_message": "`2The sun rises over the realm and the birds begin to chirp. You feel rested and full of energy for new adventures!`w\n\nYour turns are replenished and the gates to the Town Square are wide open again!"
+  "reset_new_day_message": "`2The sun rises over the realm and the birds begin to chirp. You feel rested and full of energy for new adventures!`w\n\nYour turns are replenished and the gates to the Town Square are wide open again!",
+  "reset_new_day_title": "A New Day Dawns!",
+  "reset_night_results": "Results of the night:",
+  "reset_interest_log": "• The bank has credited `y{amount} gold`w in interest (2%).",
+  "reset_turns_log": "• Your turns are replenished to `c{amount}`w.",
+  "reset_ready_log": "• You feel rested and ready for battle!",
+  "news_empty": "`wThe notice board is currently empty. It is a quiet day in the realm...`w",
+  "news_level_up": "{user} has risen to Level {level} after a legendary duel in the training room!",
+  "news_defeated": "{user} was brutally slaughtered in the forest by a {enemy}!",
+  "news_defeated_brutal": "{user} thought they were a hero, but was eaten for breakfast by a {enemy}!",
+  "news_inn_win": "Just now, {user} won {gold} gold pieces by rolling dice in the Inn!",
+  "news_inn_loss": "Just now, {user} was played completely broke by the bank and lost {gold} gold pieces...",
+  "news_marriage": "Great celebration! {user} has tied the knot today with {partner}!",
+  "news_dragon_attack": "`4HEAR YE, HEAR YE!`w {user} enters the Green Dragon's lair! The roar echoes through the mountains...",
+  "news_dragon_defeat": "`4HEAR YE, HEAR YE!`w {user} was brutally roasted by the Green Dragon! Oaktaven mourns...",
+  "news_dragon_kill": "{user} has defeated the Green Dragon and saves the realm! This is their {kills} victory!",
+  "alley_bribe_news": "{name} secretly handed over some gems to Sly and suddenly looks a lot better behaved."
 }

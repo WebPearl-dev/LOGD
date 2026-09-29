@@ -98,8 +98,8 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
     }
   }
 
-  String _parseLogToText(AppLocalizations local, Map<String, dynamic> log) {
-    return _townSquareController.parseNewsItem(local, log);
+  String _parseLogToText(Map<String, dynamic> log) {
+    return _townSquareController.parseNewsItem(log);
   }
 
   @override
@@ -158,7 +158,7 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
                         itemCount: _newsLogs.length,
                         itemBuilder: (context, index) {
                           final log = _newsLogs[index];
-                          final String parsedText = _parseLogToText(local, log);
+                          final String parsedText = _parseLogToText(log);
 
                           if (parsedText.isEmpty) {
                             return const SizedBox.shrink();

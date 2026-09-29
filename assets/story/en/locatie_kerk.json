@@ -7,5 +7,10 @@
   "curse_hp": "`4The sky darkens and a fierce bolt of lightning strikes right before your feet! You lose {hp} HP from the shock!`w",
   "curse_gold": "`4A sudden gust of wind rushes through the church and secretly blows {gold} gold pieces out of your pouch!`w",
   "confess_welcome": "You kneel down in the small wooden confessional. 'Speak, my child. What weighs on your heart?' the monk whispers from behind the hatch.",
-  "candle_welcome": "The altar of the Old Gods is bathed in the light of dozens of candles. Each flame stands for a hope, a wish, or a memory."
+  "candle_welcome": "The altar of the Old Gods is bathed in the light of dozens of candles. Each flame stands for a hope, a wish, or a memory.",
+  "already_prayed": "`4You have already prayed just now! The Gods do not hear you if you keep nagging.`w",
+  "already_confessed": "`4You have already cleared your conscience for today.`w",
+  "already_lit_candle": "`4The altar is already full of your candles.`w",
+  "confess_result": "`2You kneel down and confess your sins. The monk nods slowly. You feel your mind becoming lighter. (+{xp} XP)`w",
+  "candle_result": "`cYou light a candle at the statue of the Old Gods. A wave of peace pulls through the church. Ramius will remember this. (+{favor} Favor)`w"
 }

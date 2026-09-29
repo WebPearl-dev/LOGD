@@ -104,7 +104,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
   Future<void> _pray() async {
     final local = AppLocalizations.of(context)!;
     if (prayedThisTurn) {
-      setState(() => _statusMessage = local.churchAlreadyPrayed);
+      setState(() => _statusMessage = _storyContent['already_prayed'] ?? "Je hebt al gebeden!");
       return;
     }
 
@@ -121,26 +121,26 @@ class _ChurchScreenState extends State<ChurchScreen> {
       if (subOutcome == 0) {
         int goldGained = level * 150 + 100;
         goldOnHand += goldGained;
-        msg = local.churchBlessGold(goldGained.toString());
+        msg = (_storyContent['bless_gold'] ?? "").replaceAll('{gold}', goldGained.toString());
       } else if (subOutcome == 1) {
         gems += 1;
-        msg = local.churchBlessGems("1");
+        msg = (_storyContent['bless_gems'] ?? "").replaceAll('{gems}', "1");
       } else {
         playerHp = playerMaxHp;
-        msg = local.churchBlessHeal;
+        msg = _storyContent['bless_heal'] ?? "";
       }
     } else if (outcome == 1) {
-      msg = local.churchNeutral;
+      msg = _storyContent['bless_neutral'] ?? "";
     } else {
       int subOutcome = _random.nextInt(2);
       if (subOutcome == 0) {
         int hpLost = (playerHp * 0.3).round().clamp(1, 15);
         playerHp = (playerHp - hpLost).clamp(1, playerMaxHp);
-        msg = local.churchCurseHp(hpLost.toString());
+        msg = (_storyContent['curse_hp'] ?? "").replaceAll('{hp}', hpLost.toString());
       } else {
         int goldLost = (goldOnHand * 0.2).round().clamp(0, 500);
         goldOnHand = (goldOnHand - goldLost).clamp(0, 999999).toInt();
-        msg = local.churchCurseGold(goldLost.toString());
+        msg = (_storyContent['curse_gold'] ?? "").replaceAll('{gold}', goldLost.toString());
       }
     }
 
@@ -182,7 +182,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
   Future<void> _confess() async {
     final local = AppLocalizations.of(context)!;
     if (confessedThisTurn) {
-      setState(() => _statusMessage = local.churchAlreadyConfessed);
+      setState(() => _statusMessage = _storyContent['already_confessed'] ?? "");
       return;
     }
 
@@ -196,7 +196,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
       GuestManager.guestProfile['confessed_this_turn'] = true;
       setState(() {
         confessedThisTurn = true;
-        _statusMessage = local.churchConfessResult(xpGained.toString());
+        _statusMessage = (_storyContent['confess_result'] ?? "").replaceAll('{xp}', xpGained.toString());
         _isLoading = false;
       });
       return;
@@ -212,7 +212,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
 
         setState(() {
           confessedThisTurn = true;
-          _statusMessage = local.churchConfessResult(xpGained.toString());
+          _statusMessage = (_storyContent['confess_result'] ?? "").replaceAll('{xp}', xpGained.toString());
         });
       }
     } catch (e) {
@@ -226,7 +226,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
   Future<void> _lightCandle() async {
     final local = AppLocalizations.of(context)!;
     if (litCandleThisTurn) {
-      setState(() => _statusMessage = local.churchAlreadyLitCandle);
+      setState(() => _statusMessage = _storyContent['already_lit_candle'] ?? "");
       return;
     }
 
@@ -247,7 +247,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
       GuestManager.guestProfile['lit_candle_this_turn'] = true;
       setState(() {
         litCandleThisTurn = true;
-        _statusMessage = local.churchCandleResult(favorGained.toString());
+        _statusMessage = (_storyContent['candle_result'] ?? "").replaceAll('{favor}', favorGained.toString());
         _isLoading = false;
       });
       return;
@@ -267,7 +267,7 @@ class _ChurchScreenState extends State<ChurchScreen> {
 
         setState(() {
           litCandleThisTurn = true;
-          _statusMessage = local.churchCandleResult(favorGained.toString());
+          _statusMessage = (_storyContent['candle_result'] ?? "").replaceAll('{favor}', favorGained.toString());
         });
       }
     } catch (e) {

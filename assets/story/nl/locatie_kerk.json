@@ -7,5 +7,10 @@
   "curse_hp": "`4De hemel betrekt en een felle bliksemstraal slaat vlak voor je voeten in! Je verliest {hp} HP door de schok!`w",
   "curse_gold": "`4Een plotselinge windvlaag raast door de kerk en blaast stiekem {gold} goudstukken uit je buidel!`w",
   "confess_welcome": "Je knielt neer in de kleine houten biechtstoel. 'Spreek maar, mijn kind. Wat weegt er op je hart?' fluistert de monnik vanachter het luikje.",
-  "candle_welcome": "Het altaar van de Oude Goden baadt in het licht van tientallen kaarsen. Elke vlam staat voor een hoop, een wens of een herinnering."
+  "candle_welcome": "Het altaar van de Oude Goden baadt in het licht van tientallen kaarsen. Elke vlam staat voor een hoop, een wens of een herinnering.",
+  "already_prayed": "`4Je hebt zojuist al gebed! De Goden horen je niet als je blijft zeuren.`w",
+  "already_confessed": "`4Je hebt je geweten voor vandaag al gezuiverd.`w",
+  "already_lit_candle": "`4Het altaar staat al vol met jouw kaarsen.`w",
+  "confess_result": "`2Je knielt neer en biecht je zonden op. De monnik knikt langzaam. Je voelt je geest lichter worden. (+{xp} XP)`w",
+  "candle_result": "`cJe steekt een kaars aan bij het standbeeld van de Oude Goden. Een golf van rust trekt door de kerk. Ramius zal dit onthouden. (+{favor} Gunst)`w"
 }

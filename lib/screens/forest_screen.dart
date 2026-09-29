@@ -74,15 +74,13 @@ class _ForestScreenState extends State<ForestScreen> {
   }
 
   void _startEncounter() {
-    final local = AppLocalizations.of(context)!;
-    
     if (widget.forcedEvent != ForestEventType.none) {
       _controller.activeEvent = widget.forcedEvent;
       _controller.currentEnemy = null;
       _controller.updateCloudStats();
     } else {
       _controller.startEncounter(
-        _storyContent['no_turns'] ?? local.forestNoTurns,
+        _storyContent['no_turns'] ?? "Je hebt geen beurten meer over!",
         "", "", "",
       );
     }
@@ -92,7 +90,7 @@ class _ForestScreenState extends State<ForestScreen> {
       _controller.combatLog = _storyContent['${eventId}_desc'] ?? "...";
     } else if (_controller.currentEnemy != null) {
       final String enemyName = _getEnemyName();
-      final String template = _storyContent['encounter_start'] ?? local.combatEncounterStart(enemyName);
+      final String template = _storyContent['encounter_start'] ?? "Je komt oog in oog te staan met {enemy}!";
       _controller.combatLog = template.contains('{enemy}') 
           ? template.replaceAll('{enemy}', enemyName) 
           : template;
@@ -106,25 +104,25 @@ class _ForestScreenState extends State<ForestScreen> {
     setState(() {
       _controller.handleAttack(
         (res) {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['enemy_defeated'] ?? local.enemyDefeated(enemyName, res.goldEarned.toString(), res.xpEarned.toString());
-          String msg = template.contains('{enemy}') 
-              ? template.replaceAll('{enemy}', enemyName).replaceAll('{gold}', res.goldEarned.toString()).replaceAll('{xp}', res.xpEarned.toString())
-              : template;
+          final String template = _storyContent['enemy_defeated'] ?? "Je hebt de {enemy} verslagen! Je verdient {gold} goud en {xp} ervaring!";
+          String msg = template
+              .replaceAll('{enemy}', enemyName)
+              .replaceAll('{gold}', res.goldEarned.toString())
+              .replaceAll('{xp}', res.xpEarned.toString());
           _controller.combatLog += "\n\n$msg\n\n";
         },
         () {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['player_died'] ?? local.playerDied(enemyName);
-          String msg = template.contains('{enemy}') ? template.replaceAll('{enemy}', enemyName) : template;
+          final String template = _storyContent['player_died'] ?? "Je bent bezweken aan je verwondingen door de {enemy}...";
+          String msg = template.replaceAll('{enemy}', enemyName);
           _controller.combatLog += "\n\n$msg\n\n";
         },
         (res) {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['round_continue'] ?? local.roundContinue(attackText, res.damageDealt.toString(), res.damageReceived.toString(), enemyName);
-          String msg = template.contains('{enemy}') 
-              ? template.replaceAll('{enemy}', enemyName).replaceAll('{damageDealt}', res.damageDealt.toString()).replaceAll('{damageReceived}', res.damageReceived.toString()).replaceAll('{attackText}', attackText)
-              : template;
+          final String template = _storyContent['round_continue'] ?? "Je valt aan en doet {damageDealt} schade. De {enemy} {attackText} en doet {damageReceived} schade terug!";
+          String msg = template
+              .replaceAll('{enemy}', enemyName)
+              .replaceAll('{damageDealt}', res.damageDealt.toString())
+              .replaceAll('{damageReceived}', res.damageReceived.toString())
+              .replaceAll('{attackText}', attackText);
           _controller.combatLog += "\n\n$msg";
         },
       );
@@ -137,29 +135,27 @@ class _ForestScreenState extends State<ForestScreen> {
     if (_controller.activeEvent != ForestEventType.none) return;
 
     if (_controller.skillUsedThisFight) {
-      final local = AppLocalizations.of(context)!;
       setState(() { 
-        _controller.combatLog += "\n\n${_storyContent['skill_already_used'] ?? local.skillAlreadyUsed}\n\n"; 
+        _controller.combatLog += "\n\n${_storyContent['skill_already_used'] ?? "Je hebt je vaardigheid al gebruikt!"}\n\n"; 
       });
       return;
     }
 
     setState(() {
       _controller.handleSkill((res) {
-        final local = AppLocalizations.of(context)!;
         String log = "";
         if (res.status == CombatStatus.skillMagic) {
           final String key = res.args['log_key'] ?? 'skill_magic';
-          final String template = _storyContent[key] ?? _storyContent['skill_magic'] ?? local.skillMagicSuccess(res.hpHealed.toString());
-          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.hpHealed.toString()) : template;
+          final String template = _storyContent[key] ?? _storyContent['skill_magic'] ?? "Je geneest {amount} HP.";
+          log = template.replaceAll('{amount}', res.hpHealed.toString());
         } else if (res.status == CombatStatus.skillThieving) {
           final String key = res.args['log_key'] ?? 'skill_thieving';
-          final String template = _storyContent[key] ?? _storyContent['skill_thieving'] ?? local.skillThievingSuccess(res.goldEarned.toString(), enemyName);
-          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.goldEarned.toString()) : template;
+          final String template = _storyContent[key] ?? _storyContent['skill_thieving'] ?? "Je rooft {amount} goud van de {enemy}.";
+          log = template.replaceAll('{amount}', res.goldEarned.toString());
         } else if (res.status == CombatStatus.skillWarrior) {
           final String key = res.args['log_key'] ?? 'skill_warrior';
-          final String template = _storyContent[key] ?? _storyContent['skill_warrior'] ?? local.skillWarriorSuccess(enemyName, res.damageDealt.toString());
-          log = template.contains('{amount}') ? template.replaceAll('{amount}', res.damageDealt.toString()) : template;
+          final String template = _storyContent[key] ?? _storyContent['skill_warrior'] ?? "Je voert een beuk uit voor {amount} schade.";
+          log = template.replaceAll('{amount}', res.damageDealt.toString());
         }
         if (log.contains('{enemy}')) {
           log = log.replaceAll('{enemy}', enemyName);
@@ -178,19 +174,16 @@ class _ForestScreenState extends State<ForestScreen> {
     setState(() {
       _controller.handleFlee(
         () {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['flee_success'] ?? local.fleeSuccess(enemyName);
-          _controller.combatLog += "\n\n${template.contains('{enemy}') ? template.replaceAll('{enemy}', enemyName) : template}";
+          final String template = _storyContent['flee_success'] ?? "Je bent ontsnapt aan de {enemy}!";
+          _controller.combatLog += "\n\n${template.replaceAll('{enemy}', enemyName)}";
         },
         (dmg) {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['flee_failed'] ?? local.fleeFailed(enemyName, dmg.toString());
-          _controller.combatLog += "\n\n${template.contains('{enemy}') ? template.replaceAll('{enemy}', enemyName).replaceAll('{damage}', dmg.toString()) : template}";
+          final String template = _storyContent['flee_failed'] ?? "Vluchten mislukt! De {enemy} doet {damage} schade.";
+          _controller.combatLog += "\n\n${template.replaceAll('{enemy}', enemyName).replaceAll('{damage}', dmg.toString())}";
         },
         () {
-          final local = AppLocalizations.of(context)!;
-          final String template = _storyContent['flee_death'] ?? (local.fleeFailed(enemyName, "0") + local.fleeFailedDeathSuffix);
-          _controller.combatLog += "\n\n${template.contains('{enemy}') ? template.replaceAll('{enemy}', enemyName) : template}";
+          final String template = _storyContent['flee_death'] ?? "Je bent bezweken tijdens het vluchten...";
+          _controller.combatLog += "\n\n${template.replaceAll('{enemy}', enemyName)}";
         },
       );
     });

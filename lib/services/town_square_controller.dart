@@ -300,11 +300,12 @@ class TownSquareController {
       alleyStatusMessage = storyContent['dark_alley_success'] ?? "...";
 
       try {
-        final String fallbackName = local?.alleyBribeDefaultName ?? (storyContent['alley_bribe_default_name'] ?? "Een gure reiziger");
+        final String fallbackName = storyContent['alley_bribe_default_name'] ?? "Een gure reiziger";
         final String name = playerData?['username'] ?? fallbackName;
+        final String defaultMsg = "$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.";
         final String message = storyContent['alley_bribe_news'] != null
             ? storyContent['alley_bribe_news'].replaceAll('{name}', name)
-            : (local?.alleyBribeNews(name) ?? "$name heeft stiekem wat edelstenen aan Sly overhandigd en ziet er ineens een stuk braver uit.");
+            : defaultMsg;
         await _supabase.from('daily_news').insert({
           'log_type': 'alley_bribe',
           'username': name,
@@ -395,9 +396,9 @@ class TownSquareController {
     return storyContent['rumor$rumorId'] ?? fallback;
   }
 
-  String parseNewsItem(AppLocalizations local, Map<String, dynamic> log) {
+  String parseNewsItem(Map<String, dynamic> log) {
     final String type = log['log_type'] ?? '';
-    final String user = log['username'] ?? local.newsUnknownPlayer;
+    final String user = log['username'] ?? storyContent['newsUnknownPlayer'] ?? log['user_name'] ?? 'Traveler';
 
     final int numericLevel = log['reached_level'] ?? log['value_after'] ?? 0;
     final String levelStr = numericLevel.toString();
@@ -406,36 +407,45 @@ class TownSquareController {
     final String goldStr = numericGold.toString();
 
     if (type == 'level_up') {
-      return local.newsLogLevelUp(levelStr, user);
+      final template = storyContent['news_level_up'] ?? '{user} has risen to Level {level} after a legendary duel in the training room!';
+      return template.replaceAll('{user}', user).replaceAll('{level}', levelStr);
     }
     if (type == 'defeated') {
       final String enemyKey = log['enemy_name'] ?? '';
       final String enemyName = getMonsterName(enemyKey);
-      return local.newsLogDefeated(enemyName, user);
+      final template = storyContent['news_defeated'] ?? '{user} was brutally slaughtered in the forest by a {enemy}!';
+      return template.replaceAll('{user}', user).replaceAll('{enemy}', enemyName);
     }
     if (type == 'defeated_brutal') {
       final String enemyKey = log['enemy_name'] ?? '';
       final String enemyName = getMonsterName(enemyKey);
-      return local.newsLogDefeatedBrutal(enemyName, user);
+      final template = storyContent['news_defeated_brutal'] ?? '{user} thought they were a hero, but was eaten for breakfast by a {enemy}!';
+      return template.replaceAll('{user}', user).replaceAll('{enemy}', enemyName);
     }
     if (type == 'inn_win') {
-      return local.newsLogInnWin(goldStr, user);
+      final template = storyContent['news_inn_win'] ?? 'Just now, {user} won {gold} gold pieces by rolling dice in the Inn!';
+      return template.replaceAll('{user}', user).replaceAll('{gold}', goldStr);
     }
     if (type == 'inn_loss') {
-      return local.newsLogInnLoss(goldStr, user);
+      final template = storyContent['news_inn_loss'] ?? 'Just now, {user} was played completely broke by the bank and lost {gold} gold pieces...';
+      return template.replaceAll('{user}', user).replaceAll('{gold}', goldStr);
     }
     if (type == 'marriage') {
-      final String partner = log['partner_name'] ?? local.newsUnknownPartner;
-      return local.newsLogMarriage(partner, user);
+      final String partner = log['partner_name'] ?? storyContent['newsUnknownPartner'] ?? 'someone';
+      final template = storyContent['news_marriage'] ?? 'Great celebration! {user} has tied the knot today with {partner}!';
+      return template.replaceAll('{user}', user).replaceAll('{partner}', partner);
     }
     if (type == 'dragon_attack') {
-      return local.newsLogDragonAttack(user);
+      final template = storyContent['news_dragon_attack'] ?? '{user} enters the Green Dragon\'s lair! The roar echoes through the mountains...';
+      return template.replaceAll('{user}', user);
     }
     if (type == 'dragon_defeat') {
-      return local.newsLogDragonDefeat(user);
+      final template = storyContent['news_dragon_defeat'] ?? '{user} was brutally roasted by the Green Dragon! Oaktaven mourns...';
+      return template.replaceAll('{user}', user);
     }
     if (type == 'dragon_kill') {
-      return local.news_dragon_kill(levelStr, user);
+      final template = storyContent['news_dragon_kill'] ?? '{user} has defeated the Green Dragon and saves the realm! This is their {kills} victory!';
+      return template.replaceAll('{user}', user).replaceAll('{kills}', levelStr);
     }
     
     return log['log_text'] ?? log['message'] ?? '';

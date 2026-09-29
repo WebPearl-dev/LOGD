@@ -1,8 +1,16 @@
 {
-  "welcome": "`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Meester staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je echt klaar voor de volgende stap?\"",
-  "status_req": "Vereiste XP voor Level {nextLvl}: `c{reqXp} XP`w (Huidig: `c{currentXp} XP`w)",
+  "welcome": "`gJe stapt de serene, naar wierook ruikende trainingsruimte binnen. Je Master staat met gekruiste armen in het midden van de mat.`w\n\n\"Welkom, reiziger. Ik zie dat je hebt gevochten in het bos. Maar ben je werkelijk klaar voor de volgende stap?\"",
+  "status_req": "Benodigde XP voor Level {nextLvl}: `c{reqXp} XP`w (Huidig: `c{currentXp} XP`w)",
   "ready": "`2Je bent klaar om te vechten voor je volgende level!`w",
-  "not_ready": "`4Je hebt nog niet genoeg ervaring verdient om mij uit te dagen. Train harder in het bos!`w",
-  "victory": "`2Gefeliciteerd! Je hebt je Meester verslagen en stijgt naar Level {lvl}! Je maximale HP is permanent verhoogd naar {maxHp}.`w",
-  "defeat": "`4Je Meester slaat je met een houten trainingszwaard verrot op de mat: \"Je bent er nog niet klaar voor, leerling!\" Je overleeft het net, maar je HP staat op 1.`w"
+  "not_ready": "`4Je hebt nog niet genoeg ervaring om mij al uit te dagen. Train harder in het bos!`w",
+  "victory": "`2Gefeliciteerd! Je hebt je Master verslagen en stijgt naar Level {lvl}! Je maximale HP is permanent verhoogd naar {maxHp}.`w",
+  "defeat": "`4Je Master slaat je bont en blauw op de mat met een houten oefenzwaard: \"Je bent er nog niet klaar voor, leerling!\" Je overleeft het ternauwernood, je HP wordt op 1 gezet.`w",
+  "master_attack": "slaat met een houten oefenzwaard",
+  "player_attack_log": "`2Je raakt de Master voor {damage} schade.`w",
+  "master_attack_log": "\n{name} {attack} en doet `4{damage} schade`w terug!",
+  "success_level_up": "`2Gefeliciteerd! Je hebt de Master verslagen in een episch gevecht en bent gestegen naar Level {level}!`w",
+  "error_no_x_p": "`4Je bent nog niet zover! Je hebt niet genoeg ervaring (XP) om de Master uit te dagen.`w",
+  "skill_magic_success": "`cJe spreekt de spreuk Regeneratie uit! Een mystiek licht omringt je en geneest {amount} HP.`w",
+  "skill_thieving_success": "`yJe gebruikt je Zakkenrollen vaardigheid tijdens de aanval en rooft {amount} extra goudstukken van de {enemy}!`w",
+  "skill_warrior_success": "`rJe voert een brute Schildbeuk uit! Je beukt direct in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w\nDe {enemy} is wankel!"
 }

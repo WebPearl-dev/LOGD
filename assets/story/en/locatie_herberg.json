@@ -37,5 +37,7 @@
   "error_no_gold": "`4The barkeep slams the bar:`w 'You don't have enough gold pieces, traveler! Go work in the forest first!'",
   "error_no_gems": "`4'Do you think I settle for talk? Don't come back until you have gleaming Gems with you!'`w",
   "error_no_turns": "`4You have no turns left to flirt today!`w",
-  "error_no_ring": "`4You haven't bought a wedding ring at the town square yet!`w"
+  "error_no_ring": "`4You haven't bought a wedding ring at the town square yet!`w",
+  "room_rented_message": "You rented a safe room in the inn! You are now protected from offline PK attacks.",
+  "room_error_no_gold": "You do not have enough gold (50 gold required) to rent a room!"
 }

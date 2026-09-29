@@ -304,7 +304,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: LogdText(
-                                    text: "${local.townCrierPrefix}${_con.parseNewsItem(local, _con.latestNewsItem!)}",
+                                    text: "${local.townCrierPrefix}${_con.parseNewsItem(_con.latestNewsItem!)}",
                                     fontSize: LogdCodes.fontSizeDefault - 1,
                                   ),
                                 ),

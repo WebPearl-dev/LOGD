@@ -4,5 +4,13 @@
   "ready": "`2You are ready to fight for your next level!`w",
   "not_ready": "`4You haven't earned enough experience to challenge me yet. Train harder in the forest!`w",
   "victory": "`2Congratulations! You defeated your Master and ascend to Level {lvl}! Your max HP is permanently increased to {maxHp}.`w",
-  "defeat": "`4Your Master beats you black and blue on the mat with a wooden training sword: \"You are not ready yet, apprentice!\" You barely survive, your HP is set to 1.`w"
+  "defeat": "`4Your Master beats you black and blue on the mat with a wooden training sword: \"You are not ready yet, apprentice!\" You barely survive, your HP is set to 1.`w",
+  "master_attack": "strikes with a wooden practice sword",
+  "player_attack_log": "`2You hit the Master for {damage} damage.`w",
+  "master_attack_log": "\n{name} {attack} and deals `4{damage} damage`w back!",
+  "success_level_up": "`2Congratulations! You defeated your Master in an epic battle and rose to Level {level}!`w",
+  "error_no_x_p": "`4You are not ready yet! You do not have enough experience (XP) to challenge the Master.`w",
+  "skill_magic_success": "`cYou cast the spell Regeneration! A mystic light surrounds you and heals {amount} HP.`w",
+  "skill_thieving_success": "`yYou use your Pickpocket skill during the attack and rob {amount} extra gold pieces from the {enemy}!`w",
+  "skill_warrior_success": "`rYou execute a brute Shield Bash! You slam directly into the {enemy} and deal {amount} GUARANTEED damage!`w\nThe {enemy} is dazed!"
 }

@@ -42,11 +42,13 @@
 
   "veteran_welcome": "Je schuift een kruk aan naast een luidruchtige veteraan. 'Hah! Nog een groentje!' brult hij. 'Heb je de moed om een écht verhaal te horen, of ben je bang dat je zwaard breekt?'",
   "veteran_success": "De veteraan slaat je hard op je schouder. 'Kijk, dat mag ik horen! Luister: de monsters van jouw niveau hebben een hekel aan schijnbewegingen. Als je ze als eerste slaat, wankelen ze direct!' (+{xp} XP)",
-  "veteran_fail": "Hij neemt een diepe slok, kijkt je plotseling kwaad aan en duwt je van je kruk af. 'Wat sta je nou te gapen? Ga zelf maar vechten!' (-2 HP)",
+  "veteran_fail": "Hij neemt een diepe slok, kijkt je plotseling kwaad aan en duwt je van je kruk af. 'What sta je nou te gapen? Ga zelf maar vechten!' (-2 HP)",
 
   "sour_beer_event": "`4Bij je eerste slok trek je een vies gezicht! Je bier is compleet zuur geworden! Een geest van de Begraafplaats heeft je drankje behekst!`w",
   "error_no_gold": "`4De barman slaat op de bar:`w 'Je hebt niet genoeg goudstukken, reiziger! Ga eerst maar eens werken in het bos!'",
   "error_no_gems": "`4'Denk je dat ik genoegen neem met praatjes? Kom pas terug als je glimmende Edelstenen bij je hebt!'`w",
   "error_no_turns": "`4Je hebt geen beurten meer om te flirten vandaag!`w",
-  "error_no_ring": "`4Je hebt nog geen trouwring gekocht op het dorpsplein!`w"
+  "error_no_ring": "`4Je hebt nog geen trouwring gekocht op het dorpsplein!`w",
+  "room_rented_message": "Je hebt een veilige kamer gehuurd in de herberg! Je bent nu beschermd tegen offline PK-aanvallen.",
+  "room_error_no_gold": "Je hebt niet genoeg goud (50 goud vereist) om een kamer te huren!"
 }

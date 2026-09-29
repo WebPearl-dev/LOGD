@@ -98,16 +98,16 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return level * level * 100;
   }
 
-  String _getMasterName(AppLocalizations local) {
-    if (level < 4) return local.master0;
-    if (level < 8) return local.master1;
-    if (level < 12) return local.master2;
-    return local.master3;
+  String _getMasterName() {
+    if (level < 4) return "Master Jon";
+    if (level < 8) return "Master Gibson";
+    if (level < 12) return "Master Olivia";
+    return "Master Drake";
   }
 
   void _startDuel() {
-    final local = AppLocalizations.of(context)!;
-    final String mName = _getMasterName(local);
+    final String mName = _getMasterName();
+    final String masterAttack = _storyContent['master_attack'] ?? "strikes with a wooden practice sword";
     
     setState(() {
       _isInCombat = true;
@@ -120,7 +120,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         level: level + 1,
         maxHp: _masterHp,
         currentHp: _masterHp,
-        attackText: local.trainingMasterAttack,
+        attackText: masterAttack,
         minGold: 0,
         maxGold: 0,
       );
@@ -130,8 +130,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
   void _onAttackPressed() {
     if (_currentMaster == null || !_isInCombat) return;
 
-    final local = AppLocalizations.of(context)!;
-    
     final int pAtk = level * 6 + 5 + permanentBonusAtk;
     final int pDef = level * 4 + 3 + permanentBonusDef;
 
@@ -148,12 +146,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
       _masterHp = (_masterHp - result.damageDealt).clamp(0, 9999);
       playerHp = (playerHp - result.damageReceived).clamp(0, playerMaxHp);
 
-      String roundLog = local.trainingPlayerAttackLog(result.damageDealt.toString()) +
-                        local.trainingMasterAttackLog(
-                          result.args['attack_text'] ?? local.trainingMasterAttack,
-                          result.damageReceived.toString(),
-                          _currentMaster!.name,
-                        );
+      String playerLog = (_storyContent['player_attack_log'] ?? "").replaceAll('{damage}', result.damageDealt.toString());
+      String masterAttackText = result.args['attack_text'] ?? _storyContent['master_attack'] ?? "";
+      String masterLog = (_storyContent['master_attack_log'] ?? "")
+          .replaceAll('{name}', _currentMaster!.name)
+          .replaceAll('{attack}', masterAttackText)
+          .replaceAll('{damage}', result.damageReceived.toString());
+
+      String roundLog = playerLog + masterLog;
       
       _combatLog = "$roundLog\n\n$_combatLog";
 
@@ -163,7 +163,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       } else if (playerHp <= 1) {
         playerHp = 1;
         _isInCombat = false;
-        _statusMessage = local.trainingDefeat;
+        _statusMessage = _storyContent['defeat'] ?? "";
         _updateHpInCloud();
       }
     });
@@ -181,7 +181,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
   }
 
   Future<void> _finalizeLevelUp() async {
-    final local = AppLocalizations.of(context)!;
     int newLevel = level + 1;
     int newMaxHp = playerMaxHp + 10;
 
@@ -193,7 +192,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         level = newLevel;
         playerMaxHp = newMaxHp;
         playerHp = newMaxHp;
-        _statusMessage = local.trainingSuccessLevelUp(newLevel.toString());
+        _statusMessage = (_storyContent['success_level_up'] ?? "").replaceAll('{level}', newLevel.toString());
       });
       return;
     }
@@ -219,7 +218,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       level = newLevel;
       playerMaxHp = newMaxHp;
       playerHp = newMaxHp;
-      _statusMessage = local.trainingSuccessLevelUp(newLevel.toString());
+      _statusMessage = (_storyContent['success_level_up'] ?? "").replaceAll('{level}', newLevel.toString());
     });
   }
 

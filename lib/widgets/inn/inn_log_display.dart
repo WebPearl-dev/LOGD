@@ -41,41 +41,10 @@ class InnLogDisplay extends StatelessWidget {
         itemCount: newsLogs.length,
         itemBuilder: (context, index) {
           final log = newsLogs[index];
-          final String type = log['log_type'] ?? '';
-          final String user = log['username'] ?? local.newsUnknownPlayer;
-
-          final int numericLevel = log['reached_level'] ?? log['value_after'] ?? 0;
-          final String levelStr = numericLevel.toString();
-
-          final int numericGold = log['gold_amount'] ?? log['gold'] ?? 0;
-          final String goldStr = numericGold.toString();
-
-          String parsedText = "";
-
-          if (type == 'level_up') {
-            parsedText = local.newsLogLevelUp(levelStr, user);
-          } else if (type == 'inn_win') {
-            parsedText = local.newsLogInnWin(goldStr, user);
-          } else if (type == 'inn_loss') {
-            parsedText = local.newsLogInnLoss(goldStr, user);
-          } else if (type == 'defeated') {
-            final rawEnemy = log['enemy_name'] ?? '';
-            final enemyName = rawEnemy.isNotEmpty ? TownSquareController.getMonsterName(rawEnemy) : 'een monster';
-            parsedText = local.newsLogDefeated(enemyName, user);
-          } else if (type == 'defeated_brutal') {
-            final rawEnemy = log['enemy_name'] ?? '';
-            final enemyName = rawEnemy.isNotEmpty ? TownSquareController.getMonsterName(rawEnemy) : 'een monster';
-            parsedText = local.newsLogDefeatedBrutal(enemyName, user);
-          } else if (type == 'marriage') {
-            parsedText = local.newsLogMarriage(log['partner_name'] ?? 'iemand', user);
-          } else if (type == 'dragon_kill') {
-            parsedText = local.news_dragon_kill(user, log['kills']?.toString() ?? '1');
-          } else if (type == 'dragon_attack') {
-            parsedText = local.newsLogDragonAttack(user);
-          } else if (type == 'dragon_defeat') {
-            parsedText = local.newsLogDragonDefeat(user);
-          } else {
-            parsedText = log['log_text'] ?? log['message'] ?? local.innNewsEnterLog(user);
+          final TownSquareController tsController = TownSquareController();
+          String parsedText = tsController.parseNewsItem(log);
+          if (parsedText.isEmpty) {
+            parsedText = log['log_text'] ?? log['message'] ?? 'Reiziger betreedt de herberg.';
           }
 
           return Padding(

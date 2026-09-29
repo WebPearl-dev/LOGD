@@ -55,7 +55,7 @@ class _NewDayScreenState extends State<NewDayScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               LogdText(
-                text: "`y== ${local.resetNewDayTitle.toUpperCase()} ==`w",
+                text: "`y== ${(_storyContent['reset_new_day_title'] ?? "A New Day Dawns!").toUpperCase()} ==`w",
                 fontSize: 22,
                 textAlign: TextAlign.center,
               ),
@@ -67,14 +67,14 @@ class _NewDayScreenState extends State<NewDayScreen> {
               const Divider(color: Colors.grey),
               const SizedBox(height: 16),
               
-              LogdText(text: local.resetNightResults, fontSize: LogdCodes.fontSizeCardTitle),
+              LogdText(text: _storyContent['reset_night_results'] ?? "Results of the night:", fontSize: LogdCodes.fontSizeCardTitle),
               const SizedBox(height: 10),
               
               if (widget.result.interestEarned > 0)
-                LogdText(text: local.resetInterestLog(widget.result.interestEarned.toString()), fontSize: LogdCodes.fontSizeDefault),
+                LogdText(text: (_storyContent['reset_interest_log'] ?? "").replaceAll('{amount}', widget.result.interestEarned.toString()), fontSize: LogdCodes.fontSizeDefault),
               
-              LogdText(text: local.resetTurnsLog(widget.result.newTurns.toString()), fontSize: LogdCodes.fontSizeDefault),
-              LogdText(text: local.resetReadyLog, fontSize: LogdCodes.fontSizeDefault),
+              LogdText(text: (_storyContent['reset_turns_log'] ?? "").replaceAll('{amount}', widget.result.newTurns.toString()), fontSize: LogdCodes.fontSizeDefault),
+              LogdText(text: _storyContent['reset_ready_log'] ?? "", fontSize: LogdCodes.fontSizeDefault),
               
               const SizedBox(height: 40),
               
