@@ -35,7 +35,6 @@ class InnMainGrid extends StatelessWidget {
               _buildGridButton(label: local.innMenuVeteran.toUpperCase(), color: LogdCodes.uiBrown, onTap: () => onSectionChange("VETERAN")),
               _buildGridButton(label: local.innMenuGamble.toUpperCase(), color: LogdCodes.uiAmber, onTap: () => onSectionChange("GAMBLE")),
               _buildGridButton(label: local.innMenuSpy.toUpperCase(), color: LogdCodes.uiRed, onTap: () => onSectionChange("SPY")),
-              _buildGridButton(label: local.innMenuNews.toUpperCase(), color: LogdCodes.uiCyan, onTap: () => onSectionChange("NEWS")),
               _buildGridButton(label: local.innMenuBounty.toUpperCase(), color: LogdCodes.uiGrey, onTap: () => onSectionChange("BOUNTY")),
               _buildGridButton(label: local.innRentRoom.toUpperCase(), color: LogdCodes.uiGreen, onTap: onRentRoomPressed),
             ],

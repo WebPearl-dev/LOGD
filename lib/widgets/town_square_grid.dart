@@ -88,6 +88,12 @@ class TownSquareGrid extends StatelessWidget {
           onStablesPressed,
         ),
         _buildButton(
+          local.townArenaButton.toUpperCase(),
+          Colors.deepOrange,
+          const Color(0xFF241000),
+          onArenaPressed,
+        ),
+        _buildButton(
           local.btnVisitChurch.toUpperCase(),
           LogdCodes.uiChurch,
           const Color(0xFF222222),
@@ -146,12 +152,6 @@ class TownSquareGrid extends StatelessWidget {
           Colors.cyan,
           const Color(0xFF002424),
           onChatPressed,
-        ),
-        _buildButton(
-          local.townArenaButton.toUpperCase(),
-          Colors.deepOrange,
-          const Color(0xFF241000),
-          onArenaPressed,
         ),
         _buildButton(
           local.btnGoToForest.toUpperCase(),

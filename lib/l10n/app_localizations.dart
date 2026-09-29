@@ -2558,7 +2558,7 @@ abstract class AppLocalizations {
   /// No description provided for @btnVisitBarber.
   ///
   /// In nl, this message translates to:
-  /// **'KAPPER MET STYLING 💈'**
+  /// **'KAPPER MET STYLING'**
   String get btnVisitBarber;
 
   /// No description provided for @btnBuyTitle.

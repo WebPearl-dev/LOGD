@@ -213,6 +213,11 @@ class TownSquareMenuRouter extends StatelessWidget {
               color: LogdCodes.uiBlue,
               onPressed: onStablesPressed,
             ),
+            buildMenuButton(
+              label: local.townArenaButton,
+              color: Colors.deepOrange,
+              onPressed: onArenaPressed,
+            ),
           ],
         );
 
@@ -254,11 +259,6 @@ class TownSquareMenuRouter extends StatelessWidget {
               label: local.townChatButton,
               color: Colors.cyan,
               onPressed: onChatPressed,
-            ),
-            buildMenuButton(
-              label: local.townArenaButton,
-              color: Colors.deepOrange,
-              onPressed: onArenaPressed,
             ),
           ],
         );

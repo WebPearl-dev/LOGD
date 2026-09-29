@@ -1490,7 +1490,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get healerSuccessFallback => 'Je bent genezen!';
 
   @override
-  String get btnVisitBarber => 'KAPPER MET STYLING 💈';
+  String get btnVisitBarber => 'KAPPER MET STYLING';
 
   @override
   String get btnBuyTitle => 'KOOP TITEL (1 EDELSTEEN)';

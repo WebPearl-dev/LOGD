@@ -1483,7 +1483,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healerSuccessFallback => 'You are healed!';
 
   @override
-  String get btnVisitBarber => 'BARBER WITH STYLING 💈';
+  String get btnVisitBarber => 'BARBER WITH STYLING';
 
   @override
   String get btnBuyTitle => 'BUY TITLE (1 GEM)';
