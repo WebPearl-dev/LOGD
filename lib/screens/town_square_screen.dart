@@ -20,6 +20,9 @@ import 'daily_news_screen.dart';
 import 'developer_panel_screen.dart';
 import 'rankings_screen.dart';
 import 'dragon_shrine_screen.dart';
+import 'global_chat_screen.dart';
+import 'direct_messages_screen.dart';
+import 'arena_screen.dart';
 
 import '../services/new_day_service.dart';
 import 'new_day_screen.dart';
@@ -256,6 +259,16 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
           backgroundColor: LogdCodes.uiAppBarBg,
           automaticallyImplyLeading: false,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.chat, color: Colors.cyan),
+              tooltip: local.globalChatTitle,
+              onPressed: () => _navigateTo(const GlobalChatScreen()),
+            ),
+            IconButton(
+              icon: const Icon(Icons.message, color: Colors.lightGreenAccent),
+              tooltip: local.directMessagesTitle,
+              onPressed: () => _navigateTo(const DirectMessagesScreen()),
+            ),
             if (!GuestManager.isGuest && (_con.playerData?['is_admin'] == true || Supabase.instance.client.auth.currentUser?.email == 'samhaoir@live.nl'))
               IconButton(
                 icon: const Icon(Icons.code, color: Colors.purpleAccent),
@@ -414,6 +427,8 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                   }),
                   onRankingsPressed: () => _navigateTo(const RankingsScreen()),
                   onDragonShrinePressed: () => _navigateTo(const DragonShrineScreen()),
+                  onChatPressed: () => _navigateTo(const GlobalChatScreen()),
+                  onArenaPressed: () => _navigateTo(const ArenaScreen()),
                 ),
               if (_activeSubLocation != "MAIN" && !isPanelActive) ...[
                 const SizedBox(height: 10),

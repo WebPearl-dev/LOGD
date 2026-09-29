@@ -23,6 +23,8 @@ class TownSquareMenuRouter extends StatelessWidget {
   final VoidCallback onMightyEPressed;
   final VoidCallback onRankingsPressed;
   final VoidCallback onDragonShrinePressed;
+  final VoidCallback onChatPressed;
+  final VoidCallback onArenaPressed;
 
   const TownSquareMenuRouter({
     super.key,
@@ -45,6 +47,8 @@ class TownSquareMenuRouter extends StatelessWidget {
     required this.onMightyEPressed,
     required this.onRankingsPressed,
     required this.onDragonShrinePressed,
+    required this.onChatPressed,
+    required this.onArenaPressed,
   });
 
   @override
@@ -246,6 +250,16 @@ class TownSquareMenuRouter extends StatelessWidget {
               color: Colors.amber,
               onPressed: onMightyEPressed,
             ), // Goud voor MightyE!
+            buildMenuButton(
+              label: local.townChatButton,
+              color: Colors.cyan,
+              onPressed: onChatPressed,
+            ),
+            buildMenuButton(
+              label: local.townArenaButton,
+              color: Colors.deepOrange,
+              onPressed: onArenaPressed,
+            ),
           ],
         );
 

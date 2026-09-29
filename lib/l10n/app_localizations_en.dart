@@ -1920,4 +1920,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsTutorialSubtitle => 'View the interactive game guide';
+
+  @override
+  String get globalChatTitle => 'Global Chat';
+
+  @override
+  String get directMessagesTitle => 'Direct Messages';
+
+  @override
+  String get arenaTitle => 'PvP Arena & Duels';
+
+  @override
+  String get innRentRoom => 'Rent Room (50 gold)';
+
+  @override
+  String get innRoomRentedMessage =>
+      'You rented a safe room in the inn! You are now protected from offline PK attacks.';
+
+  @override
+  String get innRoomErrorNoGold =>
+      'You do not have enough gold (50 gold required) to rent a room!';
+
+  @override
+  String get chatSendHint => 'Type a message... (Profanity filter active)';
+
+  @override
+  String get btnSend => 'Send';
+
+  @override
+  String get btnDm => 'Direct Message';
+
+  @override
+  String get btnChallenge => 'Challenge';
+
+  @override
+  String get arenaWagerPrompt => 'Wager (Gold):';
+
+  @override
+  String arenaFightTitle(Object challenger, Object opponent) {
+    return '=== PVP DUEL: $challenger vs $opponent ===';
+  }
+
+  @override
+  String arenaVictory(Object gold, Object honor) {
+    return '`2You won the PvP duel and earned $gold gold and $honor honor!`w';
+  }
+
+  @override
+  String arenaDefeat(Object opponent) {
+    return '`4You were defeated in the PvP duel by $opponent!`w';
+  }
+
+  @override
+  String statHonor(Object amount) {
+    return 'Honor: $amount';
+  }
+
+  @override
+  String statPvpWins(Object losses, Object wins) {
+    return 'Wins: $wins | Losses: $losses';
+  }
+
+  @override
+  String get townChatButton => 'World Chat';
+
+  @override
+  String get townArenaButton => 'PvP Arena';
+
+  @override
+  String get dmSelectRecipient => 'Select Recipient';
+
+  @override
+  String get dmNoConversations =>
+      'No direct messages found. Tap a player in the Arena or Chat to start a DM.';
+
+  @override
+  String get arenaNoOpponents => 'No other rectors found in the realm.';
+
+  @override
+  String get arenaChallengeSent => 'Challenge sent!';
+
+  @override
+  String get arenaAccept => 'Accept';
+
+  @override
+  String get arenaDecline => 'Decline';
 }

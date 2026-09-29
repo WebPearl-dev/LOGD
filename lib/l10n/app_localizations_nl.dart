@@ -1931,4 +1931,89 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get settingsTutorialSubtitle =>
       'Bekijk de interactieve spelhandleiding';
+
+  @override
+  String get globalChatTitle => 'Wereldwijde Chat';
+
+  @override
+  String get directMessagesTitle => 'Privé Berichten (DMs)';
+
+  @override
+  String get arenaTitle => 'PvP Arena & Duels';
+
+  @override
+  String get innRentRoom => 'Kamer huren (50 goud)';
+
+  @override
+  String get innRoomRentedMessage =>
+      'Je hebt een veilige kamer gehuurd in de herberg! Je bent nu beschermd tegen offline PK aanvallen.';
+
+  @override
+  String get innRoomErrorNoGold =>
+      'Je hebt niet genoeg goud (50 goud nodig) om een kamer te huren!';
+
+  @override
+  String get chatSendHint => 'Typ een bericht... (Profanity filter actief)';
+
+  @override
+  String get btnSend => 'Verzenden';
+
+  @override
+  String get btnDm => 'Privébericht';
+
+  @override
+  String get btnChallenge => 'Daag uit';
+
+  @override
+  String get arenaWagerPrompt => 'Inzet (Goud):';
+
+  @override
+  String arenaFightTitle(Object challenger, Object opponent) {
+    return '=== PVP DUEL: $challenger vs $opponent ===';
+  }
+
+  @override
+  String arenaVictory(Object gold, Object honor) {
+    return '`2Je hebt het PvP duel gewonnen en $gold goud en $honor eer gewonnen!`w';
+  }
+
+  @override
+  String arenaDefeat(Object opponent) {
+    return '`4Je bent verslagen in het PvP duel door $opponent!`w';
+  }
+
+  @override
+  String statHonor(Object amount) {
+    return 'Eer: $amount';
+  }
+
+  @override
+  String statPvpWins(Object losses, Object wins) {
+    return 'Overwinningen: $wins | Verliezen: $losses';
+  }
+
+  @override
+  String get townChatButton => 'Wereld Chat';
+
+  @override
+  String get townArenaButton => 'PvP Arena';
+
+  @override
+  String get dmSelectRecipient => 'Selecteer ontvanger';
+
+  @override
+  String get dmNoConversations =>
+      'Geen privéberichten gevonden. Tik op een speler in de Arena of Chat om een DM te starten.';
+
+  @override
+  String get arenaNoOpponents => 'Geen andere rectors gevonden in het rijk.';
+
+  @override
+  String get arenaChallengeSent => 'Uitdaging verstuurd!';
+
+  @override
+  String get arenaAccept => 'Accepteren';
+
+  @override
+  String get arenaDecline => 'Weigeren';
 }

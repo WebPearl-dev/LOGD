@@ -3370,6 +3370,150 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'Bekijk de interactieve spelhandleiding'**
   String get settingsTutorialSubtitle;
+
+  /// No description provided for @globalChatTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Wereldwijde Chat'**
+  String get globalChatTitle;
+
+  /// No description provided for @directMessagesTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'Privé Berichten (DMs)'**
+  String get directMessagesTitle;
+
+  /// No description provided for @arenaTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'PvP Arena & Duels'**
+  String get arenaTitle;
+
+  /// No description provided for @innRentRoom.
+  ///
+  /// In nl, this message translates to:
+  /// **'Kamer huren (50 goud)'**
+  String get innRentRoom;
+
+  /// No description provided for @innRoomRentedMessage.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je hebt een veilige kamer gehuurd in de herberg! Je bent nu beschermd tegen offline PK aanvallen.'**
+  String get innRoomRentedMessage;
+
+  /// No description provided for @innRoomErrorNoGold.
+  ///
+  /// In nl, this message translates to:
+  /// **'Je hebt niet genoeg goud (50 goud nodig) om een kamer te huren!'**
+  String get innRoomErrorNoGold;
+
+  /// No description provided for @chatSendHint.
+  ///
+  /// In nl, this message translates to:
+  /// **'Typ een bericht... (Profanity filter actief)'**
+  String get chatSendHint;
+
+  /// No description provided for @btnSend.
+  ///
+  /// In nl, this message translates to:
+  /// **'Verzenden'**
+  String get btnSend;
+
+  /// No description provided for @btnDm.
+  ///
+  /// In nl, this message translates to:
+  /// **'Privébericht'**
+  String get btnDm;
+
+  /// No description provided for @btnChallenge.
+  ///
+  /// In nl, this message translates to:
+  /// **'Daag uit'**
+  String get btnChallenge;
+
+  /// No description provided for @arenaWagerPrompt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Inzet (Goud):'**
+  String get arenaWagerPrompt;
+
+  /// No description provided for @arenaFightTitle.
+  ///
+  /// In nl, this message translates to:
+  /// **'=== PVP DUEL: {challenger} vs {opponent} ==='**
+  String arenaFightTitle(Object challenger, Object opponent);
+
+  /// No description provided for @arenaVictory.
+  ///
+  /// In nl, this message translates to:
+  /// **'`2Je hebt het PvP duel gewonnen en {gold} goud en {honor} eer gewonnen!`w'**
+  String arenaVictory(Object gold, Object honor);
+
+  /// No description provided for @arenaDefeat.
+  ///
+  /// In nl, this message translates to:
+  /// **'`4Je bent verslagen in het PvP duel door {opponent}!`w'**
+  String arenaDefeat(Object opponent);
+
+  /// No description provided for @statHonor.
+  ///
+  /// In nl, this message translates to:
+  /// **'Eer: {amount}'**
+  String statHonor(Object amount);
+
+  /// No description provided for @statPvpWins.
+  ///
+  /// In nl, this message translates to:
+  /// **'Overwinningen: {wins} | Verliezen: {losses}'**
+  String statPvpWins(Object losses, Object wins);
+
+  /// No description provided for @townChatButton.
+  ///
+  /// In nl, this message translates to:
+  /// **'Wereld Chat'**
+  String get townChatButton;
+
+  /// No description provided for @townArenaButton.
+  ///
+  /// In nl, this message translates to:
+  /// **'PvP Arena'**
+  String get townArenaButton;
+
+  /// No description provided for @dmSelectRecipient.
+  ///
+  /// In nl, this message translates to:
+  /// **'Selecteer ontvanger'**
+  String get dmSelectRecipient;
+
+  /// No description provided for @dmNoConversations.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geen privéberichten gevonden. Tik op een speler in de Arena of Chat om een DM te starten.'**
+  String get dmNoConversations;
+
+  /// No description provided for @arenaNoOpponents.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geen andere rectors gevonden in het rijk.'**
+  String get arenaNoOpponents;
+
+  /// No description provided for @arenaChallengeSent.
+  ///
+  /// In nl, this message translates to:
+  /// **'Uitdaging verstuurd!'**
+  String get arenaChallengeSent;
+
+  /// No description provided for @arenaAccept.
+  ///
+  /// In nl, this message translates to:
+  /// **'Accepteren'**
+  String get arenaAccept;
+
+  /// No description provided for @arenaDecline.
+  ///
+  /// In nl, this message translates to:
+  /// **'Weigeren'**
+  String get arenaDecline;
 }
 
 class _AppLocalizationsDelegate

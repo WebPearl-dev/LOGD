@@ -229,4 +229,23 @@ class InnController {
       return false;
     }
   }
+
+  Future<bool> rentRoom() async {
+    if (goldOnHand < 50) return false;
+    goldOnHand -= 50;
+    if (GuestManager.isGuest) {
+      GuestManager.guestProfile['gold_on_hand'] = goldOnHand;
+      GuestManager.guestProfile['is_resting_in_inn'] = true;
+      return true;
+    }
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      await supabase.from('profiles').update({
+        'gold_on_hand': goldOnHand,
+        'is_resting_in_inn': true,
+      }).eq('id', user.id);
+      return true;
+    }
+    return false;
+  }
 }

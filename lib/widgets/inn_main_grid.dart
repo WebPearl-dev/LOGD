@@ -6,11 +6,13 @@ import '../theme/logd_codes.dart';
 class InnMainGrid extends StatelessWidget {
   final Function(String) onSectionChange;
   final VoidCallback onReturnTown;
+  final VoidCallback onRentRoomPressed;
 
   const InnMainGrid({
     super.key,
     required this.onSectionChange,
     required this.onReturnTown,
+    required this.onRentRoomPressed,
   });
 
   @override
@@ -35,6 +37,7 @@ class InnMainGrid extends StatelessWidget {
               _buildGridButton(label: local.innMenuSpy.toUpperCase(), color: LogdCodes.uiRed, onTap: () => onSectionChange("SPY")),
               _buildGridButton(label: local.innMenuNews.toUpperCase(), color: LogdCodes.uiCyan, onTap: () => onSectionChange("NEWS")),
               _buildGridButton(label: local.innMenuBounty.toUpperCase(), color: LogdCodes.uiGrey, onTap: () => onSectionChange("BOUNTY")),
+              _buildGridButton(label: local.innRentRoom.toUpperCase(), color: LogdCodes.uiGreen, onTap: onRentRoomPressed),
             ],
           ),
         ),

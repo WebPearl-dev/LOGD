@@ -127,6 +127,14 @@ class _InnScreenState extends State<InnScreen> {
     });
   }
 
+  void _onRentRoomPressed() async {
+    final local = AppLocalizations.of(context)!;
+    bool success = await _controller.rentRoom();
+    setState(() {
+      _displayLog = success ? local.innRoomRentedMessage : local.innRoomErrorNoGold;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
@@ -186,7 +194,11 @@ class _InnScreenState extends State<InnScreen> {
             Expanded(
               flex: 5,
               child: _activeSection == "MAIN"
-                  ? InnMainGrid(onSectionChange: _changeSection, onReturnTown: () => Navigator.pop(context))
+                  ? InnMainGrid(
+                      onSectionChange: _changeSection,
+                      onReturnTown: () => Navigator.pop(context),
+                      onRentRoomPressed: _onRentRoomPressed,
+                    )
                   : Column(
                       children: [
                         InnPanelRouter(

@@ -20,6 +20,8 @@ class TownSquareGrid extends StatelessWidget {
   final VoidCallback onWeddingPressed;
   final VoidCallback onTalkTownfolkPressed;
   final VoidCallback onForestAttempt;
+  final VoidCallback onChatPressed;
+  final VoidCallback onArenaPressed;
 
   const TownSquareGrid({
     super.key,
@@ -39,6 +41,8 @@ class TownSquareGrid extends StatelessWidget {
     required this.onWeddingPressed,
     required this.onTalkTownfolkPressed,
     required this.onForestAttempt,
+    required this.onChatPressed,
+    required this.onArenaPressed,
   });
 
   @override
@@ -136,6 +140,18 @@ class TownSquareGrid extends StatelessWidget {
           Colors.redAccent,
           const Color(0xFF240A0A),
           onWeddingPressed,
+        ),
+        _buildButton(
+          local.townChatButton.toUpperCase(),
+          Colors.cyan,
+          const Color(0xFF002424),
+          onChatPressed,
+        ),
+        _buildButton(
+          local.townArenaButton.toUpperCase(),
+          Colors.deepOrange,
+          const Color(0xFF241000),
+          onArenaPressed,
         ),
         _buildButton(
           local.btnGoToForest.toUpperCase(),
