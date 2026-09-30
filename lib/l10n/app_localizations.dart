@@ -680,6 +680,42 @@ abstract class AppLocalizations {
   /// **'Verzenden'**
   String get btnSend;
 
+  /// No description provided for @reportUser.
+  ///
+  /// In nl, this message translates to:
+  /// **'Rapporteer gebruiker'**
+  String get reportUser;
+
+  /// No description provided for @blockUser.
+  ///
+  /// In nl, this message translates to:
+  /// **'Blokkeer gebruiker'**
+  String get blockUser;
+
+  /// No description provided for @reportReasonPrompt.
+  ///
+  /// In nl, this message translates to:
+  /// **'Geef reden op voor rapportage:'**
+  String get reportReasonPrompt;
+
+  /// No description provided for @reportSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gebruiker succesvol gerapporteerd.'**
+  String get reportSuccess;
+
+  /// No description provided for @blockSuccess.
+  ///
+  /// In nl, this message translates to:
+  /// **'Gebruiker succesvol geblokkeerd.'**
+  String get blockSuccess;
+
+  /// No description provided for @options.
+  ///
+  /// In nl, this message translates to:
+  /// **'Opties'**
+  String get options;
+
   /// No description provided for @btnDm.
   ///
   /// In nl, this message translates to:

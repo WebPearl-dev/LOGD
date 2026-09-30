@@ -66,3 +66,34 @@ CREATE POLICY "Users can update their PvP challenges" ON pvp_challenges FOR UPDA
 ALTER PUBLICATION supabase_realtime ADD TABLE global_chat;
 ALTER PUBLICATION supabase_realtime ADD TABLE direct_messages;
 ALTER PUBLICATION supabase_realtime ADD TABLE pvp_challenges;
+
+-- 5. Blocked Users table
+CREATE TABLE IF NOT EXISTS blocked_users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    blocked_user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable RLS for blocked_users
+ALTER TABLE blocked_users ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can read their own blocked users" ON blocked_users FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Authenticated users can insert blocked users" ON blocked_users FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can delete their own blocked users" ON blocked_users FOR DELETE USING (auth.uid() = user_id);
+
+-- 6. Reports table
+CREATE TABLE IF NOT EXISTS reports (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    reporter_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    reported_user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    reason TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable RLS for reports
+ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Authenticated users can insert reports" ON reports FOR INSERT WITH CHECK (auth.uid() = reporter_id);
+CREATE POLICY "Users can read their own reports" ON reports FOR SELECT USING (auth.uid() = reporter_id);
+

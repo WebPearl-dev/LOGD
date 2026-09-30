@@ -271,159 +271,163 @@ class _GraveyardScreenState extends State<GraveyardScreen>
                 ),
               ),
               const SizedBox(height: 8),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.amber, width: 2),
-                  backgroundColor: LogdCodes.uiBlueBg,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                ),
-                onPressed: _handleGraveRobbing,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.btnGraveyardRob.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.amberAccent,
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.amber, width: 2),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                      onPressed: _handleGraveRobbing,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.btnGraveyardRob.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.amberAccent,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.cyan, width: 2),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                      onPressed: () => _handleResurrection('gem'),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.btnGraveyardOfferGem.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.cyanAccent,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
-              OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.cyan, width: 2),
-                      backgroundColor: LogdCodes.uiBlueBg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.amber, width: 2),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
                       ),
-                    ).copyWith(
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Colors.cyanAccent,
+                      onPressed: () => _handleResurrection('xp'),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.btnGraveyardOfferXp.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.amberAccent,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                onPressed: () => _handleResurrection('gem'),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.btnGraveyardOfferGem.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.purple, width: 2),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                      onPressed: () => _handleResurrection('favor'),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.graveyard_btn_resurrect.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.purpleAccent,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
-              OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.amber, width: 2),
-                      backgroundColor: LogdCodes.uiBlueBg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.purple, width: 2),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
                       ),
-                    ).copyWith(
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Colors.amberAccent,
+                      onPressed: _handleHaunting,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.graveyard_btn_haunt.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.purpleAccent,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                onPressed: () => _handleResurrection('xp'),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.btnGraveyardOfferXp.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.purple, width: 2),
-                      backgroundColor: LogdCodes.uiBlueBg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: LogdCodes.uiBlueDark,
+                          width: 2,
+                        ),
+                        backgroundColor: LogdCodes.uiBlueBg,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
                       ),
-                    ).copyWith(
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Colors.purpleAccent,
+                      onPressed: _talkToRamius,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          local.graveyard_btn_talk.toUpperCase(),
+                          style: const TextStyle(
+                            color: LogdCodes.uiBlueDark,
+                            fontFamily: LogdCodes.retroFont,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                onPressed: () => _handleResurrection('favor'),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.graveyard_btn_resurrect.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.purple, width: 2),
-                      backgroundColor: LogdCodes.uiBlueBg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                    ).copyWith(
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Colors.purpleAccent,
-                      ),
-                    ),
-                onPressed: _handleHaunting,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.graveyard_btn_haunt.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              OutlinedButton(
-                style:
-                    OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                        color: LogdCodes.uiBlueDark,
-                        width: 2,
-                      ),
-                      backgroundColor: LogdCodes.uiBlueBg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                    ).copyWith(
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        LogdCodes.uiBlueDark,
-                      ),
-                    ),
-                onPressed: _talkToRamius,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    local.graveyard_btn_talk.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: LogdCodes.retroFont,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                ],
               ),
               const SizedBox(height: 4),
             ],

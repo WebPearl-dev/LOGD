@@ -322,6 +322,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btnSend => 'Send';
 
   @override
+  String get reportUser => 'Report user';
+
+  @override
+  String get blockUser => 'Block user';
+
+  @override
+  String get reportReasonPrompt => 'Enter reason for reporting:';
+
+  @override
+  String get reportSuccess => 'User reported successfully.';
+
+  @override
+  String get blockSuccess => 'User blocked successfully.';
+
+  @override
+  String get options => 'Options';
+
+  @override
   String get btnDm => 'Direct Message';
 
   @override

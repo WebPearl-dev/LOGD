@@ -22,6 +22,7 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
   List<Map<String, dynamic>> _conversations = [];
   List<Map<String, dynamic>> _messages = [];
   List<Map<String, dynamic>> _allProfiles = [];
+  Set<String> _blockedUserIds = {};
   
   String? _selectedRecipientId;
   String? _selectedRecipientUsername;
@@ -33,6 +34,17 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
   void initState() {
     super.initState();
     _initData();
+  }
+
+  Future<void> _loadBlockedUsers() async {
+    if (GuestManager.isGuest) return;
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      try {
+        final res = await supabase.from('blocked_users').select('blocked_user_id').eq('user_id', user.id);
+        _blockedUserIds = res.map((e) => e['blocked_user_id'].toString()).toSet();
+      } catch (_) {}
+    }
   }
 
   Future<void> _initData() async {
@@ -49,9 +61,12 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
         _currentUsername = profile['username'] ?? user.email ?? "Reiziger";
       }
 
-      // Load all profiles for starting new DMs
+      await _loadBlockedUsers();
+
+      // Load all profiles for starting new DMs, excluding blocked users and self
       final profilesRes = await supabase.from('profiles').select('id, username').not('id', 'eq', _currentUserId);
-      _allProfiles = List<Map<String, dynamic>>.from(profilesRes);
+      final rawProfiles = List<Map<String, dynamic>>.from(profilesRes);
+      _allProfiles = rawProfiles.where((p) => !_blockedUserIds.contains(p['id'].toString())).toList();
 
       if (widget.initialRecipientUsername != null) {
         final match = _allProfiles.firstWhere(
@@ -84,6 +99,9 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
         final senderId = m['sender_id'];
         final receiverId = m['receiver_id'];
         final otherId = senderId == _currentUserId ? receiverId : senderId;
+
+        if (_blockedUserIds.contains(otherId?.toString())) continue;
+
         final otherUsername = senderId == _currentUserId ? m['receiver_username'] : m['sender_username'];
 
         if (!convMap.containsKey(otherId)) {
@@ -102,6 +120,7 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
   }
 
   Future<void> _loadMessagesWith(String recipientId) async {
+    if (_blockedUserIds.contains(recipientId)) return;
     try {
       final res = await supabase
           .from('direct_messages')
@@ -110,7 +129,10 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
           .order('created_at', ascending: true);
 
       setState(() {
-        _messages = List<Map<String, dynamic>>.from(res);
+        _messages = List<Map<String, dynamic>>.from(res).where((m) {
+          final senderId = m['sender_id']?.toString();
+          return senderId == null || !_blockedUserIds.contains(senderId);
+        }).toList();
       });
     } catch (_) {}
   }
@@ -132,6 +154,122 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
       });
       await _loadMessagesWith(_selectedRecipientId!);
     } catch (_) {}
+  }
+
+  void _showUserOptionsDialog(String userId, String username) {
+    if (GuestManager.isGuest) return;
+    final local = AppLocalizations.of(context)!;
+    final currentContext = context;
+
+    showModalBottomSheet(
+      context: currentContext,
+      backgroundColor: LogdCodes.uiCardBg,
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.report, color: Colors.orange),
+                title: Text(local.reportUser, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _showReportDialog(userId, username);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.block, color: Colors.red),
+                title: Text(local.blockUser, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _blockUser(userId, username);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showReportDialog(String userId, String username) {
+    final local = AppLocalizations.of(context)!;
+    final TextEditingController reasonController = TextEditingController();
+    final currentContext = context;
+
+    showDialog(
+      context: currentContext,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: LogdCodes.uiCardBg,
+        title: Text("${local.reportUser}: $username", style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont)),
+        content: TextField(
+          controller: reasonController,
+          style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont),
+          decoration: InputDecoration(
+            hintText: local.reportReasonPrompt,
+            hintStyle: TextStyle(color: Colors.grey.withValues(alpha: 0.7), fontFamily: LogdCodes.retroFont),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(local.btnCancel, style: const TextStyle(fontFamily: LogdCodes.retroFont)),
+          ),
+          TextButton(
+            onPressed: () async {
+              final reason = reasonController.text.trim();
+              if (reason.isNotEmpty) {
+                final user = supabase.auth.currentUser;
+                if (user != null) {
+                  try {
+                    await supabase.from('reports').insert({
+                      'reporter_id': user.id,
+                      'reported_user_id': userId,
+                      'reason': reason,
+                    });
+                    if (currentContext.mounted) {
+                      ScaffoldMessenger.of(currentContext).showSnackBar(
+                        SnackBar(content: Text(local.reportSuccess, style: const TextStyle(fontFamily: LogdCodes.retroFont))),
+                      );
+                    }
+                  } catch (_) {}
+                }
+              }
+              if (dialogContext.mounted) {
+                Navigator.pop(dialogContext);
+              }
+            },
+            child: Text(local.btnSend, style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _blockUser(String userId, String username) async {
+    final local = AppLocalizations.of(context)!;
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      try {
+        await supabase.from('blocked_users').insert({
+          'user_id': user.id,
+          'blocked_user_id': userId,
+        });
+        if (!mounted) return;
+        setState(() {
+          _blockedUserIds.add(userId);
+          if (_selectedRecipientId == userId) {
+            _selectedRecipientId = null;
+            _selectedRecipientUsername = null;
+            _messages.clear();
+          }
+          _conversations.removeWhere((c) => c['user_id'] == userId);
+          _allProfiles.removeWhere((p) => p['id'] == userId);
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(local.blockSuccess, style: const TextStyle(fontFamily: LogdCodes.retroFont))),
+        );
+      } catch (_) {}
+    }
   }
 
   @override
@@ -161,7 +299,15 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
         ),
         backgroundColor: LogdCodes.uiAppBarBg,
         actions: [
-          if (_selectedRecipientId != null)
+          if (_selectedRecipientId != null) ...[
+            IconButton(
+              icon: const Icon(Icons.more_vert, color: Colors.white),
+              onPressed: () {
+                if (_selectedRecipientId != null && _selectedRecipientUsername != null) {
+                  _showUserOptionsDialog(_selectedRecipientId!, _selectedRecipientUsername!);
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
@@ -173,6 +319,7 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
                 _loadConversations();
               },
             ),
+          ],
         ],
       ),
       body: _isLoading
@@ -249,34 +396,48 @@ class _DirectMessagesScreenState extends State<DirectMessagesScreen> {
                         itemBuilder: (context, index) {
                           final msg = _messages[index];
                           final isMe = msg['sender_id'] == _currentUserId;
+                          final senderId = msg['sender_id'];
+                          final senderUsername = msg['sender_username'] ?? '';
                           return Align(
                             alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 4),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: isMe ? LogdCodes.uiGreenBg : LogdCodes.uiCardBg,
-                                border: Border.all(color: isMe ? LogdCodes.uiGreen : LogdCodes.uiBlueDark),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    msg['sender_username'] ?? '',
-                                    style: TextStyle(
-                                      color: isMe ? LogdCodes.uiGreen : LogdCodes.uiYellow,
-                                      fontFamily: LogdCodes.retroFont,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!isMe && senderId != null) {
+                                  _showUserOptionsDialog(senderId, senderUsername);
+                                }
+                              },
+                              onLongPress: () {
+                                if (!isMe && senderId != null) {
+                                  _showUserOptionsDialog(senderId, senderUsername);
+                                }
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: isMe ? LogdCodes.uiGreenBg : LogdCodes.uiCardBg,
+                                  border: Border.all(color: isMe ? LogdCodes.uiGreen : LogdCodes.uiBlueDark),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      senderUsername,
+                                      style: TextStyle(
+                                        color: isMe ? LogdCodes.uiGreen : LogdCodes.uiYellow,
+                                        fontFamily: LogdCodes.retroFont,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  LogdText(
-                                    text: msg['message'] ?? '',
-                                    fontSize: LogdCodes.fontSizeDefault - 1,
-                                  ),
-                                ],
+                                    const SizedBox(height: 2),
+                                    LogdText(
+                                      text: msg['message'] ?? '',
+                                      fontSize: LogdCodes.fontSizeDefault - 1,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

@@ -20,6 +20,7 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   List<Map<String, dynamic>> _messages = [];
+  Set<String> _blockedUserIds = {};
   bool _isLoading = true;
   String _username = "Reiziger";
 
@@ -28,6 +29,17 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
     super.initState();
     _loadUserAndChat();
     _subscribeToChat();
+  }
+
+  Future<void> _loadBlockedUsers() async {
+    if (GuestManager.isGuest) return;
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      try {
+        final res = await supabase.from('blocked_users').select('blocked_user_id').eq('user_id', user.id);
+        _blockedUserIds = res.map((e) => e['blocked_user_id'].toString()).toSet();
+      } catch (_) {}
+    }
   }
 
   Future<void> _loadUserAndChat() async {
@@ -42,6 +54,7 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
         }
       }
     }
+    await _loadBlockedUsers();
     await _fetchMessages();
   }
 
@@ -54,7 +67,10 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
           .limit(50);
       if (mounted) {
         setState(() {
-          _messages = List<Map<String, dynamic>>.from(res);
+          _messages = List<Map<String, dynamic>>.from(res).where((m) {
+            final senderId = m['sender_id']?.toString();
+            return senderId == null || !_blockedUserIds.contains(senderId);
+          }).toList();
           _isLoading = false;
         });
         _scrollToBottom();
@@ -73,10 +89,13 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
           table: 'global_chat',
           callback: (payload) {
             if (mounted) {
-              setState(() {
-                _messages.add(payload.newRecord);
-              });
-              _scrollToBottom();
+              final senderId = payload.newRecord['sender_id']?.toString();
+              if (senderId == null || !_blockedUserIds.contains(senderId)) {
+                setState(() {
+                  _messages.add(payload.newRecord);
+                });
+                _scrollToBottom();
+              }
             }
           },
         )
@@ -126,6 +145,145 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
     }
   }
 
+  void _showUserOptionsDialog(String? senderId, String senderUsername) {
+    if (GuestManager.isGuest || senderId == null) {
+      if (!GuestManager.isGuest) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DirectMessagesScreen(
+              initialRecipientUsername: senderUsername,
+            ),
+          ),
+        );
+      }
+      return;
+    }
+    final local = AppLocalizations.of(context)!;
+    final currentContext = context;
+
+    showModalBottomSheet(
+      context: currentContext,
+      backgroundColor: LogdCodes.uiCardBg,
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.message, color: LogdCodes.uiGreen),
+                title: Text(local.directMessagesTitle, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  if (currentContext.mounted) {
+                    Navigator.push(
+                      currentContext,
+                      MaterialPageRoute(
+                        builder: (context) => DirectMessagesScreen(
+                          initialRecipientUsername: senderUsername,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.report, color: Colors.orange),
+                title: Text(local.reportUser, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _showReportDialog(senderId, senderUsername);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.block, color: Colors.red),
+                title: Text(local.blockUser, style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont)),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _blockUser(senderId, senderUsername);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showReportDialog(String userId, String username) {
+    final local = AppLocalizations.of(context)!;
+    final TextEditingController reasonController = TextEditingController();
+    final currentContext = context;
+
+    showDialog(
+      context: currentContext,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: LogdCodes.uiCardBg,
+        title: Text("${local.reportUser}: $username", style: const TextStyle(color: LogdCodes.uiYellow, fontFamily: LogdCodes.retroFont)),
+        content: TextField(
+          controller: reasonController,
+          style: const TextStyle(color: Colors.white, fontFamily: LogdCodes.retroFont),
+          decoration: InputDecoration(
+            hintText: local.reportReasonPrompt,
+            hintStyle: TextStyle(color: Colors.grey.withValues(alpha: 0.7), fontFamily: LogdCodes.retroFont),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(local.btnCancel, style: const TextStyle(fontFamily: LogdCodes.retroFont)),
+          ),
+          TextButton(
+            onPressed: () async {
+              final reason = reasonController.text.trim();
+              if (reason.isNotEmpty) {
+                final user = supabase.auth.currentUser;
+                if (user != null) {
+                  try {
+                    await supabase.from('reports').insert({
+                      'reporter_id': user.id,
+                      'reported_user_id': userId,
+                      'reason': reason,
+                    });
+                    if (currentContext.mounted) {
+                      ScaffoldMessenger.of(currentContext).showSnackBar(
+                        SnackBar(content: Text(local.reportSuccess, style: const TextStyle(fontFamily: LogdCodes.retroFont))),
+                      );
+                    }
+                  } catch (_) {}
+                }
+              }
+              if (dialogContext.mounted) {
+                Navigator.pop(dialogContext);
+              }
+            },
+            child: Text(local.btnSend, style: const TextStyle(color: LogdCodes.uiGreen, fontFamily: LogdCodes.retroFont)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _blockUser(String userId, String username) async {
+    final local = AppLocalizations.of(context)!;
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      try {
+        await supabase.from('blocked_users').insert({
+          'user_id': user.id,
+          'blocked_user_id': userId,
+        });
+        if (!mounted) return;
+        setState(() {
+          _blockedUserIds.add(userId);
+          _messages.removeWhere((m) => m['sender_id'] == userId);
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(local.blockSuccess, style: const TextStyle(fontFamily: LogdCodes.retroFont))),
+        );
+      } catch (_) {}
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
@@ -155,22 +313,13 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
                     itemBuilder: (context, index) {
                       final msg = _messages[index];
                       final sender = msg['sender_username'] ?? local.defaultUsername;
+                      final senderId = msg['sender_id']?.toString();
                       final text = msg['message'] ?? "";
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: InkWell(
-                          onTap: () {
-                            if (!GuestManager.isGuest) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DirectMessagesScreen(
-                                    initialRecipientUsername: sender,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
+                          onTap: () => _showUserOptionsDialog(senderId, sender),
+                          onLongPress: () => _showUserOptionsDialog(senderId, sender),
                           child: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(

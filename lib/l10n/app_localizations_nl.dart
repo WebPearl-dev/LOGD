@@ -322,6 +322,24 @@ class AppLocalizationsNl extends AppLocalizations {
   String get btnSend => 'Verzenden';
 
   @override
+  String get reportUser => 'Rapporteer gebruiker';
+
+  @override
+  String get blockUser => 'Blokkeer gebruiker';
+
+  @override
+  String get reportReasonPrompt => 'Geef reden op voor rapportage:';
+
+  @override
+  String get reportSuccess => 'Gebruiker succesvol gerapporteerd.';
+
+  @override
+  String get blockSuccess => 'Gebruiker succesvol geblokkeerd.';
+
+  @override
+  String get options => 'Opties';
+
+  @override
   String get btnDm => 'Privébericht';
 
   @override
