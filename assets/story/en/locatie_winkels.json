@@ -58,5 +58,9 @@
   "merilon_talk_9": "'The smell of that furnace across the street ruins the texture of my silk curtains. But well, a town needs a smith, no matter how rowdy he is.'",
   "merilon_talk_10": "'Try to walk upright when you leave my shop. My armors only truly come into their own with a royal posture!'",
   "smithy_welcome": "`gYou walk onto the lively market. To the left you see the smoking forge of Pegasus, to the right the elegant boutique of Merilon.`w",
-  "alchemist_welcome": "`gYou step into a dark, mystic laboratory. Everywhere glass flasks bubble with strange, steaming liquids. An old alchemist with thick glasses looks up:\n\n\"Ah, an adventurer! Looking for extra strength for the forest? My elixers grant you temporary unprecedented power in your next battles. Choose wisely!\"`w"
+  "alchemist_welcome": "`gYou step into a dark, mystic laboratory. Everywhere glass flasks bubble with strange, steaming liquids. An old alchemist with thick glasses looks up:\n\n\"Ah, an adventurer! Looking for extra strength for the forest? My elixers grant you temporary unprecedented power in your next battles. Choose wisely!\"`w",
+  "smithy_max_level": "`gYou already possess the absolute best equipment in the realm!`w",
+  "smithy_error_no_gold": "`4The smith laughs at you: \"You do not have enough gold pieces on hand!\"`w",
+  "alchemist_limit_reached": "Hold on! You have already bought 2 elixers today. Your body cannot take more until the next sunrise!",
+  "alchemist_error_already_active": "`4You already have an active boost from this elixir! Drinking more is pure poison for your body.`w"
 }

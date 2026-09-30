@@ -12,5 +12,7 @@
   "already_confessed": "`4You have already cleared your conscience for today.`w",
   "already_lit_candle": "`4The altar is already full of your candles.`w",
   "confess_result": "`2You kneel down and confess your sins. The monk nods slowly. You feel your mind becoming lighter. (+{xp} XP)`w",
-  "candle_result": "`cYou light a candle at the statue of the Old Gods. A wave of peace pulls through the church. Ramius will remember this. (+{favor} Favor)`w"
+  "candle_result": "`cYou light a candle at the statue of the Old Gods. A wave of peace pulls through the church. Ramius will remember this. (+{favor} Favor)`w",
+  "healer_fallback_healthy": "You are already perfectly healthy!",
+  "healer_success_fallback": "You are healed!"
 }

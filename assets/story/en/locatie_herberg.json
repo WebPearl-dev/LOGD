@@ -2,8 +2,8 @@
   "welcome": "`gYou step into the rowdy inn. The smell of roasted meat and strong beer greets you. In the corner, a bard sings a melancholy song, while travelers loudly toss dice.`w\n\n\"Welcome, stranger!\" the innkeeper shouts while cleaning a large mug. \"Pull up a seat at the gambling table, or have a drink!\"",
   "inn_intro": "`gThe smell of stale beer, roasted meat and pipe smoke greets you. It's a noisy bunch in the inn. Local adventurers laugh loudly at long wooden tables. Behind the bar, the barkeep polishes a wooden mug with a greasy cloth.`w",
 
-  "barman_welcome": "`4Barkeep:`w 'Welcome traveler! If you have gold, I have the coldest beer in the region. It'll give you some temporary muscles or heal your wounds. What can I pour for you?'",
-  "barman_limit_reached": "`4Barkeep:`w 'You've had enough for today, friend. I'm not pouring you any more.'",
+  "barman_welcome": "`4Barman:`w 'Welcome traveler! If you have gold, I have the coldest beer in the region. It'll give you some temporary muscles or heal your wounds. What can I pour for you?'",
+  "barman_limit_reached": "`4Barman:`w 'You've had enough for today, friend. I'm not pouring you any more.'",
   "drink_ale_success": "`2The barkeep slides a large, foaming mug to you. 'Drink up, hero! It'll do you good.' The beer tastes surprisingly good. You feel the warm energy flowing through your muscles. You feel permanently a bit healthier! (+1 Max HP)`w",
   "drink_ale_fail": "`4The barkeep slides a large, foaming mug to you. 'Drink up, hero! It'll do you good.' The beer hits your legs immediately. Your head starts spinning... You stumble out of the bar and are too dizzy to spot monsters for now. (-1 Turn)`w",
   "drink_dragon_success": "`2You drink the Dragon's Breath in one go. A scorching heat pulls through your arms. You feel invincible! (+3 Attack for the next 5 fights)`w",

@@ -12,5 +12,7 @@
   "error_no_x_p": "`4You are not ready yet! You do not have enough experience (XP) to challenge the Master.`w",
   "skill_magic_success": "`cYou cast the spell Regeneration! A mystic light surrounds you and heals {amount} HP.`w",
   "skill_thieving_success": "`yYou use your Pickpocket skill during the attack and rob {amount} extra gold pieces from the {enemy}!`w",
-  "skill_warrior_success": "`rYou execute a brute Shield Bash! You slam directly into the {enemy} and deal {amount} GUARANTEED damage!`w\nThe {enemy} is dazed!"
+  "skill_warrior_success": "`rYou execute a brute Shield Bash! You slam directly into the {enemy} and deal {amount} GUARANTEED damage!`w\nThe {enemy} is dazed!",
+  "arena_victory": "`2You won the PvP duel and earned {gold} gold and {honor} honor!`w",
+  "arena_defeat": "`4You were defeated in the PvP duel by {opponent}!`w"
 }

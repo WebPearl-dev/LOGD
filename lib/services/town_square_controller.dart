@@ -61,16 +61,20 @@ class TownSquareController {
       final String mainPath = 'assets/story/$languageCode/locatie_dorpsplein.json';
       final String barberPath = 'assets/story/$languageCode/locatie_kapper.json';
       final String bosPath = 'assets/story/$languageCode/locatie_bos.json';
+      final String winkelsPath = 'assets/story/$languageCode/locatie_winkels.json';
 
       final results = await Future.wait([
         rootBundle.loadString(mainPath),
         rootBundle.loadString(barberPath),
         rootBundle.loadString(bosPath),
+        rootBundle.loadString(winkelsPath).catchError((_) => '{}'),
       ]);
 
       storyContent = jsonDecode(results[0]) as Map<String, dynamic>;
       barberContent = jsonDecode(results[1]) as Map<String, dynamic>;
       bosContent = jsonDecode(results[2]) as Map<String, dynamic>;
+      final winkels = jsonDecode(results[3]) as Map<String, dynamic>;
+      storyContent.addAll(winkels);
 
       if (GuestManager.isGuest) {
         playerData = GuestManager.guestProfile;
@@ -391,9 +395,9 @@ class TownSquareController {
     return 3;
   }
 
-  String getRandomRumor(String fallback) {
+  String getRandomRumor([String? fallback]) {
     int rumorId = _random.nextInt(4) + 1;
-    return storyContent['rumor$rumorId'] ?? fallback;
+    return storyContent['rumor$rumorId'] ?? fallback ?? storyContent['rumor_fallback'] ?? "The townsfolk are quiet today...";
   }
 
   String parseNewsItem(Map<String, dynamic> log) {

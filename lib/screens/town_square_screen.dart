@@ -96,8 +96,8 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
     bool success = await _con.handleHealerPurchase(cost, maxHp);
     setState(() {
       _con.healerStatusMessage = success
-          ? (_con.storyContent['healer_success'] ?? local.healerSuccessFallback)
-          : local.smithyErrorNoGold;
+          ? (_con.storyContent['healer_success'] ?? _con.storyContent['healer_success_fallback'] ?? "You are healed!")
+          : (_con.storyContent['smithy_error_no_gold'] ?? "");
     });
     if (success) _refreshData();
   }
@@ -375,6 +375,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                     context,
                     currentHp,
                     local,
+                    _con.storyContent['dialog_wounded_message'] ?? "You are too severely wounded to fight.",
                     _navigateTo,
                   ),
                   onNewsPressed: () => _navigateTo(const DailyNewsScreen()),
@@ -420,7 +421,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                   onTownfolkPressed: () => TownSquareActions.showRumorDialog(
                     context,
                     local,
-                    _con.getRandomRumor(local.townSquareRumorFallback),
+                    _con.getRandomRumor(_con.storyContent['rumor_fallback'] ?? "The townsfolk are quiet today..."),
                   ),
                   onMightyEPressed: () => setState(() {
                     _activeSubLocation = "MIGHTYE";

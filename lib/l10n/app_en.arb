@@ -183,8 +183,7 @@
   "mount3": "Shadow Wolf",
   "mount4": "Golden Dragon",
 
-  "smithyMaxLevel": "`gYou already possess the absolute best equipment in the realm!`w",
-  "stablesMaxLevel": "`gYou already own the legendary Golden Dragon! The stable master looks at your mount with total awe.`w",
+
   "devSuccessMessage": "`p[DEV] Stat successfully adjusted in the cloud!`w",
   "lblDevSelectEvent": "Select Event to Spawn:",
   "lblDevSelectMonster": "Select Monster to Spawn:",
@@ -194,10 +193,7 @@
   "alchemistErrorAlreadyActive": "`4You already have an active boost from this elixir! Drinking more is pure poison for your body.`w",
   "dialogRumorTitle": "TOWN RUMORS",
   "dialogWoundedTitle": "TOO SEVERELY WOUNDED",
-  "dialogWoundedMessage": "`4You are too severely wounded to fight. Visit the Herbalist or the inn to recover!`w",
-  "townSquareRumorFallback": "The townsfolk are quiet today...",
-  "healerFallbackHealthy": "You are already perfectly healthy!",
-  "healerSuccessFallback": "You are healed!",
+
   "townCrierPrefix": "`4HEAR YE, HEAR YE! `w",
   "defaultUsername": "Traveler",
   "newsUnknownPlayer": "Unknown Traveler",
@@ -209,8 +205,7 @@
   "resetInterestLog": "• The bank has credited `y{amount} gold`w in interest (2%).",
   "resetTurnsLog": "• Your turns are replenished to `c{amount}`w.",
   "resetReadyLog": "• You feel rested and ready for battle!",
-  "arenaVictory": "`2You won the PvP duel and earned {gold} gold and {honor} honor!`w",
-  "arenaDefeat": "`4You were defeated in the PvP duel by {opponent}!`w",
+
   "trainingDuelTitle": "=== DUEL WITH {name} ===",
   "btnForestFountainDive": "Dive in",
   "btnForestGiantSteal": "Try to steal",

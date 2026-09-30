@@ -27,7 +27,7 @@ class TownSquareDialogs {
   }
 
   // Toont de waarschuwing als de speler gewond is en het bos in wil
-  static void showWoundedWarning(BuildContext context, AppLocalizations local) {
+  static void showWoundedWarning(BuildContext context, AppLocalizations local, String message) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -36,7 +36,7 @@ class TownSquareDialogs {
           local.dialogWoundedTitle,
           style: const TextStyle(fontFamily: LogdCodes.retroFont, color: Colors.red, fontWeight: FontWeight.bold),
         ),
-        content: LogdText(text: local.dialogWoundedMessage, fontSize: LogdCodes.fontSizeDefault),
+        content: LogdText(text: message, fontSize: LogdCodes.fontSizeDefault),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

@@ -10,6 +10,7 @@ class SmithyTabContent extends StatelessWidget {
   final String nextName;
   final int cost;
   final bool isWeapon;
+  final String maxLevelText;
   final VoidCallback onBuyUpgrade;
 
   const SmithyTabContent({
@@ -19,6 +20,7 @@ class SmithyTabContent extends StatelessWidget {
     required this.nextName,
     required this.cost,
     required this.isWeapon,
+    required this.maxLevelText,
     required this.onBuyUpgrade,
   });
 
@@ -48,7 +50,7 @@ class SmithyTabContent extends StatelessWidget {
                   LogdText(text: local.smithyCostLabel(cost.toString()), fontSize: LogdCodes.fontSizeDefault),
                 ] else ...[
                   const SizedBox(height: 20),
-                  Center(child: LogdText(text: local.smithyMaxLevel, fontSize: LogdCodes.fontSizeDefault)),
+                  Center(child: LogdText(text: maxLevelText, fontSize: LogdCodes.fontSizeDefault)),
                 ],
               ],
             ),

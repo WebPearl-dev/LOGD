@@ -12,5 +12,7 @@
   "error_no_x_p": "`4Je bent nog niet zover! Je hebt niet genoeg ervaring (XP) om de Master uit te dagen.`w",
   "skill_magic_success": "`cJe spreekt de spreuk Regeneratie uit! Een mystiek licht omringt je en geneest {amount} HP.`w",
   "skill_thieving_success": "`yJe gebruikt je Zakkenrollen vaardigheid tijdens de aanval en rooft {amount} extra goudstukken van de {enemy}!`w",
-  "skill_warrior_success": "`rJe voert een brute Schildbeuk uit! Je beukt direct in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w\nDe {enemy} is wankel!"
+  "skill_warrior_success": "`rJe voert een brute Schildbeuk uit! Je beukt direct in op de {enemy} en doet {amount} GEGARANDEERDE schade!`w\nDe {enemy} is wankel!",
+  "arena_victory": "`2Je hebt het PvP duel gewonnen en {gold} goud en {honor} eer verdiend!`w",
+  "arena_defeat": "`4Je bent in het PvP duel verslagen door {opponent}!`w"
 }

@@ -24,7 +24,7 @@
   "btn_confirm_gender": "Bevestig Geslacht",
   "race_welcome": "`gVoordat je het rijk betreedt, moet je bepalen waar je van gemaakt bent. Kies zorgvuldig, reiziger...`w",
   "specialty_welcome": "`gElke reiziger in het rijk blinkt ergens anders in uit. Kies het pad dat bij jouw vechtstijl past...`w",
-  "news_welcome": "`gJe loopt naar het houten mededelingenbord midden op het plein. Een paar verse vellen perkament wapperen zachtjes in de wind.\n\n\"Hoor zegt het voort! Dit is er vandaag voorgevallen in ons rijk:\"",
+  "news_welcome": "`gJe loopt naar het houten mededelingenbord midden op het plein. Een paar verse vellen perkament wapperen zachtjes in de wind\n\n\"Hoor zegt het voort! Dit is er vandaag voorgevallen in ons rijk:\"",
   "healer_fallback_welcome": "De hut van Althea...",
   "guest_welcome_news": "Welkom in de wereld van de Gouden Draak als gast!",
   "reset_new_day_message": "`2De zon komt op over het rijk en de vogels beginnen te fluiten. Je voelt je uitgerust en vol energie voor nieuwe avonturen!`w\n\nJe beurten zijn aangevuld en de poorten naar het Dorpsplein staan weer wijd open!",
@@ -43,5 +43,7 @@
   "news_dragon_attack": "`4HOOR ZEGT HET VOORT!`w {user} betreedt het hol van de Groene Draak! Het gebrul echoot door de bergen...",
   "news_dragon_defeat": "`4HOOR ZEGT HET VOORT!`w {user} is wreed geroosterd door de Groene Draak! Oaktaven rouwt...",
   "news_dragon_kill": "{user} heeft de Groene Draak verslagen en redt het rijk! Dit is hun {kills}e overwinning!",
-  "alley_bribe_news": "{name} heeft in het geheim edelstenen overhandigd aan Sly en ziet er opeens een stuk fatsoenlijker uit."
+  "alley_bribe_news": "{name} heeft in het geheim edelstenen overhandigd aan Sly en ziet er opeens een stuk fatsoenlijker uit.",
+  "dialog_wounded_message": "`4Je bent te zwaar gewond om te vechten. Bezoek de Kruidendokter of de herberg om te herstellen!`w",
+  "rumor_fallback": "De dorpsbewoners zijn stil vandaag..."
 }

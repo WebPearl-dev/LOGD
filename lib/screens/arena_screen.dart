@@ -6,6 +6,7 @@ import '../theme/logd_codes.dart';
 import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../services/guest_manager.dart';
+import '../services/story_service.dart';
 import 'direct_messages_screen.dart';
 
 class ArenaScreen extends StatefulWidget {
@@ -20,11 +21,22 @@ class _ArenaScreenState extends State<ArenaScreen> {
   List<Map<String, dynamic>> _opponents = [];
   bool _isLoading = true;
   Map<String, dynamic> _myProfile = {};
+  Map<String, dynamic> _storyContent = {};
 
   @override
   void initState() {
     super.initState();
     _loadArenaData();
+    _loadStoryContent();
+  }
+
+  Future<void> _loadStoryContent() async {
+    final content = await StoryService.loadLocationContent(context, 'locatie_training');
+    if (mounted) {
+      setState(() {
+        _storyContent = content;
+      });
+    }
   }
 
   Future<void> _loadArenaData() async {
@@ -143,8 +155,11 @@ class _ArenaScreenState extends State<ArenaScreen> {
         ),
         content: LogdText(
           text: iWon
-              ? local.arenaVictory(goldChange, honorChange)
-              : local.arenaDefeat(opponent['username'] ?? 'Rivaal'),
+              ? (_storyContent['arena_victory'] ?? "You won the PvP duel and earned {gold} gold and {honor} honor!")
+                  .replaceAll('{gold}', goldChange.toString())
+                  .replaceAll('{honor}', honorChange.toString())
+              : (_storyContent['arena_defeat'] ?? "You were defeated in the PvP duel by {opponent}!")
+                  .replaceAll('{opponent}', opponent['username'] ?? 'Rivaal'),
         ),
         actions: [
           TextButton(

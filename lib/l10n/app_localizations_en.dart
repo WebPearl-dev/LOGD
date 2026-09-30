@@ -562,14 +562,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mount4 => 'Golden Dragon';
 
   @override
-  String get smithyMaxLevel =>
-      '`gYou already possess the absolute best equipment in the realm!`w';
-
-  @override
-  String get stablesMaxLevel =>
-      '`gYou already own the legendary Golden Dragon! The stable master looks at your mount with total awe.`w';
-
-  @override
   String get devSuccessMessage =>
       '`p[DEV] Stat successfully adjusted in the cloud!`w';
 
@@ -583,35 +575,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smithyErrorUnknown => '`4An unknown error occurred.`w';
 
   @override
-  String get smithyErrorNoGold =>
-      '`4The smith laughs at you: \"You do not have enough gold pieces on hand!\"`w';
-
-  @override
-  String get alchemistLimitReached =>
-      'Hold on! You have already bought 2 elixers today. Your body cannot take more until the next sunrise!';
-
-  @override
-  String get alchemistErrorAlreadyActive =>
-      '`4You already have an active boost from this elixir! Drinking more is pure poison for your body.`w';
-
-  @override
   String get dialogRumorTitle => 'TOWN RUMORS';
 
   @override
   String get dialogWoundedTitle => 'TOO SEVERELY WOUNDED';
-
-  @override
-  String get dialogWoundedMessage =>
-      '`4You are too severely wounded to fight. Visit the Herbalist or the inn to recover!`w';
-
-  @override
-  String get townSquareRumorFallback => 'The townsfolk are quiet today...';
-
-  @override
-  String get healerFallbackHealthy => 'You are already perfectly healthy!';
-
-  @override
-  String get healerSuccessFallback => 'You are healed!';
 
   @override
   String get townCrierPrefix => '`4HEAR YE, HEAR YE! `w';
@@ -651,16 +618,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetReadyLog => '• You feel rested and ready for battle!';
-
-  @override
-  String arenaVictory(Object gold, Object honor) {
-    return '`2You won the PvP duel and earned $gold gold and $honor honor!`w';
-  }
-
-  @override
-  String arenaDefeat(Object opponent) {
-    return '`4You were defeated in the PvP duel by $opponent!`w';
-  }
 
   @override
   String trainingDuelTitle(Object name) {

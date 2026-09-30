@@ -105,7 +105,7 @@ class _StablesScreenState extends State<StablesScreen> {
     int gemPrice = _mountGemCosts[nextLvl];
 
     if (goldOnHand < goldPrice || gems < gemPrice) {
-      setState(() { _statusMessage = local.smithyErrorNoGold; });
+      setState(() { _statusMessage = _storyContent['smithy_error_no_gold'] ?? ""; });
       return;
     }
 
@@ -207,7 +207,7 @@ class _StablesScreenState extends State<StablesScreen> {
                       const SizedBox(height: 4),
                       LogdText(text: local.stablesBonusLabel(_mountDefBonus[nextLvl].toString(), _mountTurnsBonus[nextLvl].toString()), fontSize: LogdCodes.fontSizeDefault),
                     ] else ...[
-                      Center(child: LogdText(text: local.stablesMaxLevel, fontSize: LogdCodes.fontSizeDefault)),
+                      Center(child: LogdText(text: _storyContent['stables_max_level'] ?? _storyContent['max_level'] ?? "", fontSize: LogdCodes.fontSizeDefault)),
                     ],
                   ],
                 ),

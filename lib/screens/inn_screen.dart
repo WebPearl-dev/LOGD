@@ -128,10 +128,11 @@ class _InnScreenState extends State<InnScreen> {
   }
 
   void _onRentRoomPressed() async {
-    final local = AppLocalizations.of(context)!;
     bool success = await _controller.rentRoom();
     setState(() {
-      _displayLog = success ? local.innRoomRentedMessage : local.innRoomErrorNoGold;
+      _displayLog = success
+          ? (_storyTexts['room_rented_message'] ?? "You rented a safe room in the inn! You are now protected from offline PK attacks.")
+          : (_storyTexts['room_error_no_gold'] ?? "You do not have enough gold (50 gold required) to rent a room!");
     });
   }
 

@@ -1160,18 +1160,6 @@ abstract class AppLocalizations {
   /// **'Gouden Draak'**
   String get mount4;
 
-  /// No description provided for @smithyMaxLevel.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe bezit al de absolute beste uitrusting in het rijk!`w'**
-  String get smithyMaxLevel;
-
-  /// No description provided for @stablesMaxLevel.
-  ///
-  /// In nl, this message translates to:
-  /// **'`gJe bezit al de legendarische Gouden Draak! De stalmeester kijkt met totale ontzag naar je rijdier.`w'**
-  String get stablesMaxLevel;
-
   /// No description provided for @devSuccessMessage.
   ///
   /// In nl, this message translates to:
@@ -1196,24 +1184,6 @@ abstract class AppLocalizations {
   /// **'`4Er is een onbekende fout opgetreden.`w'**
   String get smithyErrorUnknown;
 
-  /// No description provided for @smithyErrorNoGold.
-  ///
-  /// In nl, this message translates to:
-  /// **'`4De smid lacht je uit: \"Je hebt niet genoeg goudstukken bij je!\"`w'**
-  String get smithyErrorNoGold;
-
-  /// No description provided for @alchemistLimitReached.
-  ///
-  /// In nl, this message translates to:
-  /// **'Wacht eens even! Je hebt vandaag al 2 elixers gekocht. Je lichaam kan er niet meer verdragen tot de volgende zonsopgang!'**
-  String get alchemistLimitReached;
-
-  /// No description provided for @alchemistErrorAlreadyActive.
-  ///
-  /// In nl, this message translates to:
-  /// **'`4Je hebt al een actieve boost van dit elixir! Meer drinken is pure gif voor je lichaam.`w'**
-  String get alchemistErrorAlreadyActive;
-
   /// No description provided for @dialogRumorTitle.
   ///
   /// In nl, this message translates to:
@@ -1225,30 +1195,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'TE ZWAAR GEWOND'**
   String get dialogWoundedTitle;
-
-  /// No description provided for @dialogWoundedMessage.
-  ///
-  /// In nl, this message translates to:
-  /// **'`4Je bent te zwaar gewond om te vechten. Bezoek de Kruidendokter of de herberg om te herstellen!`w'**
-  String get dialogWoundedMessage;
-
-  /// No description provided for @townSquareRumorFallback.
-  ///
-  /// In nl, this message translates to:
-  /// **'De dorpsbewoners zijn stil vandaag...'**
-  String get townSquareRumorFallback;
-
-  /// No description provided for @healerFallbackHealthy.
-  ///
-  /// In nl, this message translates to:
-  /// **'Je bent al volkomen gezond!'**
-  String get healerFallbackHealthy;
-
-  /// No description provided for @healerSuccessFallback.
-  ///
-  /// In nl, this message translates to:
-  /// **'Je bent genezen!'**
-  String get healerSuccessFallback;
 
   /// No description provided for @townCrierPrefix.
   ///
@@ -1315,18 +1261,6 @@ abstract class AppLocalizations {
   /// In nl, this message translates to:
   /// **'• Je voelt je uitgerust en klaar voor de strijd!'**
   String get resetReadyLog;
-
-  /// No description provided for @arenaVictory.
-  ///
-  /// In nl, this message translates to:
-  /// **'`2Je hebt het PvP duel gewonnen en {gold} goud en {honor} eer verdiend!`w'**
-  String arenaVictory(Object gold, Object honor);
-
-  /// No description provided for @arenaDefeat.
-  ///
-  /// In nl, this message translates to:
-  /// **'`4Je bent in het PvP duel verslagen door {opponent}!`w'**
-  String arenaDefeat(Object opponent);
 
   /// No description provided for @trainingDuelTitle.
   ///

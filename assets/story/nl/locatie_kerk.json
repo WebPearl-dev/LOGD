@@ -12,5 +12,7 @@
   "already_confessed": "`4Je hebt je geweten voor vandaag al gezuiverd.`w",
   "already_lit_candle": "`4Het altaar staat al vol met jouw kaarsen.`w",
   "confess_result": "`2Je knielt neer en biecht je zonden op. De monnik knikt langzaam. Je voelt je geest lichter worden. (+{xp} XP)`w",
-  "candle_result": "`cJe steekt een kaars aan bij het standbeeld van de Oude Goden. Een golf van rust trekt door de kerk. Ramius zal dit onthouden. (+{favor} Gunst)`w"
+  "candle_result": "`cJe steekt een kaars aan bij het standbeeld van de Oude Goden. Een golf van rust trekt door de kerk. Ramius zal dit onthouden. (+{favor} Gunst)`w",
+  "healer_fallback_healthy": "Je bent al volkomen gezond!",
+  "healer_success_fallback": "Je bent genezen!"
 }

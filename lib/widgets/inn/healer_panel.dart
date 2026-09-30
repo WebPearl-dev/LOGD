@@ -30,7 +30,7 @@ class HealerPanel extends StatelessWidget {
     final String welcomeText =
         storyContent['healer_welcome'] ?? "De hut van Althea...";
     final String healthyText =
-        storyContent['healer_healthy'] ?? local.healerFallbackHealthy;
+        storyContent['healer_fallback_healthy'] ?? storyContent['healer_healthy'] ?? "You are already perfectly healthy!";
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

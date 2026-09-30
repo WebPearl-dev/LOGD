@@ -562,14 +562,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get mount4 => 'Gouden Draak';
 
   @override
-  String get smithyMaxLevel =>
-      '`gJe bezit al de absolute beste uitrusting in het rijk!`w';
-
-  @override
-  String get stablesMaxLevel =>
-      '`gJe bezit al de legendarische Gouden Draak! De stalmeester kijkt met totale ontzag naar je rijdier.`w';
-
-  @override
   String get devSuccessMessage =>
       '`p[DEV] Stat succesvol aangepast in de cloud!`w';
 
@@ -583,35 +575,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String get smithyErrorUnknown => '`4Er is een onbekende fout opgetreden.`w';
 
   @override
-  String get smithyErrorNoGold =>
-      '`4De smid lacht je uit: \"Je hebt niet genoeg goudstukken bij je!\"`w';
-
-  @override
-  String get alchemistLimitReached =>
-      'Wacht eens even! Je hebt vandaag al 2 elixers gekocht. Je lichaam kan er niet meer verdragen tot de volgende zonsopgang!';
-
-  @override
-  String get alchemistErrorAlreadyActive =>
-      '`4Je hebt al een actieve boost van dit elixir! Meer drinken is pure gif voor je lichaam.`w';
-
-  @override
   String get dialogRumorTitle => 'DORPSGERUCHTEN';
 
   @override
   String get dialogWoundedTitle => 'TE ZWAAR GEWOND';
-
-  @override
-  String get dialogWoundedMessage =>
-      '`4Je bent te zwaar gewond om te vechten. Bezoek de Kruidendokter of de herberg om te herstellen!`w';
-
-  @override
-  String get townSquareRumorFallback => 'De dorpsbewoners zijn stil vandaag...';
-
-  @override
-  String get healerFallbackHealthy => 'Je bent al volkomen gezond!';
-
-  @override
-  String get healerSuccessFallback => 'Je bent genezen!';
 
   @override
   String get townCrierPrefix => '`4HOOR ZEGT HET VOORT! `w';
@@ -652,16 +619,6 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get resetReadyLog =>
       '• Je voelt je uitgerust en klaar voor de strijd!';
-
-  @override
-  String arenaVictory(Object gold, Object honor) {
-    return '`2Je hebt het PvP duel gewonnen en $gold goud en $honor eer verdiend!`w';
-  }
-
-  @override
-  String arenaDefeat(Object opponent) {
-    return '`4Je bent in het PvP duel verslagen door $opponent!`w';
-  }
 
   @override
   String trainingDuelTitle(Object name) {

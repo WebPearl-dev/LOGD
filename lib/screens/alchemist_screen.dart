@@ -92,17 +92,17 @@ class _AlchemistScreenState extends State<AlchemistScreen> {
     int currentBoost = isAttack ? potionAtk : potionDef;
 
     if (elixirsBoughtToday >= _maxPotionsPerDay) {
-      setState(() { _statusMessage = local.alchemistLimitReached; });
+      setState(() { _statusMessage = _storyContent['alchemist_limit_reached'] ?? ""; });
       return;
     }
 
     if (currentBoost > 0) {
-      setState(() { _statusMessage = local.alchemistErrorAlreadyActive; });
+      setState(() { _statusMessage = _storyContent['alchemist_error_already_active'] ?? ""; });
       return;
     }
 
     if (goldOnHand < _potionCost) {
-      setState(() { _statusMessage = local.smithyErrorNoGold; });
+      setState(() { _statusMessage = _storyContent['smithy_error_no_gold'] ?? ""; });
       return;
     }
 

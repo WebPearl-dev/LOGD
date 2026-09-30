@@ -36,7 +36,7 @@
   "merilon_buy_12": "'Gitzwart en mysterieus. Het absorbeert het licht om je heen, waardoor je er heerlijk slank en intimiderend uitziet in de schaduw van het woud.'",
   "merilon_buy_13": "'Gemaakt van de schubben van gesneuvelde reptielen. Dit harnas lacht om vuur. Ideaal als je van plan bent om binnenkort een barbecuefeestje te bezoeken...'",
   "merilon_buy_14": "'Gezegend in de grote kathedraal. De gouden randen stralen pure autoriteit uit. Zelfs de Necromancers zullen twee keer nadenken voor ze je aanraken.'",
-  "merilon_buy_15": "Merilon brengt een theatrale buiging. 'Het absolute toppunt van haute couture en defensie. Gesmeed door de goden, gedragen door jou. De Groene Draak zal zijn eigen tanden breken op jouw borstkas!',",
+  "merilon_buy_15": "Merilon brengt een theatrale buiging. 'Het absolute toppunt van haute couture en defensie. Gesmeed door de goden, gedragen door jou. De Groene Draak zal zijn eigen tanden breken op jouw borstkas!'",
   "pegasus_talk_1": "'Een goed zwaard is als een goede vriend: het verraadt je nooit in het donker. Behalve als het een runenzwaard is, die geven nogal eens licht.'",
   "pegasus_talk_2": "'Die elfen aan de overkant met hun blinkende harnassen... Prachtig hoor, maar als een trol met een boomstam slaat, heb je niks aan glans. Dan heb je een zwaar wapen nodig om als eerste te slaan!'",
   "pegasus_talk_3": "'Wist je dat ik ooit een zwaard heb gesmeed voor Master Kane? Die man sloeg een rotsblok in tweeën alsof het een rijpe meloen was. Goeie tijden.'",
@@ -58,5 +58,9 @@
   "merilon_talk_9": "'De geur van dat smeltvuur aan de overkant verpest de textuur van mijn zijden gordijnen. Maar goed, een dorp heeft nu eenmaal een smid nodig, hoe luidruchtig hij ook is.'",
   "merilon_talk_10": "'Probeer rechtop te lopen als je mijn winkel verlaat. Mijn harnassen komen pas écht tot hun recht bij een koninklijke houding!'",
   "smithy_welcome": "`gJe loopt de levendige markt op. Aan de linkerkant zie je de rokende smidse van Pegasus, aan de rechterkant de elegante boetiek van Merilon.`w",
-  "alchemist_welcome": "`gJe stapt een donker, mystiek laboratorium binnen. Overal pruttelen glazen kolven met vreemde, dampende vloeistoffen. Een oude alchemist met een dikke bril kijkt op:\n\n\"Ah, een avonturier! Zoek je extra kracht voor in het bos? Mijn elixers geven je tijdelijk ongekende macht in je eerstvolgende gevechten. Kies verstandig!\"`w"
+  "alchemist_welcome": "`gJe stapt een donker, mystiek laboratorium binnen. Overal pruttelen glazen kolven met vreemde, dampende vloeistoffen. Een oude alchemist met een dikke bril kijkt op:\n\n\"Ah, een avonturier! Zoek je extra kracht voor in het bos? Mijn elixers geven je tijdelijk ongekende macht in je eerstvolgende gevechten. Kies verstandig!\"`w",
+  "smithy_max_level": "`gJe bezit al de absolute beste uitrusting in het rijk!`w",
+  "smithy_error_no_gold": "`4De smid lacht je uit: \"Je hebt niet genoeg goudstukken bij je!\"`w",
+  "alchemist_limit_reached": "Wacht eens even! Je hebt vandaag al 2 elixers gekocht. Je lichaam kan er niet meer verdragen tot de volgende zonsopgang!",
+  "alchemist_error_already_active": "`4Je hebt al een actieve boost van dit elixir! Meer drinken is pure gif voor je lichaam.`w"
 }

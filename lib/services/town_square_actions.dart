@@ -44,6 +44,7 @@ class TownSquareActions {
   static void showHpWarningDialog(
     BuildContext context,
     AppLocalizations local,
+    String woundedMessage,
   ) {
     showDialog(
       context: context,
@@ -58,7 +59,7 @@ class TownSquareActions {
           ),
         ),
         content: LogdText(
-          text: local.dialogWoundedMessage,
+          text: woundedMessage,
           fontSize: LogdCodes.fontSizeDefault,
         ),
         actions: [
@@ -81,10 +82,11 @@ class TownSquareActions {
     BuildContext context,
     int currentHp,
     AppLocalizations local,
+    String woundedMessage,
     Function(Widget) navigateCallback,
   ) {
     if (currentHp <= 0) {
-      TownSquareDialogs.showWoundedWarning(context, local);
+      TownSquareDialogs.showWoundedWarning(context, local, woundedMessage);
     } else {
       navigateCallback(const ForestScreen());
     }

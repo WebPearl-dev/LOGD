@@ -183,21 +183,15 @@
   "mount3": "Schaduwwolf",
   "mount4": "Gouden Draak",
 
-  "smithyMaxLevel": "`gJe bezit al de absolute beste uitrusting in het rijk!`w",
-  "stablesMaxLevel": "`gJe bezit al de legendarische Gouden Draak! De stalmeester kijkt met totale ontzag naar je rijdier.`w",
+
   "devSuccessMessage": "`p[DEV] Stat succesvol aangepast in de cloud!`w",
   "lblDevSelectEvent": "Selecteer Event om te Spawnen:",
   "lblDevSelectMonster": "Selecteer Monster om te Spawnen:",
   "smithyErrorUnknown": "`4Er is een onbekende fout opgetreden.`w",
-  "smithyErrorNoGold": "`4De smid lacht je uit: \"Je hebt niet genoeg goudstukken bij je!\"`w",
-  "alchemistLimitReached": "Wacht eens even! Je hebt vandaag al 2 elixers gekocht. Je lichaam kan er niet meer verdragen tot de volgende zonsopgang!",
-  "alchemistErrorAlreadyActive": "`4Je hebt al een actieve boost van dit elixir! Meer drinken is pure gif voor je lichaam.`w",
+
   "dialogRumorTitle": "DORPSGERUCHTEN",
   "dialogWoundedTitle": "TE ZWAAR GEWOND",
-  "dialogWoundedMessage": "`4Je bent te zwaar gewond om te vechten. Bezoek de Kruidendokter of de herberg om te herstellen!`w",
-  "townSquareRumorFallback": "De dorpsbewoners zijn stil vandaag...",
-  "healerFallbackHealthy": "Je bent al volkomen gezond!",
-  "healerSuccessFallback": "Je bent genezen!",
+
   "townCrierPrefix": "`4HOOR ZEGT HET VOORT! `w",
   "defaultUsername": "Reiziger",
   "newsUnknownPlayer": "Onbekende Reiziger",
@@ -209,8 +203,7 @@
   "resetInterestLog": "• De bank heeft `y{amount} goud`w aan rente bijgeschreven (2%).",
   "resetTurnsLog": "• Je beurten zijn aangevuld tot `c{amount}`w.",
   "resetReadyLog": "• Je voelt je uitgerust en klaar voor de strijd!",
-  "arenaVictory": "`2Je hebt het PvP duel gewonnen en {gold} goud en {honor} eer verdiend!`w",
-  "arenaDefeat": "`4Je bent in het PvP duel verslagen door {opponent}!`w",
+
   "trainingDuelTitle": "=== DUEL MET {name} ===",
   "btnForestFountainDive": "Duik in fontein",
   "btnForestGiantSteal": "Roofdier",
