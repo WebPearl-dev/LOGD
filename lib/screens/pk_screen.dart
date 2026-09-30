@@ -8,6 +8,7 @@ import '../widgets/logd_text.dart';
 import '../widgets/status_bar.dart';
 import '../services/guest_manager.dart';
 import 'direct_messages_screen.dart';
+import 'graveyard_screen.dart';
 
 class PkScreen extends StatefulWidget {
   const PkScreen({super.key});
@@ -97,19 +98,39 @@ class _PkScreenState extends State<PkScreen> {
     int goldStolen = min(target['gold_on_hand'] ?? 50, 100);
     if (goldStolen < 10) goldStolen = 20;
 
+    int damageTaken = 0;
     setState(() {
       if (iWon) {
         _myProfile['gold_on_hand'] = (_myProfile['gold_on_hand'] ?? 0) + goldStolen;
         _myProfile['pvp_wins'] = (_myProfile['pvp_wins'] ?? 0) + 1;
         _myProfile['honor'] = (_myProfile['honor'] ?? 0) + 3;
       } else {
+        damageTaken = Random().nextInt(10) + 10;
+        int currentHp = _myProfile['hp'] ?? 20;
+        currentHp = max(0, currentHp - damageTaken);
+        _myProfile['hp'] = currentHp;
         _myProfile['gold_on_hand'] = max(0, (_myProfile['gold_on_hand'] ?? 0) - 50);
         _myProfile['pvp_losses'] = (_myProfile['pvp_losses'] ?? 0) + 1;
         _myProfile['honor'] = max(0, (_myProfile['honor'] ?? 0) - 2);
+
+        if (currentHp <= 0) {
+          _myProfile['alive'] = false;
+          _myProfile['hp'] = 0;
+          _myProfile['gold_on_hand'] = 0;
+        }
       }
     });
 
     await _updateCloudStats();
+
+    if ((_myProfile['hp'] ?? 20) <= 0) {
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const GraveyardScreen()),
+      );
+      return;
+    }
 
     if (!GuestManager.isGuest && supabase.auth.currentUser != null) {
       try {
@@ -118,7 +139,7 @@ class _PkScreenState extends State<PkScreen> {
           'username': _myProfile['username'] ?? 'Reiziger',
           'message': iWon
               ? "${_myProfile['username']} heeft ${target['username']} buiten op straat overvallen en $goldStolen goud buitgemaakt!"
-              : "${_myProfile['username']} probeerde ${target['username']} buiten te overvallen, maar werd verslagen!",
+              : "${_myProfile['username']} probeerde ${target['username']} buiten te overvallen, maar werd verslagen en liep $damageTaken schade op!",
         });
       } catch (_) {}
     }
@@ -139,7 +160,7 @@ class _PkScreenState extends State<PkScreen> {
         content: LogdText(
           text: iWon
               ? "Je hebt ${target['username']} buiten op straat aangevallen en succesvol geroofd! Je verdient $goldStolen goud en 3 eer."
-              : "Je werd afgeslagen tijdens je ambush op ${target['username']}! Je verliest de confrontatie en 50 goud.",
+              : "Je werd afgeslagen tijdens je ambush op ${target['username']}! Je verliest de confrontatie, 50 goud en loopt $damageTaken schade op (HP: ${_myProfile['hp']}).",
         ),
         actions: [
           TextButton(
@@ -155,16 +176,30 @@ class _PkScreenState extends State<PkScreen> {
   }
 
   Future<void> _updateCloudStats() async {
-    if (GuestManager.isGuest) return;
+    if (GuestManager.isGuest) {
+      if ((_myProfile['hp'] ?? 20) <= 0) {
+        GuestManager.guestProfile['alive'] = false;
+        GuestManager.guestProfile['hp'] = 0;
+        GuestManager.guestProfile['gold_on_hand'] = 0;
+      }
+      return;
+    }
     final user = supabase.auth.currentUser;
     if (user != null) {
-      await supabase.from('profiles').update({
+      final updates = {
         'gold_on_hand': _myProfile['gold_on_hand'],
+        'hp': _myProfile['hp'],
         'pvp_wins': _myProfile['pvp_wins'],
         'pvp_losses': _myProfile['pvp_losses'],
         'honor': _myProfile['honor'],
         'is_resting_in_inn': false,
-      }).eq('id', user.id);
+      };
+      if ((_myProfile['hp'] ?? 20) <= 0) {
+        updates['alive'] = false;
+        updates['hp'] = 0;
+        updates['gold_on_hand'] = 0;
+      }
+      await supabase.from('profiles').update(updates).eq('id', user.id);
     }
   }
 
