@@ -25,6 +25,7 @@ class TownSquareMenuRouter extends StatelessWidget {
   final VoidCallback onDragonShrinePressed;
   final VoidCallback onChatPressed;
   final VoidCallback onArenaPressed;
+  final VoidCallback onPkPressed;
 
   const TownSquareMenuRouter({
     super.key,
@@ -49,6 +50,7 @@ class TownSquareMenuRouter extends StatelessWidget {
     required this.onDragonShrinePressed,
     required this.onChatPressed,
     required this.onArenaPressed,
+    required this.onPkPressed,
   });
 
   @override
@@ -217,6 +219,11 @@ class TownSquareMenuRouter extends StatelessWidget {
               label: local.townArenaButton,
               color: Colors.deepOrange,
               onPressed: onArenaPressed,
+            ),
+            buildMenuButton(
+              label: "Buiten PK",
+              color: Colors.redAccent,
+              onPressed: onPkPressed,
             ),
           ],
         );

@@ -37,8 +37,13 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
       if (mounted) {
         final languageCode = Localizations.localeOf(context).languageCode;
         await TownSquareController.ensureMonsterDataLoaded(languageCode);
-        if (!mounted) return;
-        _storyContent = await StoryService.loadLocationContent(context, 'locatie_dorpsplein');
+        if (mounted) {
+          try {
+            _storyContent = await StoryService.loadLocationContent(context, 'locatie_dorpsplein');
+          } catch (_) {
+            _storyContent = {};
+          }
+        }
       }
 
       if (GuestManager.isGuest) {
@@ -55,7 +60,6 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
             experience = playerData['experience'] ?? 0;
             playerHp = playerData['hp'] ?? 20;
             playerMaxHp = playerData['max_hp'] ?? 20;
-            _isLoading = false;
           });
         }
         return;
@@ -63,21 +67,29 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
 
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        final newsData = await _supabase
-            .from('daily_news')
-            .select()
-            .order('created_at', ascending: false)
-            .limit(50);
+        List<Map<String, dynamic>> newsData = [];
+        try {
+          final res = await _supabase
+              .from('daily_news')
+              .select()
+              .order('created_at', ascending: false)
+              .limit(50);
+          newsData = List<Map<String, dynamic>>.from(res);
+        } catch (_) {}
 
-        final playerData = await _supabase
-            .from('profiles')
-            .select()
-            .eq('id', user.id)
-            .single();
+        Map<String, dynamic> playerData = {};
+        try {
+          final res = await _supabase
+              .from('profiles')
+              .select()
+              .eq('id', user.id)
+              .single();
+          playerData = res;
+        } catch (_) {}
 
         if (mounted) {
           setState(() {
-            _newsLogs = List<Map<String, dynamic>>.from(newsData);
+            _newsLogs = newsData;
             goldOnHand = playerData['gold_on_hand'] ?? 0;
             gems = playerData['gems'] ?? 0;
             turns = playerData['turns'] ?? 0;
@@ -85,11 +97,12 @@ class _DailyNewsScreenState extends State<DailyNewsScreen> {
             experience = playerData['experience'] ?? 0;
             playerHp = playerData['hp'] ?? 20;
             playerMaxHp = playerData['max_hp'] ?? 20;
-            _isLoading = false;
           });
         }
       }
     } catch (_) {
+      // Fallback caught
+    } finally {
       if (mounted) {
         setState(() {
           _isLoading = false;

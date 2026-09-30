@@ -23,6 +23,7 @@ import 'dragon_shrine_screen.dart';
 import 'global_chat_screen.dart';
 import 'direct_messages_screen.dart';
 import 'arena_screen.dart';
+import 'pk_screen.dart';
 
 import '../services/new_day_service.dart';
 import 'new_day_screen.dart';
@@ -430,6 +431,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
                   onDragonShrinePressed: () => _navigateTo(const DragonShrineScreen()),
                   onChatPressed: () => _navigateTo(const GlobalChatScreen()),
                   onArenaPressed: () => _navigateTo(const ArenaScreen()),
+                  onPkPressed: () => _navigateTo(const PkScreen()),
                 ),
               if (_activeSubLocation != "MAIN" && !isPanelActive) ...[
                 const SizedBox(height: 10),
