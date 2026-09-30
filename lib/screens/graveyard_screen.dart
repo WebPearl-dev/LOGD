@@ -437,6 +437,7 @@ class _GraveyardScreenState extends State<GraveyardScreen>
           turns: turns,
           level: level,
           experience: experience,
+          favor: favor,
         ),
       ),
     );

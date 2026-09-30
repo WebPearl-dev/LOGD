@@ -10,6 +10,7 @@ class LogdStatusBar extends StatelessWidget {
   final int turns;
   final int level;
   final int experience;
+  final int favor;
 
   const LogdStatusBar({
     super.key,
@@ -20,6 +21,7 @@ class LogdStatusBar extends StatelessWidget {
     required this.turns,
     required this.level,
     required this.experience,
+    this.favor = 0,
   });
 
   @override
@@ -36,13 +38,14 @@ class LogdStatusBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Rij 1: HP, Goud en Edelstenen indicators
+            // Rij 1: HP, Goud, Edelstenen en Gunst indicators
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildStatText("HP: $currentHp/$maxHp", LogdCodes.uiGreen),
                 _buildStatText("💰 $goldOnHand", LogdCodes.uiYellow),
                 _buildStatText("💎 $gems", LogdCodes.uiBlue),
+                _buildStatText("🔮 $favor", LogdCodes.uiPurple),
               ],
             ),
             const SizedBox(height: 6),

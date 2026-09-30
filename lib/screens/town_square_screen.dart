@@ -485,6 +485,7 @@ class _TownSquareScreenState extends State<TownSquareScreen> {
           turns: turns,
           level: level,
           experience: experience,
+          favor: _con.playerData?['favor'] ?? 0,
         ),
       ),
     );
