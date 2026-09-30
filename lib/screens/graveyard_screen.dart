@@ -96,11 +96,14 @@ class _GraveyardScreenState extends State<GraveyardScreen>
     }
   }
 
-  Future<void> _handleResurrection() async {
+  Future<void> _handleResurrection(String method) async {
     setState(() => _isLoading = true);
     final bool success = await _controller.tryResurrect(
+      method: method,
       playerLevel: level,
       currentFavor: favor,
+      currentGems: gems,
+      currentXp: experience,
     );
     if (success) {
       if (!mounted) return;
@@ -303,7 +306,59 @@ class _GraveyardScreenState extends State<GraveyardScreen>
                         Colors.cyanAccent,
                       ),
                     ),
-                onPressed: _handleResurrection,
+                onPressed: () => _handleResurrection('gem'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    local.btnGraveyardOfferGem.toUpperCase(),
+                    style: const TextStyle(
+                      fontFamily: LogdCodes.retroFont,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                style:
+                    OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.amber, width: 2),
+                      backgroundColor: LogdCodes.uiBlueBg,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                    ).copyWith(
+                      foregroundColor: WidgetStateProperty.all<Color>(
+                        Colors.amberAccent,
+                      ),
+                    ),
+                onPressed: () => _handleResurrection('xp'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    local.btnGraveyardOfferXp.toUpperCase(),
+                    style: const TextStyle(
+                      fontFamily: LogdCodes.retroFont,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                style:
+                    OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.purple, width: 2),
+                      backgroundColor: LogdCodes.uiBlueBg,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                    ).copyWith(
+                      foregroundColor: WidgetStateProperty.all<Color>(
+                        Colors.purpleAccent,
+                      ),
+                    ),
+                onPressed: () => _handleResurrection('favor'),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(

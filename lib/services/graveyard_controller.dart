@@ -25,37 +25,75 @@ class GraveyardController {
   }
 
   Future<bool> tryResurrect({
-    required int playerLevel,
-    required int currentFavor,
+    String method = 'favor',
+    int? playerLevel,
+    int? currentFavor,
+    int? currentGems,
+    int? currentXp,
   }) async {
-    final int requiredFavor = playerLevel * 10;
-
-    if (currentFavor < requiredFavor) {
-      return false;
-    }
-
-    final int updatedFavor = currentFavor - requiredFavor;
-
     if (GuestManager.isGuest) {
-      final int maxHp = GuestManager.guestProfile['max_hp'] ?? 20;
-      GuestManager.guestProfile['alive'] = true;
-      GuestManager.guestProfile['favor'] = updatedFavor;
-      GuestManager.guestProfile['hp'] = maxHp;
+      final profile = GuestManager.guestProfile;
+      final int level = playerLevel ?? profile['level'] ?? 1;
+      final int gems = currentGems ?? profile['gems'] ?? 0;
+      final int xp = currentXp ?? profile['experience'] ?? 0;
+      final int favor = currentFavor ?? profile['favor'] ?? 50;
+      final int maxHp = profile['max_hp'] ?? 20;
+
+      if (method == 'gem') {
+        if (gems < 1) return false;
+        profile['gems'] = gems - 1;
+      } else if (method == 'xp') {
+        if (xp < 100) return false;
+        profile['experience'] = xp - 100;
+      } else if (method == 'favor') {
+        final int requiredFavor = level * 10;
+        if (favor < requiredFavor) return false;
+        profile['favor'] = favor - requiredFavor;
+      } else {
+        return false;
+      }
+
+      profile['alive'] = true;
+      profile['hp'] = maxHp;
       return true;
     }
 
+    final String userId = supabase.auth.currentUser!.id;
     final profileData = await supabase
         .from('profiles')
-        .select('max_hp')
-        .eq('id', supabase.auth.currentUser!.id)
+        .select('level, gems, experience, favor, max_hp')
+        .eq('id', userId)
         .single();
 
+    final int level = playerLevel ?? profileData['level'] ?? 1;
+    final int gems = currentGems ?? profileData['gems'] ?? 0;
+    final int xp = currentXp ?? profileData['experience'] ?? 0;
+    final int favor = currentFavor ?? profileData['favor'] ?? 0;
     final int maxHp = profileData['max_hp'] ?? 100;
+
+    Map<String, dynamic> updateData = {
+      'alive': true,
+      'hp': maxHp,
+    };
+
+    if (method == 'gem') {
+      if (gems < 1) return false;
+      updateData['gems'] = gems - 1;
+    } else if (method == 'xp') {
+      if (xp < 100) return false;
+      updateData['experience'] = xp - 100;
+    } else if (method == 'favor') {
+      final int requiredFavor = level * 10;
+      if (favor < requiredFavor) return false;
+      updateData['favor'] = favor - requiredFavor;
+    } else {
+      return false;
+    }
 
     await supabase
         .from('profiles')
-        .update({'alive': true, 'favor': updatedFavor, 'hp': maxHp})
-        .eq('id', supabase.auth.currentUser!.id);
+        .update(updateData)
+        .eq('id', userId);
 
     return true;
   }
